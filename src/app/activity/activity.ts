@@ -1,6 +1,4 @@
-
-
-export interface Activity{
+export interface Activity {
   id: number;
   name: string;
   date: Date;

@@ -17,7 +17,7 @@ export class ActivityService {
     const requestUrl = this.activitiesUrl + '/' + id;
     return this.httpClient.get<Activity>(requestUrl).pipe(
       tap((_) => console.log(`fetched activity id `)),
-      catchError(this.handleError<Activity>(`getActivity id= 1`))
+      catchError(this.handleError<Activity>(`getActivity id`))
     );
   }
 

@@ -1,4 +1,29 @@
-<h1>Archimedes</h1>
-<app-day></app-day>
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    class="example-icon"
+    (click)="sidenav.toggle()"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h3>{{ pageTitle | titlecase }}</h3>
+</mat-toolbar>
 
-
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item routerLink="" (click)="sidenav.close()">Home</a>
+      <a mat-list-item routerLink="/day" (click)="sidenav.close()">Day</a>
+      <a mat-list-item routerLink="activity/6" (click)="sidenav.close()"
+        >Activity Example</a
+      >
+      <a mat-list-item routerLink="/testemployees" (click)="sidenav.close()"
+        >Test Employees</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

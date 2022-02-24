@@ -16,22 +16,20 @@ export class ActivityComponent implements OnInit {
     private activityService: ActivityService
   ) {}
   @Input() currentActivity?: Activity;
-  routeSub?: Subscription
+  routeSub?: Subscription;
 
   getActivity(): void {
-      this.routeSub = this.activityService
-      .getActivity(5)
+    const activityId = this.route.snapshot.paramMap.get('id');
+    this.routeSub = this.activityService
+      .getActivity(Number(activityId))
       .subscribe((response: Activity) => (this.currentActivity = response));
-
   }
 
   ngOnInit(): void {
-    const activityId = this.route.snapshot.paramMap.get('id');
-    console.log(activityId);
     this.getActivity();
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
   }
 }
