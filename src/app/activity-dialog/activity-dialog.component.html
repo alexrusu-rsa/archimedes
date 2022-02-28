@@ -1,0 +1,42 @@
+<mat-dialog-content>
+  <h3>Activity Name</h3>
+  <input #activityName type="text" />
+  <h3>Activity Date</h3>
+  <input #activityDate type="text" />
+  <h3>Activity Start</h3>
+  <input #activityStart type="text" />
+  <h3>Activity End</h3>
+  <input #activityEnd type="text" />
+  <h3>Activity Description</h3>
+  <input #activityDescription type="text" />
+  <h3>Activity Extras</h3>
+  <input #activityExtras type="text" />
+  <h3>Activity EmployeeID</h3>
+  <input #activityEmployeeId type="text" />
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button
+    (click)="
+      addActivity(
+        activityName.value,
+        activityDate.value,
+        activityStart.value,
+        activityEnd.value,
+        activityDescription.value,
+        activityExtras.value,
+        activityEmployeeId.value
+      );
+      activityName.value = '';
+      activityDate.value = '';
+      activityStart.value = '';
+      activityEnd.value = ' ';
+      activityDescription.value = ' ';
+      activityExtras.value = ' ';
+      activityEmployeeId.value = ' '
+    "
+  >
+    Add activity
+  </button>
+</mat-dialog-actions>

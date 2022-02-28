@@ -9,11 +9,28 @@ import { HttpClientModule } from '@angular/common/http';
 import { DayComponent } from './day/day.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { TestEmployeesComponent } from './test-employees/test-employees.component';
+import { DayChooserComponent } from './day-chooser/day-chooser.component';
+import { DatePipe } from '@angular/common';
+import { ActivityDialogComponent } from './activity-dialog/activity-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, ActivityComponent, DayComponent, EmployeeComponent, TestEmployeesComponent],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, HttpClientModule],
-  providers: [],
+  declarations: [
+    AppComponent,
+    ActivityComponent,
+    DayComponent,
+    EmployeeComponent,
+    TestEmployeesComponent,
+    DayChooserComponent,
+    ActivityDialogComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MaterialModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+  ],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

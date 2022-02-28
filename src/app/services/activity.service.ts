@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Activity } from '../activity/activity';
+import { RequestWrapper } from '../custom/request-wrapper';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,34 @@ export class ActivityService {
       tap((_) => console.log(`fetched activities`)),
       catchError(this.handleError<Activity[]>(`getActivities`))
     );
+  }
+
+  getActivitiesByDate(dateToFind: string): Observable<Activity[]> {
+    const activitiesByDateUrl =
+      this.activitiesUrl +
+      '/date?dateToFind=' +
+      dateToFind.split(' ').join('%20');
+    console.log(activitiesByDateUrl);
+    return this.httpClient.get<Activity[]>(activitiesByDateUrl).pipe(
+      tap((_) => console.log(`fetched activities of given date`)),
+      catchError(this.handleError<Activity[]>(`getActivitiesOfDate`))
+    );
+  }
+
+  deleteActivity(id: number): any {
+    const deleteActivityUrl = `${this.activitiesUrl}/${id}`;
+    console.log(deleteActivityUrl);
+    return this.httpClient.delete<any>(deleteActivityUrl).pipe(
+      tap((_) => this.log(``)),
+      catchError(this.handleError<any>(''))
+    );
+  }
+
+  addActivity(activity: Activity): any {
+    console.log(activity);
+    return this.httpClient
+      .post<any>(this.activitiesUrl, activity)
+      .subscribe((data) => {});
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
