@@ -16,7 +16,7 @@ export class EditActivityComponent implements OnInit {
     private location: Location
   ) {}
 
-  getCurrentActivity(id: number) {
+  getCurrentActivity(id: string) {
     console.log(id);
     this.activityService
       .getActivity(id)
@@ -30,7 +30,7 @@ export class EditActivityComponent implements OnInit {
         .subscribe();
     }
   }
-  
+
   ngOnInit(): void {
     this.getCurrentActivity(this.activity.id);
   }

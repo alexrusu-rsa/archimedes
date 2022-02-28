@@ -14,7 +14,7 @@ export class ActivityService {
   };
   constructor(private httpClient: HttpClient) {}
 
-  getActivity(id: number): Observable<Activity> {
+  getActivity(id: string): Observable<Activity> {
     const requestUrl = this.activitiesUrl + '/' + id;
     return this.httpClient.get<Activity>(requestUrl).pipe(
       tap((_) => console.log(`fetched activity id `)),
@@ -41,7 +41,7 @@ export class ActivityService {
     );
   }
 
-  deleteActivity(id: number): any {
+  deleteActivity(id: string): any {
     const deleteActivityUrl = `${this.activitiesUrl}/${id}`;
     console.log(deleteActivityUrl);
     return this.httpClient.delete<any>(deleteActivityUrl).pipe(

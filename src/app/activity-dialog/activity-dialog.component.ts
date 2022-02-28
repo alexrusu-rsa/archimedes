@@ -10,19 +10,16 @@ import { ActivityService } from '../services/activity.service';
 })
 export class ActivityDialogComponent implements OnInit {
   currentActivity: Activity = {
-    id: 0,
+    id: '',
     name: '',
     date: ' ',
     start: '',
     end: '',
     description: '',
     extras: '',
-    employeeId: 0,
+    employeeId: '',
   };
   constructor(private activityService: ActivityService) {}
-
-
-  
 
   addActivity(
     activityName: string,
@@ -39,7 +36,7 @@ export class ActivityDialogComponent implements OnInit {
     this.currentActivity.end = activityEnd;
     this.currentActivity.description = activityDescription;
     this.currentActivity.extras = activityExtras;
-    this.currentActivity.employeeId = Number(activityEmployeeId);
+    this.currentActivity.employeeId = activityEmployeeId;
     console.log(this.currentActivity);
     this.activityService.addActivity(this.currentActivity);
   }

@@ -20,9 +20,10 @@ export class ActivityComponent implements OnInit {
 
   getActivity(): void {
     const activityId = this.route.snapshot.paramMap.get('id');
-    this.routeSub = this.activityService
-      .getActivity(Number(activityId))
-      .subscribe((response: Activity) => (this.currentActivity = response));
+    if (activityId)
+      this.routeSub = this.activityService
+        .getActivity(activityId)
+        .subscribe((response: Activity) => (this.currentActivity = response));
   }
 
   ngOnInit(): void {

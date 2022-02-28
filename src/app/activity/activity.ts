@@ -1,10 +1,10 @@
 export interface Activity {
-  id: number;
+  id: string;
   name: string;
   date: string;
   start: string;
   end: string;
   description: string;
   extras: string;
-  employeeId: number;
+  employeeId: string;
 }
