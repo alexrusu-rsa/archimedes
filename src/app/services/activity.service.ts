@@ -56,6 +56,14 @@ export class ActivityService {
       .post<any>(this.activitiesUrl, activity)
       .subscribe((data) => {});
   }
+  updateActivity(activity: Activity): Observable<any> {
+    return this.httpClient
+      .put(this.activitiesUrl + '/' + activity.id, activity)
+      .pipe(
+        tap((_) => this.log(`updated activity id`)),
+        catchError(this.handleError<any>('updateActivity'))
+      );
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

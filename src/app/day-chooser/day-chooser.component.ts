@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { Router, RouterLink } from '@angular/router';
+import { EditActivityComponent } from '../edit-activity/edit-activity.component';
 
 @Component({
   selector: 'app-day-chooser',
@@ -46,7 +47,10 @@ export class DayChooserComponent implements OnInit {
   }
 
   editActivity(activity: Activity) {
-    const dialogRef = this.dialog.open(ActivityDialogComponent);
+    console.log(activity);
+    this.dialog.open(EditActivityComponent, {
+      data: activity,
+    });
   }
   ngOnInit(): void {}
   ngOnDestroy(): void {

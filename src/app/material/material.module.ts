@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
+
   ],
   exports: [
     MatButtonModule,

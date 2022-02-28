@@ -1,0 +1,34 @@
+<mat-card *ngIf="currentActivity">
+  <mat-card-title
+    >Activity name: {{ currentActivity.name }}
+    <input #activityName [(ngModel)]="currentActivity.name" type="text"
+  /></mat-card-title>
+  <mat-card-title
+    >Activity date: {{ currentActivity.date }}
+    <input #activityDate [(ngModel)]="currentActivity.date" type="text" />
+  </mat-card-title>
+  <mat-card-title
+    >Activity start: {{ currentActivity.start }}
+    <input [(ngModel)]="currentActivity.start" #activityStart type="text"
+  /></mat-card-title>
+  <mat-card-title
+    >Activity end: {{ currentActivity.end }}
+    <input #activityEnd [(ngModel)]="currentActivity.end" type="text"
+  /></mat-card-title>
+  <mat-card-title
+    >Activity description: {{ currentActivity.description }}
+    <input
+      #activityDescription
+      [(ngModel)]="currentActivity.description"
+      type="text"
+  /></mat-card-title>
+  <mat-card-title
+    >Activity extras: {{ currentActivity.extras }}
+    <input #activityExtras [(ngModel)]="currentActivity.extras" type="text"
+  /></mat-card-title>
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="updateActivity()">
+      Update activity
+    </button>
+  </mat-dialog-actions>
+</mat-card>

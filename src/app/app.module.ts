@@ -12,7 +12,8 @@ import { TestEmployeesComponent } from './test-employees/test-employees.componen
 import { DayChooserComponent } from './day-chooser/day-chooser.component';
 import { DatePipe } from '@angular/common';
 import { ActivityDialogComponent } from './activity-dialog/activity-dialog.component';
-
+import { EditActivityComponent } from './edit-activity/edit-activity.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import { ActivityDialogComponent } from './activity-dialog/activity-dialog.compo
     TestEmployeesComponent,
     DayChooserComponent,
     ActivityDialogComponent,
+    EditActivityComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { ActivityDialogComponent } from './activity-dialog/activity-dialog.compo
     MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

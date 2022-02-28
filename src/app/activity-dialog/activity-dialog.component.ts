@@ -21,6 +21,9 @@ export class ActivityDialogComponent implements OnInit {
   };
   constructor(private activityService: ActivityService) {}
 
+
+  
+
   addActivity(
     activityName: string,
     activityDate: string,
