@@ -45,8 +45,8 @@ export class ActivityService {
     const deleteActivityUrl = `${this.activitiesUrl}/${id}`;
     console.log(deleteActivityUrl);
     return this.httpClient.delete<any>(deleteActivityUrl).pipe(
-      tap((_) => this.log(``)),
-      catchError(this.handleError<any>(''))
+      tap((_) => this.log(`deleted activity`)),
+      catchError(this.handleError<any>('deleteActivity'))
     );
   }
 

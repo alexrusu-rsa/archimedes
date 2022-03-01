@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivityService } from '../services/activity.service';
 import { Activity } from '../activity/activity';
@@ -7,16 +7,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { Router, RouterLink } from '@angular/router';
 import { EditActivityComponent } from '../edit-activity/edit-activity.component';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-day-chooser',
   templateUrl: './day-chooser.component.html',
   styleUrls: ['./day-chooser.component.sass'],
 })
-export class DayChooserComponent implements OnInit {
+export class DayChooserComponent implements OnDestroy {
   date: Date = new Date();
   @Input()
-  datePicker: any;
   activitiesOfTheDay: Activity[] = [];
   activitiesOfTheDaySub?: Subscription;
 
@@ -36,9 +36,7 @@ export class DayChooserComponent implements OnInit {
   }
 
   deleteActivity(activityToDelete: Activity) {
-    this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
-      (act) => act !== activityToDelete
-    );
+   
     this.activityService.deleteActivity(activityToDelete.id).subscribe();
   }
 
@@ -47,12 +45,10 @@ export class DayChooserComponent implements OnInit {
   }
 
   editActivity(activity: Activity) {
-    console.log(activity);
     this.dialog.open(EditActivityComponent, {
       data: activity,
     });
   }
-  ngOnInit(): void {}
   ngOnDestroy(): void {
     this.activitiesOfTheDaySub?.unsubscribe();
   }

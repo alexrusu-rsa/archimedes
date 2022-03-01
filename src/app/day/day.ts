@@ -1,7 +1,7 @@
 import { Activity } from '../activity/activity';
 
 export interface Day {
-  id: string;
+  id?: string;
   date: string;
   activities?: Activity[];
 }

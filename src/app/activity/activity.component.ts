@@ -16,7 +16,7 @@ export class ActivityComponent implements OnInit {
     private activityService: ActivityService
   ) {}
   @Input() currentActivity?: Activity;
-  routeSub?: Subscription;
+  private routeSub?: Subscription;
 
   getActivity(): void {
     const activityId = this.route.snapshot.paramMap.get('id');

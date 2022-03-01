@@ -4,7 +4,7 @@ export interface Activity {
   date: string;
   start: string;
   end: string;
-  description: string;
-  extras: string;
+  description?: string;
+  extras?: string;
   employeeId: string;
 }

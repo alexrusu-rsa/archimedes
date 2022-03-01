@@ -1,27 +1,15 @@
 <mat-toolbar color="primary">
-  <button
-    mat-icon-button
-    class="example-icon"
-    (click)="sidenav.toggle()"
-    aria-label="Example icon-button with menu icon"
-  >
+  <button mat-icon-button (click)="sidenav.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
   <h3>{{ pageTitle | titlecase }}</h3>
 </mat-toolbar>
 
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container>
   <mat-sidenav #sidenav>
     <mat-nav-list>
       <a mat-list-item routerLink="" (click)="sidenav.close()">Home</a>
-      <a mat-list-item routerLink="/day" (click)="sidenav.close()">Day</a>
-      <a mat-list-item routerLink="activity/6" (click)="sidenav.close()"
-        >Activity Example</a
-      >
-      <a mat-list-item routerLink="testemployees" (click)="sidenav.close()"
-        >Test Employees</a
-      >
-      <a mat-list-item routerLink="/daychooser" (click)="sidenav.close()"
+      <a mat-list-item routerLink="/active-day" (click)="sidenav.close()"
         >Day Chooser</a
       >
     </mat-nav-list>

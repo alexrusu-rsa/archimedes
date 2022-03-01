@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Day } from '../day/day';
@@ -10,7 +10,7 @@ import { Employee } from './employee';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.sass'],
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent implements OnInit, OnDestroy {
   employee!: Employee;
   routeSub?: Subscription;
   employeeSub?: Subscription;
@@ -21,8 +21,6 @@ export class EmployeeComponent implements OnInit {
 
   getEmployee(): void {
     this.routeSub = this.route.params.subscribe((params) => {
-      console.log(params);
-      console.log(params['id']);
       const employeeId = params['id'];
       this.employeeSub = this.employeeService
         .getEmployee(Number(employeeId))
@@ -33,4 +31,6 @@ export class EmployeeComponent implements OnInit {
     this.getEmployee();
     console.log(this.routeSub);
   }
+
+  ngOnDestroy(): void {}
 }
