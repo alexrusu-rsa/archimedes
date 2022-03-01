@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DayChooserComponent } from './day-chooser.component';
+import { ActiveDayComponent} from './active-day.component';
 
-describe('DayChooserComponent', () => {
-  let component: DayChooserComponent;
-  let fixture: ComponentFixture<DayChooserComponent>;
+describe('ActiveDayComponent', () => {
+  let component: ActiveDayComponent;
+  let fixture: ComponentFixture<ActiveDayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DayChooserComponent ]
+      declarations: [ ActiveDayComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DayChooserComponent);
+    fixture = TestBed.createComponent(ActiveDayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

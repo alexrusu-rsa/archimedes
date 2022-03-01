@@ -1,5 +1,5 @@
 export interface Activity {
-  id: string;
+  id?: string;
   name: string;
   date: string;
   start: string;

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DayChooserComponent } from './day-chooser/day-chooser.component';
+import { ActiveDayComponent } from './active-day/active-day.component';
 import { DayComponent } from './day/day.component';
 
 const routes: Routes = [
   { path: 'day', component: DayComponent },
-  { path: 'active-day', component: DayChooserComponent },
+  { path: 'active-day', component: ActiveDayComponent },
   { path: 'day/:id', component: DayComponent },
 ];
 

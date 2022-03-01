@@ -11,10 +11,10 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-day-chooser',
-  templateUrl: './day-chooser.component.html',
-  styleUrls: ['./day-chooser.component.sass'],
+  templateUrl: './active-day.component.html',
+  styleUrls: ['./active-day.component.sass'],
 })
-export class DayChooserComponent implements OnDestroy {
+export class ActiveDayComponent implements OnDestroy {
   date: Date = new Date();
   @Input()
   activitiesOfTheDay: Activity[] = [];
@@ -27,7 +27,7 @@ export class DayChooserComponent implements OnDestroy {
     private router: Router
   ) {}
 
-  dateChanged(_$event: any) {
+  dateChanged(_$event: MatDatepickerInputEvent<any, any>) {
     const dateToFind = this.datepipe.transform(_$event.target.value);
     if (dateToFind)
       this.activitiesOfTheDaySub = this.activityService
@@ -36,8 +36,10 @@ export class DayChooserComponent implements OnDestroy {
   }
 
   deleteActivity(activityToDelete: Activity) {
-   
-    this.activityService.deleteActivity(activityToDelete.id).subscribe();
+    this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
+      (activity) => activity.id != activityToDelete.id
+    );
+    this.activityService.deleteActivity(activityToDelete.id!).subscribe();
   }
 
   openDialog() {

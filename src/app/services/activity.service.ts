@@ -8,7 +8,7 @@ import { RequestWrapper } from '../custom/request-wrapper';
   providedIn: 'root',
 })
 export class ActivityService {
-  private activitiesUrl = 'http://192.168.0.29:3000/api/activity';
+  private activitiesUrl = 'http://localhost:3000/api/activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -41,32 +41,35 @@ export class ActivityService {
     );
   }
 
-  deleteActivity(id: string): any {
+  deleteActivity(id: string): Observable<RequestWrapper> {
     const deleteActivityUrl = `${this.activitiesUrl}/${id}`;
     console.log(deleteActivityUrl);
-    return this.httpClient.delete<any>(deleteActivityUrl).pipe(
+    return this.httpClient.delete<RequestWrapper>(deleteActivityUrl).pipe(
       tap((_) => this.log(`deleted activity`)),
-      catchError(this.handleError<any>('deleteActivity'))
+      catchError(this.handleError<RequestWrapper>('deleteActivity'))
     );
   }
 
-  addActivity(activity: Activity): any {
-    console.log(activity);
+  addActivity(activity: Activity): Observable<RequestWrapper> {
     return this.httpClient
-      .post<any>(this.activitiesUrl, activity)
-      .subscribe((data) => {});
+      .post<RequestWrapper>(this.activitiesUrl, activity)
+      .pipe(
+        tap((_) => this.log(`added activity `)),
+        catchError(this.handleError<RequestWrapper>('addActivity'))
+      );
   }
-  updateActivity(activity: Activity): Observable<any> {
+  updateActivity(activity: Activity): Observable<RequestWrapper> {
+    console.log(this.activitiesUrl + '/' + activity.id);
     return this.httpClient
       .put(this.activitiesUrl + '/' + activity.id, activity)
       .pipe(
         tap((_) => this.log(`updated activity id`)),
-        catchError(this.handleError<any>('updateActivity'))
+        catchError(this.handleError<RequestWrapper>('updateActivity'))
       );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+    return (error: Error): Observable<T> => {
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);

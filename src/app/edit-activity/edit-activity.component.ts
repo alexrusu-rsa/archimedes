@@ -14,7 +14,7 @@ export class EditActivityComponent implements OnInit {
   private updateActivitySub?: Subscription;
   constructor(
     @Inject(MAT_DIALOG_DATA) public activity: Activity,
-    private activityService: ActivityService,
+    private activityService: ActivityService
   ) {}
 
   getCurrentActivity(id: string) {
@@ -32,7 +32,7 @@ export class EditActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCurrentActivity(this.activity.id);
+    this.getCurrentActivity(this.activity.id!);
   }
 
   ngOnDestroy(): void {

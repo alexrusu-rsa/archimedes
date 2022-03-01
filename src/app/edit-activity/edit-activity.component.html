@@ -1,31 +1,66 @@
 <mat-card *ngIf="currentActivity">
-  <mat-card-title
-    >Activity name: {{ currentActivity.name }}
-    <input #activityName [(ngModel)]="currentActivity.name" type="text"
-  /></mat-card-title>
-  <mat-card-title
-    >Activity date: {{ currentActivity.date }}
-    <input #activityDate [(ngModel)]="currentActivity.date" type="text" />
-  </mat-card-title>
-  <mat-card-title
-    >Activity start: {{ currentActivity.start }}
-    <input [(ngModel)]="currentActivity.start" #activityStart type="text"
-  /></mat-card-title>
-  <mat-card-title
-    >Activity end: {{ currentActivity.end }}
-    <input #activityEnd [(ngModel)]="currentActivity.end" type="text"
-  /></mat-card-title>
-  <mat-card-title
-    >Activity description: {{ currentActivity.description }}
-    <input
-      #activityDescription
-      [(ngModel)]="currentActivity.description"
-      type="text"
-  /></mat-card-title>
-  <mat-card-title
-    >Activity extras: {{ currentActivity.extras }}
-    <input #activityExtras [(ngModel)]="currentActivity.extras" type="text"
-  /></mat-card-title>
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Activity Name</mat-label>
+      <input
+        matInput
+        value="{{ currentActivity.name }}"
+        [(ngModel)]="currentActivity.name"
+        type="text"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Activity Date</mat-label>
+      <input
+        matInput
+        value="{{ currentActivity.date }}"
+        [(ngModel)]="currentActivity.date"
+        type="text"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Activity Start</mat-label>
+      <input
+        matInput
+        value="{{ currentActivity.start }}"
+        [(ngModel)]="currentActivity.start"
+        type="text"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Activity End</mat-label>
+      <input
+        matInput
+        value="{{ currentActivity.end }}"
+        [(ngModel)]="currentActivity.end"
+        type="text"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Activity Description</mat-label>
+      <input
+        matInput
+        value="{{ currentActivity.description }}"
+        [(ngModel)]="currentActivity.description"
+        type="text"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Activity Extras</mat-label>
+      <input
+        matInput
+        value="{{ currentActivity.extras }}"
+        [(ngModel)]="currentActivity.extras"
+        type="text"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+  </form>
   <mat-dialog-actions>
     <button mat-raised-button (click)="updateActivity()">
       Update activity
