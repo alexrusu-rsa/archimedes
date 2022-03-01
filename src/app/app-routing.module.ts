@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivityComponent } from './activity/activity.component';
-import { AppComponent } from './app.component';
+import { ActiveDayComponent } from './active-day/active-day.component';
+import { DayComponent } from './day/day.component';
 
-const routes: Routes = [{path: "", component: AppComponent},{ path: 'activity/:id', component: ActivityComponent }];
+const routes: Routes = [
+  { path: 'day', component: DayComponent },
+  { path: 'active-day', component: ActiveDayComponent },
+  { path: 'day/:id', component: DayComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

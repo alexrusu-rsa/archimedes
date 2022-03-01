@@ -1,0 +1,28 @@
+<mat-dialog-content>
+  <h3>Activity Name</h3>
+  <input #activityName [(ngModel)]="currentActivity.name" type="text" />
+  <h3>Activity Date</h3>
+  <input #activityDate [(ngModel)]="currentActivity.date" type="text" />
+  <h3>Activity Start</h3>
+  <input #activityStart [(ngModel)]="currentActivity.start" type="text" />
+  <h3>Activity End</h3>
+  <input #activityEnd [(ngModel)]="currentActivity.end" type="text" />
+  <h3>Activity Description</h3>
+  <input
+    #activityDescription
+    [(ngModel)]="currentActivity.description"
+    type="text"
+  />
+  <h3>Activity Extras</h3>
+  <input #activityExtras [(ngModel)]="currentActivity.extras" type="text" />
+  <h3>Activity EmployeeID</h3>
+  <input
+    #activityEmployeeId
+    [(ngModel)]="currentActivity.employeeId"
+    type="text"
+  />
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="addActivity()">Add activity</button>
+</mat-dialog-actions>

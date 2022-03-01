@@ -1,14 +1,16 @@
-<h2>Day</h2>
-
 <mat-list>
   <mat-list-item *ngFor="let activity of activities">
-    <mat-card *ngIf="activity" class="example-card">
-  <mat-card-title>{{activity.id}}. {{activity.name}} </mat-card-title>
-  <mat-card-subtitle>Start:{{activity.start}} - End: {{activity.end}}</mat-card-subtitle>
-  <mat-card-content>
-    <p>{{activity.description}}</p>
-    <p>{{activity.extras}}</p>
-  </mat-card-content>
-</mat-card>
+      <mat-card class="example-card">
+        <mat-card-title>{{ activity.id }}. {{ activity.name }} </mat-card-title>
+        <mat-card-subtitle
+          >Start:{{ activity.start }} - End:
+          {{ activity.end }}</mat-card-subtitle
+        >
+        <mat-card-content>
+          <p>{{ activity.description }}</p>
+          <p>{{ activity.extras }}</p>
+        </mat-card-content>
+      </mat-card>
   </mat-list-item>
 </mat-list>
+

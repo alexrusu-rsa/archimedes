@@ -1,12 +1,10 @@
-
-
-export interface Activity{
-  id: number;
+export interface Activity {
+  id?: string;
   name: string;
-  date: Date;
+  date: string;
   start: string;
   end: string;
-  break: number;
-  description: string;
-  extras: string;
+  description?: string;
+  extras?: string;
+  employeeId: string;
 }
