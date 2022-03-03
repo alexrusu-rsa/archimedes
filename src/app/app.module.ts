@@ -12,6 +12,8 @@ import { DatePipe } from '@angular/common';
 import { ActivityDialogComponent } from './activity-dialog/activity-dialog.component';
 import { EditActivityComponent } from './edit-activity/edit-activity.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +22,8 @@ import { FormsModule } from '@angular/forms';
     ActiveDayComponent,
     ActivityDialogComponent,
     EditActivityComponent,
+    LoginComponent,
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,

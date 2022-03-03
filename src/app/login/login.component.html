@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
+  <mat-form-field>
+    <mat-label>Username</mat-label>
+    <input #username matInput type="text" [(ngModel)]="user.username" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input #userpassword matInput type="text" [(ngModel)]="user.password" />
+  </mat-form-field>
+  <mat-card-actions>
+    <button mat-raised-button (click)="logUserIn(user)">Log in</button>
+  </mat-card-actions>
+</mat-card>
