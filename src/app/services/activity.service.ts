@@ -51,6 +51,7 @@ export class ActivityService {
   }
 
   addActivity(activity: Activity): Observable<RequestWrapper> {
+    console.log(activity);
     return this.httpClient
       .post<RequestWrapper>(this.activitiesUrl, activity)
       .pipe(
@@ -66,6 +67,23 @@ export class ActivityService {
         tap((_) => this.log(`updated activity id`)),
         catchError(this.handleError<RequestWrapper>('updateActivity'))
       );
+  }
+  getActivitiesByDateEmployeeId(
+    id: string,
+    dateToFind: string
+  ): Observable<Activity[]> {
+    console.log('test');
+    const activitiesByDateUrl =
+      this.activitiesUrl +
+      '/' +
+      id +
+      '/date?dateToFind=' +
+      dateToFind.split(' ').join('%20');
+    console.log(activitiesByDateUrl);
+    return this.httpClient.get<Activity[]>(activitiesByDateUrl).pipe(
+      tap((_) => console.log(`fetched activities of given date for employee`)),
+      catchError(this.handleError<Activity[]>(`getActivitiesOfDateForEmployee`))
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -6,9 +6,16 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Password</mat-label>
-    <input #userpassword matInput type="text" [(ngModel)]="user.password" />
+    <input #userpassword matInput type="password" [(ngModel)]="user.password" />
   </mat-form-field>
   <mat-card-actions>
+    <a [routerLink]="['/forgot-password']" routerLinkActive="router-link-active"
+      >Forgotten Password</a
+    >
+    <br>
+    <br>
+
     <button mat-raised-button (click)="logUserIn(user)">Log in</button>
+
   </mat-card-actions>
 </mat-card>
