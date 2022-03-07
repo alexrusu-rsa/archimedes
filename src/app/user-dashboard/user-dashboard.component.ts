@@ -20,6 +20,8 @@ export class UserDashboardComponent implements OnInit {
   user?: User;
   userSub?: Subscription;
   activitiesOfTheDaySub?: Subscription;
+  deleteActivitySub?: Subscription;
+  getUserSub?: Subscription;
   activitiesOfTheDay: Activity[] = [];
   daySelected?: string;
 
@@ -32,7 +34,7 @@ export class UserDashboardComponent implements OnInit {
   ) {}
 
   getUser(userId: string): void {
-    this.userService
+    this.getUserSub = this.userService
       .getUser(userId)
       .subscribe((result: User) => (this.user = result));
   }
@@ -51,7 +53,9 @@ export class UserDashboardComponent implements OnInit {
     this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
       (activity) => activity.id != activityToDelete.id
     );
-    this.activityService.deleteActivity(activityToDelete.id!).subscribe();
+    this.deleteActivitySub = this.activityService
+      .deleteActivity(activityToDelete.id!)
+      .subscribe();
   }
 
   editActivity(activity: Activity) {
@@ -70,7 +74,10 @@ export class UserDashboardComponent implements OnInit {
     const userId = this.activeRoute.snapshot.paramMap.get('id');
     if (userId) this.getUser(userId);
   }
+
   ngOnDestroy(): void {
     this.activitiesOfTheDaySub?.unsubscribe();
+    this.deleteActivitySub?.unsubscribe();
+    this.getUserSub?.unsubscribe();
   }
 }

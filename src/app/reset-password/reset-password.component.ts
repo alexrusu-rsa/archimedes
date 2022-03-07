@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '../custom/user';
 import { UserManagePasswordService } from '../services/user-manage-password.service';
@@ -8,7 +8,7 @@ import { UserManagePasswordService } from '../services/user-manage-password.serv
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.sass'],
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, OnDestroy {
   user!: User;
   userResetPasswordSub?: Subscription;
   constructor(private userManagePasswordService: UserManagePasswordService) {}
@@ -22,5 +22,8 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = <User>{};
+  }
+  ngOnDestroy(): void {
+    this.userResetPasswordSub?.unsubscribe();
   }
 }

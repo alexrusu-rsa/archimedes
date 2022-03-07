@@ -19,6 +19,7 @@ export class ActiveDayComponent implements OnDestroy {
   @Input()
   activitiesOfTheDay: Activity[] = [];
   activitiesOfTheDaySub?: Subscription;
+  deleteActivitySub?: Subscription;
 
   constructor(
     public datepipe: DatePipe,
@@ -39,7 +40,9 @@ export class ActiveDayComponent implements OnDestroy {
     this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
       (activity) => activity.id != activityToDelete.id
     );
-    this.activityService.deleteActivity(activityToDelete.id!).subscribe();
+    this.deleteActivitySub = this.activityService
+      .deleteActivity(activityToDelete.id!)
+      .subscribe();
   }
 
   openDialog() {
@@ -53,5 +56,6 @@ export class ActiveDayComponent implements OnDestroy {
   }
   ngOnDestroy(): void {
     this.activitiesOfTheDaySub?.unsubscribe();
+    this.deleteActivitySub?.unsubscribe();
   }
 }
