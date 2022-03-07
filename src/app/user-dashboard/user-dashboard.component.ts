@@ -41,21 +41,23 @@ export class UserDashboardComponent implements OnInit {
 
   dateChanged(_$event: MatDatepickerInputEvent<any, any>) {
     const dateToFind = this.datepipe.transform(_$event.target.value);
-    if (dateToFind) this.daySelected = dateToFind;
-    if (dateToFind)
+    if (dateToFind) {
+      this.daySelected = dateToFind;
       if (this.user?.id)
         this.activitiesOfTheDaySub = this.activityService
           .getActivitiesByDateEmployeeId(this.user.id, dateToFind)
           .subscribe((response) => (this.activitiesOfTheDay = response));
+    }
   }
 
   deleteActivity(activityToDelete: Activity) {
     this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
-      (activity) => activity.id != activityToDelete.id
+      (activity) => activity.id !== activityToDelete.id
     );
-    this.deleteActivitySub = this.activityService
-      .deleteActivity(activityToDelete.id!)
-      .subscribe();
+    if (activityToDelete.id)
+      this.deleteActivitySub = this.activityService
+        .deleteActivity(activityToDelete.id)
+        .subscribe();
   }
 
   editActivity(activity: Activity) {

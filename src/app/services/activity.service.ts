@@ -56,6 +56,7 @@ export class ActivityService {
         catchError(this.handleError<RequestWrapper>('addActivity'))
       );
   }
+
   updateActivity(activity: Activity): Observable<RequestWrapper> {
     return this.httpClient
       .put(this.activitiesUrl + '/' + activity.id, activity)
@@ -64,6 +65,7 @@ export class ActivityService {
         catchError(this.handleError<RequestWrapper>('updateActivity'))
       );
   }
+  
   getActivitiesByDateEmployeeId(
     id: string,
     dateToFind: string

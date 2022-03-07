@@ -13,11 +13,13 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   userResetPasswordSub?: Subscription;
   constructor(private userManagePasswordService: UserManagePasswordService) {}
   sendPasswordResetRequest(email: string) {
-    this.user.username = email;
-    this.user.password = '';
-    this.userResetPasswordSub = this.userManagePasswordService
-      .resetPasswordFor(this.user)
-      .subscribe();
+    if (this.user) {
+      this.user.email = email;
+      this.user.password = '';
+      this.userResetPasswordSub = this.userManagePasswordService
+        .resetPasswordFor(this.user)
+        .subscribe();
+    }
   }
 
   ngOnInit(): void {
