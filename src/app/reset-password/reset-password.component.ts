@@ -11,13 +11,13 @@ import { UserManagePasswordService } from '../services/user-manage-password.serv
 export class ResetPasswordComponent implements OnInit {
   user!: User;
   userResetPasswordSub?: Subscription;
-
   constructor(private userManagePasswordService: UserManagePasswordService) {}
-
   sendPasswordResetRequest(email: string) {
     this.user.username = email;
     this.user.password = '';
-    this.userResetPasswordSub = this.userManagePasswordService.resetPasswordFor(this.user).subscribe();
+    this.userResetPasswordSub = this.userManagePasswordService
+      .resetPasswordFor(this.user)
+      .subscribe();
   }
 
   ngOnInit(): void {

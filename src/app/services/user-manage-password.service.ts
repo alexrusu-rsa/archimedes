@@ -16,8 +16,6 @@ export class UserManagePasswordService {
 
   resetPasswordFor(userToUpdate: User): Observable<RequestWrapper> {
     const resetPasswordUrl = this.userUrl + '/' + 'password';
-    console.log(resetPasswordUrl);
-    console.log(userToUpdate);
     return this.httpClient
       .put<RequestWrapper>(resetPasswordUrl, userToUpdate)
       .pipe(

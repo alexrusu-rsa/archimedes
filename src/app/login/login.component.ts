@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
       .logUserIn(user)
       .subscribe((response: RequestWrapper) => {
         logged = response.data;
-        console.log(response.data);
         if (response.data === true) {
           const userId = response.userId;
           this.router.navigate(['/dashboard/', userId]);
