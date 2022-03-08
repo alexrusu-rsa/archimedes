@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from '../activity/activity';
+import { DialogDataWrapper } from '../custom/dialog-data-wrapper';
 import { ActivityService } from '../services/activity.service';
 
 @Component({
@@ -14,12 +15,12 @@ export class ActivityDialogComponent implements OnInit {
   addNewActivitySub?: Subscription;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public userId: string,
+    @Inject(MAT_DIALOG_DATA) public sentData: DialogDataWrapper,
     private activityService: ActivityService
   ) {}
 
   addActivity() {
-    this.currentActivity.employeeId = this.userId;
+    this.currentActivity.employeeId = this.sentData.userId;
     this.addNewActivitySub = this.activityService
       .addActivity(this.currentActivity)
       .subscribe();
@@ -27,7 +28,8 @@ export class ActivityDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentActivity = <Activity>{};
-    this.currentActivity.employeeId = this.userId;
+    this.currentActivity.employeeId = this.sentData.userId;
+    this.currentActivity.date = this.sentData.date;
   }
 
   ngOnDestroy(): void {
