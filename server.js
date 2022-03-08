@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const app = express();
-app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/archimedes-frontend'));
 app.get('/*', function(req,res){
 res.sendFile(path.join(__dirname, 'archimedes-frontend', 'index.html'))
 });
