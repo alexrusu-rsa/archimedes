@@ -34,7 +34,6 @@ export class ActivityService {
       this.activitiesUrl +
       '/date?dateToFind=' +
       dateToFind.split(' ').join('%20');
-    console.log(activitiesByDateUrl);
     return this.httpClient.get<Activity[]>(activitiesByDateUrl).pipe(
       tap((_) => console.log(`fetched activities of given date`)),
       catchError(this.handleError<Activity[]>(`getActivitiesOfDate`))
@@ -43,7 +42,6 @@ export class ActivityService {
 
   deleteActivity(id: string): Observable<RequestWrapper> {
     const deleteActivityUrl = `${this.activitiesUrl}/${id}`;
-    console.log(deleteActivityUrl);
     return this.httpClient.delete<RequestWrapper>(deleteActivityUrl).pipe(
       tap((_) => this.log(`deleted activity`)),
       catchError(this.handleError<RequestWrapper>('deleteActivity'))
@@ -58,14 +56,30 @@ export class ActivityService {
         catchError(this.handleError<RequestWrapper>('addActivity'))
       );
   }
+
   updateActivity(activity: Activity): Observable<RequestWrapper> {
-    console.log(this.activitiesUrl + '/' + activity.id);
     return this.httpClient
       .put(this.activitiesUrl + '/' + activity.id, activity)
       .pipe(
         tap((_) => this.log(`updated activity id`)),
         catchError(this.handleError<RequestWrapper>('updateActivity'))
       );
+  }
+  
+  getActivitiesByDateEmployeeId(
+    id: string,
+    dateToFind: string
+  ): Observable<Activity[]> {
+    const activitiesByDateUrl =
+      this.activitiesUrl +
+      '/' +
+      id +
+      '/date?dateToFind=' +
+      dateToFind.split(' ').join('%20');
+    return this.httpClient.get<Activity[]>(activitiesByDateUrl).pipe(
+      tap((_) => console.log(`fetched activities of given date for employee`)),
+      catchError(this.handleError<Activity[]>(`getActivitiesOfDateForEmployee`))
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -1,0 +1,60 @@
+<mat-card *ngIf="user">
+  <mat-card-title> {{ user.name }}{{ user.surname }} </mat-card-title>
+  <div class="datepicker-container">
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="datePicker"
+        (dateChange)="dateChanged($event)"
+      />
+      <mat-datepicker-toggle
+        [for]="datePicker"
+        matSuffix
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </mat-form-field>
+    <h2 *ngIf="daySelected">Activities of selected day</h2>
+    <mat-list>
+      <mat-list-item *ngFor="let activity of activitiesOfTheDay">
+        <mat-card class="secondary-card">
+          <mat-card-title>{{ activity.name }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ activity.start }}-{{ activity.end }}</mat-card-subtitle
+          >
+          <mat-card-content>
+            {{ activity.description }}
+          </mat-card-content>
+
+          <div class="buttons">
+            <button
+              mat-mini-fab
+              color="primary"
+              (click)="deleteActivity(activity)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+
+            <button
+              mat-mini-fab
+              color="primary"
+              (click)="editActivity(activity)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+      </mat-list-item>
+      <mat-list-item *ngIf="daySelected">
+        <mat-card>
+          <button
+            class="button-add-activity"
+            mat-icon-button
+            (click)="addNewActivityForm()"
+          >
+            <mat-icon>add_box</mat-icon>
+          </button>
+        </mat-card>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-card>
