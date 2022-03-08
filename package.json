@@ -1,11 +1,16 @@
 {
   "name": "archimedes-frontend",
   "version": "0.0.0",
+  "engines": {
+    "node": "16.13.2",
+    "npm": "8.4.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build --prod",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "postinstall": "ng build",
     "test": "ng test",
     "heroku-postbuild": "ng build --prod"
   },
@@ -41,9 +46,5 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0"
-  },
-  "engines": {
-    "node": "16.13.2",
-    "npm": "8.4.1"
   }
 }
