@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'archimedes-frontend';
   activeRoute?: Subscription;
   urlToFormat = '';
-  pageTitle = '';
+  pageTitle?:string;
   constructor(private router: Router) {}
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class AppComponent {
         this.urlToFormat = event.url
           .substring(1, event.url.length)
           .replace('/', ' ');
-        this.pageTitle = this.urlToFormat;
+        this.pageTitle=this.urlToFormat.split(' ')[0];
       }
     });
   }
