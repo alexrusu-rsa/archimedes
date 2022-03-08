@@ -8,7 +8,8 @@ import { RequestWrapper } from '../custom/request-wrapper';
   providedIn: 'root',
 })
 export class ActivityService {
-  private activitiesUrl = 'http://localhost:3000/api/activity';
+  private activitiesUrl =
+    'https://archimedes-backend-dev.herokuapp.com/api/activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -65,7 +66,7 @@ export class ActivityService {
         catchError(this.handleError<RequestWrapper>('updateActivity'))
       );
   }
-  
+
   getActivitiesByDateEmployeeId(
     id: string,
     dateToFind: string

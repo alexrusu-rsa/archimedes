@@ -7,7 +7,8 @@ import { Employee } from '../employee/employee';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private employeesUrl = 'http://192.168.0.29:3000/employee';
+  private employeesUrl =
+    'https://archimedes-backend-dev.herokuapp.com//employee';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
