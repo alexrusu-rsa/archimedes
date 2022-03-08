@@ -1,20 +1,59 @@
+
 <mat-dialog-content>
-  <h3>Activity Name</h3>
-  <input #activityName [(ngModel)]="currentActivity.name" type="text" />
-  <h3>Activity Date</h3>
-  <input #activityDate [(ngModel)]="currentActivity.date" type="text" />
-  <h3>Activity Start</h3>
-  <input #activityStart [(ngModel)]="currentActivity.start" type="text" />
-  <h3>Activity End</h3>
-  <input #activityEnd [(ngModel)]="currentActivity.end" type="text" />
-  <h3>Activity Description</h3>
-  <input
-    #activityDescription
-    [(ngModel)]="currentActivity.description"
-    type="text"
-  />
-  <h3>Activity Extras</h3>
-  <input #activityExtras [(ngModel)]="currentActivity.extras" type="text" />
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Name</mat-label>
+    <input
+      #activityName
+      matInput
+      [(ngModel)]="currentActivity.name"
+      type="text"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Date</mat-label>
+    <input
+      #activityDate
+      matInput
+      [(ngModel)]="currentActivity.date"
+      type="text"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Start</mat-label>
+    <input
+      #activityStart
+      matInput
+      [(ngModel)]="currentActivity.start"
+      type="text"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity End</mat-label>
+    <input
+      #activityEnd
+      matInput
+      [(ngModel)]="currentActivity.end"
+      type="text"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Description</mat-label>
+    <input
+      #activityDescription
+      matInput
+      [(ngModel)]="currentActivity.description"
+      type="text"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Extras</mat-label>
+    <input
+      #activityExtras
+      matInput
+      [(ngModel)]="currentActivity.extras"
+      type="text"
+    />
+  </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
