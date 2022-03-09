@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { Activity } from '../activity/activity';
-import { RequestWrapper } from '../custom/request-wrapper';
+import { Activity } from '../models/activity';
+import { RequestWrapper } from '../models/request-wrapper';
 
 @Injectable({
   providedIn: 'root',

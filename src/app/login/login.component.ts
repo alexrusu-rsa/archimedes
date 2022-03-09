@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RequestWrapper } from '../custom/request-wrapper';
-import { User } from '../custom/user';
+import { RequestWrapper } from '../models/request-wrapper';
+import { User } from '../models/user';
 import { UserLoginService } from '../services/user-login.service';
 
 @Component({

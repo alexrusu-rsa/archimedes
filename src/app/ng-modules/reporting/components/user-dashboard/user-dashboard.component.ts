@@ -5,12 +5,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
-import { Activity } from '../activity/activity';
-import { DialogDataWrapper } from '../custom/dialog-data-wrapper';
-import { User } from '../custom/user';
+import { Activity } from '../../../../models/activity';
+import { DialogDataWrapper } from '../../../../models/dialog-data-wrapper';
+import { User } from '../../../../models/user';
 import { EditActivityComponent } from '../edit-activity/edit-activity.component';
-import { ActivityService } from '../services/activity.service';
-import { UserLoginService } from '../services/user-login.service';
+import { ActivityService } from '../../../../services/activity.service';
+import { UserLoginService } from '../../../../services/user-login.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -88,6 +88,7 @@ export class UserDashboardComponent implements OnInit {
     const userId = this.activeRoute.snapshot.paramMap.get('id');
     if (userId) this.getUser(userId);
     this.selectedDate = new Date();
+    console.log(this.selectedDate);
     this.dateChanges();
   }
 
