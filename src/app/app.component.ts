@@ -18,9 +18,8 @@ export class AppComponent {
     this.activeRoute = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.urlToFormat = event.url
-          .substring(1, event.url.length)
-          .replace('/', ' ');
-        this.pageTitle=this.urlToFormat.split(' ')[0];
+          .substring(1, event.url.length);
+        this.pageTitle=this.urlToFormat.split('/')[1];
       }
     });
   }
