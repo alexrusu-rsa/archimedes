@@ -1,14 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
+import { LoginComponent } from './ng-modules/auth/login/login.component';
+import { ResetPasswordComponent } from './ng-modules/auth/reset-password/reset-password.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard/:id', component: UserDashboardComponent },
-  { path: 'forgot-password', component: ResetPasswordComponent },
+  {
+    path: 'auth',
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'resetpassword', component: ResetPasswordComponent },
+    ],
+  },
+  {
+    path: 'reporting',
+    loadChildren: () => import('./ng-modules/reporting/reporting.module').then((m) => m.ReportingModule),
+  },
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

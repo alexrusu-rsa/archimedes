@@ -88,7 +88,6 @@ export class UserDashboardComponent implements OnInit {
     const userId = this.activeRoute.snapshot.paramMap.get('id');
     if (userId) this.getUser(userId);
     this.selectedDate = new Date();
-    console.log(this.selectedDate);
     this.dateChanges();
   }
 

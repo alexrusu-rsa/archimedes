@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { User } from '../models/user';
-import { UserManagePasswordService } from '../services/user-manage-password.service';
+import { User } from 'src/app/models/user';
+import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
+
+
 
 @Component({
   selector: 'app-reset-password',
