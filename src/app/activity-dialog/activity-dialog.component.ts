@@ -30,6 +30,8 @@ export class ActivityDialogComponent implements OnInit {
     this.currentActivity = <Activity>{};
     this.currentActivity.employeeId = this.sentData.userId;
     this.currentActivity.date = this.sentData.date;
+    this.currentActivity.extras="";
+    this.currentActivity.description="";
   }
 
   ngOnDestroy(): void {

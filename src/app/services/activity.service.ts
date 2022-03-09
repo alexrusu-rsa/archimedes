@@ -50,6 +50,7 @@ export class ActivityService {
   }
 
   addActivity(activity: Activity): Observable<RequestWrapper> {
+    console.log(activity);
     return this.httpClient
       .post<RequestWrapper>(this.activitiesUrl, activity)
       .pipe(
