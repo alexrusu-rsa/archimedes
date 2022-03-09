@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RequestWrapper } from '../custom/request-wrapper';
-import { User } from '../custom/user';
-import { UserLoginService } from '../services/user-login.service';
+import { RequestWrapper } from '../../../models/request-wrapper';
+import { User } from '../../../models/user';
+import { UserLoginService } from '../../../services/user-login.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         logged = response.data;
         if (response.data === true) {
           const userId = response.userId;
-          this.router.navigate(['/dashboard/', userId]);
+          this.router.navigate(['reporting/dashboard/', userId]);
         }
       });
   }

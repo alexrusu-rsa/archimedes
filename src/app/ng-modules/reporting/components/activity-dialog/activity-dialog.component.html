@@ -1,0 +1,54 @@
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Name</mat-label>
+    <input
+      #activityName
+      matInput
+      [(ngModel)]="currentActivity.name"
+      type="text"
+      required="true"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Start</mat-label>
+    <input
+      #activityStart
+      matInput
+      [(ngModel)]="currentActivity.start"
+      type="text"
+      required="true"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity End</mat-label>
+    <input
+      #activityEnd
+      matInput
+      [(ngModel)]="currentActivity.end"
+      type="text"
+      required="true"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Description</mat-label>
+    <input
+      #activityDescription
+      matInput
+      [(ngModel)]="currentActivity.description"
+      type="text"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Activity Extras</mat-label>
+    <input
+      #activityExtras
+      matInput
+      [(ngModel)]="currentActivity.extras"
+      type="text"
+    />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="addActivity()">Add activity</button>
+</mat-dialog-actions>

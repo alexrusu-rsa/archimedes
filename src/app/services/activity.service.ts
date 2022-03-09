@@ -1,15 +1,15 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { Activity } from '../activity/activity';
-import { RequestWrapper } from '../custom/request-wrapper';
+import { Activity } from '../models/activity';
+import { RequestWrapper } from '../models/request-wrapper';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActivityService {
   private activitiesUrl =
-    ' https://archimedes-backend-dev.herokuapp.com/api/activity';
+    'https://archimedes-backend-dev.herokuapp.com/api/activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -71,16 +71,20 @@ export class ActivityService {
     id: string,
     dateToFind: string
   ): Observable<Activity[]> {
-    const activitiesByDateUrl =
-      this.activitiesUrl +
-      '/' +
-      id +
-      '/date?dateToFind=' +
-      dateToFind.split(' ').join('%20');
-    return this.httpClient.get<Activity[]>(activitiesByDateUrl).pipe(
-      tap((_) => console.log(`fetched activities of given date for employee`)),
-      catchError(this.handleError<Activity[]>(`getActivitiesOfDateForEmployee`))
-    );
+    const activitiesByDateUrl = this.activitiesUrl + '/date';
+    return this.httpClient
+      .post<Activity[]>(activitiesByDateUrl, <RequestWrapper>{
+        data: dateToFind,
+        userId: id,
+      })
+      .pipe(
+        tap((_) =>
+          console.log(`fetched activities of given date for employee`)
+        ),
+        catchError(
+          this.handleError<Activity[]>(`getActivitiesOfDateForEmployee`)
+        )
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

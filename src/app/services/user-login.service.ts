@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { RequestWrapper } from '../custom/request-wrapper';
-import { User } from '../custom/user';
+import { RequestWrapper } from '../models/request-wrapper';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserLoginService {
-  private usersUrl = ' https://archimedes-backend-dev.herokuapp.com/user';
+  private usersUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

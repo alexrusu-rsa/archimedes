@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Activity } from '../activity/activity';
+import { Activity } from '../../../../models/activity';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivityService } from '../services/activity.service';
+import { ActivityService } from '../../../../services/activity.service';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-edit-activity',
