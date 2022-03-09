@@ -8,7 +8,7 @@ import { User } from '../custom/user';
   providedIn: 'root',
 })
 export class UserManagePasswordService {
-  private userUrl = 'http://localhost:3000/user';
+  private userUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
