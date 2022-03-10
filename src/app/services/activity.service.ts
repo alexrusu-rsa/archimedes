@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Activity } from '../models/activity';
 import { RequestWrapper } from '../models/request-wrapper';
+import { SnackbarContentComponent } from '../ng-modules/utils/snackbar-content/snackbar-content.component';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +16,10 @@ export class ActivityService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private notificationService: NotificationService
+  ) {}
 
   getActivity(id: string): Observable<Activity> {
     const requestUrl = this.activitiesUrl + '/' + id;
@@ -90,6 +96,7 @@ export class ActivityService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: Error): Observable<T> => {
       console.error(error);
+      this.notificationService.openSnackBar(error.message);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };

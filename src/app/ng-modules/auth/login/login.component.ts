@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 import { RequestWrapper } from '../../../models/request-wrapper';
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login.service';
@@ -18,10 +18,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private userLoginService: UserLoginService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private notificationService: NotificationService
   ) {}
 
-  durationInSeconds = 5;
   logUserIn(user: User) {
     var logged = false;
     this.logInSub = this.userLoginService
@@ -30,17 +29,11 @@ export class LoginComponent implements OnInit {
         logged = response.data;
         if (response.data === true) {
           const userId = response.userId;
-          this.openSnackBar();
           this.router.navigate(['reporting/dashboard/', userId]);
         }
       });
   }
 
-  openSnackBar() {
-    this.snackBar.openFromComponent(LoginComponent, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
   ngOnInit(): void {
     this.user = <User>{};
   }
