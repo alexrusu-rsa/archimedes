@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
@@ -10,7 +10,7 @@ import { ActivityService } from '../../../../services/activity.service';
   templateUrl: './activity-dialog.component.html',
   styleUrls: ['./activity-dialog.component.sass'],
 })
-export class ActivityDialogComponent implements OnInit {
+export class ActivityDialogComponent implements OnInit, OnDestroy {
   currentActivity!: Activity;
   addNewActivitySub?: Subscription;
 

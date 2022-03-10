@@ -1,9 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, Observable, of, tap } from 'rxjs';
-import { RequestWrapper } from '../models/request-wrapper';
-import { User } from '../models/user';
 import { SnackbarContentComponent } from '../ng-modules/utils/snackbar-content/snackbar-content.component';
 
 @Injectable({
@@ -19,13 +15,6 @@ export class NotificationService {
     this.snackBar.openFromComponent(SnackbarContentComponent, {
       duration: this.durationInSeconds * 1000,
       data: errorMessageSplit,
-    });
-  }
-
-  openSnackBarCustomMessage(errorMessage: string) {
-    this.snackBar.openFromComponent(SnackbarContentComponent, {
-      duration: this.durationInSeconds * 1000,
-      data: errorMessage,
     });
   }
 }

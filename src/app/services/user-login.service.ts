@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
-import { SnackbarContentComponent } from '../ng-modules/utils/snackbar-content/snackbar-content.component';
 import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -22,17 +20,15 @@ export class UserLoginService {
     private notificationService: NotificationService
   ) {}
   getUser(userId: string): Observable<User> {
-    return this.httpClient.get<User>(this.usersUrl + '/' + userId).pipe(
-      tap((_) => this.log('get User')),
-      catchError(this.handleError<User>('getUser'))
-    );
+    return this.httpClient
+      .get<User>(this.usersUrl + '/' + userId)
+      .pipe(catchError(this.handleError<User>('getUser')));
   }
   logUserIn(user: User): Observable<RequestWrapper> {
     const logInUrl = this.usersUrl + '/creds';
-    return this.httpClient.post<RequestWrapper>(logInUrl, user).pipe(
-      tap((_) => this.log(`userLoggedIn `)),
-      catchError(this.handleError<RequestWrapper>('userLoggedIn'))
-    );
+    return this.httpClient
+      .post<RequestWrapper>(logInUrl, user)
+      .pipe(catchError(this.handleError<RequestWrapper>('userLoggedIn')));
   }
 
   private log(message: string) {

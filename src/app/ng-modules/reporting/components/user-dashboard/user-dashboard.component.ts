@@ -1,8 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { Activity } from '../../../../models/activity';
@@ -11,13 +9,14 @@ import { User } from '../../../../models/user';
 import { EditActivityComponent } from '../edit-activity/edit-activity.component';
 import { ActivityService } from '../../../../services/activity.service';
 import { UserLoginService } from '../../../../services/user-login.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.sass'],
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, OnDestroy{
   user?: User;
   userSub?: Subscription;
   activitiesOfTheDaySub?: Subscription;
@@ -28,6 +27,7 @@ export class UserDashboardComponent implements OnInit {
   selectedDate?: Date;
 
   constructor(
+    @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
     private userService: UserLoginService,
     private activityService: ActivityService,

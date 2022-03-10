@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
 import { NotificationService } from './notification.service';
@@ -23,10 +23,7 @@ export class UserManagePasswordService {
     const resetPasswordUrl = this.userUrl + '/' + 'password';
     return this.httpClient
       .put<RequestWrapper>(resetPasswordUrl, userToUpdate)
-      .pipe(
-        tap((_) => this.log(`reset password`)),
-        catchError(this.handleError<RequestWrapper>('resetpassword'))
-      );
+      .pipe(catchError(this.handleError<RequestWrapper>('resetpassword')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
