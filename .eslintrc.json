@@ -29,7 +29,8 @@
             "style": "kebab-case"
           }
         ],
-        "no-console": ["error"]
+        "no-unused-vars": "warn",
+        "no-console": ["warn"]
       }
     },
     {
