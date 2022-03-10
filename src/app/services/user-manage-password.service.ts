@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
@@ -15,6 +15,7 @@ export class UserManagePasswordService {
   };
   constructor(
     private httpClient: HttpClient,
+    @Inject(NotificationService)
     private notificationService: NotificationService
   ) {}
 

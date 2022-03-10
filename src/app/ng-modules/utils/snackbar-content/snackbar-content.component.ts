@@ -15,11 +15,8 @@ export class SnackbarContentComponent implements OnInit {
     this.errorText = rawErrorMessage.slice(rawErrorMessage.indexOf(' ') + 1);
   }
   ngOnInit(): void {
-    if(this.data.indexOf(":"))
-    this.formatError(this.data);
-    else{
-      
-
+    if (this.data.indexOf(':')) this.formatError(this.data);
+    else {
     }
   }
 }

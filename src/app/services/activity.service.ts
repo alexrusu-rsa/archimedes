@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Activity } from '../models/activity';
@@ -18,6 +18,7 @@ export class ActivityService {
   };
   constructor(
     private httpClient: HttpClient,
+    @Inject(NotificationService)
     private notificationService: NotificationService
   ) {}
 

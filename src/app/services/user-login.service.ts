@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { RequestWrapper } from '../models/request-wrapper';
@@ -18,6 +18,7 @@ export class UserLoginService {
 
   constructor(
     private httpClient: HttpClient,
+    @Inject(NotificationService)
     private notificationService: NotificationService
   ) {}
   getUser(userId: string): Observable<User> {
