@@ -11,6 +11,7 @@ import { EditActivityComponent } from './ng-modules/reporting/components/edit-ac
 import { FormsModule } from '@angular/forms';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { AuthModule } from './ng-modules/auth/auth.module';
+import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AuthModule } from './ng-modules/auth/auth.module';
     ActivityDialogComponent,
     EditActivityComponent,
     UserDashboardComponent,
+    SnackbarContentComponent,
   ],
   imports: [
     BrowserModule,
