@@ -33,16 +33,6 @@ export class ActivityService {
       .pipe(catchError(this.handleError<Activity[]>(`getActivities`)));
   }
 
-  getActivitiesByDate(dateToFind: string): Observable<Activity[]> {
-    const activitiesByDateUrl =
-      this.activitiesUrl +
-      '/date?dateToFind=' +
-      dateToFind.split(' ').join('%20');
-    return this.httpClient
-      .get<Activity[]>(activitiesByDateUrl)
-      .pipe(catchError(this.handleError<Activity[]>(`getActivitiesOfDate`)));
-  }
-
   deleteActivity(id: string): Observable<RequestWrapper> {
     const deleteActivityUrl = `${this.activitiesUrl}/${id}`;
     return this.httpClient

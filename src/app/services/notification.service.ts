@@ -6,7 +6,7 @@ import { SnackbarContentComponent } from '../ng-modules/utils/snackbar-content/s
   providedIn: 'root',
 })
 export class NotificationService {
-  durationInSeconds = 5;
+  durationInSeconds = 3;
 
   constructor(private snackBar: MatSnackBar) {}
 

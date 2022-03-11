@@ -16,7 +16,5 @@ export class SnackbarContentComponent implements OnInit {
   }
   ngOnInit(): void {
     if (this.data.indexOf(':')) this.formatError(this.data);
-    else {
-    }
   }
 }
