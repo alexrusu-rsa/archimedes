@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RequestWrapper } from '../../../models/request-wrapper';
@@ -10,7 +10,7 @@ import { UserLoginService } from '../../../services/user-login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   user!: User;
   logInSub?: Subscription;
 
@@ -20,17 +20,16 @@ export class LoginComponent implements OnInit {
   ) {}
 
   logUserIn(user: User) {
-    var logged = false;
     this.logInSub = this.userLoginService
       .logUserIn(user)
       .subscribe((response: RequestWrapper) => {
-        logged = response.data;
         if (response.data === true) {
           const userId = response.userId;
           this.router.navigate(['reporting/dashboard/', userId]);
         }
       });
   }
+
   ngOnInit(): void {
     this.user = <User>{};
   }

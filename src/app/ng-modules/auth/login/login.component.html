@@ -4,19 +4,36 @@
   <mat-card-content>
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input #userEmail matInput type="email" [(ngModel)]="user.email" [ngModelOptions]="{ standalone: true }"
-        placeholder="Email" />
+      <input
+        #userEmail
+        matInput
+        type="email"
+        [(ngModel)]="user.email"
+        [ngModelOptions]="{ standalone: true }"
+        placeholder="Email"
+      />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Password</mat-label>
-      <input #userPassword matInput type="password" [(ngModel)]="user.password" [ngModelOptions]="{ standalone: true }"
-        placeholder="Password" />
+      <input
+        #userPassword
+        matInput
+        type="password"
+        [(ngModel)]="user.password"
+        [ngModelOptions]="{ standalone: true }"
+        placeholder="Password"
+      />
     </mat-form-field>
-
   </mat-card-content>
 
   <mat-card-actions>
-    <a [routerLink]="['/auth/resetpassword']" routerLinkActive="router-link-active">Forgotten Password</a>
-    <button mat-raised-button color="primary" (click)="logUserIn(user)">Log in</button>
+    <a
+      [routerLink]="['/auth/resetpassword']"
+      routerLinkActive="router-link-active"
+      >Forgotten Password</a
+    >
+    <button mat-raised-button color="primary" (click)="logUserIn(user)">
+      Log in
+    </button>
   </mat-card-actions>
 </mat-card>

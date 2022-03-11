@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { catchError, Observable, of } from 'rxjs';
 import { Activity } from '../models/activity';
 import { RequestWrapper } from '../models/request-wrapper';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,58 +14,42 @@ export class ActivityService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(NotificationService)
+    private notificationService: NotificationService
+  ) {}
 
   getActivity(id: string): Observable<Activity> {
     const requestUrl = this.activitiesUrl + '/' + id;
-    return this.httpClient.get<Activity>(requestUrl).pipe(
-      tap((_) => console.log(`fetched activity id `)),
-      catchError(this.handleError<Activity>(`getActivity id`))
-    );
+    return this.httpClient
+      .get<Activity>(requestUrl)
+      .pipe(catchError(this.handleError<Activity>(`getActivity id`)));
   }
 
   getActivities(): Observable<Activity[]> {
-    return this.httpClient.get<Activity[]>(this.activitiesUrl).pipe(
-      tap((_) => console.log(`fetched activities`)),
-      catchError(this.handleError<Activity[]>(`getActivities`))
-    );
-  }
-
-  getActivitiesByDate(dateToFind: string): Observable<Activity[]> {
-    const activitiesByDateUrl =
-      this.activitiesUrl +
-      '/date?dateToFind=' +
-      dateToFind.split(' ').join('%20');
-    return this.httpClient.get<Activity[]>(activitiesByDateUrl).pipe(
-      tap((_) => console.log(`fetched activities of given date`)),
-      catchError(this.handleError<Activity[]>(`getActivitiesOfDate`))
-    );
+    return this.httpClient
+      .get<Activity[]>(this.activitiesUrl)
+      .pipe(catchError(this.handleError<Activity[]>(`getActivities`)));
   }
 
   deleteActivity(id: string): Observable<RequestWrapper> {
     const deleteActivityUrl = `${this.activitiesUrl}/${id}`;
-    return this.httpClient.delete<RequestWrapper>(deleteActivityUrl).pipe(
-      tap((_) => this.log(`deleted activity`)),
-      catchError(this.handleError<RequestWrapper>('deleteActivity'))
-    );
+    return this.httpClient
+      .delete<RequestWrapper>(deleteActivityUrl)
+      .pipe(catchError(this.handleError<RequestWrapper>('deleteActivity')));
   }
 
   addActivity(activity: Activity): Observable<RequestWrapper> {
     return this.httpClient
       .post<RequestWrapper>(this.activitiesUrl, activity)
-      .pipe(
-        tap((_) => this.log(`added activity `)),
-        catchError(this.handleError<RequestWrapper>('addActivity'))
-      );
+      .pipe(catchError(this.handleError<RequestWrapper>('addActivity')));
   }
 
   updateActivity(activity: Activity): Observable<RequestWrapper> {
     return this.httpClient
       .put(this.activitiesUrl + '/' + activity.id, activity)
-      .pipe(
-        tap((_) => this.log(`updated activity id`)),
-        catchError(this.handleError<RequestWrapper>('updateActivity'))
-      );
+      .pipe(catchError(this.handleError<RequestWrapper>('updateActivity')));
   }
 
   getActivitiesByDateEmployeeId(
@@ -78,9 +63,6 @@ export class ActivityService {
         userId: id,
       })
       .pipe(
-        tap((_) =>
-          console.log(`fetched activities of given date for employee`)
-        ),
         catchError(
           this.handleError<Activity[]>(`getActivitiesOfDateForEmployee`)
         )
@@ -90,6 +72,7 @@ export class ActivityService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: Error): Observable<T> => {
       console.error(error);
+      this.notificationService.openSnackBar(error.message);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
