@@ -1,4 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { RequestWrapper } from '../models/request-wrapper';
@@ -9,7 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class UserLoginService {
-  private usersUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
+  private usersUrl = 'http://localhost:3000/user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -32,14 +36,14 @@ export class UserLoginService {
   }
 
   private log(message: string) {
-    console.log(`ActivityService: ${message}`);
+    console.log(`LogUserInService: ${message}`);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: Error): Observable<T> => {
-      console.error(error);
-      this.notificationService.openSnackBar(error.message);
-      this.log(`${operation} failed: ${error.message}`);
+    return (err: HttpErrorResponse): Observable<T> => {
+      console.error(err);
+      this.notificationService.openSnackBar(err.error.message, err.error.statusCode);
+      this.log(`${operation} failed: ${err.message}`);
       return of(result as T);
     };
   }

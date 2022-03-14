@@ -20,14 +20,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   logUserIn(user: User) {
-    this.logInSub = this.userLoginService
-      .logUserIn(user)
-      .subscribe((response: RequestWrapper) => {
+    this.logInSub = this.userLoginService.logUserIn(user).subscribe(
+      (response: RequestWrapper) => {
         if (response.data === true) {
           const userId = response.userId;
           this.router.navigate(['reporting/dashboard/', userId]);
         }
-      });
+      }
+    );
   }
 
   ngOnInit(): void {
