@@ -2,38 +2,40 @@
   <mat-card-title>Login</mat-card-title>
 
   <mat-card-content>
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input
-        #userEmail
-        matInput
-        #email="ngModel"
-        type="email"
-        [(ngModel)]="user.email"
-        [ngModelOptions]="{ standalone: true }"
-        placeholder="Email"
-        class="form-control"
-      />
-      <mat-hint style="color: red" *ngIf="!user.email">
-        Email is required
-      </mat-hint>
-    </mat-form-field>
+    <form>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          id="email"
+          type="email"
+          class="form-control"
+          formControlName="email"
+          required=""
+        />
+        <div
+          *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="email?.errors?.['required']">Email is required.</div>
+          <div *ngIf="email?.errors?.['email']">Email is not valid.</div>
+        </div>
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input
-        #userPassword
-        matInput
-        type="password"
-        [(ngModel)]="user.password"
-        [ngModelOptions]="{ standalone: true }"
-        placeholder="Password"
-        class="form-control"
-      />
-      <mat-hint style="color: red" *ngIf="!user.password">
-        Password is required
-      </mat-hint>
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          matInput
+          type="password"
+          placeholder="Password"
+          class="form-control"
+        />
+        <mat-hint style="color: red" *ngIf="!user.password">
+          Password is required
+        </mat-hint>
+      </mat-form-field>
+    </form>
   </mat-card-content>
 
   <mat-card-actions>

@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { EditActivityComponent } from './ng-modules/reporting/components/edit-activity/edit-activity.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { AuthModule } from './ng-modules/auth/auth.module';
 import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
@@ -29,6 +29,7 @@ import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/sn
     HttpClientModule,
     FormsModule,
     AuthModule,
+    ReactiveFormsModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
