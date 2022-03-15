@@ -7,12 +7,18 @@
       <input
         #userEmail
         matInput
+        #email="ngModel"
         type="email"
         [(ngModel)]="user.email"
         [ngModelOptions]="{ standalone: true }"
         placeholder="Email"
+        class="form-control"
       />
+      <mat-hint style="color: red" *ngIf="!user.email">
+        Email is required
+      </mat-hint>
     </mat-form-field>
+
     <mat-form-field>
       <mat-label>Password</mat-label>
       <input
@@ -22,7 +28,11 @@
         [(ngModel)]="user.password"
         [ngModelOptions]="{ standalone: true }"
         placeholder="Password"
+        class="form-control"
       />
+      <mat-hint style="color: red" *ngIf="!user.password">
+        Password is required
+      </mat-hint>
     </mat-form-field>
   </mat-card-content>
 
