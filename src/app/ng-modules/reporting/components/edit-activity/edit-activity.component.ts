@@ -23,7 +23,18 @@ export class EditActivityComponent implements OnInit, OnDestroy {
   getCurrentActivity(id: string) {
     this.getActivitySub = this.activityService
       .getActivity(id)
-      .subscribe((response: Activity) => (this.currentActivity = response));
+      .subscribe((response: Activity) => {
+        this.currentActivity = response;
+        this.editActivityForm = new FormGroup({
+          name: new FormControl(this.currentActivity.name, [
+            Validators.required,
+          ]),
+          start: new FormControl(this.currentActivity.start, [
+            Validators.required,
+          ]),
+          end: new FormControl(this.currentActivity.end, [Validators.required]),
+        });
+      });
   }
 
   updateActivity() {
@@ -36,13 +47,11 @@ export class EditActivityComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getCurrentActivity(this.activity.id!);
-    this.editActivityForm = new FormGroup({
-      name: new FormControl(this.currentActivity.name, [Validators.required]),
-      start: new FormControl(this.currentActivity.start, [Validators.required]),
-      end: new FormControl(this.currentActivity.end, [Validators.required]),
-    });
   }
-
+  ngOnDestroy(): void {
+    this.getActivitySub?.unsubscribe();
+    this.updateActivitySub?.unsubscribe();
+  }
   get name() {
     return this.editActivityForm?.get('name');
   }
@@ -53,10 +62,5 @@ export class EditActivityComponent implements OnInit, OnDestroy {
 
   get end() {
     return this.editActivityForm?.get('end');
-  }
-
-  ngOnDestroy(): void {
-    this.getActivitySub?.unsubscribe();
-    this.updateActivitySub?.unsubscribe();
   }
 }

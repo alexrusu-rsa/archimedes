@@ -1,16 +1,16 @@
-<mat-card *ngIf="currentActivity!==undefined">
-  <form [formGroup]="editActivityForm!">
+<mat-card *ngIf="editActivityForm && currentActivity">
+  <form [formGroup]="editActivityForm">
     <mat-form-field appearance="fill">
       <mat-label>Activity Name</mat-label>
       <input
         matInput
-        value="{{ currentActivity.name }}"
         [(ngModel)]="currentActivity.name"
+        value="{{ currentActivity.name }}"
         type="text"
         formControlName="name"
         required
       />
-      <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
+      <mat-hint style="color: red" *ngIf="name?.dirty">
         Activity name is required
       </mat-hint>
     </mat-form-field>
@@ -19,8 +19,8 @@
       <mat-label>Activity Date</mat-label>
       <input
         matInput
-        value="{{ currentActivity.date }}"
         [(ngModel)]="currentActivity.date"
+        value="{{ currentActivity.date }}"
         type="text"
         required
         [ngModelOptions]="{ standalone: true }"
@@ -31,13 +31,13 @@
       <mat-label>Activity Start</mat-label>
       <input
         matInput
-        value="{{ currentActivity.start }}"
         [(ngModel)]="currentActivity.start"
+        value="{{ currentActivity.start }}"
         type="text"
         required
         formControlName="start"
       />
-      <mat-hint style="color: red" *ngIf="start?.touched && !start?.dirty">
+      <mat-hint style="color: red" *ngIf="start?.dirty">
         Activity start time is required
       </mat-hint>
     </mat-form-field>
@@ -46,13 +46,12 @@
       <mat-label>Activity End</mat-label>
       <input
         matInput
-        value="{{ currentActivity.end }}"
         [(ngModel)]="currentActivity.end"
         type="text"
         required
         formControlName="end"
       />
-      <mat-hint style="color: red" *ngIf="end?.touched && !end?.dirty">
+      <mat-hint style="color: red" *ngIf="end?.dirty">
         Activity end time is required
       </mat-hint>
     </mat-form-field>
@@ -61,7 +60,6 @@
       <mat-label>Activity Description</mat-label>
       <input
         matInput
-        value="{{ currentActivity.description }}"
         [(ngModel)]="currentActivity.description"
         [ngModelOptions]="{ standalone: true }"
         type="text"
@@ -72,16 +70,16 @@
       <mat-label>Activity Extras</mat-label>
       <input
         matInput
-        value="{{ currentActivity.extras }}"
         [(ngModel)]="currentActivity.extras"
         [ngModelOptions]="{ standalone: true }"
         type="text"
       />
     </mat-form-field>
+
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="updateActivity()">
+        Update activity
+      </button>
+    </mat-dialog-actions>
   </form>
-  <mat-dialog-actions>
-    <button mat-raised-button (click)="updateActivity()">
-      Update activity
-    </button>
-  </mat-dialog-actions>
 </mat-card>
