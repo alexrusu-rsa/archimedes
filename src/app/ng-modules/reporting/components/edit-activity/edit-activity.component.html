@@ -23,7 +23,7 @@
         value="{{ currentActivity.date }}"
         type="text"
         required
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="date"
       />
     </mat-form-field>
 
@@ -61,7 +61,7 @@
       <input
         matInput
         [(ngModel)]="currentActivity.description"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="description"
         type="text"
       />
     </mat-form-field>
@@ -71,7 +71,7 @@
       <input
         matInput
         [(ngModel)]="currentActivity.extras"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="extras"
         type="text"
       />
     </mat-form-field>

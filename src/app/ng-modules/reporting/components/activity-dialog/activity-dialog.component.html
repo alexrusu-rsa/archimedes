@@ -3,14 +3,13 @@
     <mat-form-field appearance="fill">
       <mat-label>Activity Name</mat-label>
       <input
-        #activityName
         matInput
         [(ngModel)]="currentActivity.name"
         type="text"
         formControlName="name"
         required="true"
       />
-      <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
+      <mat-hint style="color: red"   *ngIf="name?.touched && !name?.dirty">
         Activity name is required
       </mat-hint>
     </mat-form-field>
@@ -18,7 +17,6 @@
     <mat-form-field appearance="fill">
       <mat-label>Activity Start</mat-label>
       <input
-        #activityStart
         matInput
         [(ngModel)]="currentActivity.start"
         formControlName="start"
@@ -33,7 +31,6 @@
     <mat-form-field appearance="fill">
       <mat-label>Activity End</mat-label>
       <input
-        #activityEnd
         matInput
         [(ngModel)]="currentActivity.end"
         formControlName="end"
@@ -48,22 +45,20 @@
     <mat-form-field appearance="fill">
       <mat-label>Activity Description</mat-label>
       <input
-        #activityDescription
         matInput
         [(ngModel)]="currentActivity.description"
         type="text"
-        [ngModelOptions]="{standalone: true}"
+        formControlName="description"
       />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Activity Extras</mat-label>
       <input
-        #activityExtras
         matInput
         [(ngModel)]="currentActivity.extras"
         type="text"
-        [ngModelOptions]="{standalone: true}"
+        formControlName="extras"
       />
     </mat-form-field>
   </form>

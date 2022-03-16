@@ -29,10 +29,13 @@ export class EditActivityComponent implements OnInit, OnDestroy {
           name: new FormControl(this.currentActivity.name, [
             Validators.required,
           ]),
+          date: new FormControl(this.currentActivity.date),
           start: new FormControl(this.currentActivity.start, [
             Validators.required,
           ]),
           end: new FormControl(this.currentActivity.end, [Validators.required]),
+          description: new FormControl(this.currentActivity.description),
+          extras: new FormControl(this.currentActivity.extras),
         });
       });
   }
