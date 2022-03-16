@@ -1,4 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
@@ -13,6 +14,7 @@ import { ActivityService } from '../../../../services/activity.service';
 export class ActivityDialogComponent implements OnInit, OnDestroy {
   currentActivity!: Activity;
   addNewActivitySub?: Subscription;
+  addActivityForm?: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public sentData: DialogDataWrapper,
@@ -30,8 +32,24 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.currentActivity = <Activity>{};
     this.currentActivity.employeeId = this.sentData.userId;
     this.currentActivity.date = this.sentData.date;
+    this.addActivityForm = new FormGroup({
+      name: new FormControl(this.currentActivity.name, [Validators.required]),
+      start: new FormControl(this.currentActivity.start, [Validators.required]),
+      end: new FormControl(this.currentActivity.end, [Validators.required]),
+    });
   }
 
+  get name() {
+    return this.addActivityForm?.get('name');
+  }
+
+  get start() {
+    return this.addActivityForm?.get('start');
+  }
+
+  get end() {
+    return this.addActivityForm?.get('end');
+  }
   ngOnDestroy(): void {
     this.addNewActivitySub?.unsubscribe();
   }

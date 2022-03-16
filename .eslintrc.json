@@ -5,7 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": ["archimedes-frontend/tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [

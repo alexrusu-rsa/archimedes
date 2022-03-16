@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.loginForm?.get('email');
   }
 
-  get password(){
+  get password() {
     return this.loginForm?.get('password');
   }
 

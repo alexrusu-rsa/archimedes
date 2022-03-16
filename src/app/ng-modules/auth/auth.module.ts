@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MaterialModule } from '../material/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
     MaterialModule,
     FormsModule,
     RouterModule,
+    ReactiveFormsModule,
   ],
 })
 export class AuthModule {}
