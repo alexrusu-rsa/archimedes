@@ -1,69 +1,85 @@
-<mat-card *ngIf="currentActivity">
-  <form>
+<mat-card *ngIf="editActivityForm && currentActivity">
+  <form [formGroup]="editActivityForm">
     <mat-form-field appearance="fill">
       <mat-label>Activity Name</mat-label>
       <input
         matInput
-        value="{{ currentActivity.name }}"
         [(ngModel)]="currentActivity.name"
+        value="{{ currentActivity.name }}"
         type="text"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="name"
+        required
       />
+      <mat-hint style="color: red" *ngIf="name?.dirty">
+        Activity name is required
+      </mat-hint>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Activity Date</mat-label>
       <input
         matInput
-        value="{{ currentActivity.date }}"
         [(ngModel)]="currentActivity.date"
+        value="{{ currentActivity.date }}"
         type="text"
-        [ngModelOptions]="{ standalone: true }"
+        required
+        formControlName="date"
       />
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Activity Start</mat-label>
       <input
         matInput
-        value="{{ currentActivity.start }}"
         [(ngModel)]="currentActivity.start"
+        value="{{ currentActivity.start }}"
         type="text"
-        [ngModelOptions]="{ standalone: true }"
+        required
+        formControlName="start"
       />
+      <mat-hint style="color: red" *ngIf="start?.dirty">
+        Activity start time is required
+      </mat-hint>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Activity End</mat-label>
       <input
         matInput
-        value="{{ currentActivity.end }}"
         [(ngModel)]="currentActivity.end"
         type="text"
-        [ngModelOptions]="{ standalone: true }"
+        required
+        formControlName="end"
       />
+      <mat-hint style="color: red" *ngIf="end?.dirty">
+        Activity end time is required
+      </mat-hint>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Activity Description</mat-label>
       <input
         matInput
-        value="{{ currentActivity.description }}"
         [(ngModel)]="currentActivity.description"
+        formControlName="description"
         type="text"
-        [ngModelOptions]="{ standalone: true }"
       />
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Activity Extras</mat-label>
       <input
         matInput
-        value="{{ currentActivity.extras }}"
         [(ngModel)]="currentActivity.extras"
+        formControlName="extras"
         type="text"
-        [ngModelOptions]="{ standalone: true }"
       />
     </mat-form-field>
+
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="updateActivity()">
+        Update activity
+      </button>
+    </mat-dialog-actions>
   </form>
-  <mat-dialog-actions>
-    <button mat-raised-button (click)="updateActivity()">
-      Update activity
-    </button>
-  </mat-dialog-actions>
 </mat-card>

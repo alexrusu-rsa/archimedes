@@ -1,4 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RequestWrapper } from '../../../models/request-wrapper';
@@ -13,6 +19,7 @@ import { UserLoginService } from '../../../services/user-login.service';
 export class LoginComponent implements OnInit, OnDestroy {
   user!: User;
   logInSub?: Subscription;
+  loginForm?: FormGroup;
 
   constructor(
     private userLoginService: UserLoginService,
@@ -32,7 +39,23 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user = <User>{};
+    this.loginForm = new FormGroup({
+      email: new FormControl(this.user.email, [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new FormControl(this.user.password, [Validators.required]),
+    });
   }
+
+  get email() {
+    return this.loginForm?.get('email');
+  }
+
+  get password() {
+    return this.loginForm?.get('password');
+  }
+
   ngOnDestroy(): void {
     this.logInSub?.unsubscribe();
   }
