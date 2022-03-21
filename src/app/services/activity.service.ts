@@ -10,7 +10,7 @@ import { NotificationService } from './notification.service';
 })
 export class ActivityService {
   private activitiesUrl =
-    'http://localhost:3000/api/activity';
+    'https://archimedes-backend-dev.herokuapp.com/api/activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

@@ -13,7 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class UserLoginService {
-  private usersUrl = 'http://localhost:3000/user';
+  private usersUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -29,7 +29,7 @@ export class UserLoginService {
       .get<User>(this.usersUrl + '/' + userId)
       .pipe(catchError(this.handleError<User>('getUser')));
   }
-  
+
   logUserIn(user: User): Observable<RequestWrapper> {
     const logInUrl = this.usersUrl + '/creds';
     return this.httpClient
@@ -47,7 +47,6 @@ export class UserLoginService {
       .post<RequestWrapper>(logInUrl, user)
       .pipe(catchError(this.handleError<RequestWrapper>('userLoggedIn')));
   }
-
 
   private log(message: string) {
     console.log(`LogUserInService: ${message}`);
