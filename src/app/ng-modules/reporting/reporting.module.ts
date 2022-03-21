@@ -4,9 +4,12 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReportingRoutingModule } from './reporting-routing.module';
+import { ManagementPageComponent } from './components/management-page/management-page.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ManagementPageComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
