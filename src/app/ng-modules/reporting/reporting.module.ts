@@ -4,6 +4,8 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReportingRoutingModule } from './reporting-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../auth/auth.interceptor';
 
 @NgModule({
   declarations: [],
@@ -12,7 +14,7 @@ import { ReportingRoutingModule } from './reporting-routing.module';
     MaterialModule,
     FormsModule,
     RouterModule,
-    ReportingRoutingModule
+    ReportingRoutingModule,
   ],
 })
 export class ReportingModule {}

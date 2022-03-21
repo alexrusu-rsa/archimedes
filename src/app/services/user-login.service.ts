@@ -13,7 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class UserLoginService {
-  private usersUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
+  private usersUrl = 'http://localhost:3000/user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -23,17 +23,31 @@ export class UserLoginService {
     @Inject(NotificationService)
     private notificationService: NotificationService
   ) {}
+
   getUser(userId: string): Observable<User> {
     return this.httpClient
       .get<User>(this.usersUrl + '/' + userId)
       .pipe(catchError(this.handleError<User>('getUser')));
   }
+  
   logUserIn(user: User): Observable<RequestWrapper> {
     const logInUrl = this.usersUrl + '/creds';
+    return this.httpClient
+      .post<RequestWrapper>(logInUrl, {
+        username: user.email,
+        password: user.password,
+      })
+      .pipe(catchError(this.handleError<RequestWrapper>('userLoggedIn')));
+  }
+
+  logUserIn2(user: User) {
+    const logInUrl = this.usersUrl + '/creds';
+    console.log(user);
     return this.httpClient
       .post<RequestWrapper>(logInUrl, user)
       .pipe(catchError(this.handleError<RequestWrapper>('userLoggedIn')));
   }
+
 
   private log(message: string) {
     console.log(`LogUserInService: ${message}`);
