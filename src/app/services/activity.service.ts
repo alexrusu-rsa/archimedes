@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { Activity } from '../models/activity';
@@ -9,8 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class ActivityService {
-  private activitiesUrl =
-    'https://archimedes-backend-dev.herokuapp.com/activity';
+  private activitiesUrl = 'http://localhost:3000/activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
