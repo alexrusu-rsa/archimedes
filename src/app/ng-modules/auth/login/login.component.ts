@@ -26,18 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  logUserIn(user: User) {
-    this.logInSub = this.userLoginService
-      .logUserIn(user)
-      .subscribe((response: RequestWrapper) => {
-        if (response.data === true) {
-          const userId = response.userId;
-          this.router.navigate(['reporting/dashboard/', userId]);
-        }
-      });
-  }
 
-  logUserIn2(user: User) {
+  logUserIn(user: User) {
     this.logInSub = this.userLoginService
       .logUserIn(user)
       .subscribe((response: any) => {
