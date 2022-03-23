@@ -9,25 +9,25 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './management-page.component.html',
   styleUrls: ['./management-page.component.sass'],
 })
-export class ManagementPageComponent implements OnInit OnDestroy{
+export class ManagementPageComponent {
   constructor(
     private userService: UserService,
     private activityService: ActivityService
   ) {}
-
   allUsers?: User[];
   allUsersSubscrption?: Subscription;
-
   getUsers() {
-    this.allUsersSubscrption = await this.userService.getUsers().subscribe((result)=>{
-      this.allUsers = result;
-    });
+    this.allUsersSubscrption = this.userService
+      .getUsers()
+      .subscribe((result) => {
+        this.allUsers = result;
+        console.log(result);
+      });
   }
   ngOnInit(): void {
     this.getUsers();
   }
-
   ngOnDestroy(): void {
-      this.allUsersSubscrption?.unsubscribe();
+    this.allUsersSubscrption?.unsubscribe();
   }
 }

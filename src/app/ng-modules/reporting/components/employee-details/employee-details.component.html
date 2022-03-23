@@ -1,0 +1,21 @@
+<mat-tab-group>
+  <mat-tab label="User Details">
+    <mat-card *ngIf="currentUser">
+      <h2>ID: {{ currentUser.id }}</h2>
+      <h2>Name: {{ currentUser.name }} {{ currentUser.surname }}</h2>
+      <h2>Role: {{ currentUser.role }}</h2>
+      <h2>Seniority: {{ currentUser.seniority }}</h2>
+      <h2>Email: {{ currentUser.email }}</h2>
+    </mat-card>
+  </mat-tab>
+
+  <mat-tab label="User Activity">
+    <mat-card>
+      <mat-list>
+        <mat-list-item *ngFor="let activity of currentUserActivities">
+          <h2>{{ activity.name }}</h2>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>

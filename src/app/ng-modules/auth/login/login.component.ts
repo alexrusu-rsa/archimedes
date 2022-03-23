@@ -37,6 +37,16 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
+  logUserIn2(user: User) {
+    this.logInSub = this.userLoginService
+      .logUserIn(user)
+      .subscribe((response: any) => {
+        localStorage.setItem('access_token', response.access_token);
+        const userId = response.userId;
+        this.router.navigate(['reporting/dashboard/', userId]);
+      });
+  }
+
   ngOnInit(): void {
     this.user = <User>{};
     this.loginForm = new FormGroup({

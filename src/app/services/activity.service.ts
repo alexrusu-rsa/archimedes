@@ -13,7 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class ActivityService {
-  private activitiesUrl = 'http://localhost:3000/activity';
+  private activitiesUrl = 'http://localhost:3000/api/activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -68,6 +68,19 @@ export class ActivityService {
       .pipe(
         catchError(
           this.handleError<Activity[]>(`getActivitiesOfDateForEmployee`)
+        )
+      );
+  }
+
+  getActivitiesByEmployee(userId: string): Observable<Activity[]> {
+    const activitiesByEmployeeUrl = this.activitiesUrl + '/employee';
+    return this.httpClient
+      .post<Activity[]>(activitiesByEmployeeUrl, <RequestWrapper>{
+        userId: userId,
+      })
+      .pipe(
+        catchError(
+          this.handleError<Activity[]>(`getActivitiesOfEmployee`)
         )
       );
   }

@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReportingRoutingModule } from './reporting-routing.module';
 import { ManagementPageComponent } from './components/management-page/management-page.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,7 @@ import { ManagementPageComponent } from './components/management-page/management
     MaterialModule,
     FormsModule,
     RouterModule,
-    ReportingRoutingModule
+    ReportingRoutingModule,
   ],
 })
 export class ReportingModule {}

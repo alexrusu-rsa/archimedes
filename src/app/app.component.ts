@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent implements OnInit {
   activeRoute?: Subscription;
   urlToFormat = '';
   pageTitle?: string;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
+  logOut() {
+    this.authService.doLogout();
+  }
   ngOnInit() {
     this.activeRoute = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
