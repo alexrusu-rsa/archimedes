@@ -40,14 +40,6 @@ export class UserLoginService {
       .pipe(catchError(this.handleError<RequestWrapper>('userLoggedIn')));
   }
 
-  logUserIn2(user: User) {
-    const logInUrl = this.usersUrl + '/creds';
-    console.log(user);
-    return this.httpClient
-      .post<RequestWrapper>(logInUrl, user)
-      .pipe(catchError(this.handleError<RequestWrapper>('userLoggedIn')));
-  }
-
   private log(message: string) {
     console.log(`LogUserInService: ${message}`);
   }
