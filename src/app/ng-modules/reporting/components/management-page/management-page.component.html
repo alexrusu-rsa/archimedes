@@ -4,16 +4,40 @@
     <mat-tab label="Employees">
       <mat-list *ngIf="allUsers">
         <mat-list-item *ngFor="let user of allUsers">
-          <a routerLink="/employee/{{ user.id }}">
-            <mat-card class="employee-card">
+          <mat-card class="employee-card">
+            <a routerLink="/employee/{{ user.id }}">
               <mat-card-title>
                 {{ user.name }} {{ user.surname }}
               </mat-card-title>
               <mat-card-subtitle>
                 {{ user.role }}
               </mat-card-subtitle>
-            </mat-card>
-          </a>
+            </a>
+            <div class="buttons">
+              <button
+                mat-mini-fab
+                color="primary"
+                (click)="deleteUser(user.id!)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button mat-mini-fab color="primary" (click)="editUser(user.id!)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-card>
+            <button
+              class="employee-add-card"
+              mat-icon-button
+              (click)="addUser()"
+            >
+              <mat-icon>add_box</mat-icon>
+            </button>
+          </mat-card>
         </mat-list-item>
       </mat-list>
     </mat-tab>

@@ -1,6 +1,7 @@
+<mat-card class="page-content">
 <mat-tab-group>
   <mat-tab label="User Details">
-    <mat-card *ngIf="currentUser">
+    <mat-card class="container-card" *ngIf="currentUser">
       <h2>ID: {{ currentUser.id }}</h2>
       <h2>Name: {{ currentUser.name }} {{ currentUser.surname }}</h2>
       <h2>Role: {{ currentUser.role }}</h2>
@@ -13,9 +14,17 @@
     <mat-card>
       <mat-list>
         <mat-list-item *ngFor="let activity of currentUserActivities">
-          <h2>{{ activity.name }}</h2>
+          <mat-card class="activity-card">
+            <mat-card-subtitle> Date: {{ activity.date }} </mat-card-subtitle>
+            <mat-card-subtitle>
+              Time: {{ activity.start }} - {{ activity.end }}
+            </mat-card-subtitle>
+            <br />
+            <h2>{{ activity.name }}</h2>
+          </mat-card>
         </mat-list-item>
       </mat-list>
     </mat-card>
   </mat-tab>
 </mat-tab-group>
+</mat-card>

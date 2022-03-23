@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
 import { NotificationService } from './notification.service';
 
@@ -12,7 +13,10 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private httpClient: HttpClient, private notificationService: NotificationService) {}
+  constructor(
+    private httpClient: HttpClient,
+    private notificationService: NotificationService
+  ) {}
   private usersUrl = 'http://localhost:3000/user';
 
   httpOptions = {
@@ -22,6 +26,13 @@ export class UserService {
     return this.httpClient
       .get<User[]>(this.usersUrl)
       .pipe(catchError(this.handleError<User[]>('getUser')));
+  }
+
+  deleteUser(id: string): Observable<RequestWrapper> {
+    const deleteUserUrl = this.usersUrl + '/' + id;
+    return this.httpClient
+      .delete<RequestWrapper>(deleteUserUrl)
+      .pipe(catchError(this.handleError<RequestWrapper>('deleteUser')));
   }
 
   private log(message: string) {

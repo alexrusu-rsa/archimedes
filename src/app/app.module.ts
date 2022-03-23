@@ -14,6 +14,8 @@ import { AuthModule } from './ng-modules/auth/auth.module';
 import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
 import { EmployeeDetailsComponent } from './ng-modules/reporting/components/employee-details/employee-details.component';
+import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
+
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { EmployeeDetailsComponent } from './ng-modules/reporting/components/empl
     UserDashboardComponent,
     SnackbarContentComponent,
     EmployeeDetailsComponent,
+    UserDialogComponent,
   ],
   imports: [
     BrowserModule,
