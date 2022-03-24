@@ -20,6 +20,7 @@ export class ManagementPageComponent {
   allUsers?: User[];
   allUsersSubscrption?: Subscription;
   deleteUserSubscription?: Subscription;
+  search: String = '';
 
   getUsers() {
     this.allUsersSubscrption = this.userService
@@ -27,6 +28,13 @@ export class ManagementPageComponent {
       .subscribe((result) => {
         this.allUsers = result;
       });
+  }
+
+  searchUsersWithName() {
+    if (this.search !== '')
+      this.allUsers = this.allUsers?.filter(
+        (user) => user.surname === this.search
+      );
   }
 
   deleteUser(userId: string) {
@@ -44,6 +52,13 @@ export class ManagementPageComponent {
 
   addUser() {
     this.dialog.open(UserDialogComponent);
+  }
+
+  checkSearch() {
+    if (this.search == '') {
+      this.allUsersSubscrption?.unsubscribe();
+      this.getUsers();
+    }
   }
 
   ngOnInit(): void {

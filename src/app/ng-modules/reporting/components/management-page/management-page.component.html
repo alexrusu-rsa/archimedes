@@ -1,7 +1,24 @@
 <mat-card class="page-content">
-  <mat-card-title>Management</mat-card-title>
   <mat-tab-group>
     <mat-tab label="Employees">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <span matPrefix> </span>
+          <input
+            type="tel"
+            matInput
+            placeholder="Search"
+            name="search"
+            id="search"
+            [(ngModel)]="search"
+            (blur)="checkSearch()"
+          />
+          <button matSuffix mat-button (click)="searchUsersWithName()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+        <br />
+      </form>
       <mat-list *ngIf="allUsers">
         <mat-list-item *ngFor="let user of allUsers">
           <mat-card class="employee-card">
