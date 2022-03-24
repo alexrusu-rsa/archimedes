@@ -26,7 +26,6 @@ export class ManagementPageComponent {
       .getUsers()
       .subscribe((result) => {
         this.allUsers = result;
-        console.log(result);
       });
   }
 
@@ -37,7 +36,11 @@ export class ManagementPageComponent {
       .subscribe();
   }
 
-  editUser(userId: string) {}
+  editUser(user: User) {
+    this.dialog.open(UserDialogComponent, {
+      data: user,
+    });
+  }
 
   addUser() {
     this.dialog.open(UserDialogComponent);

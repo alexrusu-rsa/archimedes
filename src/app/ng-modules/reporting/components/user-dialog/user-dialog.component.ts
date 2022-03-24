@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -13,12 +13,14 @@ import { UserService } from 'src/app/services/user.service';
 export class UserDialogComponent implements OnInit {
   constructor(
     private userService: UserService,
-    public dialogRef: MatDialogRef<UserDialogComponent>
+    public dialogRef: MatDialogRef<UserDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public user: User
   ) {}
 
   addUserForm?: FormGroup;
   currentUser?: User;
   addCurrentUserSub?: Subscription;
+  updateUserSub?: Subscription;
 
   addUser() {
     if (this.currentUser)
@@ -30,8 +32,17 @@ export class UserDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  editUser() {
+    if (this.currentUser) {
+      this.updateUserSub = this.userService
+        .updateUser(this.currentUser)
+        .subscribe();
+    }
+  }
+
   ngOnInit(): void {
     this.currentUser = <User>{};
+    if (this.user !== null) this.currentUser = this.user;
     this.addUserForm = new FormGroup({
       email: new FormControl(this.currentUser?.email),
       surname: new FormControl(this.currentUser?.surname),

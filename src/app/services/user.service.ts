@@ -22,6 +22,7 @@ export class UserService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+
   getUsers(): Observable<User[]> {
     return this.httpClient
       .get<User[]>(this.usersUrl)
@@ -39,6 +40,12 @@ export class UserService {
     return this.httpClient
       .post<RequestWrapper>(this.usersUrl, user)
       .pipe(catchError(this.handleError<RequestWrapper>('addUser')));
+  }
+
+  updateUser(user: User): Observable<RequestWrapper> {
+    return this.httpClient
+      .put(this.usersUrl + '/' + user.id, user)
+      .pipe(catchError(this.handleError<RequestWrapper>('updateUser')));
   }
 
   private log(message: string) {
