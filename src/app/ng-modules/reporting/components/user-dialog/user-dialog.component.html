@@ -1,7 +1,7 @@
 <mat-dialog-content *ngIf="currentUser">
   <form [formGroup]="addUserForm!">
     <mat-form-field appearance="fill">
-      <mat-label>Activity Name</mat-label>
+      <mat-label>User Surname</mat-label>
       <input
         matInput
         [(ngModel)]="currentUser.surname"
@@ -10,60 +10,83 @@
         required="true"
       />
       <mat-hint style="color: red" *ngIf="surname?.touched && !surname?.dirty">
-        Activity name is required
+        User surname is required
       </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Activity Start</mat-label>
+      <mat-label>User Name</mat-label>
       <input
         matInput
-        [(ngModel)]="currentActivity.start"
-        formControlName="start"
+        [(ngModel)]="currentUser.name"
+        formControlName="name"
         type="text"
         required="true"
       />
-      <mat-hint style="color: red" *ngIf="start?.touched && !start?.dirty">
-        Activity start time is required
+      <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
+        User name is required
       </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Activity End</mat-label>
+      <mat-label>User Email</mat-label>
       <input
         matInput
-        [(ngModel)]="currentActivity.end"
-        formControlName="end"
+        [(ngModel)]="currentUser.email"
+        formControlName="email"
         type="text"
         required="true"
       />
-      <mat-hint style="color: red" *ngIf="end?.touched && !end?.dirty">
-        Activity end time is required
+      <mat-hint style="color: red" *ngIf="email?.touched && !email?.dirty">
+        User email is required
       </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Activity Description</mat-label>
+      <mat-label>User Password</mat-label>
       <input
         matInput
-        [(ngModel)]="currentActivity.description"
-        type="text"
-        formControlName="description"
+        [(ngModel)]="currentUser.password"
+        formControlName="password"
+        type="password"
+        required="true"
       />
+      <mat-hint
+        style="color: red"
+        *ngIf="password?.touched && !password?.dirty"
+      >
+        User password is required
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Activity Extras</mat-label>
+      <mat-label>User Role</mat-label>
       <input
         matInput
-        [(ngModel)]="currentActivity.extras"
+        [(ngModel)]="currentUser.role"
         type="text"
-        formControlName="extras"
+        formControlName="role"
       />
+      <mat-hint style="color: red" *ngIf="role?.touched && !role?.dirty">
+        User role is required
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>User Seniority </mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentUser.seniority"
+        type="text"
+        formControlName="seniority"
+      />
+       <mat-hint style="color: red" *ngIf="seniority?.touched && !seniority?.dirty">
+        User role is required
+      </mat-hint>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button (click)="addActivity()">Add activity</button>
+  <button mat-raised-button (click)="addUser(); dialogClose()">Add user</button>
 </mat-dialog-actions>

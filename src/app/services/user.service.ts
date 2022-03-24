@@ -35,6 +35,12 @@ export class UserService {
       .pipe(catchError(this.handleError<RequestWrapper>('deleteUser')));
   }
 
+  addUser(user: User): Observable<RequestWrapper> {
+    return this.httpClient
+      .post<RequestWrapper>(this.usersUrl, user)
+      .pipe(catchError(this.handleError<RequestWrapper>('addUser')));
+  }
+
   private log(message: string) {
     console.log(`LogUserInService: ${message}`);
   }
