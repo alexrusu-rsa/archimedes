@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './ng-modules/auth/auth.guard';
 import { LoginComponent } from './ng-modules/auth/login/login.component';
 import { ResetPasswordComponent } from './ng-modules/auth/reset-password/reset-password.component';
 
@@ -14,7 +15,11 @@ const routes: Routes = [
   },
   {
     path: 'reporting',
-    loadChildren: () => import('./ng-modules/reporting/reporting.module').then((m) => m.ReportingModule),
+    loadChildren: () =>
+      import('./ng-modules/reporting/reporting.module').then(
+        (m) => m.ReportingModule
+      ),
+    canActivate: [AuthGuard],
   },
   {
     path: '',
