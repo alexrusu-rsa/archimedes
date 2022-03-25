@@ -13,6 +13,10 @@ import { UserDashboardComponent } from './ng-modules/reporting/components/user-d
 import { AuthModule } from './ng-modules/auth/auth.module';
 import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
+import { EmployeeDetailsComponent } from './ng-modules/reporting/components/employee-details/employee-details.component';
+import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
+
+
 
 @NgModule({
   declarations: [
@@ -21,6 +25,8 @@ import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
     EditActivityComponent,
     UserDashboardComponent,
     SnackbarContentComponent,
+    EmployeeDetailsComponent,
+    UserDialogComponent,
   ],
   imports: [
     BrowserModule,

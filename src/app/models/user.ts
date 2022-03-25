@@ -5,6 +5,5 @@ export interface User {
   role: string;
   seniority: string;
   email: string;
-  username: string;
   password: string;
 }

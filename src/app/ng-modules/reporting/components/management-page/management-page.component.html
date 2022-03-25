@@ -1,0 +1,64 @@
+<mat-card class="page-content">
+  <mat-tab-group>
+    <mat-tab label="Employees">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <span matPrefix> </span>
+          <input
+            type="tel"
+            matInput
+            placeholder="Search"
+            name="search"
+            id="search"
+            [(ngModel)]="search"
+            (blur)="checkSearch()"
+          />
+          <button matSuffix mat-button (click)="searchUsersWithName()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+        <br />
+      </form>
+      <mat-list *ngIf="allUsers">
+        <mat-list-item *ngFor="let user of allUsers">
+          <mat-card class="employee-card">
+            <a routerLink="/employee/{{ user.id }}">
+              <mat-card-title>
+                {{ user.name }} {{ user.surname }}
+              </mat-card-title>
+              <mat-card-subtitle>
+                {{ user.role }}
+              </mat-card-subtitle>
+            </a>
+            <div class="buttons">
+              <button
+                mat-mini-fab
+                color="primary"
+                (click)="deleteUser(user.id!)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button mat-mini-fab color="primary" (click)="editUser(user)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-card>
+            <button
+              class="employee-add-card"
+              mat-icon-button
+              (click)="addUser()"
+            >
+              <mat-icon>add_box</mat-icon>
+            </button>
+          </mat-card>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="Clients"> </mat-tab>
+    <mat-tab label="Reports"> </mat-tab>
+  </mat-tab-group>
+</mat-card>

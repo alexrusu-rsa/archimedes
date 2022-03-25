@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { Activity } from '../models/activity';
@@ -66,6 +70,17 @@ export class ActivityService {
         catchError(
           this.handleError<Activity[]>(`getActivitiesOfDateForEmployee`)
         )
+      );
+  }
+
+  getActivitiesByEmployee(userId: string): Observable<Activity[]> {
+    const activitiesByEmployeeUrl = this.activitiesUrl + '/employee';
+    return this.httpClient
+      .post<Activity[]>(activitiesByEmployeeUrl, <RequestWrapper>{
+        userId: userId,
+      })
+      .pipe(
+        catchError(this.handleError<Activity[]>(`getActivitiesOfEmployee`))
       );
   }
 

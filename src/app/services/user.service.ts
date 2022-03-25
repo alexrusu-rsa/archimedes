@@ -3,7 +3,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
@@ -12,32 +12,40 @@ import { NotificationService } from './notification.service';
 @Injectable({
   providedIn: 'root',
 })
-export class UserLoginService {
+export class UserService {
+  constructor(
+    private httpClient: HttpClient,
+    private notificationService: NotificationService
+  ) {}
   private usersUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
+
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(
-    private httpClient: HttpClient,
-    @Inject(NotificationService)
-    private notificationService: NotificationService
-  ) {}
-
-  getUser(userId: string): Observable<User> {
+  getUsers(): Observable<User[]> {
     return this.httpClient
-      .get<User>(this.usersUrl + '/' + userId)
-      .pipe(catchError(this.handleError<User>('getUser')));
+      .get<User[]>(this.usersUrl)
+      .pipe(catchError(this.handleError<User[]>('getUser')));
   }
 
-  logUserIn(user: User): Observable<RequestWrapper> {
-    const logInUrl = this.usersUrl + '/creds';
+  deleteUser(id: string): Observable<RequestWrapper> {
+    const deleteUserUrl = this.usersUrl + '/' + id;
     return this.httpClient
-      .post<RequestWrapper>(logInUrl, {
-        username: user.email,
-        password: user.password,
-      })
-      .pipe(catchError(this.handleError<RequestWrapper>('userLoggedIn')));
+      .delete<RequestWrapper>(deleteUserUrl)
+      .pipe(catchError(this.handleError<RequestWrapper>('deleteUser')));
+  }
+
+  addUser(user: User): Observable<RequestWrapper> {
+    return this.httpClient
+      .post<RequestWrapper>(this.usersUrl, user)
+      .pipe(catchError(this.handleError<RequestWrapper>('addUser')));
+  }
+
+  updateUser(user: User): Observable<RequestWrapper> {
+    return this.httpClient
+      .put(this.usersUrl + '/' + user.id, user)
+      .pipe(catchError(this.handleError<RequestWrapper>('updateUser')));
   }
 
   private log(message: string) {
