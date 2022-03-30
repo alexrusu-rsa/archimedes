@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 @Injectable({
@@ -25,6 +21,8 @@ export class AuthService {
 
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
     if (removeToken == null) {
       this.router.navigate(['']);
     }
