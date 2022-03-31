@@ -13,7 +13,8 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class CustomerService {
-  private customersUrl = 'http://localhost:3000/customer';
+  private customersUrl =
+    'https://archimedes-backend-dev.herokuapp.com/customer';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -54,7 +55,7 @@ export class CustomerService {
       .post<RequestWrapper>(this.customersUrl, customer)
       .pipe(catchError(this.handleError<RequestWrapper>('addCustomer')));
   }
-  
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (err: HttpErrorResponse): Observable<T> => {
       console.error(err);
