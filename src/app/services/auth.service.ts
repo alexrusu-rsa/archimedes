@@ -23,7 +23,7 @@ export class AuthService {
     let removeToken = localStorage.removeItem('access_token');
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
-    if (removeToken == null) {
+    if (removeToken === null) {
       this.router.navigate(['']);
     }
   }

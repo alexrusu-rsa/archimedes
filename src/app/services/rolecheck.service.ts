@@ -13,11 +13,12 @@ export class RoleCheckService {
     return localStorage.getItem('role');
   }
 
-  getId(){
+  getId() {
     return localStorage.getItem('userId');
   }
   get isAdmin(): boolean {
     let adminRole = localStorage.getItem('role');
-    return adminRole == 'admin' ? true : false;
+    if (adminRole === 'admin') return true;
+    return false;
   }
 }
