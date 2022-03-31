@@ -17,7 +17,7 @@ export class UserService {
     private httpClient: HttpClient,
     private notificationService: NotificationService
   ) {}
-  private usersUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
+  private usersUrl = 'http://localhost:3000/user';
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
