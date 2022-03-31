@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   activeRoute?: Subscription;
   urlToFormat = '';
   pageTitle?: string;
+  userRole?: string;
   constructor(private router: Router, private authService: AuthService) {}
 
   logOut() {

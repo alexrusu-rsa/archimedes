@@ -26,12 +26,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-
   logUserIn(user: User) {
     this.logInSub = this.userLoginService
       .logUserIn(user)
       .subscribe((response: any) => {
         localStorage.setItem('access_token', response.access_token);
+        localStorage.setItem('role', response.role);
+        localStorage.setItem('userId', response.userId)
         const userId = response.userId;
         this.router.navigate(['reporting/dashboard/', userId]);
       });
