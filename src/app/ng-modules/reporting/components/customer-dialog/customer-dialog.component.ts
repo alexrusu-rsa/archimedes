@@ -36,7 +36,7 @@ export class CustomerDialogComponent implements OnInit {
         .subscribe();
     }
   }
-  
+
   dialogClose() {
     this.dialogRef.close();
   }
@@ -50,6 +50,7 @@ export class CustomerDialogComponent implements OnInit {
       reg: new FormControl(this.currentCustomer?.customerReg),
       address: new FormControl(this.currentCustomer?.customerAddress),
       city: new FormControl(this.currentCustomer?.customerCity),
+      country: new FormControl(this.currentCustomer?.customerCountry),
       directorName: new FormControl(this.currentCustomer?.customerDirectorName),
       directorEmail: new FormControl(
         this.currentCustomer?.customerDirectorEmail

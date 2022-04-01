@@ -5,6 +5,7 @@ export interface Customer {
   customerReg: string;
   customerAddress: string;
   customerCity: string;
+  customerCountry: string;
   customerDirectorName: string;
   customerDirectorTel: string;
   customerDirectorEmail: string;
