@@ -121,7 +121,7 @@ export class ManagementPageComponent {
   }
 
   checkSearch() {
-    if (this.search == '') {
+    if (this.search === '') {
       this.allUsersSubscrption?.unsubscribe();
       this.getUsers();
     }
