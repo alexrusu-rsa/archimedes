@@ -1,0 +1,71 @@
+<mat-dialog-content *ngIf="currentProject && this.project === null">
+  <form [formGroup]="addProjectForm!">
+    <mat-form-field appearance="fill">
+      <mat-label>Project Name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentProject.projectName"
+        type="text"
+        formControlName="name"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Project Customer ID</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentProject.customerId"
+        formControlName="customerId"
+        type="text"
+        required="true"
+      />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="this.project === null"
+    mat-raised-button
+    (click)="addProject(); dialogClose()"
+  >
+    Add user
+  </button>
+</mat-dialog-actions>
+
+<!-- EDIT -->
+
+<mat-dialog-content *ngIf="currentProject && this.project !== null">
+  <form [formGroup]="addProjectForm!">
+    <mat-form-field appearance="fill">
+      <mat-label>Project Name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentProject.projectName"
+        type="text"
+        formControlName="name"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Project Customer ID</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentProject.customerId"
+        formControlName="customerId"
+        type="text"
+        required="true"
+      />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="this.project !== null"
+    mat-raised-button
+    (click)="editProject(); dialogClose()"
+  >
+    Update user
+  </button>
+</mat-dialog-actions>

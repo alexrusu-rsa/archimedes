@@ -5,54 +5,55 @@ import {
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
-import { Customer } from '../models/customer';
+import { Project } from '../models/project';
 import { RequestWrapper } from '../models/request-wrapper';
 import { NotificationService } from './notification.service';
-
 @Injectable({
   providedIn: 'root',
 })
-export class CustomerService {
-  private customersUrl = 'http://localhost:3000/customer';
+export class ProjectService {
+  private projectsUrl = 'http://localhost:3000/project';
+
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
+
   constructor(
     private httpClient: HttpClient,
     @Inject(NotificationService)
     private notificationService: NotificationService
   ) {}
 
-  getCustomer(id: string): Observable<Customer> {
-    const requestUrl = this.customersUrl + '/' + id;
+  getProject(id: string): Observable<Project> {
+    const requestUrl = this.projectsUrl + '/' + id;
     return this.httpClient
-      .get<Customer>(requestUrl)
-      .pipe(catchError(this.handleError<Customer>('getCustomer id')));
+      .get<Project>(requestUrl)
+      .pipe(catchError(this.handleError<Project>('getProject id')));
   }
 
-  getCustomers(): Observable<Customer[]> {
+  getProjects(): Observable<Project[]> {
     return this.httpClient
-      .get<Customer[]>(this.customersUrl)
-      .pipe(catchError(this.handleError<Customer[]>('getCustomers')));
+      .get<Project[]>(this.projectsUrl)
+      .pipe(catchError(this.handleError<Project[]>('getProjects')));
   }
 
-  deleteCustomer(id: string): Observable<RequestWrapper> {
-    const deleteCustomerUrl = `${this.customersUrl}/${id}`;
+  deleteProject(id: string): Observable<RequestWrapper> {
+    const deleteProjectUrl = `${this.projectsUrl}/${id}`;
     return this.httpClient
-      .delete<RequestWrapper>(deleteCustomerUrl)
-      .pipe(catchError(this.handleError<RequestWrapper>('deleteCustomer')));
+      .delete(deleteProjectUrl)
+      .pipe(catchError(this.handleError<RequestWrapper>('deleteProject')));
   }
 
-  updateCustomer(customer: Customer): Observable<RequestWrapper> {
+  updateProject(project: Project): Observable<RequestWrapper> {
     return this.httpClient
-      .put(this.customersUrl + '/' + customer.id, customer)
-      .pipe(catchError(this.handleError<RequestWrapper>('updateCustomer')));
+      .put(this.projectsUrl + '/' + project.id, project)
+      .pipe(catchError(this.handleError<RequestWrapper>('updateProject')));
   }
 
-  addCustomer(customer: Customer): Observable<RequestWrapper> {
+  addProject(project: Project): Observable<RequestWrapper> {
     return this.httpClient
-      .post<RequestWrapper>(this.customersUrl, customer)
-      .pipe(catchError(this.handleError<RequestWrapper>('addCustomer')));
+      .post<RequestWrapper>(this.projectsUrl, project)
+      .pipe(catchError(this.handleError<RequestWrapper>('addProject')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

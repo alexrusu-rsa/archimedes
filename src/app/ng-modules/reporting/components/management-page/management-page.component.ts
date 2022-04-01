@@ -2,11 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
+import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ActivityService } from 'src/app/services/activity.service';
 import { CustomerService } from 'src/app/services/customer.service';
+import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
+import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 
 @Component({
@@ -19,14 +22,18 @@ export class ManagementPageComponent {
     private userService: UserService,
     private activityService: ActivityService,
     private customerService: CustomerService,
+    private projectService: ProjectService,
     public dialog: MatDialog
   ) {}
   allUsers?: User[];
   allCustomers?: Customer[];
+  allProjects?: Project[];
   allCustomersSubscription?: Subscription;
   deleteCustomerSubscription?: Subscription;
   allUsersSubscrption?: Subscription;
   deleteUserSubscription?: Subscription;
+  allProjectsSubscription?: Subscription;
+  deleteProjectSubscription?: Subscription;
   search: String = '';
 
   getUsers() {
@@ -83,7 +90,34 @@ export class ManagementPageComponent {
     this.allCustomers = this.allCustomers?.filter(
       (customer) => customer.id !== customerId
     );
-    this.customerService.deleteCustomer(customerId).subscribe();
+    this.deleteCustomerSubscription = this.customerService
+      .deleteCustomer(customerId)
+      .subscribe();
+  }
+
+  getProjects() {
+    this.allProjectsSubscription = this.projectService
+      .getProjects()
+      .subscribe((result) => {
+        this.allProjects = result;
+      });
+  }
+
+  addProject() {
+    this.dialog.open(ProjectDialogComponent);
+  }
+
+  editProject(project: Project) {
+    this.dialog.open(ProjectDialogComponent, { data: project });
+  }
+
+  deleteProject(projectId: string) {
+    this.allProjects = this.allProjects?.filter(
+      (project) => project.id !== projectId
+    );
+    this.deleteProjectSubscription = this.projectService
+      .deleteProject(projectId)
+      .subscribe();
   }
 
   checkSearch() {
@@ -96,6 +130,7 @@ export class ManagementPageComponent {
   ngOnInit(): void {
     this.getUsers();
     this.getCustomers();
+    this.getProjects();
   }
 
   ngOnDestroy(): void {
@@ -103,5 +138,7 @@ export class ManagementPageComponent {
     this.deleteUserSubscription?.unsubscribe();
     this.allCustomersSubscription?.unsubscribe();
     this.deleteCustomerSubscription?.unsubscribe();
+    this.allProjectsSubscription?.unsubscribe();
+    this.deleteProjectSubscription?.unsubscribe();
   }
 }
