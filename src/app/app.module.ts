@@ -15,6 +15,8 @@ import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/sn
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
 import { EmployeeDetailsComponent } from './ng-modules/reporting/components/employee-details/employee-details.component';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
+import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
+
 
 
 
@@ -27,6 +29,7 @@ import { UserDialogComponent } from './ng-modules/reporting/components/user-dial
     SnackbarContentComponent,
     EmployeeDetailsComponent,
     UserDialogComponent,
+    CustomerDialogComponent,
   ],
   imports: [
     BrowserModule,
