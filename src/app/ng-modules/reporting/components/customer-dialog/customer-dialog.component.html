@@ -55,6 +55,16 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Customer Country</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerCountry"
+        type="text"
+        formControlName="country"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
       <mat-label>Customer Director Name</mat-label>
       <input
         matInput
@@ -95,7 +105,7 @@
     Add user
   </button>
 </mat-dialog-actions>
-<!-- EDIT -->
+
 <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
   <form [formGroup]="addCustomerForm!">
     <mat-form-field appearance="fill">
