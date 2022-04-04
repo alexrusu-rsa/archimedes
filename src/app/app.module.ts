@@ -16,6 +16,9 @@ import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
 import { EmployeeDetailsComponent } from './ng-modules/reporting/components/employee-details/employee-details.component';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { ActivityAddEditComponent } from './ng-modules/reporting/components/activity-add-edit/activity-add-edit.component';
+import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
+import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
+
 
 
 
@@ -29,6 +32,8 @@ import { ActivityAddEditComponent } from './ng-modules/reporting/components/acti
     EmployeeDetailsComponent,
     UserDialogComponent,
     ActivityAddEditComponent,
+    CustomerDialogComponent,
+    ProjectDialogComponent,
   ],
   imports: [
     BrowserModule,
