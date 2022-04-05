@@ -13,7 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class UserManagePasswordService {
-  private userUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
+  private userUrl = 'http://localhost:3000/user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

@@ -23,10 +23,6 @@ export class ActivityAddEditComponent implements OnInit, OnDestroy {
   addCurrentActivitySub?: Subscription;
   updateEditActivitySub?: Subscription;
 
-  dialogClose() {
-    this.dialogRef.close();
-  }
-
   addActivity() {
     if (this.currentActivity)
       this.addCurrentActivitySub = this.activityService
@@ -47,16 +43,13 @@ export class ActivityAddEditComponent implements OnInit, OnDestroy {
     if (this.userDateActivity.activity !== undefined) {
       this.currentActivity = this.userDateActivity.activity;
     } else {
-      if (this.userDateActivity.date && this.userDateActivity.employeeId)
-        this.currentActivity = new Activity(
-          '',
-          this.userDateActivity.date,
-          '',
-          '',
-          '',
-          '',
-          this.userDateActivity.employeeId
-        );
+      if (this.userDateActivity.date && this.userDateActivity.employeeId) {
+        const activity: Activity = {
+          date: this.userDateActivity.date,
+          employeeId: this.userDateActivity.employeeId,
+        };
+        this.currentActivity = activity;
+      }
     }
     this.addActivityForm = new FormGroup({
       name: new FormControl(this.currentActivity?.name, [Validators.required]),
