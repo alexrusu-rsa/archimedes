@@ -76,7 +76,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
-        activity: undefined,
       },
     });
   }
