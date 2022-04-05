@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Subscription, throwIfEmpty } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity.service';
@@ -24,17 +24,38 @@ export class ActivityAddEditComponent implements OnInit, OnDestroy {
   updateEditActivitySub?: Subscription;
 
   addActivity() {
-    if (this.currentActivity)
+    console.log(this.checkAbleToRequestAddActivity());
+    if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
       this.addCurrentActivitySub = this.activityService
         .addActivity(this.currentActivity)
         .subscribe();
+      this.dialogRef.close();
+    }
+  }
+
+  checkAbleToRequestAddActivity(): boolean {
+    if (this.name?.pristine || this.end?.pristine || this.start?.pristine)
+      return false;
+    return true;
+  }
+
+  checkAbleToRequestUpdateActivity(): boolean {
+    if (
+      this.name?.value !== '' &&
+      this.end?.value !== '' &&
+      this.start?.value !== ''
+    )
+      return true;
+    return false;
   }
 
   editActivity() {
-    if (this.currentActivity) {
+    console.log(this.checkAbleToRequestUpdateActivity());
+    if (this.currentActivity && this.checkAbleToRequestUpdateActivity()) {
       this.updateEditActivitySub = this.activityService
         .updateActivity(this.currentActivity)
         .subscribe();
+      this.dialogRef.close();
     }
   }
 
@@ -71,6 +92,9 @@ export class ActivityAddEditComponent implements OnInit, OnDestroy {
   }
   get end() {
     return this.addActivityForm?.get('end');
+  }
+  get date() {
+    return this.addActivityForm?.get('date');
   }
 
   ngOnDestroy(): void {

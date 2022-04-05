@@ -66,7 +66,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions *ngIf="this.userDateActivity.activity === undefined">
-  <button mat-raised-button (click)="addActivity(); this.dialogRef.close()">
+  <button mat-raised-button (click)="addActivity(); ">
     Add activity
   </button>
 </mat-dialog-actions>
@@ -143,7 +143,7 @@
   <button
     *ngIf="this.userDateActivity.activity !== undefined"
     mat-raised-button
-    (click)="editActivity(); this.dialogRef.close();"
+    (click)="editActivity();"
   >
     Update Activity
   </button>
