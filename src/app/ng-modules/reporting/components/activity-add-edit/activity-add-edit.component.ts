@@ -24,7 +24,6 @@ export class ActivityAddEditComponent implements OnInit, OnDestroy {
   updateEditActivitySub?: Subscription;
 
   addActivity() {
-    console.log(this.checkAbleToRequestAddActivity());
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
       this.addCurrentActivitySub = this.activityService
         .addActivity(this.currentActivity)
@@ -50,7 +49,6 @@ export class ActivityAddEditComponent implements OnInit, OnDestroy {
   }
 
   editActivity() {
-    console.log(this.checkAbleToRequestUpdateActivity());
     if (this.currentActivity && this.checkAbleToRequestUpdateActivity()) {
       this.updateEditActivitySub = this.activityService
         .updateActivity(this.currentActivity)
