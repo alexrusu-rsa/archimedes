@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     this.hasToken = false;
     window.addEventListener('storage', () => {
       this.hasToken = localStorage.getItem('access_token') !== null;
-      this.isAdmin = localStorage.getItem('role') == 'admin';
+      this.isAdmin = localStorage.getItem('role') === 'admin';
     });
     this.activeRoute = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
