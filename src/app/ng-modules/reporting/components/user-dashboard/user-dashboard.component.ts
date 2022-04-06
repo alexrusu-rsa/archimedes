@@ -10,13 +10,15 @@ import { EditActivityComponent } from '../edit-activity/edit-activity.component'
 import { ActivityService } from '../../../../services/activity.service';
 import { UserLoginService } from '../../../../services/user-login.service';
 import { ActivatedRoute } from '@angular/router';
+import { ActivityAddEditComponent } from '../activity-add-edit/activity-add-edit.component';
+import { UserDateActivity } from 'src/app/models/userDataActivity';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.sass'],
 })
-export class UserDashboardComponent implements OnInit, OnDestroy{
+export class UserDashboardComponent implements OnInit, OnDestroy {
   user?: User;
   userSub?: Subscription;
   activitiesOfTheDaySub?: Subscription;
@@ -65,21 +67,29 @@ export class UserDashboardComponent implements OnInit, OnDestroy{
         .subscribe();
   }
 
-  editActivity(activity: Activity) {
-    this.dialog.open(EditActivityComponent, {
-      data: activity,
-    });
-  }
-
-  addNewActivityForm() {
+  addNewActivity() {
     const dateToSend = this.datepipe.transform(
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    this.dialog.open(ActivityDialogComponent, {
-      data: <DialogDataWrapper>{
-        userId: this.user?.id,
+    this.dialog.open(ActivityAddEditComponent, {
+      data: <UserDateActivity>{
+        employeeId: this.user?.id,
         date: dateToSend,
+      },
+    });
+  }
+
+  editActivityForm(activityToEdit: Activity) {
+    const dateToSend = this.datepipe.transform(
+      this.selectedDate?.toString(),
+      'dd/MM/yyyy'
+    );
+    this.dialog.open(ActivityAddEditComponent, {
+      data: <UserDateActivity>{
+        employeeId: this.user?.id,
+        date: dateToSend,
+        activity: activityToEdit,
       },
     });
   }

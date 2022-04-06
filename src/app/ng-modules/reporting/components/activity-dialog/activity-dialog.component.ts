@@ -18,11 +18,13 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public sentData: DialogDataWrapper,
-    private activityService: ActivityService
+    private activityService: ActivityService,
+    @Inject(MAT_DIALOG_DATA) public activity: Activity
   ) {}
 
   addActivity() {
-    this.currentActivity.employeeId = this.sentData.userId;
+    if (this.currentActivity)
+      this.currentActivity.employeeId = this.activity.employeeId;
     this.addNewActivitySub = this.activityService
       .addActivity(this.currentActivity)
       .subscribe();

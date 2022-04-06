@@ -34,7 +34,7 @@ export class ManagementPageComponent {
   deleteUserSubscription?: Subscription;
   allProjectsSubscription?: Subscription;
   deleteProjectSubscription?: Subscription;
-  search: String = '';
+  search = '';
 
   getUsers() {
     this.allUsersSubscrption = this.userService
