@@ -15,13 +15,15 @@ export class ProjectDialogComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public project: Project
+    @Inject(MAT_DIALOG_DATA) public project: Project,
+    @Inject(MAT_DIALOG_DATA) public allCustomers: Customer[]
   ) {}
 
   addProjectForm?: FormGroup;
   currentProject?: Project;
   addCurrentProjectSub?: Subscription;
   updateProjectSub?: Subscription;
+  customers?: Customer[];
 
   addProject() {
     if (this.currentProject)
@@ -44,6 +46,8 @@ export class ProjectDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentProject = <Project>{};
+    console.log(this.allCustomers);
+    this.customers = this.allCustomers;
     if (this.project !== null) this.currentProject = this.project;
     this.addProjectForm = new FormGroup({
       name: new FormControl(this.currentProject?.projectName),

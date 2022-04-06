@@ -21,6 +21,20 @@
         required="true"
       />
     </mat-form-field>
+
+    <h4>sasdsdf</h4>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer name</mat-label>
+      <mat-select>
+        <mat-option
+          *ngFor="let customer of customers"
+          [value]="customer.customerName"
+        >
+          {{ customer.customerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

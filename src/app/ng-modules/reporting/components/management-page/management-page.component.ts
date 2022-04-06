@@ -34,7 +34,7 @@ export class ManagementPageComponent {
   deleteUserSubscription?: Subscription;
   allProjectsSubscription?: Subscription;
   deleteProjectSubscription?: Subscription;
-  search: String = '';
+  search = '';
 
   getUsers() {
     this.allUsersSubscrption = this.userService
@@ -104,11 +104,13 @@ export class ManagementPageComponent {
   }
 
   addProject() {
-    this.dialog.open(ProjectDialogComponent);
+    this.dialog.open(ProjectDialogComponent, { data: this.allCustomers });
   }
 
   editProject(project: Project) {
-    this.dialog.open(ProjectDialogComponent, { data: project });
+    this.dialog.open(ProjectDialogComponent, {
+      data: { currentProject: project, allCustomers: this.allCustomers },
+    });
   }
 
   deleteProject(projectId: string) {
