@@ -1,3 +1,4 @@
+import { toUnredirectedSourceFile } from '@angular/compiler-cli/src/ngtsc/util/src/typescript';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -23,21 +24,33 @@ export class UserDialogComponent implements OnInit {
   updateUserSub?: Subscription;
 
   addUser() {
-    if (this.currentUser)
-      this.addCurrentUserSub = this.userService
-        .addUser(this.currentUser)
-        .subscribe();
+    if (this.checkAbleToRequestAddUser())
+      if (this.currentUser)
+        this.addCurrentUserSub = this.userService
+          .addUser(this.currentUser)
+          .subscribe();
   }
   dialogClose() {
     this.dialogRef.close();
   }
 
   editUser() {
-    if (this.currentUser) {
-      this.updateUserSub = this.userService
-        .updateUser(this.currentUser)
-        .subscribe();
-    }
+    if (this.checkAbleToRequestUpdateUser())
+      if (this.currentUser) {
+        this.updateUserSub = this.userService
+          .updateUser(this.currentUser)
+          .subscribe();
+      }
+  }
+
+  checkAbleToRequestAddUser(): boolean {
+    if (this.email?.pristine || this.password?.pristine) return false;
+    return true;
+  }
+
+  checkAbleToRequestUpdateUser(): boolean {
+    if (this.email?.value !== '' && this.password?.value !== '') return true;
+    return false;
   }
 
   ngOnInit(): void {

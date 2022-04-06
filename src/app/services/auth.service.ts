@@ -15,12 +15,17 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
-    return authToken !== null ? true : false;
+    const authToken = localStorage.getItem('access_token');
+    if (authToken !== null) return true;
+    return false;
   }
 
+  clearLocalStorage() {
+    localStorage.clear();
+  }
   doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
+    const removeToken = localStorage.removeItem('access_token');
+    window.dispatchEvent(new Event('storage'));
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
     if (removeToken === null) {
