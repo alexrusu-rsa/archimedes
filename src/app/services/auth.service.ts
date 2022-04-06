@@ -31,6 +31,5 @@ export class AuthService {
     if (removeToken === null) {
       this.router.navigate(['']);
     }
-
   }
 }
