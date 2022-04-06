@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         localStorage.setItem('access_token', response.access_token);
         localStorage.setItem('role', response.role);
-        localStorage.setItem('userId', response.userId)
+        localStorage.setItem('userId', response.userId);
+        window.dispatchEvent(new Event('storage'));
         const userId = response.userId;
         this.router.navigate(['reporting/dashboard/', userId]);
       });
