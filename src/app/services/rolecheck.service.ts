@@ -17,7 +17,7 @@ export class RoleCheckService {
     return localStorage.getItem('userId');
   }
   get isAdmin(): boolean {
-    let adminRole = localStorage.getItem('role');
+    const adminRole = localStorage.getItem('role');
     if (adminRole === 'admin') return true;
     return false;
   }

@@ -23,20 +23,53 @@ export class CustomerDialogComponent implements OnInit {
   updateCustomerSub?: Subscription;
 
   addCustomer() {
-    if (this.currentCustomer)
-      this.addCurrentCustomerSub = this.customerService
-        .addCustomer(this.currentCustomer)
-        .subscribe();
+    if (this.checkAbleToRequestAddCustomer())
+      if (this.currentCustomer)
+        this.addCurrentCustomerSub = this.customerService
+          .addCustomer(this.currentCustomer)
+          .subscribe();
   }
 
   editCustomer() {
-    if (this.currentCustomer) {
-      this.updateCustomerSub = this.customerService
-        .updateCustomer(this.currentCustomer)
-        .subscribe();
-    }
+    if (this.checkAbleToRequestUpdateCustomer())
+      if (this.currentCustomer) {
+        this.updateCustomerSub = this.customerService
+          .updateCustomer(this.currentCustomer)
+          .subscribe();
+      }
   }
 
+  checkAbleToRequestAddCustomer(): boolean {
+    if (
+      this.name?.pristine ||
+      this.cui?.pristine ||
+      this.reg?.pristine ||
+      this.address?.pristine ||
+      this.city?.pristine ||
+      this.country?.pristine ||
+      this.directorName?.pristine ||
+      this.directorEmail?.pristine ||
+      this.directorTel?.pristine
+    )
+      return false;
+    return true;
+  }
+
+  checkAbleToRequestUpdateCustomer(): boolean {
+    if (
+      this.name?.value !== '' &&
+      this.cui?.value !== '' &&
+      this.reg?.value !== '' &&
+      this.address?.value !== '' &&
+      this.city?.value !== '' &&
+      this.country?.value !== '' &&
+      this.directorName?.value !== '' &&
+      this.directorEmail?.value !== '' &&
+      this.directorTel?.value !== ''
+    )
+      return true;
+    return false;
+  }
   dialogClose() {
     this.dialogRef.close();
   }
@@ -57,5 +90,33 @@ export class CustomerDialogComponent implements OnInit {
       ),
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
     });
+  }
+
+  get name() {
+    return this.addCustomerForm?.get('name');
+  }
+  get cui() {
+    return this.addCustomerForm?.get('cui');
+  }
+  get reg() {
+    return this.addCustomerForm?.get('reg');
+  }
+  get address() {
+    return this.addCustomerForm?.get('address');
+  }
+  get city() {
+    return this.addCustomerForm?.get('city');
+  }
+  get country() {
+    return this.addCustomerForm?.get('country');
+  }
+  get directorName() {
+    return this.addCustomerForm?.get('directorName');
+  }
+  get directorEmail() {
+    return this.addCustomerForm?.get('directorEmail');
+  }
+  get directorTel() {
+    return this.addCustomerForm?.get('directorTel');
   }
 }
