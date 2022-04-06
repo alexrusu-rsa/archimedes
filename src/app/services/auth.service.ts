@@ -19,12 +19,17 @@ export class AuthService {
     return authToken !== null ? true : false;
   }
 
+  clearLocalStorage() {
+    localStorage.clear();
+  }
   doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
+    const removeToken = localStorage.removeItem('access_token');
+    window.dispatchEvent(new Event('storage'));
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
     if (removeToken === null) {
       this.router.navigate(['']);
     }
+
   }
 }
