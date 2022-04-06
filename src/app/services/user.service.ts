@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
 import { NotificationService } from './notification.service';
@@ -17,7 +18,7 @@ export class UserService {
     private httpClient: HttpClient,
     private notificationService: NotificationService
   ) {}
-  private usersUrl = 'https://archimedes-backend-dev.herokuapp.com/user';
+  private usersUrl = environment.serviceURL + 'user';
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
