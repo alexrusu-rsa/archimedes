@@ -1,0 +1,204 @@
+<mat-dialog-content *ngIf="currentCustomer && this.customer === null">
+  <form [formGroup]="addCustomerForm!">
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerName"
+        type="text"
+        formControlName="name"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer CUI</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerCUI"
+        formControlName="cui"
+        type="text"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Reg</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerReg"
+        formControlName="reg"
+        type="text"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Address</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerAddress"
+        formControlName="address"
+        type="password"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer City</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerCity"
+        type="text"
+        formControlName="city"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Country</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerCountry"
+        type="text"
+        formControlName="country"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Director Name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerDirectorName"
+        type="text"
+        formControlName="directorName"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Director Email</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerDirectorEmail"
+        type="text"
+        formControlName="directorEmail"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Director Tel</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerDirectorTel"
+        type="text"
+        formControlName="directorTel"
+      />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    *ngIf="this.customer === null"
+    mat-raised-button
+    (click)="addCustomer(); dialogClose()"
+  >
+    Add user
+  </button>
+</mat-dialog-actions>
+
+<mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
+  <form [formGroup]="addCustomerForm!">
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerName"
+        type="text"
+        formControlName="name"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer CUI</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerCUI"
+        formControlName="cui"
+        type="text"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Reg</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerReg"
+        formControlName="reg"
+        type="text"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Address</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerAddress"
+        formControlName="address"
+        type="password"
+        required="true"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer City</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerCity"
+        type="text"
+        formControlName="city"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Director Name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerDirectorName"
+        type="text"
+        formControlName="directorName"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Director Email</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerDirectorEmail"
+        type="text"
+        formControlName="directorEmail"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Director Tel</mat-label>
+      <input
+        matInput
+        [(ngModel)]="currentCustomer.customerDirectorTel"
+        type="text"
+        formControlName="directorTel"
+      />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    *ngIf="this.customer !== null"
+    mat-raised-button
+    (click)="editCustomer(); dialogClose()"
+  >
+    Update user
+  </button>
+</mat-dialog-actions>
