@@ -1,9 +1,9 @@
 export interface Activity {
   id?: string;
-  name: string;
+  name?: string;
   date: string;
-  start: string;
-  end: string;
+  start?: string;
+  end?: string;
   description?: string;
   extras?: string;
   employeeId: string;

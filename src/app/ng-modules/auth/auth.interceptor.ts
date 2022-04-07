@@ -27,7 +27,6 @@ export class AuthInterceptor implements HttpInterceptor {
         userId: '' + userId,
       },
     });
-    console.log(req);
     return next.handle(req);
   }
 }

@@ -26,18 +26,30 @@ export class ProjectDialogComponent implements OnInit {
   customers?: Customer[];
 
   addProject() {
-    if (this.currentProject)
-      this.addCurrentProjectSub = this.projectService
-        .addProject(this.currentProject)
-        .subscribe();
+    if (this.checkAbleToRequestAddProject())
+      if (this.currentProject)
+        this.addCurrentProjectSub = this.projectService
+          .addProject(this.currentProject)
+          .subscribe();
   }
 
   editProject() {
-    if (this.currentProject) {
-      this.updateProjectSub = this.projectService
-        .updateProject(this.currentProject)
-        .subscribe();
-    }
+    if (this.checkAbleToRequestUpdateProject())
+      if (this.currentProject) {
+        this.updateProjectSub = this.projectService
+          .updateProject(this.currentProject)
+          .subscribe();
+      }
+  }
+
+  checkAbleToRequestAddProject(): boolean {
+    if (this.name?.pristine || this.customerId?.pristine) return false;
+    return true;
+  }
+
+  checkAbleToRequestUpdateProject(): boolean {
+    if (this.name?.value !== '' && this.customerId?.value !== '') return true;
+    return false;
   }
 
   dialogClose() {
@@ -54,5 +66,13 @@ export class ProjectDialogComponent implements OnInit {
       name: new FormControl(this.currentProject?.projectName),
       customerId: new FormControl(this.currentProject?.customerId),
     });
+  }
+
+  get name() {
+    return this.addProjectForm?.get('name');
+  }
+
+  get customerId() {
+    return this.addProjectForm?.get('customerId');
   }
 }
