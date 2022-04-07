@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Project } from '../models/project';
 import { RequestWrapper } from '../models/request-wrapper';
 import { NotificationService } from './notification.service';
@@ -12,7 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class ProjectService {
-  private projectsUrl = 'https://archimedes-backend-dev.herokuapp.com/project';
+  private projectsUrl = environment.serviceURL + 'project';
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
