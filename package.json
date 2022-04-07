@@ -11,9 +11,9 @@
     "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "postinstall": "ng build",
+    "postinstall": "ng build --prod --env=${environment}",
     "test": "ng test",
-    "heroku-postbuild": "ng build --prod",
+    "heroku-postbuild": "ng build --env=${environment}",
     "lint": "ng lint"
   },
   "private": true,
