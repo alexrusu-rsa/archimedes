@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serviceURL: 'culio',
+  serviceURL: 'https://archimedes-backend-dev.herokuapp.com/',
 };
