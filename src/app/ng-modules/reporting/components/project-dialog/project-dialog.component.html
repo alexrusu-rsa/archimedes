@@ -39,15 +39,13 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button
-    *ngIf="this.project === null"
+    *ngIf="project === null"
     mat-raised-button
     (click)="addProject(); dialogClose()"
   >
-    Add user
+    Add project
   </button>
 </mat-dialog-actions>
-
-<!-- EDIT -->
 
 <mat-dialog-content *ngIf="currentProject && this.project !== null">
   <form [formGroup]="addProjectForm!">
@@ -61,12 +59,12 @@
         required="true"
       />
     </mat-form-field>
-
+    <h4>sasdsdf</h4>
     <mat-form-field appearance="fill">
       <mat-label>Project Customer ID</mat-label>
       <input
         matInput
-        [(ngModel)]="currentProject.customerId"
+        [(ngModel)]="this.currentProject.customerId"
         formControlName="customerId"
         type="text"
         required="true"
@@ -76,10 +74,10 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button
-    *ngIf="this.project !== null"
+    *ngIf="this.project"
     mat-raised-button
     (click)="editProject(); dialogClose()"
   >
-    Update user
+    Update project
   </button>
 </mat-dialog-actions>

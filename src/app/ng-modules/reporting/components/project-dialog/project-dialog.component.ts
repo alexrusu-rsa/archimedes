@@ -48,6 +48,7 @@ export class ProjectDialogComponent implements OnInit {
     this.currentProject = <Project>{};
     console.log(this.allCustomers);
     this.customers = this.allCustomers;
+    console.log(this.customers);
     if (this.project !== null) this.currentProject = this.project;
     this.addProjectForm = new FormGroup({
       name: new FormControl(this.currentProject?.projectName),
