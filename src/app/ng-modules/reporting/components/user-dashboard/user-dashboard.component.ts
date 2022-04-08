@@ -2,11 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { Activity } from '../../../../models/activity';
-import { DialogDataWrapper } from '../../../../models/dialog-data-wrapper';
 import { User } from '../../../../models/user';
-import { EditActivityComponent } from '../edit-activity/edit-activity.component';
 import { ActivityService } from '../../../../services/activity.service';
 import { UserLoginService } from '../../../../services/user-login.service';
 import { ActivatedRoute } from '@angular/router';
@@ -36,6 +33,13 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     public datepipe: DatePipe,
     public dialog: MatDialog
   ) {}
+
+  ngOnInit(): void {
+    const userId = this.activeRoute.snapshot.paramMap.get('id');
+    if (userId) this.getUser(userId);
+    this.selectedDate = new Date();
+    this.dateChanges();
+  }
 
   getUser(userId: string): void {
     this.getUserSub = this.userService
@@ -92,13 +96,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
         activity: activityToEdit,
       },
     });
-  }
-
-  ngOnInit(): void {
-    const userId = this.activeRoute.snapshot.paramMap.get('id');
-    if (userId) this.getUser(userId);
-    this.selectedDate = new Date();
-    this.dateChanges();
   }
 
   ngOnDestroy(): void {
