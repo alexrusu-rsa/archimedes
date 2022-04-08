@@ -14,7 +14,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class ActivityService {
-  private activitiesUrl = environment.serviceURL + 'api/activity';
+  private activitiesUrl = environment.serviceURL + 'activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
