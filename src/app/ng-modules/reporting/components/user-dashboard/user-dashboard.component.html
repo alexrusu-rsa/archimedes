@@ -1,44 +1,41 @@
 <mat-card-title> {{ user?.name }}{{ user?.surname }} </mat-card-title>
+
 <div class="header-activity">
-  <mat-form-field appearance="fill" class="form-field-correction">
+  <mat-form-field appearance="fill">
     <input matInput [matDatepicker]="datePicker" [(ngModel)]="selectedDate" (dateChange)="dateChanges()" />
     <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #datePicker touchUi></mat-datepicker>
   </mat-form-field>
+
   <button mat-raised-button (click)="addNewActivity()">
-    <mat-icon>add_box</mat-icon>
+    <mat-icon color="primary">add_box</mat-icon>
   </button>
 </div>
+
 <mat-card *ngIf="user" class="card-container">
+  <mat-card-title *ngIf="daySelected">Activities of selected day</mat-card-title>
 
-  <h2 *ngIf="daySelected">Activities of selected day</h2>
-  <mat-list>
-    <mat-list-item *ngFor="let activity of activitiesOfTheDay">
-      <mat-card class="secondary-card">
-        <mat-card-title>{{ activity.name }}</mat-card-title>
-        <mat-card-subtitle>
-          {{ activity.start }}-{{ activity.end }}</mat-card-subtitle>
-        <mat-card-content>
-          {{ activity.description }}
-        </mat-card-content>
+  <mat-card class="secondary-card" *ngFor="let activity of activitiesOfTheDay">
+    <mat-card-title>{{ activity.name }}</mat-card-title>
+    <mat-card-subtitle>
+      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle>
+    <mat-card-content>
+      {{ activity.description }}
+    </mat-card-content>
 
-        <div class="buttons">
-          <button mat-mini-fab color="primary" (click)="deleteActivity(activity)">
-            <mat-icon>delete</mat-icon>
-          </button>
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="editActivityForm(activity)">
+        <mat-icon>edit</mat-icon>
+      </button>
 
-          <button mat-mini-fab color="primary" (click)="editActivityForm(activity)">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </div>
-      </mat-card>
-    </mat-list-item>
-    <mat-list-item *ngIf="daySelected">
-      <mat-card>
-        <button class="button-add-activity" mat-icon-button (click)="addNewActivity()">
-          <mat-icon>add_box</mat-icon>
-        </button>
-      </mat-card>
-    </mat-list-item>
-  </mat-list>
+      <button mat-raised-button color="primary" (click)="deleteActivity(activity)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </mat-card-actions>
+  </mat-card>
+
+  <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
+    <mat-icon color="primary">add_box</mat-icon>
+  </button>
 </mat-card>

@@ -34,6 +34,13 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   ) {}
 
+  ngOnInit(): void {
+    const userId = this.activeRoute.snapshot.paramMap.get('id');
+    if (userId) this.getUser(userId);
+    this.selectedDate = new Date();
+    this.dateChanges();
+  }
+
   getUser(userId: string): void {
     this.getUserSub = this.userService
       .getUser(userId)
@@ -89,13 +96,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
         activity: activityToEdit,
       },
     });
-  }
-
-  ngOnInit(): void {
-    const userId = this.activeRoute.snapshot.paramMap.get('id');
-    if (userId) this.getUser(userId);
-    this.selectedDate = new Date();
-    this.dateChanges();
   }
 
   ngOnDestroy(): void {

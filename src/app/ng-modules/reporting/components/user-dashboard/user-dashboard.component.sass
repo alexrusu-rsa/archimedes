@@ -1,6 +1,6 @@
 :host
   display: flex
-  gap: 2%
+  gap: 2vh
   flex-direction: column
   height: 100%
 
@@ -12,18 +12,16 @@
 .card-container
   flex: 1
   display: flex
-  gap: 2%
+  gap: 2vh
   flex-direction: column
-  width: 100%
+  align-content: flex-start
+  overflow: hidden
+  height: 100%
+  margin-bottom: 2%
 
-.mat-list-item
-  width: 100%
+  .secondary-card
+    background-color: #393939
 
-.secondary-card
-  background-color: #393939
-
-.button-add-activity
-  position: absolute
-  left: 50%
-  top: 50%
-  transform: translateY(-50%)
+    .mat-card-actions
+      margin: 0!important
+      padding: 0!important
