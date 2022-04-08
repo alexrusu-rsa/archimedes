@@ -13,7 +13,7 @@
     "watch": "ng build --watch --configuration development",
     "postinstall": "ng build",
     "test": "ng test",
-    "heroku-postbuild": "ng build --prod",
+    "heroku-postbuild": "ng build --configuration ${environment}",
     "lint": "ng lint"
   },
   "private": true,

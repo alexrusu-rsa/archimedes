@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
+import { ProjectCustomersPack } from 'src/app/models/projectCustomersPack';
 import { User } from 'src/app/models/user';
 import { ActivityService } from 'src/app/services/activity.service';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -104,11 +105,20 @@ export class ManagementPageComponent {
   }
 
   addProject() {
-    this.dialog.open(ProjectDialogComponent);
+    this.dialog.open(ProjectDialogComponent, {
+      data: <ProjectCustomersPack>{
+        customers: this.allCustomers,
+      },
+    });
   }
 
   editProject(project: Project) {
-    this.dialog.open(ProjectDialogComponent, { data: project });
+    this.dialog.open(ProjectDialogComponent, {
+      data: <ProjectCustomersPack>{
+        project: project,
+        customers: this.allCustomers,
+      },
+    });
   }
 
   deleteProject(projectId: string) {
