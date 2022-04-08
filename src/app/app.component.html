@@ -9,19 +9,11 @@
   <mat-sidenav #sidenav>
     <mat-nav-list>
       <a mat-list-item routerLink="" (click)="sidenav.close()">Home</a>
-      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()"
-        >Log Out</a
-      >
-      <a
-        *ngIf="isAdmin"
-        mat-list-item
-        routerLink="reporting/management"
-        (click)="sidenav.close()"
-        >Management</a
-      >
+      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()">Log Out</a>
+      <a *ngIf="isAdmin" mat-list-item routerLink="reporting/management" (click)="sidenav.close()">Management</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="main-container">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
