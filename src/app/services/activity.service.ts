@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Activity } from '../models/activity';
 import { RequestWrapper } from '../models/request-wrapper';
 import { NotificationService } from './notification.service';
@@ -13,8 +14,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class ActivityService {
-  private activitiesUrl =
-    'http://localhost:3000/api/activity';
+  private activitiesUrl = environment.serviceURL + 'api/activity';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
     this.authService.doLogout();
   }
   ngOnInit() {
+    alert(environment.serviceURL);
     this.hasToken = false;
     window.addEventListener('storage', () => {
       this.hasToken = localStorage.getItem('access_token') !== null;

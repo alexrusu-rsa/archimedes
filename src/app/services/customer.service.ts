@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Customer } from '../models/customer';
 import { RequestWrapper } from '../models/request-wrapper';
 import { NotificationService } from './notification.service';
@@ -13,7 +14,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class CustomerService {
-  private customersUrl = 'http://localhost:3000/customer';
+  private customersUrl = environment.serviceURL + 'customer';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
