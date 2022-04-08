@@ -13,8 +13,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class CustomerService {
-  private customersUrl =
-    'https://archimedes-backend-dev.herokuapp.com/customer';
+  private customersUrl = 'http://localhost:3000/customer';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

@@ -12,7 +12,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root',
 })
 export class ProjectService {
-  private projectsUrl = 'https://archimedes-backend-dev.herokuapp.com/project';
+  private projectsUrl = 'http://localhost:3000/project';
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
