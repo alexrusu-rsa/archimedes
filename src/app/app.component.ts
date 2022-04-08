@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
     this.authService.doLogout();
   }
   ngOnInit() {
-    alert(environment.serviceURL);
     this.hasToken = false;
     window.addEventListener('storage', () => {
       this.hasToken = localStorage.getItem('access_token') !== null;
