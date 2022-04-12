@@ -19,13 +19,6 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
   styleUrls: ['./management-page.component.sass'],
 })
 export class ManagementPageComponent {
-  constructor(
-    private userService: UserService,
-    private activityService: ActivityService,
-    private customerService: CustomerService,
-    private projectService: ProjectService,
-    public dialog: MatDialog
-  ) {}
   allUsers?: User[];
   allCustomers?: Customer[];
   allProjects?: Project[];
@@ -36,6 +29,14 @@ export class ManagementPageComponent {
   allProjectsSubscription?: Subscription;
   deleteProjectSubscription?: Subscription;
   search = '';
+
+  constructor(
+    private userService: UserService,
+    private activityService: ActivityService,
+    private customerService: CustomerService,
+    private projectService: ProjectService,
+    public dialog: MatDialog
+  ) {}
 
   getUsers() {
     this.allUsersSubscrption = this.userService

@@ -28,8 +28,8 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
       this.addCurrentActivitySub = this.activityService
         .addActivity(this.currentActivity)
-        .subscribe((newActivityId) =>
-          this.dialogRef.close(newActivityId?.identifiers[0]?.id)
+        .subscribe((newActivity: Activity) =>
+          this.dialogRef.close(newActivity)
         );
     }
   }

@@ -86,7 +86,11 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       },
     });
 
-    dialogRef.afterClosed().subscribe(() => this.dateChanges());
+    dialogRef
+      .afterClosed()
+      .subscribe((newActivity: Activity) =>
+        this.activitiesOfTheDay.push(newActivity)
+      );
   }
 
   editActivity(activityToEdit: Activity) {
