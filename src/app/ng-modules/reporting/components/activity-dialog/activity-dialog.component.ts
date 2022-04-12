@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
+import { User } from 'src/app/models/user';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity.service';
 
@@ -27,8 +28,9 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
       this.addCurrentActivitySub = this.activityService
         .addActivity(this.currentActivity)
-        .subscribe();
-      this.dialogRef.close();
+        .subscribe((newActivityId) =>
+          this.dialogRef.close(newActivityId?.identifiers[0]?.id)
+        );
     }
   }
 

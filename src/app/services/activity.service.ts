@@ -61,7 +61,7 @@ export class ActivityService {
       );
   }
 
-  addActivity(activity: Activity): Observable<RequestWrapper> {
+  addActivity(activity: Activity): Observable<any> {
     return this.httpClient
       .post<RequestWrapper>(this.activitiesUrl, activity, {
         observe: 'response',
