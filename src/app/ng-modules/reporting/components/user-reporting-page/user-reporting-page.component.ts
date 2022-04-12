@@ -7,13 +7,13 @@ import { User } from '../../../../models/user';
 import { ActivityService } from '../../../../services/activity.service';
 import { UserLoginService } from '../../../../services/user-login.service';
 import { ActivatedRoute } from '@angular/router';
-import { ActivityAddEditComponent } from '../activity-add-edit/activity-add-edit.component';
+import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 
 @Component({
-  selector: 'app-user-dashboard',
-  templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.sass'],
+  selector: 'app-user-reporting-page',
+  templateUrl: './user-reporting-page.component.html',
+  styleUrls: ['./user-reporting-page.component.sass'],
 })
 export class UserDashboardComponent implements OnInit, OnDestroy {
   user?: User;
@@ -76,7 +76,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    this.dialog.open(ActivityAddEditComponent, {
+    this.dialog.open(ActivityDialogComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
@@ -89,7 +89,7 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    this.dialog.open(ActivityAddEditComponent, {
+    this.dialog.open(ActivityDialogComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
