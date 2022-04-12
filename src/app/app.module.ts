@@ -7,15 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserDashboardComponent } from './ng-modules/reporting/components/user-activity/user-activity-reporting.component';
+import { UserDashboardComponent } from './ng-modules/reporting/components/user-reporting-page/user-reporting-page.component';
 import { AuthModule } from './ng-modules/auth/auth.module';
 import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
-import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
-import { UserAddEditComponent} from './ng-modules/reporting/components/user-add-edit/user-add-edit.component';
-import { ActivityAddEditComponent } from './ng-modules/reporting/components/activity-add-edit/activity-add-edit.component';
-import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-add-edit/customer-add-edit.component';
-import { ProjectDialogComponent } from './ng-modules/reporting/components/project-add-edit/project-add-edit.component';
+import { UserDetailsComponent } from './ng-modules/reporting/components/user-page/user-page.component';
+import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
+import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
+import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
+import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +23,8 @@ import { ProjectDialogComponent } from './ng-modules/reporting/components/projec
     UserDashboardComponent,
     SnackbarContentComponent,
     UserDetailsComponent,
-    UserAddEditComponent,
-    ActivityAddEditComponent,
+    UserDialogComponent,
+    ActivityDialogComponent,
     CustomerDialogComponent,
     ProjectDialogComponent,
   ],

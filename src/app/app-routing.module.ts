@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './ng-modules/auth/auth.guard';
 import { LoginComponent } from './ng-modules/auth/login/login.component';
 import { ResetPasswordComponent } from './ng-modules/auth/reset-password/reset-password.component';
-import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
+import { UserDetailsComponent } from './ng-modules/reporting/components/user-page/user-page.component';
 
 const routes: Routes = [
   {

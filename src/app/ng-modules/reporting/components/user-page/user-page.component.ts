@@ -7,9 +7,9 @@ import { ActivityService } from 'src/app/services/activity.service';
 import { UserLoginService } from 'src/app/services/user-login.service';
 
 @Component({
-  selector: 'app-user-details',
-  templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.sass'],
+  selector: 'app-user-page',
+  templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.sass'],
 })
 export class UserDetailsComponent implements OnInit {
   currentUser?: User;

@@ -6,9 +6,9 @@ import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
-  selector: 'app-customer-add-edit',
-  templateUrl: './customer-add-edit.component.html',
-  styleUrls: ['./customer-add-edit.component.sass'],
+  selector: 'app-customer-dialog',
+  templateUrl: './customer-dialog.component.html',
+  styleUrls: ['./customer-dialog.component.sass'],
 })
 export class CustomerDialogComponent implements OnInit {
   constructor(

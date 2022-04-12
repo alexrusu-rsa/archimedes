@@ -8,9 +8,9 @@ import { ProjectCustomersPack } from 'src/app/models/projectCustomersPack';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
-  selector: 'app-project-add-edit',
-  templateUrl: './project-add-edit.component.html',
-  styleUrls: ['./project-add-edit.component.sass'],
+  selector: 'app-project-dialog',
+  templateUrl: './project-dialog.component.html',
+  styleUrls: ['./project-dialog.component.sass'],
 })
 export class ProjectDialogComponent implements OnInit {
   constructor(

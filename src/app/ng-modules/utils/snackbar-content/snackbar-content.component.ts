@@ -14,7 +14,6 @@ export class SnackbarContentComponent implements OnInit {
   errorText?: string;
   successMessageToDisplay?: string;
   ngOnInit(): void {
-    console.log(this.data);
     if (this.data.errorMessage !== undefined) {
       this.errorCode = this.data.status;
       this.errorText = this.data.errorMessage;

@@ -7,13 +7,13 @@ import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity.service';
 
 @Component({
-  selector: 'app-activity-add-edit',
-  templateUrl: './activity-add-edit.component.html',
-  styleUrls: ['./activity-add-edit.component.sass'],
+  selector: 'app-activity-dialog',
+  templateUrl: './activity-dialog.component.html',
+  styleUrls: ['./activity-dialog.component.sass'],
 })
-export class ActivityAddEditComponent implements OnInit, OnDestroy {
+export class ActivityDialogComponent implements OnInit, OnDestroy {
   constructor(
-    public dialogRef: MatDialogRef<ActivityAddEditComponent>,
+    public dialogRef: MatDialogRef<ActivityDialogComponent>,
     private activityService: ActivityService,
     @Inject(MAT_DIALOG_DATA) public userDateActivity: UserDateActivity
   ) {}
