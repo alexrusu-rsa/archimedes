@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { RequestWrapper } from '../../../models/request-wrapper';
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login.service';
@@ -23,17 +24,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private userLoginService: UserLoginService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) {}
 
   logUserIn(user: User) {
     this.logInSub = this.userLoginService
       .logUserIn(user)
       .subscribe((response: any) => {
-        localStorage.setItem('access_token', response.access_token);
-        localStorage.setItem('role', response.role);
-        localStorage.setItem('userId', response.userId);
-        window.dispatchEvent(new Event('storage'));
+        this.localStorageService.accessToken = response.access_token;
+        this.localStorageService.role = response.role;
+        this.localStorageService.userId = response.userId;
         const userId = response.userId;
         this.router.navigate(['reporting/dashboard/', userId]);
       });
