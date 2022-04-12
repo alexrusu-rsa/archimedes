@@ -11,11 +11,11 @@ import { UserDashboardComponent } from './ng-modules/reporting/components/user-r
 import { AuthModule } from './ng-modules/auth/auth.module';
 import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
-import { UserDetailsComponent } from './ng-modules/reporting/components/user-page/user-page.component';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
+import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
 
 @NgModule({
   declarations: [
