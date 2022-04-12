@@ -9,9 +9,9 @@ import { ActivityService } from 'src/app/services/activity.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
-import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
-import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
-import { UserDialogComponent } from '../user-dialog/user-dialog.component';
+import { CustomerDialogComponent } from '../customer-add-edit/customer-add-edit.component';
+import { ProjectDialogComponent } from '../project-add-edit/project-add-edit.component';
+import { UserAddEditComponent } from '../user-add-edit/user-add-edit.component';
 
 @Component({
   selector: 'app-management-page',
@@ -60,13 +60,13 @@ export class ManagementPageComponent {
   }
 
   editUser(user: User) {
-    this.dialog.open(UserDialogComponent, {
+    this.dialog.open(UserAddEditComponent, {
       data: user,
     });
   }
 
   addUser() {
-    this.dialog.open(UserDialogComponent);
+    this.dialog.open(UserAddEditComponent);
   }
 
   getCustomers() {

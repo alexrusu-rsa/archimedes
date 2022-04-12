@@ -11,9 +11,9 @@ import { ActivityAddEditComponent } from '../activity-add-edit/activity-add-edit
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 
 @Component({
-  selector: 'app-user-dashboard',
-  templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.sass'],
+  selector: 'app-user-activity-reporting',
+  templateUrl: './user-activity-reporting.component.html',
+  styleUrls: ['./user-activity-reporting.component.sass'],
 })
 export class UserDashboardComponent implements OnInit, OnDestroy {
   user?: User;

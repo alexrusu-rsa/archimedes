@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorSnackbar } from '../models/http-error-snackbar';
-import { UserDashboardComponent } from '../ng-modules/reporting/components/user-dashboard/user-dashboard.component';
+import { UserDashboardComponent } from '../ng-modules/reporting/components/user-activity/user-activity-reporting.component';
 
 import { SnackbarContentComponent } from '../ng-modules/utils/snackbar-content/snackbar-content.component';
 

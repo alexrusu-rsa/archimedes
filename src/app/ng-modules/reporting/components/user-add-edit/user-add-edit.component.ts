@@ -7,14 +7,14 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-user-dialog',
-  templateUrl: './user-dialog.component.html',
-  styleUrls: ['./user-dialog.component.sass'],
+  selector: 'app-user-add-edit',
+  templateUrl: './user-add-edit.component.html',
+  styleUrls: ['./user-add-edit.component.sass'],
 })
-export class UserDialogComponent implements OnInit {
+export class UserAddEditComponent implements OnInit {
   constructor(
     private userService: UserService,
-    public dialogRef: MatDialogRef<UserDialogComponent>,
+    public dialogRef: MatDialogRef<UserAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public user: User
   ) {}
 
