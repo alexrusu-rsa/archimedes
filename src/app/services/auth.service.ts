@@ -26,10 +26,7 @@ export class AuthService {
   }
 
   doLogout() {
-    this.localStorageService.accessToken = '';
-    this.localStorageService.role = '';
-    this.localStorageService.userId = '';
-    localStorage.clear();
+    this.localStorageService.localStorageLogout();
     this.router.navigate(['']);
   }
 }

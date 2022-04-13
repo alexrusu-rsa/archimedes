@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ManagementPageComponent } from './components/management-page/management-page.component';
 import { AuthGuard } from '../auth/auth.guard';
-import { UserDashboardComponent } from './components/user-reporting-page/user-reporting-page.component';
+import { ActivityPageComponent } from './components/activity-page/activity-page.component';
 import { RoleGuard } from '../auth/role.guard';
 
 const routes: Routes = [
-  { path: 'dashboard/:id', component: UserDashboardComponent },
+  { path: 'dashboard/:id', component: ActivityPageComponent },
   {
     path: 'management',
     component: ManagementPageComponent,
