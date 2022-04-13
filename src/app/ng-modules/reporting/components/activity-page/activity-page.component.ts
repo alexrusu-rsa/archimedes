@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Observer, Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
 import { User } from '../../../../models/user';
 import { ActivityService } from '../../../../services/activity.service';
@@ -11,11 +11,11 @@ import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.comp
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 
 @Component({
-  selector: 'app-user-reporting-page',
-  templateUrl: './user-reporting-page.component.html',
-  styleUrls: ['./user-reporting-page.component.sass'],
+  selector: 'app-activity-page',
+  templateUrl: './activity-page.component.html',
+  styleUrls: ['./activity-page.component.sass'],
 })
-export class UserDashboardComponent implements OnInit, OnDestroy {
+export class ActivityPageComponent implements OnInit, OnDestroy {
   user?: User;
   userSub?: Subscription;
   activitiesOfTheDaySub?: Subscription;
@@ -36,15 +36,16 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const userId = this.activeRoute.snapshot.paramMap.get('id');
-    if (userId) this.getUser(userId);
-    this.selectedDate = new Date();
-    this.dateChanges();
-  }
-
-  getUser(userId: string): void {
-    this.getUserSub = this.userService
-      .getUser(userId)
-      .subscribe((result: User) => (this.user = result));
+    if (userId)
+      this.getUserSub = this.userService
+        .getUser(userId)
+        .subscribe((result: User) => {
+          this.user = result;
+          this.selectedDate = new Date();
+          this.dateChanges();
+        });
+    else {
+    }
   }
 
   dateChanges() {
@@ -62,13 +63,15 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   deleteActivity(activityToDelete: Activity) {
-    this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
-      (activity) => activity.id !== activityToDelete.id
-    );
     if (activityToDelete.id)
       this.deleteActivitySub = this.activityService
         .deleteActivity(activityToDelete.id)
-        .subscribe();
+        .subscribe(
+          () =>
+            (this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
+              (activity) => activity.id !== activityToDelete.id
+            ))
+        );
   }
 
   addNewActivity() {
@@ -76,15 +79,21 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    this.dialog.open(ActivityDialogComponent, {
+    const dialogRef = this.dialog.open(ActivityDialogComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
       },
     });
+
+    dialogRef
+      .afterClosed()
+      .subscribe((newActivity: Activity) =>
+        this.activitiesOfTheDay.push(newActivity)
+      );
   }
 
-  editActivityForm(activityToEdit: Activity) {
+  editActivity(activityToEdit: Activity) {
     const dateToSend = this.datepipe.transform(
       this.selectedDate?.toString(),
       'dd/MM/yyyy'

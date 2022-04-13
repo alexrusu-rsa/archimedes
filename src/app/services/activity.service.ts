@@ -61,20 +61,18 @@ export class ActivityService {
       );
   }
 
-  addActivity(activity: Activity): Observable<RequestWrapper> {
+  addActivity(activity: Activity): Observable<Activity> {
     return this.httpClient
-      .post<RequestWrapper>(this.activitiesUrl, activity, {
+      .post<Activity>(this.activitiesUrl, activity, {
         observe: 'response',
       })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Activity added');
-          return res.body as RequestWrapper;
+          return res.body as Activity;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'addActivity'
-          )
+          this.responseHandlingService.handleError<Activity>('addActivity')
         )
       );
   }

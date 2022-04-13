@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserDashboardComponent } from './ng-modules/reporting/components/user-reporting-page/user-reporting-page.component';
+import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
 import { AuthModule } from './ng-modules/auth/auth.module';
 import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
@@ -20,7 +20,7 @@ import { UserDetailsComponent } from './ng-modules/reporting/components/user-det
 @NgModule({
   declarations: [
     AppComponent,
-    UserDashboardComponent,
+    ActivityPageComponent,
     SnackbarContentComponent,
     UserDetailsComponent,
     UserDialogComponent,
