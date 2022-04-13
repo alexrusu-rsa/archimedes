@@ -5,6 +5,7 @@ import { ActivityPageComponent } from './components/activity-page/activity-page.
 import { RoleGuard } from '../auth/role.guard';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { CustomerPageComponent } from './components/customer-page/customer-page.component';
+import { ProjectPageComponent } from './components/project-page/project-page.component';
 
 const routes: Routes = [
   { path: 'dashboard/:id', component: ActivityPageComponent },
@@ -20,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'project',
-    component: UserPageComponent,
+    component: ProjectPageComponent,
     canActivate: [RoleGuard],
   },
   {
