@@ -28,8 +28,9 @@ export class UserDialogComponent implements OnInit {
       if (this.currentUser)
         this.addCurrentUserSub = this.userService
           .addUser(this.currentUser)
-          .subscribe();
+          .subscribe((newUser: User) => this.dialogRef.close(newUser));
   }
+
   dialogClose() {
     this.dialogRef.close();
   }

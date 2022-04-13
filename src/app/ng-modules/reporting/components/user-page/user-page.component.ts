@@ -11,7 +11,7 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
   styleUrls: ['./user-page.component.sass'],
 })
 export class UserPageComponent implements OnInit, OnDestroy {
-  allUsers?: User[];
+  allUsers: User[] = [];
   allUsersSubscrption?: Subscription;
   deleteUserSubscription?: Subscription;
 
@@ -51,7 +51,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
   }
 
   addUser() {
-    this.dialog.open(UserDialogComponent);
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      width: '33vw',
+    });
+
+    dialogRef.afterClosed().subscribe((newUser: User) => {
+      if (newUser) this.allUsers.push(newUser);
+    });
   }
 
   editUser(user: User) {
