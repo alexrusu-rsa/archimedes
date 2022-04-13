@@ -12,8 +12,13 @@ export class SnackbarContentComponent implements OnInit {
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: HttpErrorSnackbar) {}
   errorCode?: number;
   errorText?: string;
+  successMessageToDisplay?: string;
   ngOnInit(): void {
-    this.errorCode = this.data.status;
-    this.errorText = this.data.errorMessage;
+    if (this.data.errorMessage !== undefined) {
+      this.errorCode = this.data.status;
+      this.errorText = this.data.errorMessage;
+    } else {
+      this.successMessageToDisplay = this.data.successMessage;
+    }
   }
 }

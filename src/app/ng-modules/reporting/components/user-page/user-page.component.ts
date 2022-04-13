@@ -7,11 +7,11 @@ import { ActivityService } from 'src/app/services/activity.service';
 import { UserLoginService } from 'src/app/services/user-login.service';
 
 @Component({
-  selector: 'app-employee-details',
-  templateUrl: './employee-details.component.html',
-  styleUrls: ['./employee-details.component.sass'],
+  selector: 'app-user-page',
+  templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.sass'],
 })
-export class EmployeeDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit {
   currentUser?: User;
   currentUserActivities?: Activity[];
   currentUserActivitiesSub?: Subscription;

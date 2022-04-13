@@ -1,14 +1,14 @@
 import {
   HttpClient,
-  HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
-import { NotificationService } from './notification.service';
+import { ResponseHandlingService } from './response-handling.service';
+
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ import { NotificationService } from './notification.service';
 export class UserService {
   constructor(
     private httpClient: HttpClient,
-    private notificationService: NotificationService
+    private responseHandlingService: ResponseHandlingService
   ) {}
   private usersUrl = environment.serviceURL + 'user';
 
@@ -27,41 +27,51 @@ export class UserService {
   getUsers(): Observable<User[]> {
     return this.httpClient
       .get<User[]>(this.usersUrl)
-      .pipe(catchError(this.handleError<User[]>('getUser')));
+      .pipe(
+        catchError(this.responseHandlingService.handleError<User[]>('getUser'))
+      );
   }
 
   deleteUser(id: string): Observable<RequestWrapper> {
     const deleteUserUrl = this.usersUrl + '/' + id;
     return this.httpClient
-      .delete<RequestWrapper>(deleteUserUrl)
-      .pipe(catchError(this.handleError<RequestWrapper>('deleteUser')));
+      .delete<RequestWrapper>(deleteUserUrl, { observe: 'response' })
+      .pipe(
+        map((res) => {
+          this.responseHandlingService.handleResponse('User deleted');
+          return res.body as RequestWrapper;
+        }),
+        catchError(
+          this.responseHandlingService.handleError<RequestWrapper>('deleteUser')
+        )
+      );
   }
 
   addUser(user: User): Observable<RequestWrapper> {
     return this.httpClient
-      .post<RequestWrapper>(this.usersUrl, user)
-      .pipe(catchError(this.handleError<RequestWrapper>('addUser')));
+      .post<RequestWrapper>(this.usersUrl, user, { observe: 'response' })
+      .pipe(
+        map((res) => {
+          this.responseHandlingService.handleResponse('User added');
+          return res.body as RequestWrapper;
+        }),
+        catchError(
+          this.responseHandlingService.handleError<RequestWrapper>('addUser')
+        )
+      );
   }
 
   updateUser(user: User): Observable<RequestWrapper> {
     return this.httpClient
-      .put(this.usersUrl + '/' + user.id, user)
-      .pipe(catchError(this.handleError<RequestWrapper>('updateUser')));
-  }
-
-  private log(message: string) {
-    console.log(`LogUserInService: ${message}`);
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (err: HttpErrorResponse): Observable<T> => {
-      console.error(err);
-      this.notificationService.openSnackBar(
-        err.error.message,
-        err.error.statusCode
+      .put(this.usersUrl + '/' + user.id, user, { observe: 'response' })
+      .pipe(
+        map((res) => {
+          this.responseHandlingService.handleResponse('User updated');
+          return res.body as RequestWrapper;
+        }),
+        catchError(
+          this.responseHandlingService.handleError<RequestWrapper>('updateUser')
+        )
       );
-      this.log(`${operation} failed: ${err.message}`);
-      return of(result as T);
-    };
   }
 }

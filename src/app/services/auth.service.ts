@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { LocalStorageService } from './localstorage.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
-  constructor(private http: HttpClient, public router: Router) {}
+  constructor(
+    private http: HttpClient,
+    public router: Router,
+    private localStorageService: LocalStorageService
+  ) {}
 
   getToken() {
     return localStorage.getItem('access_token');
@@ -20,16 +25,8 @@ export class AuthService {
     return false;
   }
 
-  clearLocalStorage() {
-    localStorage.clear();
-  }
   doLogout() {
-    const removeToken = localStorage.removeItem('access_token');
-    window.dispatchEvent(new Event('storage'));
-    localStorage.removeItem('role');
-    localStorage.removeItem('userId');
-    if (removeToken === null) {
-      this.router.navigate(['']);
-    }
+    this.localStorageService.localStorageLogout();
+    this.router.navigate(['']);
   }
 }
