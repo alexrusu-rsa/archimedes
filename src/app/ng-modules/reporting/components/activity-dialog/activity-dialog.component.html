@@ -2,7 +2,7 @@
   <mat-dialog-content
     *ngIf="currentActivity && this.userDateActivity.activity === undefined"
   >
-    <h3>Add Activity</h3>
+    <mat-card-title>Add Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
       <mat-form-field appearance="fill">
         <mat-label>Activity Name</mat-label>
@@ -50,7 +50,7 @@
         <mat-label>Activity Description</mat-label>
         <textarea
           matInput
-          [(ngModel)]="currentActivity.extras"
+          [(ngModel)]="currentActivity.description"
           type="text"
           formControlName="extras"
         >
@@ -76,7 +76,7 @@
   <mat-dialog-content
     *ngIf="currentActivity && this.userDateActivity.activity !== undefined"
   >
-    <h3>Update Activity</h3>
+    <mat-card-title>Update Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
       <mat-form-field appearance="fill">
         <mat-label>Activity Name</mat-label>
