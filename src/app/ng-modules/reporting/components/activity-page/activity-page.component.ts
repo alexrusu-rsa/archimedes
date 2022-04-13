@@ -11,11 +11,11 @@ import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.comp
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 
 @Component({
-  selector: 'app-user-reporting-page',
-  templateUrl: './user-reporting-page.component.html',
-  styleUrls: ['./user-reporting-page.component.sass'],
+  selector: 'app-activity-page',
+  templateUrl: './activity-page.component.html',
+  styleUrls: ['./activity-page.component.sass'],
 })
-export class UserDashboardComponent implements OnInit, OnDestroy {
+export class ActivityPageComponent implements OnInit, OnDestroy {
   user?: User;
   userSub?: Subscription;
   activitiesOfTheDaySub?: Subscription;
