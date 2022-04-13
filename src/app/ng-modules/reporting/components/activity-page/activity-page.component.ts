@@ -84,6 +84,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         employeeId: this.user?.id,
         date: dateToSend,
       },
+      width: '33vw',
     });
 
     dialogRef
@@ -104,6 +105,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         date: dateToSend,
         activity: activityToEdit,
       },
+      width: '33vw',
     });
   }
 
