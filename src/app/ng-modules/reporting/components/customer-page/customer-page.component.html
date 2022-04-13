@@ -1,26 +1,28 @@
-<mat-list *ngIf="allCustomers">
-  <mat-list-item *ngFor="let customer of allCustomers">
-    <mat-card class="employee-card">
-      <mat-card-title>
-        {{ customer.customerName }}
-      </mat-card-title>
+<mat-card class="card-container">
+  <mat-list *ngIf="allCustomers">
+    <mat-list-item *ngFor="let customer of allCustomers">
+      <mat-card class="secondary-card">
+        <mat-card-title>
+          {{ customer.customerName }}
+        </mat-card-title>
 
-      <div class="buttons">
-        <button mat-mini-fab color="primary" (click)="deleteCustomer(customer.id!)">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <mat-card-actions align="end">
+          <button mat-button color="primary" (click)="editCustomer(customer)">
+            <mat-icon>edit</mat-icon>
+          </button>
 
-        <button mat-mini-fab color="primary" (click)="editCustomer(customer)">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
-    </mat-card>
-  </mat-list-item>
-  <mat-list-item>
-    <mat-card>
-      <button class="employee-add-card" mat-icon-button (click)="addCustomer()">
-        <mat-icon>add_box</mat-icon>
-      </button>
-    </mat-card>
-  </mat-list-item>
-</mat-list>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="deleteCustomer(customer.id!)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-list-item></mat-list
+  >
+  <button mat-raised-button class="secondary-card" (click)="addCustomer()">
+    <mat-icon color="primary">add_box</mat-icon>
+  </button></mat-card
+>
