@@ -1,3 +1,11 @@
+<div class="header-activity">
+
+
+  <button mat-raised-button (click)="addProject()">
+    <mat-icon color="primary">add_box</mat-icon>
+  </button>
+</div>
+
 <mat-card class="card-container">
   <mat-list *ngIf="allProjects">
     <mat-list-item *ngFor="let project of allProjects">
