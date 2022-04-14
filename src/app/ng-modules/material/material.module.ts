@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [],
@@ -33,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatTableModule,
   ],
   exports: [
     MatButtonModule,
@@ -48,6 +50,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatDialogModule,
     MatSelectModule,
+    MatTableModule,
   ],
 })
 export class MaterialModule {}
