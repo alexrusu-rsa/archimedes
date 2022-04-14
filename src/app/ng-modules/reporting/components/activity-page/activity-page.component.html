@@ -2,7 +2,12 @@
 
 <div class="header-activity">
   <mat-form-field appearance="fill">
-    <input matInput [matDatepicker]="datePicker" [(ngModel)]="selectedDate" (dateChange)="dateChanges()" />
+    <input
+      matInput
+      [matDatepicker]="datePicker"
+      [(ngModel)]="selectedDate"
+      (dateChange)="dateChanges()"
+    />
     <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #datePicker touchUi></mat-datepicker>
   </mat-form-field>
@@ -13,12 +18,15 @@
 </div>
 
 <mat-card *ngIf="user" class="card-container">
-  <mat-card-title *ngIf="daySelected">Activities of selected day</mat-card-title>
+  <mat-card-title *ngIf="daySelected"
+    >Activities of selected day</mat-card-title
+  >
 
   <mat-card class="secondary-card" *ngFor="let activity of activitiesOfTheDay">
     <mat-card-title>{{ activity.name }}</mat-card-title>
     <mat-card-subtitle>
-      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle>
+      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
+    >
     <mat-card-content>
       {{ activity.description }}
     </mat-card-content>
@@ -28,10 +36,13 @@
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-raised-button color="primary" (click)="deleteActivity(activity)">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="deleteActivity(activity)"
+      >
         <mat-icon>delete</mat-icon>
       </button>
-
     </mat-card-actions>
   </mat-card>
 
