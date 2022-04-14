@@ -14,6 +14,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   allProjects?: Project[];
   allProjectsSubscription?: Subscription;
   deleteProjectSubscription?: Subscription;
+  projects?: Project[];
 
   constructor(
     private projectService: ProjectService,
@@ -31,7 +32,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.allProjects = this.allProjects?.filter((project: Project) =>
+    this.allProjects = this.projects?.filter((project: Project) =>
       project.projectName
         .toLowerCase()
         .includes(filterValue.trim().toLowerCase())
@@ -42,6 +43,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       .getProjects()
       .subscribe((result) => {
         this.allProjects = result;
+        this.projects = result;
       });
   }
 
