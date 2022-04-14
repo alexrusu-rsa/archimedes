@@ -77,16 +77,16 @@ export class ProjectService {
       );
   }
 
-  addProject(project: Project): Observable<RequestWrapper> {
+  addProject(project: Project): Observable<Project> {
     return this.httpClient
-      .post<RequestWrapper>(this.projectsUrl, project, { observe: 'response' })
+      .post<Project>(this.projectsUrl, project, { observe: 'response' })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Project added');
-          return res.body as RequestWrapper;
+          return res.body as Project;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>('addProject')
+          this.responseHandlingService.handleError<Project>('addProject')
         )
       );
   }

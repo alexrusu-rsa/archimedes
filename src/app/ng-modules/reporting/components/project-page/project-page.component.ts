@@ -11,7 +11,7 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog.compone
   styleUrls: ['./project-page.component.sass'],
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
-  allProjects?: Project[];
+  allProjects: Project[] = [];
   allProjectsSubscription?: Subscription;
   deleteProjectSubscription?: Subscription;
 
@@ -38,7 +38,13 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   addProject() {
-    this.dialog.open(ProjectDialogComponent, {});
+    const dialogRef = this.dialog.open(ProjectDialogComponent, {
+      width: '33vw',
+    });
+
+    dialogRef.afterClosed().subscribe((newProject: Project) => {
+      if (newProject) this.allProjects.push(newProject);
+    });
   }
 
   editProject(project: Project) {

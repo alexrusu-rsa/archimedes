@@ -1,26 +1,14 @@
-<mat-dialog-content
-  *ngIf="currentProject && this.projectCustomers.project === undefined"
->
+<mat-dialog-content *ngIf="currentProject">
   <form [formGroup]="addProjectForm!">
     <mat-form-field appearance="fill">
       <mat-label>Project Name</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentProject.projectName"
-        type="text"
-        formControlName="name"
-        required="true"
-      />
+      <input matInput [(ngModel)]="currentProject.projectName" type="text" formControlName="name" required="true" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Customer name</mat-label>
       <mat-select [(ngModel)]="selectedItem" formControlName="customerName">
-        <mat-option
-          *ngFor="let customer of customers"
-          [value]="customer.id"
-          ngDefaultControl
-        >
+        <mat-option *ngFor="let customer of customers" [value]="customer.id" ngDefaultControl>
           {{ customer.customerName }}
         </mat-option>
       </mat-select>
@@ -28,38 +16,22 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button
-    *ngIf="projectCustomers.project === undefined"
-    mat-raised-button
-    (click)="checkAndAdd()"
-  >
+  <button mat-raised-button (click)="checkAndAdd()">
     Add project
   </button>
 </mat-dialog-actions>
 
-<mat-dialog-content
-  *ngIf="currentProject && this.projectCustomers.project !== undefined"
->
+<mat-dialog-content *ngIf="currentProject && this.projectCustomers?.project !== undefined">
   <form [formGroup]="addProjectForm!">
     <mat-form-field appearance="fill">
       <mat-label>Project Name</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentProject.projectName"
-        type="text"
-        formControlName="name"
-        required="true"
-      />
+      <input matInput [(ngModel)]="currentProject.projectName" type="text" formControlName="name" required="true" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Customer name</mat-label>
       <mat-select [(ngModel)]="selectedItem" formControlName="customerName">
-        <mat-option
-          *ngFor="let customer of customers"
-          [value]="customer.id"
-          ngDefaultControl
-        >
+        <mat-option *ngFor="let customer of customers" [value]="customer.id" ngDefaultControl>
           {{ customer.customerName }}
         </mat-option>
       </mat-select>
@@ -67,11 +39,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button
-    *ngIf="projectCustomers.project"
-    mat-raised-button
-    (click)="checkAndUpdate()"
-  >
+  <button *ngIf="projectCustomers?.project" mat-raised-button (click)="checkAndUpdate()">
     Update project
   </button>
 </mat-dialog-actions>
