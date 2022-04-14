@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, Observer, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
 import { User } from '../../../../models/user';
 import { ActivityService } from '../../../../services/activity.service';
@@ -44,8 +44,6 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           this.selectedDate = new Date();
           this.dateChanges();
         });
-    else {
-    }
   }
 
   dateChanges() {
