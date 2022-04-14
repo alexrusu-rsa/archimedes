@@ -85,11 +85,9 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       width: '33vw',
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe((newActivity: Activity) =>
-        this.activitiesOfTheDay.push(newActivity)
-      );
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
+    });
   }
 
   editActivity(activityToEdit: Activity) {
