@@ -1,14 +1,10 @@
-import {
-  HttpClient,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RequestWrapper } from '../models/request-wrapper';
 import { User } from '../models/user';
 import { ResponseHandlingService } from './response-handling.service';
-
 
 @Injectable({
   providedIn: 'root',
@@ -47,17 +43,15 @@ export class UserService {
       );
   }
 
-  addUser(user: User): Observable<RequestWrapper> {
+  addUser(user: User): Observable<User> {
     return this.httpClient
-      .post<RequestWrapper>(this.usersUrl, user, { observe: 'response' })
+      .post<User>(this.usersUrl, user, { observe: 'response' })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('User added');
-          return res.body as RequestWrapper;
+          return res.body as User;
         }),
-        catchError(
-          this.responseHandlingService.handleError<RequestWrapper>('addUser')
-        )
+        catchError(this.responseHandlingService.handleError<User>('addUser'))
       );
   }
 
