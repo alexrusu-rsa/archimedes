@@ -64,7 +64,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((newUser: User) => {
-      if (newUser) this.allUsers?.push(newUser);
+      if (newUser) this.allUsers.push(newUser);
     });
   }
 
