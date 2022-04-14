@@ -11,9 +11,10 @@ import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.comp
   styleUrls: ['./customer-page.component.sass'],
 })
 export class CustomerPageComponent implements OnInit, OnDestroy {
-  allCustomers?: Customer[];
+  allCustomers: Customer[] = [];
   allCustomersSubscription?: Subscription;
   deleteCustomerSubscription?: Subscription;
+  customers: Customer[] = [];
 
   constructor(
     private customerService: CustomerService,
@@ -29,16 +30,32 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
     this.deleteCustomerSubscription?.unsubscribe();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.allCustomers = this.customers?.filter((customer: Customer) =>
+      customer.customerName
+        .toLowerCase()
+        .includes(filterValue.trim().toLowerCase())
+    );
+  }
+
   getCustomers() {
     this.allCustomersSubscription = this.customerService
       .getCustomers()
       .subscribe((result) => {
         this.allCustomers = result;
+        this.customers = result;
       });
   }
 
   addCustomer() {
-    this.dialog.open(CustomerDialogComponent);
+    const dialogRef = this.dialog.open(CustomerDialogComponent, {
+      width: '33vw',
+    });
+
+    dialogRef.afterClosed().subscribe((newCustomer: Customer) => {
+      if (newCustomer) this.allCustomers.push(newCustomer);
+    });
   }
 
   editCustomer(customer: Customer) {
