@@ -27,7 +27,9 @@ export class CustomerDialogComponent implements OnInit {
       if (this.currentCustomer)
         this.addCurrentCustomerSub = this.customerService
           .addCustomer(this.currentCustomer)
-          .subscribe();
+          .subscribe((newCustomer: Customer) => {
+            this.dialogRef.close(newCustomer);
+          });
   }
 
   editCustomer() {

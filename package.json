@@ -2,8 +2,8 @@
   "name": "archimedes-frontend",
   "version": "0.0.0",
   "engines": {
-    "node": "16.13.2",
-    "npm": "8.4.1"
+    "node": "16.14.2",
+    "npm": "8.5.0"
   },
   "scripts": {
     "ng": "ng",
