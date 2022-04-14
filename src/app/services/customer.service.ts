@@ -79,20 +79,18 @@ export class CustomerService {
       );
   }
 
-  addCustomer(customer: Customer): Observable<RequestWrapper> {
+  addCustomer(customer: Customer): Observable<Customer> {
     return this.httpClient
-      .post<RequestWrapper>(this.customersUrl, customer, {
+      .post<Customer>(this.customersUrl, customer, {
         observe: 'response',
       })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Customer added');
-          return res.body as RequestWrapper;
+          return res.body as Customer;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'addCustomer'
-          )
+          this.responseHandlingService.handleError<Customer>('addCustomer')
         )
       );
   }
