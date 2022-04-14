@@ -61,6 +61,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   editCustomer(customer: Customer) {
     this.dialog.open(CustomerDialogComponent, {
       data: customer,
+      width: '33vw',
     });
   }
 
