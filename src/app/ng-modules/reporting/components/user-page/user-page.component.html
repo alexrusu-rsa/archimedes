@@ -1,41 +1,36 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <span matPrefix> </span>
-    <input type="tel" matInput placeholder="Search" name="search" id="search" [(ngModel)]="search"
-      (blur)="checkSearch()" />
-    <button matSuffix mat-button (click)="searchUsersWithName()">
-      <mat-icon>search</mat-icon>
-    </button>
+<mat-card-title>User page</mat-card-title>
+<div class="header-activity">
+  <mat-form-field appearance="fill">
+    <mat-label>Search user</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex: Rusu"
+      #input
+    />
   </mat-form-field>
-  <br />
-</form>
-<mat-list *ngIf="allUsers">
-  <mat-list-item *ngFor="let user of allUsers">
-    <mat-card class="employee-card">
-      <a routerLink="/employee/{{ user.id }}">
-        <mat-card-title>
-          {{ user.name }} {{ user.surname }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          {{ user.role }}
-        </mat-card-subtitle>
-      </a>
-      <div class="buttons">
-        <button mat-mini-fab color="primary" (click)="deleteUser(user.id!)">
-          <mat-icon>delete</mat-icon>
-        </button>
 
-        <button mat-mini-fab color="primary" (click)="editUser(user)">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
-    </mat-card>
-  </mat-list-item>
-  <mat-list-item>
-    <mat-card>
-      <button class="employee-add-card" mat-icon-button (click)="addUser()">
-        <mat-icon>add_box</mat-icon>
+  <button mat-raised-button (click)="addUser()">
+    <mat-icon color="primary">add_box</mat-icon>
+  </button>
+</div>
+
+<mat-card class="card-container">
+  <mat-card class="secondary-card" *ngFor="let user of allUsers">
+    <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
+    <mat-card-subtitle>
+      {{ user.role }}
+    </mat-card-subtitle>
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="editUser(user)">
+        <mat-icon>edit</mat-icon>
       </button>
-    </mat-card>
-  </mat-list-item>
-</mat-list>
+      <button mat-raised-button color="primary" (click)="deleteUser(user.id!)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <button mat-raised-button class="secondary-card" (click)="addUser()">
+    <mat-icon color="primary">add_box</mat-icon>
+  </button>
+</mat-card>
