@@ -14,7 +14,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   allUsers: User[] = [];
   allUsersSubscrption?: Subscription;
   deleteUserSubscription?: Subscription;
-
+  users: User[] = [];
   search = '';
 
   constructor(private userService: UserService, public dialog: MatDialog) {}
@@ -33,7 +33,15 @@ export class UserPageComponent implements OnInit, OnDestroy {
       .getUsers()
       .subscribe((result) => {
         this.allUsers = result;
+        this.users = result;
       });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.allUsers = this.users?.filter((user: User) =>
+      user.surname.toLowerCase().includes(filterValue.trim().toLowerCase())
+    );
   }
 
   searchUsersWithName() {
