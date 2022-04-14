@@ -71,6 +71,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   editUser(user: User) {
     this.dialog.open(UserDialogComponent, {
       data: user,
+      width: '33vw',
     });
   }
 
