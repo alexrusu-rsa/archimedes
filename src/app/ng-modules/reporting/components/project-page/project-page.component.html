@@ -1,39 +1,36 @@
+<mat-card-title> Project page </mat-card-title>
+
 <div class="header-activity">
+  <mat-form-field appearance="fill">
+    <mat-label>Search project</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex: Archimedes"
+      #input
+    />
+  </mat-form-field>
   <button mat-raised-button (click)="addProject()">
     <mat-icon color="primary">add_box</mat-icon>
   </button>
 </div>
 
 <mat-card class="card-container">
-  <mat-list *ngIf="allProjects">
-    <mat-list-item *ngFor="let project of allProjects">
-      <mat-card class="secondary-card">
-        <mat-card-title>
-          Project name: {{ project.projectName }}
-        </mat-card-title>
+  <mat-card class="secondary-card" *ngFor="let project of allProjects">
+    <mat-card-title> {{ project.projectName }} </mat-card-title>
 
-        <mat-card-actions align="end">
-          <button
-            mat-button
-            color="primary"
-            (click)="deleteProject(project.id!)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="deleteProject(project.id!)">
+        <mat-icon>delete</mat-icon>
+      </button>
 
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="editProject(project)"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </mat-list-item>
+      <button mat-raised-button color="primary" (click)="editProject(project)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 
-    <button mat-raised-button class="secondary-card" (click)="addProject()">
-      <mat-icon color="primary">add_box</mat-icon>
-    </button>
-  </mat-list>
+  <button mat-raised-button class="secondary-card" (click)="addProject()">
+    <mat-icon color="primary">add_box</mat-icon>
+  </button>
 </mat-card>

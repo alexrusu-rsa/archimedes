@@ -1,8 +1,16 @@
 :host
   display: flex
-  gap: 3vh
+  gap: 2vh
   flex-direction: column
   height: 100%
+
+  .mat-input-element
+    color: white
+
+.header-activity
+  display: flex
+  justify-content: space-between
+  height: 6%
 
 .card-container
   flex: 1
@@ -14,27 +22,9 @@
   height: 100%
   margin-bottom: 2%
 
-.secondary-card
-  background-color: #393939
-  width: 100%
-  gap: 3vh
+  .secondary-card
+    background-color: #393939
 
-.mat-card-actions
-  margin: 0!important
-  padding: 0!important
-
-.mat-list-item
-  height: fit-content
-  margin-bottom: 3vh
-
-.mat-list-item-content
-  padding: 0!important
-
-:host ::ng-deep .mat-list-item-content
-  padding: 0!important
-
-.header-activity
-  display: flex
-  positon: relative
-  right: 0
-  height: 6%
+  .mat-card-actions
+    margin: 0!important
+    padding: 0!important

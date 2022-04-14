@@ -29,6 +29,14 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     this.deleteProjectSubscription?.unsubscribe();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.allProjects = this.allProjects?.filter((project: Project) =>
+      project.projectName
+        .toLowerCase()
+        .includes(filterValue.trim().toLowerCase())
+    );
+  }
   getProjects() {
     this.allProjectsSubscription = this.projectService
       .getProjects()
