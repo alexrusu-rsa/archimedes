@@ -20,12 +20,15 @@
     <mat-card-title> {{ project.projectName }} </mat-card-title>
 
     <mat-card-actions align="end">
-      <button mat-button color="primary" (click)="deleteProject(project.id!)">
-        <mat-icon>delete</mat-icon>
-      </button>
-
-      <button mat-raised-button color="primary" (click)="editProject(project)">
+      <button mat-button color="primary" (click)="editProject(project)">
         <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="deleteProject(project.id!)"
+      >
+        <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
