@@ -88,7 +88,7 @@
       *ngIf="this.user === null"
       color="accent"
       mat-raised-button
-      (click)="addUser(); dialogClose()"
+      (click)="addUser()"
     >
       Add user
     </button>
@@ -184,7 +184,7 @@
       *ngIf="this.user !== null"
       mat-raised-button
       color="accent"
-      (click)="editUser(); dialogClose()"
+      (click)="editUser()"
     >
       Update user
     </button>
