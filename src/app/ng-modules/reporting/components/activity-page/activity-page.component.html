@@ -13,7 +13,7 @@
   </mat-form-field>
 
   <button mat-raised-button (click)="addNewActivity()">
-    <mat-icon color="primary">add_box</mat-icon>
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
 
@@ -32,13 +32,13 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-button color="primary" (click)="editActivity(activity)">
+      <button mat-button color="accent" (click)="editActivity(activity)">
         <mat-icon>edit</mat-icon>
       </button>
 
       <button
         mat-raised-button
-        color="primary"
+        color="accent"
         (click)="deleteActivity(activity)"
       >
         <mat-icon>delete</mat-icon>
@@ -47,6 +47,6 @@
   </mat-card>
 
   <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
-    <mat-icon color="primary">add_box</mat-icon>
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>
