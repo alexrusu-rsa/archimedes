@@ -59,7 +59,7 @@
     </form>
   </mat-dialog-content>
 
-  <button *ngIf="this.customer === null" color="primary" mat-raised-button (click)="addCustomer();">
+  <button *ngIf="this.customer === null" color="accent" mat-raised-button (click)="addCustomer();">
     Add customer
   </button>
 
@@ -121,7 +121,7 @@
       </div>
     </form>
 
-    <button *ngIf="this.customer !== null" color="primary" mat-raised-button (click)="editCustomer();">
+    <button *ngIf="this.customer !== null" color="accent" mat-raised-button (click)="editCustomer();">
       Update customer
     </button>
   </mat-dialog-content>
