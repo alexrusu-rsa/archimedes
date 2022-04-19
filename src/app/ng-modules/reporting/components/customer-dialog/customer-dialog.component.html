@@ -1,5 +1,7 @@
 <div class="dialog-container">
-  <mat-card-title>Add Customer</mat-card-title>
+  <mat-card-title *ngIf="currentCustomer && this.customer === null"
+    >Add Customer</mat-card-title
+  >
   <mat-dialog-content *ngIf="currentCustomer && this.customer === null">
     <form [formGroup]="addCustomerForm!">
       <mat-form-field class="first-form-field" appearance="fill">
@@ -110,11 +112,12 @@
   >
     Add customer
   </button>
-
+  <mat-card-title *ngIf="currentCustomer && this.customer !== null"
+    >Update Customer</mat-card-title
+  >
   <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
-    <mat-card-title>Update Customer</mat-card-title>
     <form [formGroup]="addCustomerForm!">
-      <mat-form-field appearance="fill">
+      <mat-form-field class="first-form-field" appearance="fill">
         <mat-label>Customer Name</mat-label>
         <input
           matInput
@@ -211,14 +214,14 @@
         </div>
       </div>
     </form>
-
-    <button
-      *ngIf="this.customer !== null"
-      color="accent"
-      mat-raised-button
-      (click)="editCustomer()"
-    >
-      Update customer
-    </button>
   </mat-dialog-content>
+
+  <button
+    *ngIf="this.customer !== null"
+    color="accent"
+    mat-raised-button
+    (click)="editCustomer()"
+  >
+    Update customer
+  </button>
 </div>
