@@ -20,6 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
   isAdmin?: boolean;
   accessSub?: Subscription;
   adminSub?: Subscription;
+  currentUserId?: string;
+  userIdSub?: Subscription;
 
   constructor(
     private router: Router,
@@ -31,6 +33,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.userIdSub = this.localStorageService.userIdValue.subscribe(
+      (nextValue) => {
+        if (nextValue) this.currentUserId = nextValue;
+      }
+    );
     this.accessSub = this.localStorageService.accessTokenValue.subscribe(
       (nextValue) => {
         this.hasToken = nextValue !== '' && nextValue !== null;
