@@ -1,6 +1,6 @@
-<mat-card-title>User page</mat-card-title>
+<mat-card-title class="page-title">User page</mat-card-title>
 <div class="header-activity">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="header-searchbar">
     <mat-label>Search user</mat-label>
     <input
       matInput
@@ -10,7 +10,11 @@
     />
   </mat-form-field>
 
-  <button mat-raised-button class="theme-add-card" (click)="addUser()">
+  <button
+    mat-raised-button
+    class="header-add-button theme-add-card"
+    (click)="addUser()"
+  >
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>

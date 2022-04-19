@@ -60,7 +60,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   addUser() {
     const dialogRef = this.dialog.open(UserDialogComponent, {
-      width: '33vw',
+      panelClass: 'full-width-dialog',
     });
 
     dialogRef.afterClosed().subscribe((newUser: User) => {
@@ -71,7 +71,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   editUser(user: User) {
     this.dialog.open(UserDialogComponent, {
       data: user,
-      width: '33vw',
+      panelClass: 'full-width-dialog',
     });
   }
 
