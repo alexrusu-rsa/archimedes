@@ -13,7 +13,7 @@
           formControlName="name"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           Activity name is required
         </mat-hint>
       </mat-form-field>
@@ -27,7 +27,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="start?.touched && !start?.dirty">
+        <mat-hint *ngIf="start?.touched && !start?.dirty">
           Activity start time is required
         </mat-hint>
       </mat-form-field>
@@ -41,7 +41,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="end?.touched && !end?.dirty">
+        <mat-hint *ngIf="end?.touched && !end?.dirty">
           Activity end time is required
         </mat-hint>
       </mat-form-field>
@@ -68,7 +68,7 @@
         </textarea>
       </mat-form-field>
     </form>
-    <button mat-raised-button color="primary" (click)="addActivity()">
+    <button mat-raised-button color="accent" (click)="addActivity()">
       Add activity
     </button>
   </mat-dialog-content>
@@ -87,7 +87,7 @@
           formControlName="name"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           Activity name is required
         </mat-hint>
       </mat-form-field>
@@ -101,7 +101,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="start?.touched && !start?.dirty">
+        <mat-hint *ngIf="start?.touched && !start?.dirty">
           Activity start time is required
         </mat-hint>
       </mat-form-field>
@@ -115,7 +115,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="end?.touched && !end?.dirty">
+        <mat-hint *ngIf="end?.touched && !end?.dirty">
           Activity end time is required
         </mat-hint>
       </mat-form-field>
@@ -144,7 +144,7 @@
     </form>
     <button
       *ngIf="this.userDateActivity.activity !== undefined"
-      color="primary"
+      color="accent"
       mat-raised-button
       (click)="editActivity()"
     >

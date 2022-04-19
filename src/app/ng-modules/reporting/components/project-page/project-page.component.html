@@ -10,8 +10,8 @@
       #input
     />
   </mat-form-field>
-  <button mat-raised-button (click)="addProject()">
-    <mat-icon color="primary">add_box</mat-icon>
+  <button mat-raised-button class="theme-card" (click)="addProject()">
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
 
@@ -20,12 +20,12 @@
     <mat-card-title> {{ project.projectName }} </mat-card-title>
 
     <mat-card-actions align="end">
-      <button mat-button color="primary" (click)="editProject(project)">
+      <button mat-button color="accent" (click)="editProject(project)">
         <mat-icon>edit</mat-icon>
       </button>
       <button
         mat-raised-button
-        color="primary"
+        color="accent"
         (click)="deleteProject(project.id!)"
       >
         <mat-icon>delete</mat-icon>
@@ -34,6 +34,6 @@
   </mat-card>
 
   <button mat-raised-button class="secondary-card" (click)="addProject()">
-    <mat-icon color="primary">add_box</mat-icon>
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>
