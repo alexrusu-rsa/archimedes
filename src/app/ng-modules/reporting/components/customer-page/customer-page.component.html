@@ -3,11 +3,16 @@
 <div class="header-activity">
   <mat-form-field appearance="fill">
     <mat-label>Search customer</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex: RSA SOFT" #input />
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex: RSA SOFT"
+      #input
+    />
   </mat-form-field>
 
-  <button mat-raised-button (click)="addCustomer()">
-    <mat-icon color="primary">add_box</mat-icon>
+  <button mat-raised-button class="theme-add-card" (click)="addCustomer()">
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
 
@@ -18,16 +23,20 @@
     </mat-card-title>
 
     <mat-card-actions align="end">
-      <button mat-button color="primary" (click)="editCustomer(customer)">
+      <button mat-button color="accent" (click)="editCustomer(customer)">
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-raised-button color="primary" (click)="deleteCustomer(customer.id!)">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="deleteCustomer(customer.id!)"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
   <button mat-raised-button class="secondary-card" (click)="addCustomer()">
-    <mat-icon color="primary">add_box</mat-icon>
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>
