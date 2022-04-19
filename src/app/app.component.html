@@ -1,5 +1,9 @@
 <mat-toolbar color="primary">
-  <button *ngIf="hasToken === true && hasToken !== undefined" mat-icon-button (click)="sidenav.toggle()">
+  <button
+    *ngIf="hasToken === true && hasToken !== undefined"
+    mat-icon-button
+    (click)="sidenav.toggle()"
+  >
     <mat-icon>menu</mat-icon>
   </button>
   <h3>{{ pageTitle | titlecase }}</h3>
@@ -8,14 +12,38 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
     <mat-nav-list>
-      <a mat-list-item routerLink="" (click)="sidenav.close()">Home</a>
-      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()">Log Out</a>
-      <a *ngIf="isAdmin && isAdmin !== undefined" mat-list-item routerLink="reporting/user"
-        (click)="sidenav.close()">Users</a>
-      <a *ngIf="isAdmin && isAdmin !== undefined" mat-list-item routerLink="reporting/project"
-        (click)="sidenav.close()">Projects</a>
-      <a *ngIf="isAdmin && isAdmin !== undefined" mat-list-item routerLink="reporting/customer"
-        (click)="sidenav.close()">Customers</a>
+      <a
+        mat-list-item
+        *ngIf="hasToken === true && hasToken !== undefined"
+        routerLink="reporting/dashboard/{{ this.currentUserId }}"
+        (click)="sidenav.close()"
+        >Home</a
+      >
+
+      <a
+        *ngIf="isAdmin && isAdmin !== undefined"
+        mat-list-item
+        routerLink="reporting/user"
+        (click)="sidenav.close()"
+        >Users</a
+      >
+      <a
+        *ngIf="isAdmin && isAdmin !== undefined"
+        mat-list-item
+        routerLink="reporting/project"
+        (click)="sidenav.close()"
+        >Projects</a
+      >
+      <a
+        *ngIf="isAdmin && isAdmin !== undefined"
+        mat-list-item
+        routerLink="reporting/customer"
+        (click)="sidenav.close()"
+        >Customers</a
+      >
+      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()"
+        >Log Out</a
+      >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
