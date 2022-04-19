@@ -10,8 +10,8 @@
     />
   </mat-form-field>
 
-  <button mat-raised-button (click)="addUser()">
-    <mat-icon color="primary">add_box</mat-icon>
+  <button mat-raised-button class="theme-add-card" (click)="addUser()">
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
 
@@ -25,15 +25,15 @@
       </mat-card-subtitle>
     </a>
     <mat-card-actions align="end">
-      <button mat-button color="primary" (click)="editUser(user)">
+      <button mat-button color="accent" (click)="editUser(user)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-raised-button color="primary" (click)="deleteUser(user.id!)">
+      <button mat-raised-button color="accent" (click)="deleteUser(user.id!)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
   <button mat-raised-button class="secondary-card" (click)="addUser()">
-    <mat-icon color="primary">add_box</mat-icon>
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>

@@ -11,10 +11,7 @@
           formControlName="surname"
           required="true"
         />
-        <mat-hint
-          style="color: red"
-          *ngIf="surname?.touched && !surname?.dirty"
-        >
+        <mat-hint *ngIf="surname?.touched && !surname?.dirty">
           User surname is required
         </mat-hint>
       </mat-form-field>
@@ -28,7 +25,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           User name is required
         </mat-hint>
       </mat-form-field>
@@ -42,7 +39,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="email?.touched && !email?.dirty">
+        <mat-hint *ngIf="email?.touched && !email?.dirty">
           User email is required
         </mat-hint>
       </mat-form-field>
@@ -56,10 +53,7 @@
           type="password"
           required="true"
         />
-        <mat-hint
-          style="color: red"
-          *ngIf="password?.touched && !password?.dirty"
-        >
+        <mat-hint *ngIf="password?.touched && !password?.dirty">
           User password is required
         </mat-hint>
       </mat-form-field>
@@ -72,7 +66,7 @@
           type="text"
           formControlName="role"
         />
-        <mat-hint style="color: red" *ngIf="role?.touched && !role?.dirty">
+        <mat-hint *ngIf="role?.touched && !role?.dirty">
           User role is required
         </mat-hint>
       </mat-form-field>
@@ -85,17 +79,14 @@
           type="text"
           formControlName="seniority"
         />
-        <mat-hint
-          style="color: red"
-          *ngIf="seniority?.touched && !seniority?.dirty"
-        >
+        <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
           User role is required
         </mat-hint>
       </mat-form-field>
     </form>
     <button
       *ngIf="this.user === null"
-      color="primary"
+      color="accent"
       mat-raised-button
       (click)="addUser()"
     >
@@ -116,10 +107,7 @@
           formControlName="surname"
           required="true"
         />
-        <mat-hint
-          style="color: red"
-          *ngIf="surname?.touched && !surname?.dirty"
-        >
+        <mat-hint *ngIf="surname?.touched && !surname?.dirty">
           User surname is required
         </mat-hint>
       </mat-form-field>
@@ -133,7 +121,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           User name is required
         </mat-hint>
       </mat-form-field>
@@ -147,7 +135,7 @@
           type="text"
           required="true"
         />
-        <mat-hint style="color: red" *ngIf="email?.touched && !email?.dirty">
+        <mat-hint *ngIf="email?.touched && !email?.dirty">
           User email is required
         </mat-hint>
       </mat-form-field>
@@ -161,10 +149,7 @@
           type="password"
           required="true"
         />
-        <mat-hint
-          style="color: red"
-          *ngIf="password?.touched && !password?.dirty"
-        >
+        <mat-hint *ngIf="password?.touched && !password?.dirty">
           User password is required
         </mat-hint>
       </mat-form-field>
@@ -177,7 +162,7 @@
           type="text"
           formControlName="role"
         />
-        <mat-hint style="color: red" *ngIf="role?.touched && !role?.dirty">
+        <mat-hint *ngIf="role?.touched && !role?.dirty">
           User role is required
         </mat-hint>
       </mat-form-field>
@@ -190,10 +175,7 @@
           type="text"
           formControlName="seniority"
         />
-        <mat-hint
-          style="color: red"
-          *ngIf="seniority?.touched && !seniority?.dirty"
-        >
+        <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
           User role is required
         </mat-hint>
       </mat-form-field>
@@ -201,7 +183,7 @@
     <button
       *ngIf="this.user !== null"
       mat-raised-button
-      color="primary"
+      color="accent"
       (click)="editUser()"
     >
       Update user

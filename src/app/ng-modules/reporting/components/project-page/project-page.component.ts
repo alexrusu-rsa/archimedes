@@ -48,7 +48,11 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   addProject() {
-    this.dialog.open(ProjectDialogComponent, {});
+    this.dialog.open(ProjectDialogComponent, {
+      data:{
+        
+      }
+    });
   }
 
   editProject(project: Project) {
