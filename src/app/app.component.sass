@@ -2,12 +2,26 @@
 @import 'src/styles/custom_theme.sass'
 .mat-sidenav
   width: 15%
+  position: fixed
+  top: 64px
+  z-index: 1000
+
+.mat-toolbar
+  position: sticky
+  top: 0
+  height: 64px !important
+  z-index: 1000
 
 .mat-sidenav-container
-  height: 100%
+  height: fit-content
 
 .mat-sidenav-content
   width: 80%
   margin: auto
-  margin-top: 2%
-  height: 100%
+  margin-top: 3%
+  height: fit-content
+
+.sidenav-container
+  width: 100%
+  min-height: 100%
+  height: fit-content
