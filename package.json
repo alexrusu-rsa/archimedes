@@ -2,8 +2,8 @@
   "name": "archimedes-frontend",
   "version": "0.0.0",
   "engines": {
-    "node": "16.14.2",
-    "npm": "8.5.0"
+    "node": "17.9.0",
+    "npm": "8.4.1"
   },
   "scripts": {
     "ng": "ng",
@@ -44,7 +44,7 @@
     "@angular-eslint/schematics": "13.2.0",
     "@angular-eslint/template-parser": "13.2.0",
     "@types/jasmine": "~4.0.2",
-    "@types/node": "^17.0.24",
+    "@types/node": "^17.0.25",
     "@typescript-eslint/eslint-plugin": "5.19.0",
     "@typescript-eslint/parser": "5.19.0",
     "enhanced-resolve": "^5.9.3",
