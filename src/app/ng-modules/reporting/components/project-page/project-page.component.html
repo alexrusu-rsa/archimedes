@@ -1,7 +1,7 @@
 <mat-card-title> Project page </mat-card-title>
 
 <div class="header-activity">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="header-searchbar">
     <mat-label>Search project</mat-label>
     <input
       matInput
@@ -10,7 +10,11 @@
       #input
     />
   </mat-form-field>
-  <button mat-raised-button class="theme-card" (click)="addProject()">
+  <button
+    mat-raised-button
+    class="header-add-button theme-card"
+    (click)="addProject()"
+  >
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
