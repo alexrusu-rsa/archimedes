@@ -1,7 +1,7 @@
-<mat-card-title> {{ user?.name }} {{ user?.surname }} </mat-card-title>
+<mat-card-title class="page-title"> {{ user?.name }} {{ user?.surname }} </mat-card-title>
 
 <div class="header-activity">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="header-datepicker">
     <input
       matInput
       [matDatepicker]="datePicker"
@@ -12,7 +12,7 @@
     <mat-datepicker #datePicker touchUi></mat-datepicker>
   </mat-form-field>
 
-  <button mat-raised-button (click)="addNewActivity()">
+  <button class="header-add-button" mat-raised-button (click)="addNewActivity()">
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
