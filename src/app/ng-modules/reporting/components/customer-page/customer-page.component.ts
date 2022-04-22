@@ -50,7 +50,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
 
   addCustomer() {
     const dialogRef = this.dialog.open(CustomerDialogComponent, {
-      width: '33vw',
+      panelClass: 'full-width-dialog',
     });
 
     dialogRef.afterClosed().subscribe((newCustomer: Customer) => {
@@ -61,7 +61,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   editCustomer(customer: Customer) {
     this.dialog.open(CustomerDialogComponent, {
       data: customer,
-      width: '33vw',
+      panelClass: 'full-width-dialog',
     });
   }
 
