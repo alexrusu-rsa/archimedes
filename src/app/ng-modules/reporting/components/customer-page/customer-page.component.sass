@@ -8,20 +8,26 @@
   .mat-input-element
     color: white
 
-.header-activity
-  display: flex
-  justify-content: space-between
-  height: 6%
+  .header-activity
+    display: flex
+    justify-content: space-between
+    height: 50px
 
-.card-container
-  flex: 1
-  display: flex
-  gap: 2vh
-  flex-direction: column
-  align-content: flex-start
-  overflow: hidden
-  height: 100%
-  margin-bottom: 2%
+  .card-container
+    flex: 1
+    display: flex
+    gap: 2vh
+    flex-direction: column
+    align-content: flex-start
+    overflow: hidden
+    height: 100%
+    margin-bottom: 2%
+
+    .header-add-button
+      height: 100%
+
+    .header-datepicker
+      height: 100%
 
   .secondary-card
     background-color: $rsasoft-layer2-card
@@ -32,3 +38,12 @@
 
   .theme-add-card
     background-color: $rsasoft-layer1-card
+
+.page-title
+  margin-top: 1em
+
+@media (max-width: 400px)
+  .header-add-button
+    display: none
+  .header-searchbar
+    width: 100%
