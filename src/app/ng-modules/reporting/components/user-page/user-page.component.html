@@ -1,6 +1,6 @@
-<mat-card-title>User page</mat-card-title>
+<mat-card-title class="page-title">User page</mat-card-title>
 <div class="header-activity">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="header-searchbar">
     <mat-label>Search user</mat-label>
     <input
       matInput
@@ -10,7 +10,11 @@
     />
   </mat-form-field>
 
-  <button mat-raised-button class="theme-add-card" (click)="addUser()">
+  <button
+    mat-raised-button
+    class="header-add-button theme-add-card"
+    (click)="addUser()"
+  >
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
@@ -18,7 +22,7 @@
 <mat-card class="card-container">
   <a href=""></a>
   <mat-card class="secondary-card" *ngFor="let user of allUsers">
-    <a routerLink="/employee/{{ user.id }}">
+    <a class="user-details" routerLink="/employee/{{ user.id }}">
       <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
       <mat-card-subtitle>
         {{ user.role }}
