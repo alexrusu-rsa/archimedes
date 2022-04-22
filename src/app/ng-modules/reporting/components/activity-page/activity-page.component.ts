@@ -82,7 +82,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         employeeId: this.user?.id,
         date: dateToSend,
       },
-      width: '33vw',
+      panelClass: 'full-width-dialog',
     });
 
     dialogRef.afterClosed().subscribe((newActivity: Activity) => {
@@ -101,7 +101,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         date: dateToSend,
         activity: activityToEdit,
       },
-      width: '33vw',
+      panelClass: 'full-width-dialog',
     });
   }
 
