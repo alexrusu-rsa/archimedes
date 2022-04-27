@@ -65,13 +65,13 @@
       </mat-select>
     </mat-form-field>
   </form>
+  <mat-dialog-actions>
+    <button
+      *ngIf="projectCustomers.project"
+      mat-raised-button
+      (click)="checkAndUpdate()"
+    >
+      Update project
+    </button>
+  </mat-dialog-actions>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button
-    *ngIf="projectCustomers.project"
-    mat-raised-button
-    (click)="checkAndUpdate()"
-  >
-    Update project
-  </button>
-</mat-dialog-actions>

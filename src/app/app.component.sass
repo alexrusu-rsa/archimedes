@@ -1,10 +1,11 @@
 
 @import 'src/styles/custom_theme.sass'
 .mat-sidenav
-  width: 15%
+  width: fit-content
   position: fixed
   top: 64px
   z-index: 1000
+  padding: 0 1em
 
 .mat-toolbar
   position: sticky
@@ -25,3 +26,13 @@
   width: 100%
   min-height: 100%
   height: fit-content
+
+
+
+@media (max-width: 820px)
+  .mat-sidenav-content
+    width: 95%
+
+@media (max-width: 400px)
+  .mat-sidenav-content
+    width: 95%
