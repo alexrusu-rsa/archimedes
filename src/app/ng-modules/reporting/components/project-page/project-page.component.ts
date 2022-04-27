@@ -55,9 +55,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   editProject(project: Project) {
     this.dialog.open(ProjectDialogComponent, {
-      data: {
-        project: project,
-      },
+      data: project,
       panelClass: 'full-width-dialog',
     });
   }

@@ -45,7 +45,7 @@
       <mat-label>Project Name</mat-label>
       <input
         matInput
-        [(ngModel)]="currentProject.projectName"
+        [(ngModel)]="currentProjectToUpdate.projectName"
         type="text"
         formControlName="name"
         required="true"
@@ -54,7 +54,10 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Customer name</mat-label>
-      <mat-select [(ngModel)]="selectedItem" formControlName="customerName">
+      <mat-select
+        [(value)]='selectedItem'
+        formControlName="customerName"
+      >
         <mat-option
           *ngFor="let customer of customers"
           [value]="customer.id"

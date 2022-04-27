@@ -29,6 +29,9 @@ export class ProjectDialogComponent implements OnInit {
   selectedItem?: string;
   newProject?: Project;
   getCustomersSub?: Subscription;
+  getCustomerOfProjectToUpdate?: Subscription;
+  selectedProjectCustomer?: Customer;
+
   addProject() {
     if (this.checkAbleToRequestAddProject())
       if (this.currentProject)
@@ -52,6 +55,12 @@ export class ProjectDialogComponent implements OnInit {
       .subscribe((result) => {
         this.customers = result;
       });
+  }
+
+  getCustomerOfSelectedProject() {
+    this.getCustomerOfProjectToUpdate = this.customerService
+      .getCustomer(this.currentProjectToUpdate.customerId)
+      .subscribe((result) => (this.selectedProjectCustomer = result));
   }
 
   checkAbleToRequestAddProject(): boolean {
@@ -83,18 +92,26 @@ export class ProjectDialogComponent implements OnInit {
     this.editProject();
   }
 
+  ngOnDestroy(): void {
+    this.addCurrentProjectSub?.unsubscribe();
+    this.getCustomersSub?.unsubscribe();
+    this.updateProjectSub?.unsubscribe();
+    this.getCustomerOfProjectToUpdate?.unsubscribe();
+  }
   ngOnInit(): void {
+    this.getCustomers();
+
     this.currentProject = <Project>{};
     this.newProject = <Project>{};
     if (this.currentProjectToUpdate) {
       this.currentProject = this.currentProjectToUpdate;
+      this.getCustomerOfSelectedProject();
     }
-    console.log(this.currentProjectToUpdate);
+
     this.addProjectForm = new FormGroup({
       customerName: new FormControl(this.currentProject?.customerId),
       name: new FormControl(this.currentProject?.projectName),
     });
-    this.getCustomers();
   }
   get customerName() {
     return this.addProjectForm?.get('customerName');
