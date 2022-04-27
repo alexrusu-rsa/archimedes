@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
-import { ProjectCustomersPack } from 'src/app/models/projectCustomersPack';
+import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class ProjectDialogComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public projectCustomers: ProjectCustomersPack
+    private customerService: CustomerService,
+    @Inject(MAT_DIALOG_DATA) public currentProjectToUpdate: Project
   ) {}
 
   addProjectForm?: FormGroup;
@@ -27,7 +28,7 @@ export class ProjectDialogComponent implements OnInit {
   customerNameForm = '';
   selectedItem?: string;
   newProject?: Project;
-
+  getCustomersSub?: Subscription;
   addProject() {
     if (this.checkAbleToRequestAddProject())
       if (this.currentProject)
@@ -43,6 +44,14 @@ export class ProjectDialogComponent implements OnInit {
           .updateProject(this.currentProject)
           .subscribe();
       }
+  }
+
+  getCustomers() {
+    this.getCustomersSub = this.customerService
+      .getCustomers()
+      .subscribe((result) => {
+        this.customers = result;
+      });
   }
 
   checkAbleToRequestAddProject(): boolean {
@@ -77,15 +86,15 @@ export class ProjectDialogComponent implements OnInit {
   ngOnInit(): void {
     this.currentProject = <Project>{};
     this.newProject = <Project>{};
-    this.customers = this.projectCustomers.customers;
-
-    if (this.projectCustomers.project !== undefined) {
-      this.currentProject = this.projectCustomers.project;
+    if (this.currentProjectToUpdate) {
+      this.currentProject = this.currentProjectToUpdate;
     }
+    console.log(this.currentProjectToUpdate);
     this.addProjectForm = new FormGroup({
       customerName: new FormControl(this.currentProject?.customerId),
       name: new FormControl(this.currentProject?.projectName),
     });
+    this.getCustomers();
   }
   get customerName() {
     return this.addProjectForm?.get('customerName');

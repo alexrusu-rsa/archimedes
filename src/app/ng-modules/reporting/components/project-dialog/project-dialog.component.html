@@ -1,5 +1,5 @@
 <mat-dialog-content
-  *ngIf="currentProject && this.projectCustomers.project === undefined"
+  *ngIf="currentProject && this.currentProjectToUpdate === null"
 >
   <form [formGroup]="addProjectForm!">
     <mat-form-field appearance="fill">
@@ -29,7 +29,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button
-    *ngIf="projectCustomers.project === undefined"
+    *ngIf="this.currentProjectToUpdate === null"
     mat-raised-button
     (click)="checkAndAdd()"
   >
@@ -38,7 +38,7 @@
 </mat-dialog-actions>
 
 <mat-dialog-content
-  *ngIf="currentProject && this.projectCustomers.project !== undefined"
+  *ngIf="currentProject && this.currentProjectToUpdate !== null"
 >
   <form [formGroup]="addProjectForm!">
     <mat-form-field appearance="fill">
@@ -67,7 +67,7 @@
   </form>
   <mat-dialog-actions>
     <button
-      *ngIf="projectCustomers.project"
+      *ngIf="this.currentProjectToUpdate !== null"
       mat-raised-button
       (click)="checkAndUpdate()"
     >
