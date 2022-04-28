@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
+import { RequestWrapper } from 'src/app/models/request-wrapper';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -37,7 +38,9 @@ export class CustomerDialogComponent implements OnInit {
       if (this.currentCustomer) {
         this.updateCustomerSub = this.customerService
           .updateCustomer(this.currentCustomer)
-          .subscribe();
+          .subscribe((updatedCustomer: Customer) => {
+            this.dialogRef.close();
+          });
       }
   }
 
