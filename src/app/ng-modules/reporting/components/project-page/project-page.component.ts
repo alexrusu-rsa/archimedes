@@ -48,9 +48,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   addProject() {
-    this.dialog.open(ProjectDialogComponent, {
+    const dialogRef = this.dialog.open(ProjectDialogComponent, {
       data: {},
       panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((newProject: Project) => {
+      if (newProject) this.allProjects?.push(newProject);
     });
   }
 
