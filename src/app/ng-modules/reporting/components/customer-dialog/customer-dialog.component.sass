@@ -44,7 +44,19 @@ h3
 .mat-hint
   color: $rsasoft-warning-color
 
-@media (max-width: 600px)
+@media (max-width: $media-query-400px)
+  .flex-container
+    display: inline
+  .flex-child:first-child
+    margin-right: 0
+  .mat-raised-button
+    margin-top: 5%!important
+  .first-form-field
+    margin-top: 8em
+
+@media (max-width: $media-query-820px)
+  .full-width-dialog .mat-dialog-container
+    max-width: 100vw !important
   .flex-container
     display: inline
   .flex-child:first-child
