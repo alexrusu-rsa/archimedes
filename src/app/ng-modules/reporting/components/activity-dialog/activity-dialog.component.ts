@@ -3,9 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
+import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-activity-dialog',
@@ -16,6 +18,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<ActivityDialogComponent>,
     private activityService: ActivityService,
+    private projectService: ProjectService,
     @Inject(MAT_DIALOG_DATA) public userDateActivity: UserDateActivity
   ) {}
 
@@ -23,6 +26,11 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   addActivityForm?: FormGroup;
   addCurrentActivitySub?: Subscription;
   updateEditActivitySub?: Subscription;
+  projects?: Project[];
+  getProjectsSub?: Subscription;
+  projectOfActivitySub?: Subscription;
+  projectOfSelectedActivity?: Project;
+  selectedItem?: string;
 
   addActivity() {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
@@ -32,6 +40,14 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
           this.dialogRef.close(newActivity)
         );
     }
+  }
+
+  getProjects() {
+    this.getProjectsSub = this.projectService
+      .getProjects()
+      .subscribe((result) => {
+        this.projects = result;
+      });
   }
 
   checkAbleToRequestAddActivity(): boolean {
@@ -60,9 +76,11 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getProjects();
     this.currentActivity = <Activity>{};
     if (this.userDateActivity.activity !== undefined) {
       this.currentActivity = this.userDateActivity.activity;
+      this.selectedItem = this.projectOfSelectedActivity?.projectName;
     } else {
       if (this.userDateActivity.date && this.userDateActivity.employeeId) {
         const activity: Activity = {
@@ -79,6 +97,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
         Validators.required,
       ]),
       end: new FormControl(this.currentActivity?.end, [Validators.required]),
+      projectName: new FormControl(this.currentActivity?.projectId),
       description: new FormControl(this.currentActivity?.description),
       extras: new FormControl(this.currentActivity?.extras),
     });
@@ -100,5 +119,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.addCurrentActivitySub?.unsubscribe();
     this.updateEditActivitySub?.unsubscribe();
+    this.projectOfActivitySub?.unsubscribe();
+    this.getProjectsSub?.unsubscribe();
   }
 }
