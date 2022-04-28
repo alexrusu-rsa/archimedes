@@ -83,6 +83,18 @@
           User role is required
         </mat-hint>
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User time/day </mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.timePerDay"
+          type="text"
+          formControlName="timePerDay"
+        />
+        <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
+          User Time/Day is required
+        </mat-hint>
+      </mat-form-field>
     </form>
     <button
       *ngIf="this.user === null"
@@ -177,6 +189,18 @@
         />
         <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
           User role is required
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User time/day </mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.timePerDay"
+          type="text"
+          formControlName="timePerDay"
+        />
+        <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
+          User Time/Day is required
         </mat-hint>
       </mat-form-field>
     </form>
