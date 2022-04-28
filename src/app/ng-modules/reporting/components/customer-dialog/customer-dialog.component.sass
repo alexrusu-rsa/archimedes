@@ -1,6 +1,7 @@
 @import 'src/styles/custom_theme.sass'
+@import 'src/styles/variables.sass'
 .dialog-container
-  width: 100%
+  width: $full-width
   height: fit-content
   overflow-y: auto
 
@@ -11,13 +12,13 @@
   flex: 1
 
 .mat-card-title
-  margin-bottom: 1em
+  margin-bottom: $mat-card-title-bottom-margin
 
 .flex-child:first-child
   margin-right: 20px
 
 .mat-dialog-content
-  width: 100%
+  width: $full-width
   margin: 0 auto
   overflow: inherit
   padding: 0!important
@@ -29,21 +30,33 @@
 
   .mat-form-field
     justify-self: center
-    width: 100%
+    width: $full-width
 
 h3
   text-align: center
 
 .mat-raised-button
-  width: 100%
+  width: $full-width
   margin: 0!important
   margin-top: 30%!important
   align-self: center
 
 .mat-hint
-  color: $rsasoft-warning
+  color: $rsasoft-warning-color
 
-@media (max-width: 600px)
+@media (max-width: $media-query-400px)
+  .flex-container
+    display: inline
+  .flex-child:first-child
+    margin-right: 0
+  .mat-raised-button
+    margin-top: 5%!important
+  .first-form-field
+    margin-top: 8em
+
+@media (max-width: $media-query-820px)
+  .full-width-dialog .mat-dialog-container
+    max-width: 100vw !important
   .flex-container
     display: inline
   .flex-child:first-child
