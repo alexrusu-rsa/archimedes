@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
-import { ProjectCustomersPack } from 'src/app/models/projectCustomersPack';
+import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class ProjectDialogComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public projectCustomers: ProjectCustomersPack
+    private customerService: CustomerService,
+    @Inject(MAT_DIALOG_DATA) public currentProjectToUpdate: Project
   ) {}
 
   addProjectForm?: FormGroup;
@@ -27,6 +28,9 @@ export class ProjectDialogComponent implements OnInit {
   customerNameForm = '';
   selectedItem?: string;
   newProject?: Project;
+  getCustomersSub?: Subscription;
+  getCustomerOfProjectToUpdate?: Subscription;
+  selectedProjectCustomer?: Customer;
 
   addProject() {
     if (this.checkAbleToRequestAddProject())
@@ -43,6 +47,20 @@ export class ProjectDialogComponent implements OnInit {
           .updateProject(this.currentProject)
           .subscribe();
       }
+  }
+
+  getCustomers() {
+    this.getCustomersSub = this.customerService
+      .getCustomers()
+      .subscribe((result) => {
+        this.customers = result;
+      });
+  }
+
+  getCustomerOfSelectedProject() {
+    this.getCustomerOfProjectToUpdate = this.customerService
+      .getCustomer(this.currentProjectToUpdate.customerId)
+      .subscribe((result) => (this.selectedProjectCustomer = result));
   }
 
   checkAbleToRequestAddProject(): boolean {
@@ -74,14 +92,22 @@ export class ProjectDialogComponent implements OnInit {
     this.editProject();
   }
 
+  ngOnDestroy(): void {
+    this.addCurrentProjectSub?.unsubscribe();
+    this.getCustomersSub?.unsubscribe();
+    this.updateProjectSub?.unsubscribe();
+    this.getCustomerOfProjectToUpdate?.unsubscribe();
+  }
   ngOnInit(): void {
+    this.getCustomers();
+
     this.currentProject = <Project>{};
     this.newProject = <Project>{};
-    this.customers = this.projectCustomers.customers;
-
-    if (this.projectCustomers.project !== undefined) {
-      this.currentProject = this.projectCustomers.project;
+    if (this.currentProjectToUpdate) {
+      this.currentProject = this.currentProjectToUpdate;
+      this.getCustomerOfSelectedProject();
     }
+
     this.addProjectForm = new FormGroup({
       customerName: new FormControl(this.currentProject?.customerId),
       name: new FormControl(this.currentProject?.projectName),
