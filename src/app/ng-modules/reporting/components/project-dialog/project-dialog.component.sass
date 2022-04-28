@@ -1,3 +1,40 @@
+@import 'src/styles/custom_theme.sass'
 @import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
+.dialog-container
+  width: $full-width
+  height: $full-height
+  overflow-x: auto
+  overflow-y: auto
+
+.mat-dialog-content
+  width: $full-width
+  margin: 0 auto
+  margin-top: 1em
+  overflow: inherit
+  padding: 0!important
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+  .mat-form-field
+    justify-self: center
+    width: $full-width
+h3
+  text-align: center
+
+.mat-raised-button
+  width: $full-width
+  margin: 0!important
+  margin-top: 5%!important
+  margin-bottom: 5%!important
+  align-self: center
+
+.mat-hint
+  color: $rsasoft-warning-color
+
+.mat-card-title
+  margin-bottom: $mat-card-title-bottom-margin
+
 .mat-hint
   @include mat-hint
