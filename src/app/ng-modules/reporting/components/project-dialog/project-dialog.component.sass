@@ -1,12 +1,14 @@
 @import 'src/styles/custom_theme.sass'
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
 .dialog-container
-  width: 100%
-  height: 100%
+  width: $full-width
+  height: $full-height
   overflow-x: auto
   overflow-y: auto
 
 .mat-dialog-content
-  width: 100%
+  width: $full-width
   margin: 0 auto
   margin-top: 1em
   overflow: inherit
@@ -17,19 +19,22 @@
 
   .mat-form-field
     justify-self: center
-    width: 100%
-
+    width: $full-width
 h3
   text-align: center
 
 .mat-raised-button
-  width: 100%
+  width: $full-width
   margin: 0!important
   margin-top: 5%!important
   margin-bottom: 5%!important
   align-self: center
 
 .mat-hint
-  color: $rsasoft-warning
+  color: $rsasoft-warning-color
+
 .mat-card-title
-  margin-bottom: 1em
+  margin-bottom: $mat-card-title-bottom-margin
+
+.mat-hint
+  @include mat-hint
