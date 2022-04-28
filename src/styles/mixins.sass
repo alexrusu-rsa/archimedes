@@ -1,7 +1,8 @@
 @import 'src/styles/custom_theme.sass'
 @import 'src/styles/variables.sass'
+
 @mixin mat-input-element
-  color: white
+  color: $rsasoft-white
 
 @mixin header-activity
   display: flex
@@ -14,20 +15,20 @@
   gap: 2vh
   flex-direction: column
   align-content: flex-start
-  height: 100%
+  height: $full-height
   margin-bottom: 5%
 
 @mixin header-add-button
-  height: 100%
+  height: $full-height
 
 @mixin header-datepicker
-  height: 100%
+  height: $full-height
 
 @mixin secondary-card
-  background-color: $rsasoft-layer2-card
+  background-color: $rsasoft-layer2-card-color
 
 @mixin theme-add-card
-  background-color: $rsasoft-layer1-card
+  background-color: $rsasoft-layer1-card-color
 
 @mixin mat-card-actions
   margin: 0!important
@@ -40,18 +41,18 @@
   display: flex
   gap: 2vh
   flex-direction: column
-  height: 100%
+  height: $full-height
 
 @mixin page-title
   margin-top: 1em
 
 @mixin dialog-container-users-activities
-  width: 100%
+  width: $full-width
   overflow-x: hidden
   overflow-y: hidden
 
 @mixin mat-dialog-content-users-activities
-  width: 100%
+  width: $full-width
   margin: 0 auto
   margin-top: 1em
   overflow: inherit
@@ -61,14 +62,14 @@
   justify-content: center
 
 @mixin mat-hint
-  color: $rsasoft-warning
+  color: $rsasoft-warning-color
 
 @mixin mat-raised-button
-  width: 100%
+  width: $full-width
   margin: 0!important
   margin-top: 10%!important
   align-self: center
 
 @mixin mat-form-field
   justify-self: center
-  width: 100%
+  width: $full-width

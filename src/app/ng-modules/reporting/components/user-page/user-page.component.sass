@@ -1,5 +1,5 @@
 @import 'src/styles/mixins.sass'
-
+@import 'src/styles/variables.sass'
 :host
   @include host-mixin
 
@@ -36,9 +36,9 @@ a
 .page-title
   @include page-title
 
-@media (max-width: 400px)
+@media (max-width: $media-query-400px)
   .header-add-button
     display: none
 
   .header-searchbar
-    width: 100%
+    width: $full-width

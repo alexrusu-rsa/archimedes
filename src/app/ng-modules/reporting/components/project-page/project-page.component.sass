@@ -1,5 +1,5 @@
 @import 'src/styles/mixins.sass'
-
+@import 'src/styles/variables.sass'
 :host
   @include host-mixin
 
@@ -27,9 +27,9 @@
     .theme-add-card
     @include theme-add-card
 
-@media (max-width: 400px)
+@media (max-width: $media-query-400px)
   .header-add-button
     display: none
 
   .header-searchbar
-    width: 100%
+    width: $full-width
