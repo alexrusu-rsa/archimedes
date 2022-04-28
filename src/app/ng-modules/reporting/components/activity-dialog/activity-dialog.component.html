@@ -52,6 +52,7 @@
           [(ngModel)]="currentActivity.projectId"
           formControlName="projectName"
         >
+          <mat-option value="null">No project</mat-option>
           <mat-option
             *ngFor="let project of projects"
             [value]="project.id"
@@ -142,6 +143,7 @@
           [(value)]="currentActivity.projectId"
           formControlName="projectName"
         >
+          <mat-option value="null">No project</mat-option>
           <mat-option
             *ngFor="let project of projects"
             [value]="project.id"

@@ -84,6 +84,7 @@ export class ActivityService {
       })
       .pipe(
         map((res) => {
+          console.log('Here');
           this.responseHandlingService.handleResponse('Activity updated');
           return res.body as RequestWrapper;
         }),
