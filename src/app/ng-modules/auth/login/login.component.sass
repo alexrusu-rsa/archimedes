@@ -1,10 +1,12 @@
 @import 'src/styles/custom_theme.sass'
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
 .mat-form-field
   justify-self: center
-  width: 100%
+  width: $full-width
 
   .mat-input-element
-    color: white
+    color: $rsasoft-white
 
 .mat-card
   width: 33vw
@@ -20,7 +22,7 @@
     text-align: center
 
   .mat-card-actions
-    width: 100%
+    width: $full-width
     margin: auto
 
   .mat-card-content
@@ -28,18 +30,15 @@
 
 a
   margin-left: 1%
-  color: white
+  color: $rsasoft-white
 
 .mat-raised-button
-  width: 100%
-  margin: 0!important
-  margin-top: 10%!important
-  align-self: center
+  @include mat-raised-button
 
 .mat-hint
-  color: $rsasoft-warning
+  @include mat-hint
 
-@media (max-width: 820px)
+@media (max-width: $media-query-820px)
 
   .mat-card
     width: 85%
@@ -54,7 +53,7 @@ a
   .mat-card-title
     margin-top: 2em
 
-@media (max-width: 400px)
+@media (max-width: $media-query-400px)
 
   .mat-card
     width: 80%
@@ -66,7 +65,7 @@ a
     margin-top: 5%
 
   .mat-raised-button
-    width: 100%
+    width: $full-width
     margin: 0!important
     margin-top: 5%!important
     align-self: center
