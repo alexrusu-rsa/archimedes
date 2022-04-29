@@ -1,51 +1,44 @@
-@import 'src/styles/custom_theme.sass'
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
 :host
-  display: flex
-  gap: 2vh
-  flex-direction: column
-  height: 100%
+  @include host-mixin
 
   .mat-input-element
-    color: white
+    @include mat-input-element
 
 .header-activity
-  display: flex
-  justify-content: space-between
-  height: 50px
+  @include header-activity
 
 .card-container
-  flex: 1
-  display: flex
-  gap: 2vh
-  flex-direction: column
-  align-content: flex-start
-  height: 100%
-  margin-bottom: 5%
+  @include card-container
 
   .header-add-button
-    height: 100%
+    @include header-add-button
 
   .header-datepicker
-    height: 100%
+    @include header-datepicker
 
   .secondary-card
-    background-color: $rsasoft-layer2-card
+    @include secondary-card
+
   .theme-add-card
-    background-color: $rsasoft-layer1-card
+    @include theme-add-card
+
   .mat-card-actions
-    margin: 0!important
-    padding: 0!important
+    @include mat-card-actions
+
 a
-  color: white
+  @include mat-input-element
+
 .user-details
-  font-size: 100%!important
+  @include user-details
 
 .page-title
-  margin-top: 1em
+  @include page-title
 
-@media (max-width: 400px)
+@media (max-width: $media-query-400px)
   .header-add-button
     display: none
 
   .header-searchbar
-    width: 100%
+    width: $full-width

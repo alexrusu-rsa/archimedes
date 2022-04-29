@@ -1,42 +1,34 @@
-@import 'src/styles/custom_theme.sass'
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
 
 .dialog-container
-  width: 100%
-  overflow-x: hidden
-  overflow-y: hidden
+  @include dialog-container-users-activities
 
 .flex-container
   display: flex
 
 .flex-child
   flex: 1
+
 .mat-card-title
-  margin-bottom: 1em
+  margin-bottom: $mat-card-title-bottom-margin
 
 .flex-child:first-child
   margin-right: 20px
 
 .mat-dialog-content
-  width: 100%
-  margin: 0 auto
-  margin-top: 1em
-  overflow: inherit
-  padding: 0!important
-  display: flex
-  flex-direction: column
-  justify-content: center
+  @include mat-dialog-content-users-activities
 
-  .mat-form-field
-    justify-self: center
-    width: 100%
+.mat-form-field
+  @include mat-form-field
 
 h3
   text-align: center
 
 .mat-raised-button
-  width: 100%
+  width: $full-width
   margin: 0!important
-  margin-top: 10%!important
+  margin-top: 3%!important
   align-self: center
 .mat-hint
-  color: $rsasoft-warning
+  @include mat-hint

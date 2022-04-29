@@ -1,6 +1,6 @@
 import { toUnredirectedSourceFile } from '@angular/compiler-cli/src/ngtsc/util/src/typescript';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormControlDirective, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -62,6 +62,7 @@ export class UserDialogComponent implements OnInit {
       role: new FormControl(this.currentUser?.role),
       seniority: new FormControl(this.currentUser?.seniority),
       password: new FormControl(this.currentUser?.password),
+      timePerDay: new FormControl(this.currentUser?.timePerDay),
     });
   }
 
@@ -87,5 +88,8 @@ export class UserDialogComponent implements OnInit {
 
   get seniority() {
     return this.addUserForm?.get('seniority');
+  }
+  get timePerDay() {
+    return this.addUserForm?.get('timePerDay');
   }
 }

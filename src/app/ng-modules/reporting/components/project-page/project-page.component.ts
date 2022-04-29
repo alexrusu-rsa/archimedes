@@ -49,7 +49,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   addProject() {
     const dialogRef = this.dialog.open(ProjectDialogComponent, {
-      data: {},
       panelClass: 'full-width-dialog',
     });
     dialogRef.afterClosed().subscribe((newProject: Project) => {
@@ -59,9 +58,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   editProject(project: Project) {
     this.dialog.open(ProjectDialogComponent, {
-      data: {
-        project: project,
-      },
+      data: project,
       panelClass: 'full-width-dialog',
     });
   }
