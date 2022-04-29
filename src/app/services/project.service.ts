@@ -59,7 +59,7 @@ export class ProjectService {
       );
   }
 
-  updateProject(project: Project): Observable<RequestWrapper> {
+  updateProject(project: Project): Observable<Project> {
     return this.httpClient
       .put(this.projectsUrl + '/' + project.id, project, {
         observe: 'response',
@@ -67,26 +67,24 @@ export class ProjectService {
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Project updated');
-          return res.body as RequestWrapper;
+          return res.body as Project;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'updateProject'
-          )
+          this.responseHandlingService.handleError<Project>('updateProject')
         )
       );
   }
 
-  addProject(project: Project): Observable<RequestWrapper> {
+  addProject(project: Project): Observable<Project> {
     return this.httpClient
-      .post<RequestWrapper>(this.projectsUrl, project, { observe: 'response' })
+      .post<Project>(this.projectsUrl, project, { observe: 'response' })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Project added');
-          return res.body as RequestWrapper;
+          return res.body as Project;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>('addProject')
+          this.responseHandlingService.handleError<Project>('addProject')
         )
       );
   }
