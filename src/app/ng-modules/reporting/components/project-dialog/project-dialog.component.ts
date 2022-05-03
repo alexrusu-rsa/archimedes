@@ -37,7 +37,9 @@ export class ProjectDialogComponent implements OnInit {
       if (this.currentProject)
         this.addCurrentProjectSub = this.projectService
           .addProject(this.currentProject)
-          .subscribe();
+          .subscribe((newProject: Project) => {
+            this.dialogRef.close(newProject);
+          });
   }
 
   editProject() {
@@ -45,7 +47,9 @@ export class ProjectDialogComponent implements OnInit {
       if (this.currentProject) {
         this.updateProjectSub = this.projectService
           .updateProject(this.currentProject)
-          .subscribe();
+          .subscribe((updatedProject: Project) => {
+            this.dialogRef.close();
+          });
       }
   }
 
