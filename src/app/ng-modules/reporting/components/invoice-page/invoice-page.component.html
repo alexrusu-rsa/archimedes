@@ -1,0 +1,47 @@
+<mat-card-title class="page-title"> Invoices </mat-card-title>
+<div class="header-activity">
+  <mat-form-field appearance="fill" class="header-datepicker">
+    <input matInput [matDatepicker]="datePicker" (dateChange)="dateChanges()" />
+    <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #datePicker touchUi></mat-datepicker>
+  </mat-form-field>
+
+  <!-- <button class="header-add-button" mat-raised-button>
+    <mat-icon color="accent">add_box</mat-icon>
+  </button> -->
+</div>
+
+<mat-card *ngIf="allCustomers" class="card-container">
+  <mat-card class="secondary-card" *ngFor="let customer of allCustomers">
+    <mat-card-subtitle>Month: April, 2022</mat-card-subtitle>
+    <mat-card-title>{{ customer.customerName }}</mat-card-title>
+
+    <h3>Projects:</h3>
+    <mat-chip-list class="example-chip">
+      <mat-chip class="example-box"> PROJECT 1 </mat-chip>
+      <mat-chip class="example-box"> PROJECT 2 </mat-chip>
+    </mat-chip-list>
+
+    <mat-card-actions align="end">
+      <button
+        *ngIf="customer.id"
+        mat-raised-button
+        color="accent"
+        (click)="downloadXLSX(customer.id)"
+      >
+        <mat-icon>table_chart</mat-icon>
+        <mat-icon> vertical_align_bottom</mat-icon>
+      </button>
+
+      <button
+        *ngIf="customer.id"
+        mat-raised-button
+        color="accent"
+        (click)="downloadPDF(customer.id)"
+      >
+        <mat-icon>picture_as_pdf</mat-icon>
+        <mat-icon> vertical_align_bottom</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</mat-card>

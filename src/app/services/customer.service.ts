@@ -92,4 +92,18 @@ export class CustomerService {
         )
       );
   }
+
+  getCustomerInvoicePDF(customerId: string) {
+    return this.httpClient.get(
+      this.customersUrl + '/invoice/pdf/' + customerId,
+      { observe: 'response', responseType: 'blob' }
+    );
+  }
+  
+  getCustomerInvoiceXLSX(customerId: string) {
+    return this.httpClient.get(
+      this.customersUrl + '/invoice/xlsx/' + customerId,
+      { observe: 'response', responseType: 'blob' }
+    );
+  }
 }

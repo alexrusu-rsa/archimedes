@@ -142,4 +142,26 @@ export class ActivityService {
         )
       );
   }
+
+  getActivitiesOfMonthYear(
+    month: string,
+    year: string
+  ): Observable<Activity[]> {
+    const activitiesOfMonthYearUrl =
+      this.activitiesUrl + '/' + year + '/' + month;
+    return this.httpClient
+      .get<Activity[]>(activitiesOfMonthYearUrl, {
+        observe: 'response',
+      })
+      .pipe(
+        map((res) => {
+          return res.body as Activity[];
+        }),
+        catchError(
+          this.responseHandlingService.handleError<Activity[]>(
+            'getActivitiesByMonthYear'
+          )
+        )
+      );
+  }
 }
