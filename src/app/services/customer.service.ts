@@ -93,16 +93,16 @@ export class CustomerService {
       );
   }
 
-  getCustomerInvoicePDF(customerId: string) {
+  getCustomerInvoicePDF(customerId: string, invoiceNumber: string) {
     return this.httpClient.get(
-      this.customersUrl + '/invoice/pdf/' + customerId,
+      this.customersUrl + '/invoice/pdf/' + customerId + '/' + invoiceNumber,
       { observe: 'response', responseType: 'blob' }
     );
   }
-  
-  getCustomerInvoiceXLSX(customerId: string) {
+
+  getCustomerInvoiceXLSX(customerId: string, invoiceNumber: string) {
     return this.httpClient.get(
-      this.customersUrl + '/invoice/xlsx/' + customerId,
+      this.customersUrl + '/invoice/xlsx/' + customerId + '/' + invoiceNumber,
       { observe: 'response', responseType: 'blob' }
     );
   }
