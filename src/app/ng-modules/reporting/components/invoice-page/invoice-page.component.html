@@ -1,16 +1,36 @@
 <mat-card-title class="page-title"> Invoices </mat-card-title>
 <div class="header-activity">
   <mat-form-field appearance="fill" class="header-datepicker">
-    <input matInput [matDatepicker]="datePicker" (dateChange)="dateChanges()" />
+    <input
+      matInput
+      [matDatepicker]="datePicker"
+      [(ngModel)]="selectedDate"
+      (dateChange)="dateChanges()"
+    />
     <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
-    <mat-datepicker #datePicker touchUi></mat-datepicker>
+    <mat-datepicker #datePicker startView="year" touchUi></mat-datepicker>
   </mat-form-field>
-
 </div>
+
+
+<mat-form-field appearance="fill">
+  <mat-label>Month and Year</mat-label>
+  <input matInput [matDatepicker]="dp" [formControl]="date">
+  <mat-hint>MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+  <mat-datepicker #dp
+                  startView="multi-year"
+                  (monthSelected)="setMonthAndYear($event, dp)"
+                  panelClass="example-month-picker">
+  </mat-datepicker>
+</mat-form-field>
 
 <mat-card *ngIf="allCustomers" class="card-container">
   <mat-card class="secondary-card" *ngFor="let customer of allCustomers">
-    <mat-card-subtitle>Month: April, 2022</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="this.selectedMonth && this.selectedYear"
+      >Month: {{ this.selectedMonth }} -
+      {{ this.selectedYear }}</mat-card-subtitle
+    >
     <mat-card-title>{{ customer.customerName }}</mat-card-title>
 
     <h3>Projects:</h3>

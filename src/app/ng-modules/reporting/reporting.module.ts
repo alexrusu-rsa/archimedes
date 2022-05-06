@@ -7,6 +7,7 @@ import { ReportingRoutingModule } from './reporting-routing.module';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { CustomerPageComponent } from './components/customer-page/customer-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ProjectPageComponent } from './components/project-page/project-page.com
     FormsModule,
     RouterModule,
     ReportingRoutingModule,
+    MomentDateModule,
   ],
 })
 export class ReportingModule {}

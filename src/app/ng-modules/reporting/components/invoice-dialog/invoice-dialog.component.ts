@@ -18,10 +18,15 @@ export class InvoiceDialogComponent implements OnInit {
 
   customerId?: string;
   invoiceNumber?: string;
+  selectedMonthYear?: string;
   downloadXLSX() {
-    if (this.customerId && this.invoiceNumber)
+    if (this.customerId && this.invoiceNumber && this.selectedMonthYear)
       this.customerService
-        .getCustomerInvoiceXLSX(this.customerId, this.invoiceNumber)
+        .getCustomerInvoiceXLSX(
+          this.customerId,
+          this.invoiceNumber,
+          this.selectedMonthYear
+        )
         .subscribe((response: any) => {
           window.location.href = response.url;
         });
@@ -29,9 +34,13 @@ export class InvoiceDialogComponent implements OnInit {
   }
 
   downloadPDF() {
-    if (this.customerId && this.invoiceNumber)
+    if (this.customerId && this.invoiceNumber && this.selectedMonthYear)
       this.customerService
-        .getCustomerInvoicePDF(this.customerId, this.invoiceNumber)
+        .getCustomerInvoicePDF(
+          this.customerId,
+          this.invoiceNumber,
+          this.selectedMonthYear
+        )
         .subscribe((response: any) => {
           window.location.href = response.url;
         });
@@ -39,7 +48,8 @@ export class InvoiceDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.invoiceDataWrapper);
+    this.selectedMonthYear =
+      this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
   }
 }
