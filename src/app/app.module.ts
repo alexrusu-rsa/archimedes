@@ -18,7 +18,7 @@ import { ProjectDialogComponent } from './ng-modules/reporting/components/projec
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
-import { MomentDateModule } from '@angular/material-moment-adapter';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +42,6 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     FormsModule,
     AuthModule,
     ReactiveFormsModule,
-    MomentDateModule,
   ],
 
   providers: [

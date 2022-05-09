@@ -12,17 +12,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
 import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
 import { DatePipe } from '@angular/common';
-import { default as _rollupMoment, Moment } from 'moment';
-import _moment from 'moment';
+import _moment, { Moment } from 'moment';
+import { default as _rollupMoment } from 'moment';
 import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
+
 import {
   DateAdapter,
   MAT_DATE_LOCALE,
-} from '@angular/material/core/datetime/date-adapter';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+  MAT_DATE_FORMATS,
+} from '@angular/material/core';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -35,6 +36,7 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
+
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice-page.component.html',
@@ -66,8 +68,6 @@ export class InvoicePageComponent implements OnInit {
   selectedMonth?: string;
   selectedYear?: string;
 
-  date = new FormControl(moment());
-
   constructor(
     private customerService: CustomerService,
     private activityService: ActivityService,
@@ -76,6 +76,8 @@ export class InvoicePageComponent implements OnInit {
     public datepipe: DatePipe
   ) {}
 
+  date = new FormControl(moment());
+
   setMonthAndYear(
     normalizedMonthAndYear: Moment,
     datepicker: MatDatepicker<Moment>
@@ -83,21 +85,16 @@ export class InvoicePageComponent implements OnInit {
     const ctrlValue = this.date.value;
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
+
+    if (normalizedMonthAndYear.month() < 10)
+      this.selectedMonth =
+        '0' + (normalizedMonthAndYear.month() + 1).toString();
+    else this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
+    this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
     datepicker.close();
   }
 
-  dateChanges() {
-    const dateFormatted = this.datepipe.transform(
-      this.selectedDate,
-      'dd/MM/yyyy'
-    );
-    if (dateFormatted) {
-      const splitDateFormatted = dateFormatted.split('/');
-      this.selectedMonth = splitDateFormatted[1];
-      this.selectedYear = splitDateFormatted[2];
-    }
-  }
   getAllCustomers() {
     this.allCustomersSub = this.customerService
       .getCustomers()
