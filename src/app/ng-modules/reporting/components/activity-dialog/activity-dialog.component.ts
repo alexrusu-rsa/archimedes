@@ -98,6 +98,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
       ]),
       end: new FormControl(this.currentActivity?.end, [Validators.required]),
       projectName: new FormControl(this.currentActivity?.projectId),
+      activityType: new FormControl(this.currentActivity?.activityType),
       description: new FormControl(this.currentActivity?.description),
       extras: new FormControl(this.currentActivity?.extras),
     });

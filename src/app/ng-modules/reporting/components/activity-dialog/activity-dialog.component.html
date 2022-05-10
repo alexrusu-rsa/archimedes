@@ -64,6 +64,28 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select
+          [(ngModel)]="currentActivity.activityType"
+          formControlName="activityType"
+        >
+          <mat-option ngDefaultControl value="meeting">Meeting</mat-option>
+          <mat-option ngDefaultControl value="training">Training</mat-option>
+          <mat-option ngDefaultControl value="work on project"
+            >Work on project</mat-option
+          >
+          <mat-option ngDefaultControl value="internal">Internal</mat-option>
+          <mat-option ngDefaultControl value="vacation">Vacation</mat-option>
+          <mat-option ngDefaultControl value="unpaid leave"
+            >Unpaid leave</mat-option
+          >
+          <mat-option ngDefaultControl value="medical leave"
+            >Medical leave</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>Activity Description</mat-label>
         <textarea
           matInput
@@ -151,6 +173,28 @@
           >
             {{ project.projectName }}
           </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select
+          [(ngModel)]="currentActivity.activityType"
+          formControlName="activityType"
+        >
+          <mat-option ngDefaultControl value="meeting">Meeting</mat-option>
+          <mat-option ngDefaultControl value="training">Training</mat-option>
+          <mat-option ngDefaultControl value="work on project"
+            >Work on project</mat-option
+          >
+          <mat-option ngDefaultControl value="internal">Internal</mat-option>
+          <mat-option ngDefaultControl value="vacation">Vacation</mat-option>
+          <mat-option ngDefaultControl value="unpaid leave"
+            >Unpaid leave</mat-option
+          >
+          <mat-option ngDefaultControl value="medical leave"
+            >Medical leave</mat-option
+          >
         </mat-select>
       </mat-form-field>
 
