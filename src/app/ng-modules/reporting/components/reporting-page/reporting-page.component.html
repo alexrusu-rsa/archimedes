@@ -1,0 +1,36 @@
+<mat-card-title class="page-title">Reporting Page</mat-card-title>
+<div class="header-activity">
+  <mat-form-field appearance="fill">
+    <mat-label>Month and Year</mat-label>
+    <input matInput [matDatepicker]="dp" [formControl]="date" />
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker
+      #dp
+      startView="multi-year"
+      (monthSelected)="setMonthAndYear($event, dp)"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+  <mat-form-field *ngIf="this.allEmployees" appearance="fill">
+    <mat-label>Employee name</mat-label>
+    <mat-select
+      [(ngModel)]="selectedItemEmployee"
+      (selectionChange)="doSomething($event)"
+    >
+      <mat-option
+        *ngFor="let employee of allEmployees"
+        [value]="employee.id"
+        ngDefaultControl
+      >
+        {{ employee.name }} - {{ employee.surname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<mat-card *ngIf="this.allActivities" class="card-container">
+  <mat-card class="secondary-card" *ngFor="let activity of this.allActivities">
+    <mat-card-subtitle>{{ activity.date }}</mat-card-subtitle>
+    <mat-card-title>{{ activity.employeeId }}</mat-card-title>
+    <mat-card-title>{{ activity.projectId }}</mat-card-title>
+  </mat-card>
+</mat-card>

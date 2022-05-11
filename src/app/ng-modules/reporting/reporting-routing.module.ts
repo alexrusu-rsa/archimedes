@@ -6,6 +6,7 @@ import { RoleGuard } from '../auth/role.guard';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { CustomerPageComponent } from './components/customer-page/customer-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
+import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
 
 const routes: Routes = [
   { path: 'dashboard/:id', component: ActivityPageComponent },
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: 'project',
     component: ProjectPageComponent,
+    canActivate: [RoleGuard],
+  },
+  {
+    path: 'user-reporting',
+    component: ReportingPageComponent,
     canActivate: [RoleGuard],
   },
   {
