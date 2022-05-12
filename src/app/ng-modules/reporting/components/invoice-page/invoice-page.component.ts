@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Subscription } from 'rxjs';
@@ -24,6 +24,7 @@ import {
   MAT_DATE_LOCALE,
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
+import e from 'express';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -42,9 +43,6 @@ export const MY_FORMATS = {
   templateUrl: './invoice-page.component.html',
   styleUrls: ['./invoice-page.component.sass'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -54,7 +52,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class InvoicePageComponent implements OnInit {
+export class InvoicePageComponent implements OnInit, OnDestroy {
   allCustomers?: Customer[];
   allCustomersSub?: Subscription;
 
@@ -112,6 +110,20 @@ export class InvoicePageComponent implements OnInit {
       },
       panelClass: 'full-width-dialog',
     });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      const a = document.createElement('a');
+      const objectUrl = URL.createObjectURL(result.body);
+      a.href = objectUrl;
+      if (
+        result.body.type ===
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      )
+        a.download = 'invoice.xlsx';
+      else {
+        a.download = 'invoice.pdf';
+      }
+      a.click();
+    });
   }
 
   getAllProjects() {
@@ -125,5 +137,10 @@ export class InvoicePageComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCustomers();
     this.getAllProjects();
+  }
+
+  ngOnDestroy(): void {
+    this.allCustomersSub?.unsubscribe();
+    this.allProjectsSub?.unsubscribe();
   }
 }
