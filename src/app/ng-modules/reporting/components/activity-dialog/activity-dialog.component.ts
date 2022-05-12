@@ -31,6 +31,8 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   projectOfActivitySub?: Subscription;
   projectOfSelectedActivity?: Project;
   selectedItem?: string;
+  activityTypes?: string[];
+  activityTypesSub?: Subscription;
 
   addActivity() {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
@@ -47,6 +49,14 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
       .getProjects()
       .subscribe((result) => {
         this.projects = result;
+      });
+  }
+
+  getActivityTypes() {
+    this.activityTypesSub = this.activityService
+      .getAllActivityTypes()
+      .subscribe((result) => {
+        this.activityTypes = result;
       });
   }
 
@@ -77,6 +87,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProjects();
+    this.getActivityTypes();
     this.currentActivity = <Activity>{};
     if (this.userDateActivity.activity !== undefined) {
       this.currentActivity = this.userDateActivity.activity;

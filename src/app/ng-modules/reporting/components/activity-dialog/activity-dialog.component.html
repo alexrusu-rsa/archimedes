@@ -69,18 +69,11 @@
           [(ngModel)]="currentActivity.activityType"
           formControlName="activityType"
         >
-          <mat-option ngDefaultControl value="meeting">Meeting</mat-option>
-          <mat-option ngDefaultControl value="training">Training</mat-option>
-          <mat-option ngDefaultControl value="work on project"
-            >Work on project</mat-option
-          >
-          <mat-option ngDefaultControl value="internal">Internal</mat-option>
-          <mat-option ngDefaultControl value="vacation">Vacation</mat-option>
-          <mat-option ngDefaultControl value="unpaid leave"
-            >Unpaid leave</mat-option
-          >
-          <mat-option ngDefaultControl value="medical leave"
-            >Medical leave</mat-option
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType }}"
+            >{{ activityType }}</mat-option
           >
         </mat-select>
       </mat-form-field>
@@ -182,18 +175,11 @@
           [(ngModel)]="currentActivity.activityType"
           formControlName="activityType"
         >
-          <mat-option ngDefaultControl value="meeting">Meeting</mat-option>
-          <mat-option ngDefaultControl value="training">Training</mat-option>
-          <mat-option ngDefaultControl value="work on project"
-            >Work on project</mat-option
-          >
-          <mat-option ngDefaultControl value="internal">Internal</mat-option>
-          <mat-option ngDefaultControl value="vacation">Vacation</mat-option>
-          <mat-option ngDefaultControl value="unpaid leave"
-            >Unpaid leave</mat-option
-          >
-          <mat-option ngDefaultControl value="medical leave"
-            >Medical leave</mat-option
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType }}"
+            >{{ activityType }}</mat-option
           >
         </mat-select>
       </mat-form-field>
