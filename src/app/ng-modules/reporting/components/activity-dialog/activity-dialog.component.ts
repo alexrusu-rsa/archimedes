@@ -133,5 +133,6 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.updateEditActivitySub?.unsubscribe();
     this.projectOfActivitySub?.unsubscribe();
     this.getProjectsSub?.unsubscribe();
+    this.activityTypesSub?.unsubscribe();
   }
 }
