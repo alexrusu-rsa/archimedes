@@ -2,12 +2,12 @@
 <div class="header-activity">
   <mat-form-field appearance="fill">
     <mat-label>Month and Year</mat-label>
-    <input matInput [matDatepicker]="dp" [formControl]="date" />
-    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <input matInput [matDatepicker]="datepicker" [formControl]="date" />
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
     <mat-datepicker
-      #dp
+      #datepicker
       startView="multi-year"
-      (monthSelected)="setMonthAndYear($event, dp)"
+      (monthSelected)="setMonthAndYear($event, datepicker)"
     >
     </mat-datepicker>
   </mat-form-field>
@@ -15,7 +15,7 @@
     <mat-label>Employee name</mat-label>
     <mat-select
       [(ngModel)]="selectedItemEmployee"
-      (selectionChange)="doSomething($event)"
+      (selectionChange)="filterActivitiesEmployeeName($event)"
     >
       <mat-option
         *ngFor="let employee of allEmployees"

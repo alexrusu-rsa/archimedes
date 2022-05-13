@@ -74,16 +74,13 @@ export class ReportingPageComponent implements OnInit {
     ctrlValue.year(normalizedMonthAndYear.year());
 
     if (normalizedMonthAndYear.month() < 10)
-      this.selectedMonth =
-        '0' + (normalizedMonthAndYear.month() + 1).toString();
-    else this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
+      this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
     this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
-    console.log(this.selectedMonth, this.selectedYear);
     datepicker.close();
   }
 
-  doSomething(event: MatSelectChange) {
+  filterActivitiesEmployeeName(event: MatSelectChange) {
     this.allActivities = this.allActivities?.filter(
       (activity) => (activity.employeeId = event.value)
     );
