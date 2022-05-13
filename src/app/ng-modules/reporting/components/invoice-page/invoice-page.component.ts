@@ -84,10 +84,7 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
 
-    if (normalizedMonthAndYear.month() < 10)
-      this.selectedMonth =
-        '0' + (normalizedMonthAndYear.month() + 1).toString();
-    else this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
+    this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
     this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
     datepicker.close();
