@@ -1,6 +1,6 @@
 <div class="dialog-container">
   <mat-dialog-content
-    *ngIf="currentActivity && this.userDateActivity.activity === undefined"
+    *ngIf="currentActivity && userDateActivity.activity === undefined"
   >
     <mat-card-title>Add Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
@@ -91,7 +91,7 @@
   </mat-dialog-content>
 
   <mat-dialog-content
-    *ngIf="currentActivity && this.userDateActivity.activity !== undefined"
+    *ngIf="currentActivity && userDateActivity.activity !== undefined"
   >
     <mat-card-title>Update Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
@@ -177,7 +177,7 @@
       </mat-form-field>
     </form>
     <button
-      *ngIf="this.userDateActivity.activity !== undefined"
+      *ngIf="userDateActivity.activity !== undefined"
       color="accent"
       mat-raised-button
       (click)="editActivity()"

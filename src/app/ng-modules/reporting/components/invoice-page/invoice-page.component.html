@@ -15,9 +15,8 @@
 </div>
 <mat-card *ngIf="allCustomers" class="card-container">
   <mat-card class="secondary-card" *ngFor="let customer of allCustomers">
-    <mat-card-subtitle *ngIf="this.selectedMonth && this.selectedYear"
-      >Month: {{ this.selectedMonth }} -
-      {{ this.selectedYear }}</mat-card-subtitle
+    <mat-card-subtitle *ngIf="selectedMonth && selectedYear"
+      >Month: {{ selectedMonth }} - {{ selectedYear }}</mat-card-subtitle
     >
     <mat-card-title>{{ customer.customerName }}</mat-card-title>
 
