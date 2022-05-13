@@ -1,8 +1,8 @@
 <div class="dialog-container">
-  <mat-card-title *ngIf="currentCustomer && this.customer === null"
+  <mat-card-title *ngIf="currentCustomer && customer === null"
     >Add Customer</mat-card-title
   >
-  <mat-dialog-content *ngIf="currentCustomer && this.customer === null">
+  <mat-dialog-content *ngIf="currentCustomer && customer === null">
     <form [formGroup]="addCustomerForm!">
       <mat-form-field class="first-form-field" appearance="fill">
         <mat-label>Customer Name</mat-label>

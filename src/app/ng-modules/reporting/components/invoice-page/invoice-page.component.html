@@ -1,0 +1,45 @@
+<mat-card-title class="page-title"> Invoices </mat-card-title>
+<div class="header-activity">
+  <mat-form-field appearance="fill">
+    <mat-label>Month and Year</mat-label>
+    <input matInput [matDatepicker]="datepicker" [formControl]="date" />
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #datepicker
+      startView="multi-year"
+      (monthSelected)="setMonthAndYear($event, datepicker)"
+      panelClass="header-month-picker"
+    >
+    </mat-datepicker>
+  </mat-form-field>
+</div>
+<mat-card *ngIf="allCustomers" class="card-container">
+  <mat-card class="secondary-card" *ngFor="let customer of allCustomers">
+    <mat-card-subtitle *ngIf="selectedMonth && selectedYear"
+      >Month: {{ selectedMonth }} - {{ selectedYear }}</mat-card-subtitle
+    >
+    <mat-card-title>{{ customer.customerName }}</mat-card-title>
+
+    <h3>Projects:</h3>
+    <mat-chip-list>
+      <div *ngFor="let project of allProjects">
+        <mat-chip *ngIf="project.customerId === customer.id">{{
+          project.projectName
+        }}</mat-chip>
+      </div>
+    </mat-chip-list>
+
+    <mat-card-actions align="end">
+      <button
+        *ngIf="customer.id"
+        mat-raised-button
+        color="accent"
+        (click)="downloadInvoice(customer.id)"
+      >
+        <mat-icon>table_chart</mat-icon>
+        <mat-icon>picture_as_pdf</mat-icon>
+        <mat-icon>vertical_align_bottom</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</mat-card>

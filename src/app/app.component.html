@@ -41,6 +41,13 @@
         (click)="sidenav.close()"
         >Customers</a
       >
+      <a
+        *ngIf="isAdmin && isAdmin !== undefined"
+        mat-list-item
+        routerLink="reporting/invoice"
+        (click)="sidenav.close()"
+        >Invoices</a
+      >
       <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()"
         >Log Out</a
       >

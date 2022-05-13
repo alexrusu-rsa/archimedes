@@ -1,5 +1,5 @@
 <div class="dialog-container">
-  <mat-dialog-content *ngIf="currentUser && this.user === null">
+  <mat-dialog-content *ngIf="currentUser && user === null">
     <mat-card-title>Add User</mat-card-title>
     <form [formGroup]="addUserForm!">
       <mat-form-field appearance="fill">
@@ -107,7 +107,7 @@
   </mat-dialog-content>
 
   <!-- EDIT -->
-  <mat-dialog-content *ngIf="currentUser && this.user !== null">
+  <mat-dialog-content *ngIf="currentUser && user !== null">
     <mat-card-title>Update user</mat-card-title>
     <form [formGroup]="addUserForm!">
       <mat-form-field appearance="fill">
@@ -205,7 +205,7 @@
       </mat-form-field>
     </form>
     <button
-      *ngIf="this.user !== null"
+      *ngIf="user !== null"
       mat-raised-button
       color="accent"
       (click)="editUser()"
