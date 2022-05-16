@@ -64,6 +64,21 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select
+          [(ngModel)]="currentActivity.activityType"
+          formControlName="activityType"
+        >
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>Activity Description</mat-label>
         <textarea
           matInput
@@ -151,6 +166,21 @@
           >
             {{ project.projectName }}
           </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select
+          [(ngModel)]="currentActivity.activityType"
+          formControlName="activityType"
+        >
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
 

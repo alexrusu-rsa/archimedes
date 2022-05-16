@@ -5,6 +5,7 @@ export interface Activity {
   start?: string;
   end?: string;
   projectId?: string;
+  activityType?: string;
   description?: string;
   extras?: string;
   employeeId: string;

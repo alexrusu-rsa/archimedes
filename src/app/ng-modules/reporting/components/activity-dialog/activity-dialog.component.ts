@@ -31,6 +31,8 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   projectOfActivitySub?: Subscription;
   projectOfSelectedActivity?: Project;
   selectedItem?: string;
+  activityTypes?: [string, string][];
+  activityTypesSub?: Subscription;
 
   addActivity() {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
@@ -47,6 +49,14 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
       .getProjects()
       .subscribe((result) => {
         this.projects = result;
+      });
+  }
+
+  getActivityTypes() {
+    this.activityTypesSub = this.activityService
+      .getAllActivityTypes()
+      .subscribe((result) => {
+        this.activityTypes = Object.entries(result);
       });
   }
 
@@ -77,6 +87,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProjects();
+    this.getActivityTypes();
     this.currentActivity = <Activity>{};
     if (this.userDateActivity.activity !== undefined) {
       this.currentActivity = this.userDateActivity.activity;
@@ -98,6 +109,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
       ]),
       end: new FormControl(this.currentActivity?.end, [Validators.required]),
       projectName: new FormControl(this.currentActivity?.projectId),
+      activityType: new FormControl(this.currentActivity?.activityType),
       description: new FormControl(this.currentActivity?.description),
       extras: new FormControl(this.currentActivity?.extras),
     });
@@ -121,5 +133,6 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.updateEditActivitySub?.unsubscribe();
     this.projectOfActivitySub?.unsubscribe();
     this.getProjectsSub?.unsubscribe();
+    this.activityTypesSub?.unsubscribe();
   }
 }
