@@ -31,7 +31,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   projectOfActivitySub?: Subscription;
   projectOfSelectedActivity?: Project;
   selectedItem?: string;
-  activityTypes?: string[];
+  activityTypes?: [string, string][];
   activityTypesSub?: Subscription;
 
   addActivity() {
@@ -56,7 +56,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.activityTypesSub = this.activityService
       .getAllActivityTypes()
       .subscribe((result) => {
-        this.activityTypes = result;
+        this.activityTypes = Object.entries(result);
       });
   }
 

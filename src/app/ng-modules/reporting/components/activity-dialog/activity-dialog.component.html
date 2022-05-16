@@ -72,8 +72,8 @@
           <mat-option
             ngDefaultControl
             *ngFor="let activityType of activityTypes"
-            value="{{ activityType }}"
-            >{{ activityType }}</mat-option
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
           >
         </mat-select>
       </mat-form-field>
@@ -178,8 +178,8 @@
           <mat-option
             ngDefaultControl
             *ngFor="let activityType of activityTypes"
-            value="{{ activityType }}"
-            >{{ activityType }}</mat-option
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
           >
         </mat-select>
       </mat-form-field>
