@@ -1,6 +1,6 @@
 <div class="dialog-container">
   <mat-dialog-content
-    *ngIf="currentActivity && this.userDateActivity.activity === undefined"
+    *ngIf="currentActivity && userDateActivity.activity === undefined"
   >
     <mat-card-title>Add Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
@@ -64,6 +64,21 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select
+          [(ngModel)]="currentActivity.activityType"
+          formControlName="activityType"
+        >
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>Activity Description</mat-label>
         <textarea
           matInput
@@ -91,7 +106,7 @@
   </mat-dialog-content>
 
   <mat-dialog-content
-    *ngIf="currentActivity && this.userDateActivity.activity !== undefined"
+    *ngIf="currentActivity && userDateActivity.activity !== undefined"
   >
     <mat-card-title>Update Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
@@ -155,6 +170,21 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select
+          [(ngModel)]="currentActivity.activityType"
+          formControlName="activityType"
+        >
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>Activity Description</mat-label>
         <textarea
           matInput
@@ -177,7 +207,7 @@
       </mat-form-field>
     </form>
     <button
-      *ngIf="this.userDateActivity.activity !== undefined"
+      *ngIf="userDateActivity.activity !== undefined"
       color="accent"
       mat-raised-button
       (click)="editActivity()"

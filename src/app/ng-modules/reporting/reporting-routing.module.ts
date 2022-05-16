@@ -5,8 +5,9 @@ import { ActivityPageComponent } from './components/activity-page/activity-page.
 import { RoleGuard } from '../auth/role.guard';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { CustomerPageComponent } from './components/customer-page/customer-page.component';
-import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
+import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
+import { ProjectPageComponent } from './components/project-page/project-page.component';
 
 const routes: Routes = [
   { path: 'dashboard/:id', component: ActivityPageComponent },
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'user-reporting',
     component: ReportingPageComponent,
+  },
+  {
+    path: 'invoice',
+    component: InvoicePageComponent,
     canActivate: [RoleGuard],
   },
   {

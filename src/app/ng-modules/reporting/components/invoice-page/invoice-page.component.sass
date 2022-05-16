@@ -1,0 +1,40 @@
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
+:host
+  @include host-mixin
+
+  .mat-input-element
+    @include mat-input-element
+
+  .header-activity
+    @include header-activity
+
+    .header-add-button
+      @include header-add-button
+
+    .header-datepicker
+      @include header-datepicker
+
+.card-container
+  @include card-container
+
+.secondary-card
+  @include secondary-card
+
+  .mat-card-actions
+    @include mat-card-actions
+
+.page-title
+  @include page-title
+
+.header-month-pickerr .mat-calendar-period-button
+  pointer-events: none
+
+.header-month-picker .mat-calendar-arrow
+  display: none
+
+@media (max-width: $media-query-400px)
+  .header-add-button
+    display: none
+  .header-datepicker
+    width: $full-width

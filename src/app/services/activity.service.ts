@@ -34,6 +34,16 @@ export class ActivityService {
       );
   }
 
+  getAllActivityTypes(): Observable<string[]> {
+    return this.httpClient
+      .get<string[]>(this.activitiesUrl + '/types')
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<string[]>('getActivityTypes')
+        )
+      );
+  }
+
   getActivities(): Observable<Activity[]> {
     return this.httpClient
       .get<Activity[]>(this.activitiesUrl)
@@ -142,4 +152,6 @@ export class ActivityService {
         )
       );
   }
+
+  
 }

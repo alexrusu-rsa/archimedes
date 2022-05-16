@@ -17,6 +17,8 @@ import { CustomerDialogComponent } from './ng-modules/reporting/components/custo
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
+import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
+import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { ReportingPageComponent } from './ng-modules/reporting/components/report
     CustomerDialogComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
+    InvoicePageComponent,
+    InvoiceDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,7 @@ import { ReportingPageComponent } from './ng-modules/reporting/components/report
     AuthModule,
     ReactiveFormsModule,
   ],
+
   providers: [
     DatePipe,
     {
