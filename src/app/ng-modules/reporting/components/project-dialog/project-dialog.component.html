@@ -29,14 +29,14 @@
       </mat-form-field>
     </form>
   </mat-dialog-content>
-  <mat-dialog-actions *ngIf="this.currentProjectToUpdate === null">
+  <mat-dialog-actions *ngIf="currentProjectToUpdate === null">
     <button mat-raised-button color="accent" (click)="checkAndAdd()">
       Add project
     </button>
   </mat-dialog-actions>
 
   <mat-dialog-content
-    *ngIf="currentProject && this.currentProjectToUpdate !== null"
+    *ngIf="currentProject && currentProjectToUpdate !== null"
   >
     <mat-card-title>Update Project</mat-card-title>
     <form [formGroup]="addProjectForm!">
@@ -66,7 +66,7 @@
     </form>
     <mat-dialog-actions>
       <button
-        *ngIf="this.currentProjectToUpdate !== null"
+        *ngIf="currentProjectToUpdate !== null"
         mat-raised-button
         color="accent"
         (click)="checkAndUpdate()"
