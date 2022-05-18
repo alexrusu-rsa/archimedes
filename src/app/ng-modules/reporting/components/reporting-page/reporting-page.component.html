@@ -1,22 +1,27 @@
 <mat-card-title class="page-title">Reporting Page</mat-card-title>
 <div class="header-activity">
-  <mat-form-field appearance="fill">
-    <mat-label>Month and Year</mat-label>
-    <input matInput [matDatepicker]="datepicker" [formControl]="date" />
-    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker
-      #datepicker
-      startView="multi-year"
-      (monthSelected)="setMonthAndYear($event, datepicker)"
-    >
-    </mat-datepicker>
+  <mat-form-field appearance="fill" *ngIf="range">
+    <mat-label>Select date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date" />
+      <input
+        matEndDate
+        formControlName="end"
+        placeholder="End date"
+        (dateChange)="displayActivitiesInRange()"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
-  <mat-form-field *ngIf="this.allEmployees" appearance="fill">
+
+  <mat-form-field *ngIf="allEmployees" appearance="fill">
     <mat-label>Employee name</mat-label>
     <mat-select
       [(ngModel)]="selectedItemEmployee"
       (selectionChange)="filterActivitiesEmployeeName($event)"
     >
+      <mat-option [value]="noFilterUsers"> All users </mat-option>
       <mat-option
         *ngFor="let employee of allEmployees"
         [value]="employee.id"
@@ -27,10 +32,51 @@
     </mat-select>
   </mat-form-field>
 </div>
-<mat-card *ngIf="this.allActivities" class="card-container">
-  <mat-card class="secondary-card" *ngFor="let activity of this.allActivities">
+
+<mat-card
+  *ngIf="allActivities && nameFilter === noFilterUsers"
+  class="card-container"
+>
+  <mat-card class="secondary-card" *ngFor="let activity of allActivities">
     <mat-card-subtitle>{{ activity.date }}</mat-card-subtitle>
-    <mat-card-title>{{ activity.employeeId }}</mat-card-title>
-    <mat-card-title>{{ activity.projectId }}</mat-card-title>
+    <mat-card-title *ngIf="activity.employeeId"
+      >Employee: {{ findEmployee(activity.employeeId)?.name }} -
+      {{ findEmployee(activity.employeeId)?.surname }}</mat-card-title
+    >
+    <mat-card-title>Activity name: {{ activity.name }}</mat-card-title>
+    <mat-card-title>Activity type: {{ activity.activityType }}</mat-card-title>
+
+    <mat-card-title *ngIf="activity.projectId"
+      >Project:
+      {{ findProject(activity.projectId)?.projectName }}</mat-card-title
+    >
+    <mat-card-title
+      >Time booked: {{ activity.start }} - {{ activity.end }}</mat-card-title
+    >
+  </mat-card>
+</mat-card>
+
+<mat-card
+  *ngIf="nameFilteredActivities && nameFilter !== noFilterUsers"
+  class="card-container"
+>
+  <mat-card
+    class="secondary-card"
+    *ngFor="let activity of nameFilteredActivities"
+  >
+    <mat-card-subtitle>{{ activity.date }}</mat-card-subtitle>
+    <mat-card-title *ngIf="selectedItemEmployee"
+      >Employee: {{ findEmployee(selectedItemEmployee)?.name }} -
+      {{ findEmployee(selectedItemEmployee)?.surname }}</mat-card-title
+    >
+    <mat-card-title>Activity name: {{ activity.name }}</mat-card-title>
+    <mat-card-title>Activity type: {{ activity.activityType }}</mat-card-title>
+    <mat-card-title *ngIf="activity.projectId">
+      Project:
+      {{ findProject(activity.projectId)?.projectName }}</mat-card-title
+    >
+    <mat-card-title
+      >Time booked: {{ activity.start }} - {{ activity.end }}</mat-card-title
+    >
   </mat-card>
 </mat-card>
