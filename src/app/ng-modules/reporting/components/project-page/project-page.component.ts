@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
+import { domainToASCII } from 'url';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 
 @Component({
@@ -57,9 +58,12 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   editProject(project: Project) {
-    this.dialog.open(ProjectDialogComponent, {
+    const dialogRef = this.dialog.open(ProjectDialogComponent, {
       data: project,
       panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((updatedProject: Project) => {
+      this.getProjects();
     });
   }
 

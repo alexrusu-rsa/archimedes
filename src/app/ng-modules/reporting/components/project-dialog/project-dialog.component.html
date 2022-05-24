@@ -27,6 +27,32 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Project Contract</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentProject.contract"
+          formControlName="contract"
+          type="text"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="header-datepicker">
+        <mat-label>Due date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datePicker"
+          [(ngModel)]="selectedDate"
+          (dateChange)="dateChanges()"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <mat-datepicker-toggle
+          [for]="datePicker"
+          matSuffix
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePicker touchUi></mat-datepicker>
+      </mat-form-field>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions *ngIf="currentProjectToUpdate === null">
@@ -35,10 +61,9 @@
     </button>
   </mat-dialog-actions>
 
-  <mat-dialog-content
-    *ngIf="currentProject && currentProjectToUpdate !== null"
-  >
+  <mat-dialog-content *ngIf="currentProject && currentProjectToUpdate !== null">
     <mat-card-title>Update Project</mat-card-title>
+
     <form [formGroup]="addProjectForm!">
       <mat-form-field appearance="fill">
         <mat-label>Project Name</mat-label>
@@ -63,7 +88,32 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Project Contract</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentProject.contract"
+          formControlName="contract"
+          type="text"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="header-datepicker">
+        <mat-label>Due date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datePicker"
+          [(ngModel)]="selectedDate"
+          (dateChange)="dateChanges()"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <mat-datepicker-toggle
+          [for]="datePicker"
+          matSuffix
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePicker touchUi></mat-datepicker>
+      </mat-form-field>
     </form>
+
     <mat-dialog-actions>
       <button
         *ngIf="currentProjectToUpdate !== null"
