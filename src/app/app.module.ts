@@ -19,7 +19,6 @@ import { UserDetailsComponent } from './ng-modules/reporting/components/user-det
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

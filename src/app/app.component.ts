@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { fromEvent, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth.service';
@@ -22,12 +23,15 @@ export class AppComponent implements OnInit, OnDestroy {
   adminSub?: Subscription;
   currentUserId?: string;
   userIdSub?: Subscription;
+  activeToken?: string;
+  activeTokenSub?: Subscription;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private localStorageService: LocalStorageService
   ) {}
+
   logOut() {
     this.authService.doLogout();
   }
@@ -49,6 +53,17 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isAdmin = nextValue === 'admin' && nextValue !== null;
       }
     );
+
+    this.activeTokenSub = this.localStorageService.accessTokenValue.subscribe(
+      (nextValue) => {
+        if (!this.tokenExpired(nextValue!)) {
+          this.router.navigate(['reporting/dashboard/' + this.currentUserId]);
+        } else {
+          this.authService.doLogout();
+        }
+      }
+    );
+
     this.activeRoute = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.urlToFormat = event.url.substring(1, event.url.length);
@@ -56,8 +71,14 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
   }
+  private tokenExpired(token: string) {
+    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
+  }
   ngOnDestroy() {
     this.accessSub?.unsubscribe();
     this.adminSub?.unsubscribe();
+    this.userIdSub?.unsubscribe();
+    this.activeTokenSub?.unsubscribe();
   }
 }
