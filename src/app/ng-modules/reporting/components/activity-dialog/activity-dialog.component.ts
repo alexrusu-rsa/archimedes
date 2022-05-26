@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
@@ -33,6 +33,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   selectedItem?: string;
   activityTypes?: [string, string][];
   activityTypesSub?: Subscription;
+  filteredProjects?: Observable<Project[]>;
 
   addActivity() {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
@@ -44,11 +45,22 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  private filter(value: string): Project[] {
+    const filterValue = value.toLowerCase();
+    return this.projects!.filter((project) =>
+      project.projectName.toLowerCase().includes(filterValue)
+    );
+  }
+
   getProjects() {
     this.getProjectsSub = this.projectService
       .getProjects()
       .subscribe((result) => {
         this.projects = result;
+        this.filteredProjects = this.projectName?.valueChanges.pipe(
+          startWith(''),
+          map((value) => this.filter(value))
+        );
       });
   }
 
@@ -126,6 +138,9 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
   get date() {
     return this.addActivityForm?.get('date');
+  }
+  get projectName() {
+    return this.addActivityForm?.get('projectName');
   }
 
   ngOnDestroy(): void {
