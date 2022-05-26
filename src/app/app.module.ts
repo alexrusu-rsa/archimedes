@@ -18,6 +18,7 @@ import { ProjectDialogComponent } from './ng-modules/reporting/components/projec
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoic
     FormsModule,
     AuthModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
 
   providers: [
