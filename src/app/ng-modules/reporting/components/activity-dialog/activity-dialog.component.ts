@@ -92,8 +92,9 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     if (this.currentActivity && this.checkAbleToRequestUpdateActivity()) {
       this.updateEditActivitySub = this.activityService
         .updateActivity(this.currentActivity)
-        .subscribe();
-      this.dialogRef.close();
+        .subscribe((updatedActivity: Activity) => {
+          this.dialogRef.close(updatedActivity);
+        });
     }
   }
 

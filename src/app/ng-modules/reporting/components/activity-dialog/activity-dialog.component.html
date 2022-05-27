@@ -59,7 +59,7 @@
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option
             *ngFor="let project of filteredProjects | async"
-            [ngModel]="project.id"
+            [(ngModel)]="project.id"
             [value]="project.projectName"
           >
             {{ project.projectName }}
@@ -169,7 +169,7 @@
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option
             *ngFor="let project of filteredProjects | async"
-            [ngModel]="project.id"
+            [(ngModel)]="project.id"
             [value]="project.projectName"
           >
             {{ project.projectName }}
