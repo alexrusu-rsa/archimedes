@@ -77,6 +77,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   nameFilter?: string;
 
   nameFilteredActivities?: Activity[];
+  filterRange?: Date[] = [];
 
   constructor(
     private activityService: ActivityService,
@@ -84,14 +85,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     private projectService: ProjectService
   ) {}
 
-  async filterActivitiesEmployeeName(event: MatSelectChange) {
-    if (event.value !== this.noFilterUsers && this.allActivities) {
-      this.nameFilteredActivities = this.allActivities?.filter(
-        (activity) => activity.employeeId === event.value
-      );
-    }
-    this.nameFilter = event.value;
-  }
 
   findEmployee(employeeId: string) {
     return this.allEmployees?.find((employee) => employee.id === employeeId);
@@ -204,6 +197,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
         this.allActivities = result;
       });
   }
+
 
   ngOnInit(): void {
     this.getAllActivities();
