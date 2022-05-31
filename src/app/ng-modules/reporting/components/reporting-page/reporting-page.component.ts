@@ -85,7 +85,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     private projectService: ProjectService
   ) {}
 
-
   findEmployee(employeeId: string) {
     return this.allEmployees?.find((employee) => employee.id === employeeId);
   }
@@ -110,78 +109,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  displayActivitiesInRange() {
-    this.nameFilter = this.noFilterUsers;
-    this.selectedItemEmployee = this.noFilterUsers;
-    if (this.start?.value !== null && this.end?.value !== null) {
-      if (this.start?.value._i.month < 10) {
-        if (this.start?.value._i.date < 10) {
-          this.pickedStartDate =
-            '0' +
-            this.start?.value._i.date.toString() +
-            '0' +
-            (this.start?.value._i.month + 1).toString() +
-            this.start?.value._i.year;
-        } else {
-          this.pickedStartDate =
-            this.start?.value._i.date.toString() +
-            '0' +
-            (this.start?.value._i.month + 1).toString() +
-            this.start?.value._i.year;
-        }
-      } else {
-        if (this.start?.value._i.date < 10) {
-          this.pickedStartDate =
-            '0' +
-            this.start?.value._i.date.toString() +
-            (this.start?.value._i.month + 1).toString() +
-            this.start?.value._i.year;
-        } else {
-          this.pickedStartDate =
-            this.start?.value._i.date.toString() +
-            (this.start?.value._i.month + 1).toString() +
-            this.start?.value._i.year;
-        }
-      }
-
-      if (this.end?.value._i.month < 10) {
-        if (this.end?.value._i.date < 10) {
-          this.pickedEndDate =
-            '0' +
-            this.end?.value._i.date.toString() +
-            '0' +
-            (this.end?.value._i.month + 1).toString() +
-            this.end?.value._i.year;
-        } else {
-          this.pickedEndDate =
-            this.end?.value._i.date.toString() +
-            '0' +
-            (this.end?.value._i.month + 1).toString() +
-            this.end?.value._i.year;
-        }
-      } else {
-        if (this.end?.value._i.date < 10) {
-          this.pickedEndDate =
-            '0' +
-            this.end?.value._i.date.toString() +
-            (this.end?.value._i.month + 1).toString() +
-            this.end?.value._i.year;
-        } else {
-          this.pickedEndDate =
-            this.end?.value._i.date.toString() +
-            (this.end?.value._i.month + 1).toString() +
-            this.end?.value._i.year;
-        }
-      }
-      if (
-        this.pickedStartDate !== undefined &&
-        this.pickedEndDate !== undefined
-      ) {
-        this.getActivitiesInRange(this.pickedStartDate, this.pickedEndDate);
-      }
-    }
-  }
-
   getAllActivities() {
     this.allActivitiesSub = this.activityService
       .getActivities()
@@ -189,15 +116,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
         this.allActivities = result;
       });
   }
-
-  getActivitiesInRange(startDate: string, endDate: string) {
-    this.activitiesInRangeSub = this.activityService
-      .getActivitiesInRange(startDate, endDate)
-      .subscribe((result) => {
-        this.allActivities = result;
-      });
-  }
-
 
   ngOnInit(): void {
     this.getAllActivities();

@@ -46,6 +46,9 @@
         >{{ activity.date }} {{ findEmployee(activity.employeeId)?.name }} -
         {{ findEmployee(activity.employeeId)?.surname }}</mat-card-subtitle
       >
+      <mat-card-subtitle *ngIf="activity.projectId">
+        {{ findProject(activity.projectId)?.projectName }}</mat-card-subtitle
+      >
       <mat-card-title>{{ activity.name }}</mat-card-title>
       <mat-card-subtitle
         >{{ activity.start }} - {{ activity.end }}</mat-card-subtitle
