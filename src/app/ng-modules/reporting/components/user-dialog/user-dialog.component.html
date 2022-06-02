@@ -44,20 +44,6 @@
         </mat-hint>
       </mat-form-field>
 
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>User Password</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.password"
-          formControlName="password"
-          type="password"
-          required="true"
-        />
-        <mat-hint *ngIf="password?.touched && !password?.dirty">
-          User password is required
-        </mat-hint>
-      </mat-form-field> -->
-
       <mat-form-field appearance="fill">
         <mat-label>User Role</mat-label>
         <input
@@ -106,7 +92,6 @@
     </button>
   </mat-dialog-content>
 
-  <!-- EDIT -->
   <mat-dialog-content *ngIf="currentUser && user !== null">
     <mat-card-title>Update user</mat-card-title>
     <form [formGroup]="addUserForm!">
@@ -151,21 +136,7 @@
           User email is required
         </mat-hint>
       </mat-form-field>
-
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>User Password</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.password"
-          formControlName="password"
-          type="password"
-          required="true"
-        />
-        <mat-hint *ngIf="password?.touched && !password?.dirty">
-          User password is required
-        </mat-hint>
-      </mat-form-field> -->
-
+      
       <mat-form-field appearance="fill">
         <mat-label>User Role</mat-label>
         <input
