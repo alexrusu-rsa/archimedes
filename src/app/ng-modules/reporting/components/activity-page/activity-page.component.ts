@@ -56,7 +56,9 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       if (this.user?.id)
         this.activitiesOfTheDaySub = this.activityService
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
-          .subscribe((response) => (this.activitiesOfTheDay = response));
+          .subscribe((response) => {
+            this.activitiesOfTheDay = response;
+          });
     }
   }
 
@@ -64,12 +66,11 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     if (activityToDelete.id)
       this.deleteActivitySub = this.activityService
         .deleteActivity(activityToDelete.id)
-        .subscribe(
-          () =>
-            (this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
-              (activity) => activity.id !== activityToDelete.id
-            ))
-        );
+        .subscribe(() => {
+          this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
+            (activity) => activity.id !== activityToDelete.id
+          );
+        });
   }
 
   addNewActivity() {
@@ -103,6 +104,25 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       },
       panelClass: 'full-width-dialog',
     });
+  }
+
+  sortActivitiesByStart(activities: Activity[]) {
+    const sortedActivities = activities.sort(
+      (activityA, activityB) =>
+        this.getTimeInDateFormat(activityA.start!).getTime() -
+        this.getTimeInDateFormat(activityB.start!).getTime()
+    );
+    return sortedActivities;
+  }
+
+  getTimeInDateFormat(hhmm: string) {
+    return new Date(
+      0,
+      0,
+      0,
+      Number(hhmm.slice(0, 2)),
+      Number(hhmm.slice(3, 5))
+    );
   }
 
   ngOnDestroy(): void {
