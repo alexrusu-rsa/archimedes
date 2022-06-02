@@ -16,8 +16,11 @@ import { ActivityDialogComponent } from './ng-modules/reporting/components/activ
 import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
+import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
+import { EmployeePipe } from './pipes/employee.pipe';
+import { DateRangePipe } from './pipes/date-range.pipe';
 
 @NgModule({
   declarations: [
@@ -29,8 +32,11 @@ import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoic
     ActivityDialogComponent,
     CustomerDialogComponent,
     ProjectDialogComponent,
+    ReportingPageComponent,
     InvoicePageComponent,
     InvoiceDialogComponent,
+    DateRangePipe,
+    EmployeePipe,
   ],
   imports: [
     BrowserModule,
