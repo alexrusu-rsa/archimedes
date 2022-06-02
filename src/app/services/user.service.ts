@@ -55,17 +55,15 @@ export class UserService {
       );
   }
 
-  updateUser(user: User): Observable<RequestWrapper> {
+  updateUser(user: User): Observable<User> {
     return this.httpClient
       .put(this.usersUrl + '/' + user.id, user, { observe: 'response' })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('User updated');
-          return res.body as RequestWrapper;
+          return res.body as User;
         }),
-        catchError(
-          this.responseHandlingService.handleError<RequestWrapper>('updateUser')
-        )
+        catchError(this.responseHandlingService.handleError<User>('updateUser'))
       );
   }
 }
