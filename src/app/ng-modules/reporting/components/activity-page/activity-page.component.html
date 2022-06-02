@@ -1,4 +1,6 @@
-<mat-card-title class="page-title"> {{ user?.name }} {{ user?.surname }} </mat-card-title>
+<mat-card-title class="page-title">
+  {{ user?.name }} {{ user?.surname }}
+</mat-card-title>
 
 <div class="header-activity">
   <mat-form-field appearance="fill" class="header-datepicker">
@@ -12,7 +14,11 @@
     <mat-datepicker #datePicker touchUi></mat-datepicker>
   </mat-form-field>
 
-  <button class="header-add-button" mat-raised-button (click)="addNewActivity()">
+  <button
+    class="header-add-button"
+    mat-raised-button
+    (click)="addNewActivity()"
+  >
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
@@ -22,7 +28,10 @@
     >Activities of selected day</mat-card-title
   >
 
-  <mat-card class="secondary-card" *ngFor="let activity of activitiesOfTheDay">
+  <mat-card
+    class="secondary-card"
+    *ngFor="let activity of sortActivitiesByStart(activitiesOfTheDay)"
+  >
     <mat-card-title>{{ activity.name }}</mat-card-title>
     <mat-card-subtitle>
       {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
