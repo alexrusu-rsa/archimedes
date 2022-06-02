@@ -89,7 +89,7 @@ export class ActivityService {
       );
   }
 
-  updateActivity(activity: Activity): Observable<RequestWrapper> {
+  updateActivity(activity: Activity): Observable<Activity> {
     return this.httpClient
       .put(this.activitiesUrl + '/' + activity.id, activity, {
         observe: 'response',
@@ -97,12 +97,10 @@ export class ActivityService {
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Activity updated');
-          return res.body as RequestWrapper;
+          return res.body as Activity;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'updateActivity'
-          )
+          this.responseHandlingService.handleError<Activity>('updateActivity')
         )
       );
   }

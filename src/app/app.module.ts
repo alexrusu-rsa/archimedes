@@ -19,6 +19,7 @@ import { UserDetailsComponent } from './ng-modules/reporting/components/user-det
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
 
@@ -47,6 +48,7 @@ import { DateRangePipe } from './pipes/date-range.pipe';
     FormsModule,
     AuthModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
   ],
 
   providers: [
