@@ -47,20 +47,24 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Project name</mat-label>
-        <mat-select
+        <mat-label>Project</mat-label>
+        <input
+          type="text"
+          aria-label="Project"
+          matInput
           [(ngModel)]="currentActivity.projectId"
           formControlName="projectName"
-        >
-          <mat-option value="null">No project</mat-option>
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option
-            *ngFor="let project of projects"
-            [value]="project.id"
-            ngDefaultControl
+            *ngFor="let project of filteredProjects | async"
+            [(ngModel)]="project.id"
+            [value]="project.projectName"
           >
             {{ project.projectName }}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -153,20 +157,24 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Project name</mat-label>
-        <mat-select
-          [(value)]="currentActivity.projectId"
+        <mat-label>Project</mat-label>
+        <input
+          type="text"
+          aria-label="Project"
+          matInput
+          [(ngModel)]="currentActivity.projectId"
           formControlName="projectName"
-        >
-          <mat-option value="null">No project</mat-option>
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option
-            *ngFor="let project of projects"
-            [value]="project.id"
-            ngDefaultControl
+            *ngFor="let project of filteredProjects | async"
+            [(ngModel)]="project.id"
+            [value]="project.projectName"
           >
             {{ project.projectName }}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
