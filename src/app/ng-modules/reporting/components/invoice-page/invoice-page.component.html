@@ -14,27 +14,25 @@
   </mat-form-field>
 </div>
 <mat-card *ngIf="allCustomers" class="card-container">
-  <mat-card class="secondary-card" *ngFor="let customer of allCustomers">
+  <mat-card class="secondary-card" *ngFor="let project of allProjects">
     <mat-card-subtitle *ngIf="selectedMonth && selectedYear"
       >Month: {{ selectedMonth }} - {{ selectedYear }}</mat-card-subtitle
     >
-    <mat-card-title>{{ customer.customerName }}</mat-card-title>
-
-    <h3>Projects:</h3>
+    <mat-card-title>{{ project.projectName }}</mat-card-title>
     <mat-chip-list>
-      <div *ngFor="let project of allProjects">
-        <mat-chip *ngIf="project.customerId === customer.id">{{
-          project.projectName
+      <div *ngFor="let customer of allCustomers">
+        <mat-chip *ngIf="customer.id === project.customerId">{{
+          customer.customerName
         }}</mat-chip>
       </div>
     </mat-chip-list>
 
     <mat-card-actions align="end">
       <button
-        *ngIf="customer.id"
+        *ngIf="project.id"
         mat-raised-button
         color="accent"
-        (click)="downloadInvoice(customer.id)"
+        (click)="downloadInvoice(project.id)"
       >
         <mat-icon>table_chart</mat-icon>
         <mat-icon>picture_as_pdf</mat-icon>
