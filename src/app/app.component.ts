@@ -72,8 +72,11 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
   private tokenExpired(token: string) {
-    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
-    return Math.floor(new Date().getTime() / 1000) >= expiry;
+    if (token !== null) {
+      const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+      return Math.floor(new Date().getTime() / 1000) >= expiry;
+    }
+    return false;
   }
   ngOnDestroy() {
     this.accessSub?.unsubscribe();
