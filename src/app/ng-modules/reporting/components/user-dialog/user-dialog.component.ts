@@ -38,17 +38,19 @@ export class UserDialogComponent implements OnInit {
       if (this.currentUser) {
         this.updateUserSub = this.userService
           .updateUser(this.currentUser)
-          .subscribe();
+          .subscribe((updatedUser: User) => {
+            this.dialogRef.close(updatedUser);
+          });
       }
   }
 
   checkAbleToRequestAddUser(): boolean {
-    if (this.email?.pristine || this.password?.pristine) return false;
+    if (this.email?.pristine) return false;
     return true;
   }
 
   checkAbleToRequestUpdateUser(): boolean {
-    if (this.email?.value !== '' && this.password?.value !== '') return true;
+    if (this.email?.value !== '') return true;
     return false;
   }
 
@@ -61,7 +63,6 @@ export class UserDialogComponent implements OnInit {
       name: new FormControl(this.currentUser?.name),
       role: new FormControl(this.currentUser?.role),
       seniority: new FormControl(this.currentUser?.seniority),
-      password: new FormControl(this.currentUser?.password),
       timePerDay: new FormControl(this.currentUser?.timePerDay),
     });
   }

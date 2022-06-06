@@ -2,8 +2,10 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { start } from 'repl';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../models/activity';
@@ -87,7 +89,7 @@ export class ActivityService {
       );
   }
 
-  updateActivity(activity: Activity): Observable<RequestWrapper> {
+  updateActivity(activity: Activity): Observable<Activity> {
     return this.httpClient
       .put(this.activitiesUrl + '/' + activity.id, activity, {
         observe: 'response',
@@ -95,12 +97,10 @@ export class ActivityService {
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Activity updated');
-          return res.body as RequestWrapper;
+          return res.body as Activity;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'updateActivity'
-          )
+          this.responseHandlingService.handleError<Activity>('updateActivity')
         )
       );
   }
@@ -153,5 +153,21 @@ export class ActivityService {
       );
   }
 
-  
+  getActivitiesInRange(startDate: string, endDate: string) {
+    const activitiesByRangeUrl = this.activitiesUrl + '/range';
+    let qParams = new HttpParams();
+    qParams = qParams.append('startDate', startDate);
+    qParams = qParams.append('endDate', endDate);
+    return this.httpClient
+      .get<Activity[]>(activitiesByRangeUrl, {
+        params: qParams,
+      })
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<Activity[]>(
+            `getActivitiesByRange`
+          )
+        )
+      );
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 
@@ -16,8 +17,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
   deleteUserSubscription?: Subscription;
   users: User[] = [];
   search = '';
+  userResetPasswordSub?: Subscription;
 
-  constructor(private userService: UserService, public dialog: MatDialog) {}
+  constructor(
+    private userService: UserService,
+    private userManagePasswordService: UserManagePasswordService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -49,6 +55,14 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.allUsers = this.allUsers?.filter(
         (user) => user.surname === this.search
       );
+  }
+
+  sendPasswordResetRequest(user: User) {
+    this.userResetPasswordSub = this.userManagePasswordService
+      .resetPasswordFor(user)
+      .subscribe((result)=>{
+        
+      });
   }
 
   checkSearch() {

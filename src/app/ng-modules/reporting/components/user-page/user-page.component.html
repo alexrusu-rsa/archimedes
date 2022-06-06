@@ -29,6 +29,14 @@
       </mat-card-subtitle>
     </a>
     <mat-card-actions align="end">
+      <button
+        mat-raised-button
+        color="accent"
+        align="start"
+        (click)="sendPasswordResetRequest(user)"
+      >
+        Reset Password
+      </button>
       <button mat-button color="accent" (click)="editUser(user)">
         <mat-icon>edit</mat-icon>
       </button>
