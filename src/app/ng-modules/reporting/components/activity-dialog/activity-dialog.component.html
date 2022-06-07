@@ -2,10 +2,10 @@
   <mat-dialog-content
     *ngIf="currentActivity && userDateActivity.activity === undefined"
   >
-    <mat-card-title i18n>Add Activity</mat-card-title>
+    <mat-card-title>Add Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
       <mat-form-field appearance="fill">
-        <mat-label i18n>Activity Name</mat-label>
+        <mat-label>Activity Name</mat-label>
         <input
           matInput
           [(ngModel)]="currentActivity.name"
@@ -13,13 +13,13 @@
           formControlName="name"
           required="true"
         />
-        <mat-hint *ngIf="name?.touched && !name?.dirty" i18n>
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           Activity name is required
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Start</mat-label>
+        <mat-label>Start</mat-label>
         <input
           type="time"
           matInput
@@ -31,7 +31,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>End</mat-label>
+        <mat-label>End</mat-label>
         <input
           type="time"
           matInput
@@ -43,7 +43,7 @@
       </mat-form-field>
       
       <mat-form-field appearance="fill">
-        <mat-label i18n>Project</mat-label>
+        <mat-label>Project</mat-label>
         <input
           type="text"
           aria-label="Project"
@@ -64,7 +64,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Activity type</mat-label>
+        <mat-label>Activity type</mat-label>
         <mat-select
           [(ngModel)]="currentActivity.activityType"
           formControlName="activityType"
@@ -79,7 +79,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Activity Description</mat-label>
+        <mat-label>Activity Description</mat-label>
         <textarea
           matInput
           [(ngModel)]="currentActivity.description"
@@ -90,7 +90,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Activity Extras</mat-label>
+        <mat-label>Activity Extras</mat-label>
         <textarea
           matInput
           [(ngModel)]="currentActivity.extras"
@@ -100,7 +100,7 @@
         </textarea>
       </mat-form-field>
     </form>
-    <button mat-raised-button color="accent" (click)="addActivity()" i18n>
+    <button mat-raised-button color="accent" (click)="addActivity()">
       Add activity
     </button>
   </mat-dialog-content>
@@ -108,7 +108,7 @@
   <mat-dialog-content
     *ngIf="currentActivity && userDateActivity.activity !== undefined"
   >
-    <mat-card-title i18n>Update Activity</mat-card-title>
+    <mat-card-title>Update Activity</mat-card-title>
     <form [formGroup]="addActivityForm!">
       <mat-form-field appearance="fill">
         <mat-label>Activity Name</mat-label>
@@ -119,13 +119,13 @@
           formControlName="name"
           required="true"
         />
-        <mat-hint *ngIf="name?.touched && !name?.dirty" i18n>
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           Activity name is required
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Start</mat-label>
+        <mat-label>Start</mat-label>
         <input
           type="time"
           matInput
@@ -137,7 +137,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>End</mat-label>
+        <mat-label>End</mat-label>
         <input
           type="time"
           matInput
@@ -149,7 +149,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Project</mat-label>
+        <mat-label>Project</mat-label>
         <input
           type="text"
           aria-label="Project"
@@ -170,7 +170,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Activity type</mat-label>
+        <mat-label>Activity type</mat-label>
         <mat-select
           [(ngModel)]="currentActivity.activityType"
           formControlName="activityType"
@@ -185,7 +185,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Activity Description</mat-label>
+        <mat-label>Activity Description</mat-label>
         <textarea
           matInput
           [(ngModel)]="currentActivity.description"
@@ -196,7 +196,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n>Activity Extras</mat-label>
+        <mat-label>Activity Extras</mat-label>
         <textarea
           matInput
           [(ngModel)]="currentActivity.extras"
@@ -211,7 +211,6 @@
       color="accent"
       mat-raised-button
       (click)="editActivity()"
-      i18n
     >
       Update Activity
     </button>
