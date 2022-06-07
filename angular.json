@@ -19,7 +19,7 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "ro": {
+          "ro-RO": {
             "translation": "src/locale/messages.ro.xlf"
           }
         }
@@ -116,8 +116,8 @@
               "sourceMap": true,
               "namedChunks": true
             },
-            "ro":{
-              "localize": ["ro"],
+            "ro-RO":{
+              "localize": ["ro-RO"],
               "outputPath": "dist/ro/",
               "i18nMissingTranslation": "error"
             }
