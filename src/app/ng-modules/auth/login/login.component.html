@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title i18n>Login</mat-card-title>
+  <mat-card-title>Login</mat-card-title>
   <mat-card-content>
     <form [formGroup]="loginForm!">
       <mat-form-field>
@@ -13,13 +13,13 @@
           formControlName="email"
           [(ngModel)]="user.email"
         />
-        <mat-hint *ngIf="email?.invalid && email?.touched" i18n>
+        <mat-hint *ngIf="email?.invalid && email?.touched">
           Email is required
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label i18n>Password</mat-label>
+        <mat-label>Password</mat-label>
         <input
           #userPassword
           matInput
@@ -31,7 +31,7 @@
           required
         />
 
-        <mat-hint *ngIf="password?.touched && password?.pristine" i18n>
+        <mat-hint *ngIf="password?.touched && password?.pristine">
           Password is required
         </mat-hint>
       </mat-form-field>
@@ -42,10 +42,9 @@
     <a class="forgot-password-button"
       [routerLink]="['/auth/resetpassword']"
       routerLinkActive="router-link-active"
-      i18n
       >Forgotten Password</a
     >
-    <button mat-raised-button color="accent" (click)="logUserIn(user)" i18n>
+    <button mat-raised-button color="accent" (click)="logUserIn(user)">
       Log in
     </button>
   </mat-card-actions>
