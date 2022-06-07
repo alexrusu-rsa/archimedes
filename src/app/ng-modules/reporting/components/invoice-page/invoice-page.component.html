@@ -1,7 +1,7 @@
-<mat-card-title class="page-title"> Invoices </mat-card-title>
+<mat-card-title class="page-title" i18n> Invoices </mat-card-title>
 <div class="header-activity">
   <mat-form-field appearance="fill">
-    <mat-label>Month and Year</mat-label>
+    <mat-label i18n>Month and Year</mat-label>
     <input matInput [matDatepicker]="datepicker" [formControl]="date" />
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
     <mat-datepicker
@@ -15,7 +15,7 @@
 </div>
 <mat-card *ngIf="allCustomers" class="card-container">
   <mat-card class="secondary-card" *ngFor="let project of allProjects">
-    <mat-card-subtitle *ngIf="selectedMonth && selectedYear"
+    <mat-card-subtitle *ngIf="selectedMonth && selectedYear" i18n
       >Month: {{ selectedMonth }} - {{ selectedYear }}</mat-card-subtitle
     >
     <mat-card-title>{{ project.projectName }}</mat-card-title>
