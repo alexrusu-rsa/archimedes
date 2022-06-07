@@ -116,7 +116,8 @@
               "sourceMap": true,
               "namedChunks": true
             },
-            "ro":{
+            "ro": {
+              "aot": true,
               "localize": ["ro"],
               "outputPath": "dist/ro/",
               "i18nMissingTranslation": "error"
@@ -138,6 +139,9 @@
             },
             "development": {
               "browserTarget": "archimedes-frontend:build:development"
+            },
+            "ro": {
+              "browserTarget": "archimedes-frontend:build:ro"
             }
           },
           "defaultConfiguration": "development"

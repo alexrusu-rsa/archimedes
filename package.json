@@ -9,10 +9,12 @@
     "ng": "ng",
     "dev": "ng lint & ng serve",
     "start": "node server.js",
+    "start:ro": "ng lint & ng serve --configuration=ro",
     "build": "ng build",
+    "build:ro": "ng build --configuration=ro",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "ng build --configuration ${environment}",
+    "heroku-postbuild": "ng build --configuration ${environment} --localize",
     "lint": "ng lint",
     "i18n:extract": "ng xi18n --output-path src/locale"
   },
