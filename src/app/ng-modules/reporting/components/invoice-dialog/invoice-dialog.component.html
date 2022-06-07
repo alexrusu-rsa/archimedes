@@ -1,8 +1,8 @@
 <div class="dialog-container">
-  <mat-card-title>Invoice Number:</mat-card-title>
+  <mat-card-title i18n>Invoice Number:</mat-card-title>
   <form>
     <mat-form-field appearance="fill">
-      <mat-label>Activity Extras</mat-label>
+      <mat-label i18n>Activity Extras</mat-label>
       <input
         matInput
         [(ngModel)]="invoiceNumber"
@@ -11,10 +11,10 @@
       />
     </mat-form-field>
   </form>
-  <button mat-raised-button color="accent" (click)="downloadPDF()">
+  <button mat-raised-button color="accent" (click)="downloadPDF()" i18n>
     Download PDF
   </button>
-  <button mat-raised-button color="accent" (click)="downloadXLSX()">
+  <button mat-raised-button color="accent" (click)="downloadXLSX()" i18n>
     Download XLSX
   </button>
 </div>

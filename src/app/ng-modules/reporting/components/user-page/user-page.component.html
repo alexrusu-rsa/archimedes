@@ -1,7 +1,7 @@
-<mat-card-title class="page-title">User page</mat-card-title>
+<mat-card-title class="page-title" i18n>User page</mat-card-title>
 <div class="header-activity">
   <mat-form-field appearance="fill" class="header-searchbar">
-    <mat-label>Search user</mat-label>
+    <mat-label i18n>Search user</mat-label>
     <input
       matInput
       (keyup)="applyFilter($event)"
@@ -34,6 +34,7 @@
         color="accent"
         align="start"
         (click)="sendPasswordResetRequest(user)"
+        i18n
       >
         Reset Password
       </button>
