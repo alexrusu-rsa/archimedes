@@ -1,11 +1,12 @@
 <div class="dialog-container">
   <mat-card-title *ngIf="currentCustomer && customer === null"
+  i18n
     >Add Customer</mat-card-title
   >
   <mat-dialog-content *ngIf="currentCustomer && customer === null">
     <form [formGroup]="addCustomerForm!">
       <mat-form-field class="first-form-field" appearance="fill">
-        <mat-label>Customer Name</mat-label>
+        <mat-label i18n>Customer Name</mat-label>
         <input
           matInput
           [(ngModel)]="currentCustomer.customerName"
@@ -17,7 +18,7 @@
       <div class="flex-container">
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label>Customer CUI</mat-label>
+            <mat-label i18n>Customer CUI</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCUI"
@@ -28,7 +29,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Reg</mat-label>
+            <mat-label i18n>Customer Reg</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerReg"
@@ -39,7 +40,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Address</mat-label>
+            <mat-label i18n>Customer Address</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerAddress"
@@ -50,7 +51,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer City</mat-label>
+            <mat-label i18n>Customer City</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCity"
@@ -61,7 +62,7 @@
         </div>
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label>Customer Country</mat-label>
+            <mat-label i18n>Customer Country</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCountry"
@@ -71,7 +72,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Director Name</mat-label>
+            <mat-label i18n>Customer Director Name</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorName"
@@ -81,7 +82,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Director Email</mat-label>
+            <mat-label i18n>Customer Director Email</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorEmail"
@@ -91,7 +92,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Director Tel</mat-label>
+            <mat-label i18n>Customer Director Tel</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorTel"
@@ -109,16 +110,17 @@
     color="accent"
     mat-raised-button
     (click)="addCustomer()"
+    i18n
   >
     Add customer
   </button>
-  <mat-card-title *ngIf="currentCustomer && this.customer !== null"
+  <mat-card-title *ngIf="currentCustomer && this.customer !== null" i18n
     >Update Customer</mat-card-title
   >
   <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
     <form [formGroup]="addCustomerForm!">
       <mat-form-field class="first-form-field" appearance="fill">
-        <mat-label>Customer Name</mat-label>
+        <mat-label i18n>Customer Name</mat-label>
         <input
           matInput
           [(ngModel)]="currentCustomer.customerName"
@@ -130,7 +132,7 @@
       <div class="flex-container">
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label>Customer CUI</mat-label>
+            <mat-label i18n>Customer CUI</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCUI"
@@ -141,7 +143,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Reg</mat-label>
+            <mat-label i18n>Customer Reg</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerReg"
@@ -152,7 +154,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Address</mat-label>
+            <mat-label i18n>Customer Address</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerAddress"
@@ -163,7 +165,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer City</mat-label>
+            <mat-label i18n>Customer City</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCity"
@@ -174,7 +176,7 @@
         </div>
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label>Customer Country</mat-label>
+            <mat-label i18n>Customer Country</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCountry"
@@ -183,7 +185,7 @@
             />
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>Customer Director Name</mat-label>
+            <mat-label i18n>Customer Director Name</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorName"
@@ -193,7 +195,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Director Email</mat-label>
+            <mat-label i18n>Customer Director Email</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorEmail"
@@ -203,7 +205,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Customer Director Tel</mat-label>
+            <mat-label i18n>Customer Director Tel</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorTel"
@@ -221,6 +223,7 @@
     color="accent"
     mat-raised-button
     (click)="editCustomer()"
+    i18n
   >
     Update customer
   </button>

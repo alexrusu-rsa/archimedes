@@ -15,7 +15,7 @@
         mat-list-item
         *ngIf="hasToken === true && hasToken !== undefined"
         routerLink="reporting/dashboard/{{ this.currentUserId }}"
-        (click)="sidenav.close()"
+        (click)="sidenav.close()" i18n
         >Home</a
       >
 
@@ -23,34 +23,34 @@
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
         routerLink="reporting/user"
-        (click)="sidenav.close()"
+        (click)="sidenav.close()" i18n
         >Users</a
       >
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
         routerLink="reporting/project"
-        (click)="sidenav.close()"
+        (click)="sidenav.close()" i18n
         >Projects</a
       >
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
         routerLink="reporting/customer"
-        (click)="sidenav.close()"
+        (click)="sidenav.close()" i18n
         >Customers</a
       >
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
         routerLink="reporting/user-reporting"
-        (click)="sidenav.close()"
+        (click)="sidenav.close()" i18n
         >Reporting
       </a>
-      <a mat-list-item routerLink="reporting/invoice" (click)="sidenav.close()"
+      <a mat-list-item routerLink="reporting/invoice" (click)="sidenav.close()" i18n
         >Invoices
       </a>
-      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()"
+      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()" i18n
         >Log Out</a
       >
     </mat-nav-list>
