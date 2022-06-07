@@ -61,6 +61,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.userResetPasswordSub = this.userManagePasswordService
       .resetPasswordFor(user)
       .subscribe((result)=>{
+        
       });
   }
 
