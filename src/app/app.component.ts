@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const userBrowserLanguage = navigator.language.toLocaleString();
     let appInUserLanguageURL = window.location.host + '/' + userBrowserLanguage;
     if (window.location.href.split('/')[3] !== userBrowserLanguage) {
-      if (window.location.href.includes('localhost')) {
+      if (window.location.href.includes('localhost')||window.location.href.includes('archimedes.rsasoft')) {
         appInUserLanguageURL = 'http://' + appInUserLanguageURL;
       } else {
         appInUserLanguageURL = 'https://' + appInUserLanguageURL;
