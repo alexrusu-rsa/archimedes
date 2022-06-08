@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const appInUserLanguageURL =
       window.location.host + '/' + userBrowserLanguage;
     if (!window.location.href.includes(appInUserLanguageURL)) {
-      this.router.navigate([userBrowserLanguage]);
+      window.location.href = appInUserLanguageURL;
     }
   }
   ngOnInit() {
