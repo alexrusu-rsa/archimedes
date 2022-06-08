@@ -35,8 +35,16 @@ export class AppComponent implements OnInit, OnDestroy {
   logOut() {
     this.authService.doLogout();
   }
-
+  redirectToLocale() {
+    const userBrowserLanguage = navigator.language.toLocaleString();
+    const appInUserLanguageURL = environment.baseURL + userBrowserLanguage;
+    console.log(appInUserLanguageURL, window.location.href);
+    if (!window.location.href.includes(appInUserLanguageURL)) {
+      window.location.href = environment.baseURL + userBrowserLanguage;
+    }
+  }
   ngOnInit() {
+    this.redirectToLocale();
     this.userIdSub = this.localStorageService.userIdValue.subscribe(
       (nextValue) => {
         if (nextValue) this.currentUserId = nextValue;
