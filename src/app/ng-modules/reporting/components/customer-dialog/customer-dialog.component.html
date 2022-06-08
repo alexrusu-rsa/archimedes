@@ -1,12 +1,15 @@
 <div class="dialog-container">
-  <mat-card-title *ngIf="currentCustomer && customer === null"
-  i18n
+  <mat-card-title
+    *ngIf="currentCustomer && customer === null"
+    i18n="@@customer-dialog-add-title"
     >Add Customer</mat-card-title
   >
   <mat-dialog-content *ngIf="currentCustomer && customer === null">
     <form [formGroup]="addCustomerForm!">
       <mat-form-field class="first-form-field" appearance="fill">
-        <mat-label i18n>Customer Name</mat-label>
+        <mat-label i18n="@@customer-dialog-customerName"
+          >Customer Name</mat-label
+        >
         <input
           matInput
           [(ngModel)]="currentCustomer.customerName"
@@ -18,7 +21,9 @@
       <div class="flex-container">
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer CUI</mat-label>
+            <mat-label i18n="@@customer-dialog-customerCUI"
+              >Customer CUI</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCUI"
@@ -29,7 +34,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Reg</mat-label>
+            <mat-label i18n="@@customer-dialog-customerReg"
+              >Customer Reg</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerReg"
@@ -40,7 +47,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Address</mat-label>
+            <mat-label i18n="@@customer-dialog-customerAddress"
+              >Customer Address</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerAddress"
@@ -51,7 +60,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer City</mat-label>
+            <mat-label i18n="@@customer-dialog-customerCity"
+              >Customer City</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCity"
@@ -62,7 +73,9 @@
         </div>
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Country</mat-label>
+            <mat-label i18n="@@customer-dialog-customerCountry"
+              >Customer Country</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCountry"
@@ -72,7 +85,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Director Name</mat-label>
+            <mat-label i18n="@@customer-dialog-customerDirectorName"
+              >Customer Director Name</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorName"
@@ -82,7 +97,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Director Email</mat-label>
+            <mat-label i18n="@@customer-dialog-customerDirectorEmail"
+              >Customer Director Email</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorEmail"
@@ -92,7 +109,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Director Tel</mat-label>
+            <mat-label i18n="@@customer-dialog-customerDirectorTel"
+              >Customer Director Tel</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorTel"
@@ -110,17 +129,21 @@
     color="accent"
     mat-raised-button
     (click)="addCustomer()"
-    i18n
+    i18n="@@customer-dialog-add-button"
   >
     Add customer
   </button>
-  <mat-card-title *ngIf="currentCustomer && this.customer !== null" i18n
+  <mat-card-title
+    *ngIf="currentCustomer && this.customer !== null"
+    i18n="@@customer-dialog-update-title"
     >Update Customer</mat-card-title
   >
   <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
     <form [formGroup]="addCustomerForm!">
       <mat-form-field class="first-form-field" appearance="fill">
-        <mat-label i18n>Customer Name</mat-label>
+        <mat-label i18n="@@customer-dialog-customerName"
+          >Customer Name</mat-label
+        >
         <input
           matInput
           [(ngModel)]="currentCustomer.customerName"
@@ -132,7 +155,9 @@
       <div class="flex-container">
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer CUI</mat-label>
+            <mat-label i18n="@@customer-dialog-customerCUI"
+              >Customer CUI</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCUI"
@@ -143,7 +168,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Reg</mat-label>
+            <mat-label i18n="@@customer-dialog-customerReg"
+              >Customer Reg</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerReg"
@@ -154,7 +181,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Address</mat-label>
+            <mat-label i18n="@@customer-dialog-customerAddress"
+              >Customer Address</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerAddress"
@@ -165,7 +194,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer City</mat-label>
+            <mat-label i18n="@@customer-dialog-customerCity"
+              >Customer City</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCity"
@@ -176,7 +207,9 @@
         </div>
         <div class="flex-child">
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Country</mat-label>
+            <mat-label i18n="@@customer-dialog-customerCountry"
+              >Customer Country</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCountry"
@@ -185,7 +218,9 @@
             />
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Director Name</mat-label>
+            <mat-label i18n="@@customer-dialog-customerDirectorName"
+              >Customer Director Name</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorName"
@@ -195,7 +230,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Director Email</mat-label>
+            <mat-label i18n="@@customer-dialog-customerDirectorEmail"
+              >Customer Director Email</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorEmail"
@@ -205,7 +242,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label i18n>Customer Director Tel</mat-label>
+            <mat-label i18n="@@customer-dialog-customerDirectorTel"
+              >Customer Director Tel</mat-label
+            >
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorTel"
@@ -223,7 +262,7 @@
     color="accent"
     mat-raised-button
     (click)="editCustomer()"
-    i18n
+    i18n="@@customer-dialog-update-button"
   >
     Update customer
   </button>
