@@ -37,7 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   redirectToLocale() {
     const userBrowserLanguage = navigator.language.toLocaleString();
-    const appInUserLanguageURL = environment.baseURL + userBrowserLanguage;
+    const appInUserLanguageURL =
+      window.location.host + '/' + userBrowserLanguage;
     if (!window.location.href.includes(appInUserLanguageURL)) {
       this.router.navigate([userBrowserLanguage]);
     }
