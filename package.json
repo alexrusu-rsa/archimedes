@@ -14,7 +14,7 @@
     "build:ro": "ng build --configuration=ro",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "ng build --configuration ${environment} --localize",
+    "heroku-postbuild": "ng build --configuration ${environment}",
     "lint": "ng lint",
     "i18n:extract": "ng xi18n --output-path src/locale"
   },
