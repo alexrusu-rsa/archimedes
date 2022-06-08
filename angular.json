@@ -119,7 +119,7 @@
             "ro": {
               "aot": true,
               "localize": ["ro"],
-              "outputPath": "dist/ro/",
+              "outputPath": "dist/archimedes-frontend/ro",
               "i18nMissingTranslation": "error"
             }
           },
