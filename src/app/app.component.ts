@@ -40,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const appInUserLanguageURL =
       window.location.host + '/' + userBrowserLanguage;
     if (window.location.href.split('/')[3] !== userBrowserLanguage) {
+      console.log(appInUserLanguageURL, userBrowserLanguage);
       this.router.navigate([userBrowserLanguage]);
     }
     // if (!window.location.href.includes(appInUserLanguageURL)) {
