@@ -2,10 +2,10 @@
   <mat-dialog-content
     *ngIf="currentProject && this.currentProjectToUpdate === null"
   >
-    <mat-card-title>Add Project</mat-card-title>
+    <mat-card-title i18n>Add Project</mat-card-title>
     <form [formGroup]="addProjectForm!">
       <mat-form-field appearance="fill">
-        <mat-label>Project Name</mat-label>
+        <mat-label i18n>Project Name</mat-label>
         <input
           matInput
           [(ngModel)]="currentProject.projectName"
@@ -16,7 +16,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Customer name</mat-label>
+        <mat-label i18n>Customer name</mat-label>
         <mat-select [(ngModel)]="selectedItem" formControlName="customerName">
           <mat-option
             *ngFor="let customer of customers"
@@ -29,7 +29,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Project Contract</mat-label>
+        <mat-label i18n>Project Contract</mat-label>
         <input
           matInput
           [(ngModel)]="currentProject.contract"
@@ -39,7 +39,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="header-datepicker">
-        <mat-label>Due date</mat-label>
+        <mat-label i18n>Due date</mat-label>
         <input
           matInput
           [matDatepicker]="datePicker"
@@ -56,17 +56,17 @@
     </form>
   </mat-dialog-content>
   <mat-dialog-actions *ngIf="currentProjectToUpdate === null">
-    <button mat-raised-button color="accent" (click)="checkAndAdd()">
+    <button mat-raised-button color="accent" (click)="checkAndAdd()" i18n>
       Add project
     </button>
   </mat-dialog-actions>
 
   <mat-dialog-content *ngIf="currentProject && currentProjectToUpdate !== null">
-    <mat-card-title>Update Project</mat-card-title>
+    <mat-card-title i18n>Update Project</mat-card-title>
 
     <form [formGroup]="addProjectForm!">
       <mat-form-field appearance="fill">
-        <mat-label>Project Name</mat-label>
+        <mat-label i18n>Project Name</mat-label>
         <input
           matInput
           [(ngModel)]="currentProjectToUpdate.projectName"
@@ -77,7 +77,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Customer name</mat-label>
+        <mat-label i18n>Customer name</mat-label>
         <mat-select [(value)]="selectedItem" formControlName="customerName">
           <mat-option
             *ngFor="let customer of customers"
@@ -89,7 +89,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Project Contract</mat-label>
+        <mat-label i18n>Project Contract</mat-label>
         <input
           matInput
           [(ngModel)]="currentProject.contract"
@@ -98,7 +98,7 @@
         />
       </mat-form-field>
       <mat-form-field appearance="fill" class="header-datepicker">
-        <mat-label>Due date</mat-label>
+        <mat-label i18n>Due date</mat-label>
         <input
           matInput
           [matDatepicker]="datePicker"
@@ -120,6 +120,7 @@
         mat-raised-button
         color="accent"
         (click)="checkAndUpdate()"
+        i18n
       >
         Update project
       </button>
