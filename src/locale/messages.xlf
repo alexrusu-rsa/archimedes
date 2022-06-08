@@ -2,551 +2,547 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="2821179408673282599" datatype="html">
+      <trans-unit id="menu-home-button" datatype="html">
         <source>Home</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4555457172864212828" datatype="html">
+      <trans-unit id="menu-users-button" datatype="html">
         <source>Users</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7091571651222742304" datatype="html">
+      <trans-unit id="menu-projects-button" datatype="html">
         <source>Projects</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8634025124141616528" datatype="html">
+      <trans-unit id="menu-customers-button" datatype="html">
         <source>Customers</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1564871856286910452" datatype="html">
+      <trans-unit id="menu-reporting-button" datatype="html">
         <source>Reporting </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">48,49</context>
+          <context context-type="linenumber">53,54</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7469082262719253974" datatype="html">
+      <trans-unit id="menu-invoices-button" datatype="html">
         <source>Invoices </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">51,52</context>
+          <context context-type="linenumber">60,61</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5113165610004622651" datatype="html">
+      <trans-unit id="menu-logout-button" datatype="html">
         <source>Log Out</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2454050363478003966" datatype="html">
+      <trans-unit id="login-page-title" datatype="html">
         <source>Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/login/login.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7541853859084507047" datatype="html">
+      <trans-unit id="login-page-email-required" datatype="html">
         <source> Email is required </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/login/login.component.html</context>
-          <context context-type="linenumber">16,18</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">14,16</context>
+          <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1431416938026210429" datatype="html">
+      <trans-unit id="login-page-password" datatype="html">
         <source>Password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/login/login.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9132547751630599796" datatype="html">
+      <trans-unit id="login-page-password-required" datatype="html">
         <source> Password is required </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/login/login.component.html</context>
-          <context context-type="linenumber">34,36</context>
+          <context context-type="linenumber">40,42</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1157724818606119627" datatype="html">
+      <trans-unit id="login-page-forgot-password" datatype="html">
         <source>Forgotten Password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/login/login.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2715185765061607307" datatype="html">
+      <trans-unit id="login-page-button" datatype="html">
         <source> Log in </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/login/login.component.html</context>
-          <context context-type="linenumber">48,50</context>
+          <context context-type="linenumber">60,62</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4371680625121499898" datatype="html">
+      <trans-unit id="password-reset-page-title" datatype="html">
         <source>Reset your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5273532907254625451" datatype="html">
+      <trans-unit id="password-reset-email-required" datatype="html">
+        <source> Email is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/auth/reset-password/reset-password.component.html</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password-reset-button" datatype="html">
         <source> Reset Password </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/auth/reset-password/reset-password.component.html</context>
-          <context context-type="linenumber">26,28</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-page/user-page.component.html</context>
-          <context context-type="linenumber">38,40</context>
+          <context context-type="linenumber">31,33</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2375397722199009140" datatype="html">
+      <trans-unit id="activity-dialog-add-title" datatype="html">
         <source>Add Activity</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6,8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="656648987461115340" datatype="html">
+      <trans-unit id="activity-dialog-activityName" datatype="html">
         <source>Activity Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">11,14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8872442952788749313" datatype="html">
+      <trans-unit id="activity-dialog-activityName-required" datatype="html">
         <source> Activity name is required </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="linenumber">146,148</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5162686434580248853" datatype="html">
+      <trans-unit id="activity-dialog-activityStart" datatype="html">
         <source>Start</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">29,31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">151,153</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1241348629231510663" datatype="html">
+      <trans-unit id="activity-dialog-activityEnd" datatype="html">
         <source>End</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">41,43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">163,165</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8117668572148231876" datatype="html">
+      <trans-unit id="activity-dialog-activityProject" datatype="html">
         <source>Project</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">53,55</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">175,177</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2913525949208463386" datatype="html">
+      <trans-unit id="activity-dialog-activityType" datatype="html">
         <source>Activity type</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">75,78</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="linenumber">197,200</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6056723059686998334" datatype="html">
+      <trans-unit id="activity-dialog-activityDescription" datatype="html">
         <source>Activity Description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">92,95</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">214,217</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="427095384291199423" datatype="html">
+      <trans-unit id="activity-dialog-activityExtras" datatype="html">
         <source>Activity Extras</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">105,108</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">199</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/invoice-dialog/invoice-dialog.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">227,230</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="835340918920074884" datatype="html">
+      <trans-unit id="activity-dialog-add-button" datatype="html">
         <source> Add activity </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">104,105</context>
+          <context context-type="linenumber">122,124</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5761400233881592893" datatype="html">
+      <trans-unit id="activity-dialog-update-title" datatype="html">
         <source>Update Activity</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">111</context>
+          <context context-type="linenumber">130,132</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1914802689879837180" datatype="html">
+      <trans-unit id="activity-dialog-update-button" datatype="html">
         <source> Update Activity </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-dialog/activity-dialog.component.html</context>
-          <context context-type="linenumber">216,217</context>
+          <context context-type="linenumber">245,248</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4888356074110630290" datatype="html">
+      <trans-unit id="activity-page-title" datatype="html">
         <source>Activities of selected day</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/activity-page/activity-page.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2866757371176568840" datatype="html">
+      <trans-unit id="customer-dialog-add-title" datatype="html">
         <source>Add Customer</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7265149706470630508" datatype="html">
+      <trans-unit id="customer-dialog-customerName" datatype="html">
         <source>Customer Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7758227134202072353" datatype="html">
+      <trans-unit id="customer-dialog-customerCUI" datatype="html">
         <source>Customer CUI</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">159</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5212234841485589627" datatype="html">
+      <trans-unit id="customer-dialog-customerReg" datatype="html">
         <source>Customer Reg</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4390724070037500803" datatype="html">
+      <trans-unit id="customer-dialog-customerAddress" datatype="html">
         <source>Customer Address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">185</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4897900485602051089" datatype="html">
+      <trans-unit id="customer-dialog-customerCity" datatype="html">
         <source>Customer City</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">54</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">168</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="9021913866174541818" datatype="html">
-        <source>Customer Country</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">65</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">179</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7346026760027017456" datatype="html">
-        <source>Customer Director Name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">75</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">188</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5250927470472389023" datatype="html">
-        <source>Customer Director Email</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
           <context context-type="linenumber">198</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1765989788376503505" datatype="html">
+      <trans-unit id="customer-dialog-customerCountry" datatype="html">
+        <source>Customer Country</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
+          <context context-type="linenumber">211</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customer-dialog-customerDirectorName" datatype="html">
+        <source>Customer Director Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
+          <context context-type="linenumber">222</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customer-dialog-customerDirectorEmail" datatype="html">
+        <source>Customer Director Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
+          <context context-type="linenumber">234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="customer-dialog-customerDirectorTel" datatype="html">
         <source>Customer Director Tel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">113</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">208</context>
+          <context context-type="linenumber">246</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4456921956643337352" datatype="html">
+      <trans-unit id="customer-dialog-add-button" datatype="html">
         <source> Add customer </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">114,116</context>
+          <context context-type="linenumber">133,135</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="977240575824016288" datatype="html">
+      <trans-unit id="customer-dialog-update-title" datatype="html">
         <source>Update Customer</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6703338094183885511" datatype="html">
+      <trans-unit id="customer-dialog-update-button" datatype="html">
         <source> Update customer </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component.html</context>
-          <context context-type="linenumber">227,229</context>
+          <context context-type="linenumber">266,268</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7880966437971519453" datatype="html">
+      <trans-unit id="customer-page-title" datatype="html">
         <source> Customer page </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-page/customer-page.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8118796367363764268" datatype="html">
+      <trans-unit id="customer-page-search-hint" datatype="html">
         <source>Search customer</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/customer-page/customer-page.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1995169334394075344" datatype="html">
+      <trans-unit id="invoice-dialog-title" datatype="html">
         <source>Invoice Number:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/invoice-dialog/invoice-dialog.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5151854200598171391" datatype="html">
+      <trans-unit id="invoice-dialog-pdf-button" datatype="html">
         <source> Download PDF </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/invoice-dialog/invoice-dialog.component.html</context>
-          <context context-type="linenumber">14,16</context>
+          <context context-type="linenumber">18,20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7657003425511474761" datatype="html">
+      <trans-unit id="invoice-dialog-xlsx-button" datatype="html">
         <source> Download XLSX </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/invoice-dialog/invoice-dialog.component.html</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">26,28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2122668871853859869" datatype="html">
-        <source> Invoices </source>
+      <trans-unit id="invoice-page-title" datatype="html">
+        <source> Invoices
+</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/invoice-page/invoice-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">1,3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2569986692037362049" datatype="html">
+      <trans-unit id="invoice-page-month-year-hint" datatype="html">
         <source>Month and Year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/invoice-page/invoice-page.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="591060776473889117" datatype="html">
+      <trans-unit id="invoice-page-project-date" datatype="html">
         <source>Month: <x id="INTERPOLATION" equiv-text="{{ selectedMonth }}"/> - <x id="INTERPOLATION_1" equiv-text="{{ selectedYear }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/invoice-page/invoice-page.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4053112335752964687" datatype="html">
+      <trans-unit id="project-dialog-add-title" datatype="html">
         <source>Add Project</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4157564596155275219" datatype="html">
+      <trans-unit id="project-dialog-projectName" datatype="html">
         <source>Project Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8782485840208773265" datatype="html">
+      <trans-unit id="project-dialog-projectCustomerName" datatype="html">
         <source>Customer name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2697074984733199783" datatype="html">
+      <trans-unit id="project-dialog-projectContract" datatype="html">
         <source>Project Contract</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2413171611497962745" datatype="html">
+      <trans-unit id="project-dialog-projectDueDate" datatype="html">
         <source>Due date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8434493996222440560" datatype="html">
+      <trans-unit id="project-dialog-add-button" datatype="html">
         <source> Add project </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">59,61</context>
+          <context context-type="linenumber">70,72</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5621052107213107389" datatype="html">
+      <trans-unit id="project-dialog-update-title" datatype="html">
         <source>Update Project</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8911445554573111863" datatype="html">
+      <trans-unit id="project-dialog-update-button" datatype="html">
         <source> Update project </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-dialog/project-dialog.component.html</context>
-          <context context-type="linenumber">124,126</context>
+          <context context-type="linenumber">141,143</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3714924849715958464" datatype="html">
+      <trans-unit id="project-page-title" datatype="html">
         <source> Project page </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-page/project-page.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7045171080084120821" datatype="html">
+      <trans-unit id="project-page-search-hint" datatype="html">
         <source>Search project</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/project-page/project-page.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1579089986467079605" datatype="html">
+      <trans-unit id="reporting-page-title" datatype="html">
         <source>Reporting Page</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/reporting-page/reporting-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7822366836492490716" datatype="html">
+      <trans-unit id="reporting-page-selectDateRange" datatype="html">
         <source>Select date range</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/reporting-page/reporting-page.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4504515076316586189" datatype="html">
+      <trans-unit id="reporting-page-employeeName" datatype="html">
         <source>Employee name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/reporting-page/reporting-page.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5768541491500899884" datatype="html">
+      <trans-unit id="reporting-page-users" datatype="html">
         <source> All users </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/reporting-page/reporting-page.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">20,22</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2152256168419071880" datatype="html">
+      <trans-unit id="reporting-page-card-activityDescription" datatype="html">
         <source>DESCRIPTION</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/reporting-page/reporting-page.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1075467432227847705" datatype="html">
+      <trans-unit id="reporting-page-card-activityExtras" datatype="html">
         <source>EXTRAS</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/reporting-page/reporting-page.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5533718714718033618" datatype="html">
@@ -591,14 +587,14 @@
           <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2941198503117307737" datatype="html">
+      <trans-unit id="user-dialog-add-title" datatype="html">
         <source>Add User</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6938935435600031334" datatype="html">
+      <trans-unit id="user-dialog-userSurname" datatype="html">
         <source>User Surname</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
@@ -606,160 +602,170 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1387992412551637211" datatype="html">
+      <trans-unit id="user-dialog-userSurname-required" datatype="html">
         <source> User surname is required </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">14,16</context>
+          <context context-type="linenumber">17,19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">108,110</context>
+          <context context-type="linenumber">135,137</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="160640128319879431" datatype="html">
+      <trans-unit id="user-dialog-userName" datatype="html">
         <source>User Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7644920077428261982" datatype="html">
+      <trans-unit id="user-dialog-userName-required" datatype="html">
         <source> User name is required </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">28,30</context>
+          <context context-type="linenumber">34,36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">122,124</context>
+          <context context-type="linenumber">152,154</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9124774383244734698" datatype="html">
+      <trans-unit id="user-dialog-userEmail" datatype="html">
         <source>User Email</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">158</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2131502997013270634" datatype="html">
+      <trans-unit id="user-dialog-userEmail-required" datatype="html">
         <source> User email is required </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">42,44</context>
+          <context context-type="linenumber">51,53</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">136,138</context>
+          <context context-type="linenumber">169,171</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="905150179853267182" datatype="html">
+      <trans-unit id="user-dialog-userRole" datatype="html">
         <source>User Role</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">57</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">175</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3532155056053184271" datatype="html">
+      <trans-unit id="user-dialog-userRole-required" datatype="html">
         <source> User role is required </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">55,57</context>
+          <context context-type="linenumber">67,69</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">68,70</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">149,151</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">162,164</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6988006923315584640" datatype="html">
-        <source>User Seniority </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">155</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2740455852445766294" datatype="html">
-        <source>User time/day </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">73</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">167</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5304406630081977499" datatype="html">
-        <source> User Time/Day is required </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">80,82</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">174,176</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8113750479769477993" datatype="html">
-        <source> Add user </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">91,93</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1349763489797682899" datatype="html">
-        <source>Update user</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
-          <context context-type="linenumber">97</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2955752891888522689" datatype="html">
-        <source> Update user </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
           <context context-type="linenumber">185,187</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2674071121626582111" datatype="html">
+      <trans-unit id="user-dialog-userSeniority" datatype="html">
+        <source>User Seniority </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">74,75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">192,193</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-dialog-userSeniority-required" datatype="html">
+        <source> User role is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">85,87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">203,205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-dialog-userTimePerDay" datatype="html">
+        <source>User time/day </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">91,92</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">209,210</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-dialog-userTimePerDay-required" datatype="html">
+        <source> User Time/Day is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">102,104</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">220,222</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-dialog-add-button" datatype="html">
+        <source> Add user </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">113,115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-dialog-update-title" datatype="html">
+        <source>Update user</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-dialog-update-button" datatype="html">
+        <source> Update user </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-dialog/user-dialog.component.html</context>
+          <context context-type="linenumber">231,233</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-page-title" datatype="html">
         <source>User page</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-page/user-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1442856808508898618" datatype="html">
+      <trans-unit id="user-page-search-hint" datatype="html">
         <source>Search user</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-page/user-page.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user-page-resetPassword-button" datatype="html">
+        <source> Reset Password </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ng-modules/reporting/components/user-page/user-page.component.html</context>
+          <context context-type="linenumber">40,42</context>
         </context-group>
       </trans-unit>
     </body>
