@@ -38,9 +38,8 @@ export class AppComponent implements OnInit, OnDestroy {
   redirectToLocale() {
     const userBrowserLanguage = navigator.language.toLocaleString();
     const appInUserLanguageURL = environment.baseURL + userBrowserLanguage;
-    console.log(appInUserLanguageURL, window.location.href);
     if (!window.location.href.includes(appInUserLanguageURL)) {
-      window.location.href = environment.baseURL + userBrowserLanguage;
+      this.router.navigate([userBrowserLanguage]);
     }
   }
   ngOnInit() {
