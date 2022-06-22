@@ -36,6 +36,9 @@
           [(ngModel)]="currentActivity.start"
         />
       </mat-form-field>
+      <mat-hint color="warn"
+      *ngIf="!this.checkEndStart()"
+      >Make sure you enter a valid combination of start/end time.</mat-hint>
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityEnd">End</mat-label>
@@ -48,6 +51,9 @@
           [(ngModel)]="currentActivity.end"
         />
       </mat-form-field>
+      <mat-hint
+      *ngIf="!this.checkEndStart()" color="warn"
+      >Make sure you enter a valid combination of start/end time.</mat-hint>
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityProject">Project</mat-label>
@@ -158,6 +164,9 @@
           [(ngModel)]="currentActivity.start"
         />
       </mat-form-field>
+      <mat-hint color="warn"
+      *ngIf="!this.checkEndStart()"
+      >Make sure you enter a valid combination of start/end time.</mat-hint>
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityEnd">End</mat-label>
@@ -170,6 +179,9 @@
           [(ngModel)]="currentActivity.end"
         />
       </mat-form-field>
+      <mat-hint color="warn"
+      *ngIf="!this.checkEndStart()"
+      >Make sure you enter a valid combination of start/end time.</mat-hint>
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityProject">Project</mat-label>
