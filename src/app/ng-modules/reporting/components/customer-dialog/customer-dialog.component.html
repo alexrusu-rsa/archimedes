@@ -5,7 +5,7 @@
     >Add Customer</mat-card-title
   >
   <mat-dialog-content *ngIf="currentCustomer && customer === null">
-    <form [formGroup]="addCustomerForm!">
+    <form [formGroup]="addCustomerForm!" (keyup.enter)="addCustomer()">
       <mat-form-field class="first-form-field" appearance="fill">
         <mat-label i18n="@@customer-dialog-customerName"
           >Customer Name</mat-label
@@ -139,7 +139,7 @@
     >Update Customer</mat-card-title
   >
   <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
-    <form [formGroup]="addCustomerForm!">
+    <form [formGroup]="addCustomerForm!" (keyup.enter)="editCustomer()">
       <mat-form-field class="first-form-field" appearance="fill">
         <mat-label i18n="@@customer-dialog-customerName"
           >Customer Name</mat-label

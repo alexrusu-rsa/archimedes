@@ -1,7 +1,7 @@
 <div class="dialog-container">
   <mat-dialog-content *ngIf="currentUser && user === null">
     <mat-card-title i18n="@@user-dialog-add-title">Add User</mat-card-title>
-    <form [formGroup]="addUserForm!">
+    <form [formGroup]="addUserForm!" (keyup.enter)="addUser()">
       <mat-form-field appearance="fill">
         <mat-label i18n="@@user-dialog-userSurname">User Surname</mat-label>
         <input
@@ -119,7 +119,7 @@
     <mat-card-title i18n="@@user-dialog-update-title"
       >Update user</mat-card-title
     >
-    <form [formGroup]="addUserForm!">
+    <form [formGroup]="addUserForm!" (keyup.enter)="editUser()">
       <mat-form-field appearance="fill">
         <mat-label i18n="@@user-dialog-userSurname">User Surname</mat-label>
         <input

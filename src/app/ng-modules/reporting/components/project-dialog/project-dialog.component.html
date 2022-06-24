@@ -5,7 +5,7 @@
     <mat-card-title i18n="@@project-dialog-add-title"
       >Add Project</mat-card-title
     >
-    <form [formGroup]="addProjectForm!">
+    <form [formGroup]="addProjectForm!" (keyup.enter)="checkAndAdd()">
       <mat-form-field appearance="fill">
         <mat-label i18n="@@project-dialog-projectName">Project Name</mat-label>
         <input
@@ -77,7 +77,7 @@
       >Update Project</mat-card-title
     >
 
-    <form [formGroup]="addProjectForm!">
+    <form [formGroup]="addProjectForm!" (keyup.enter)="checkAndUpdate()">
       <mat-form-field appearance="fill">
         <mat-label i18n="@@project-dialog-projectName">Project Name</mat-label>
         <input
