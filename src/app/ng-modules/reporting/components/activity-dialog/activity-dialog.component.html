@@ -5,7 +5,7 @@
     <mat-card-title i18n="@@activity-dialog-add-title"
       >Add Activity</mat-card-title
     >
-    <form [formGroup]="addActivityForm!">
+    <form [formGroup]="addActivityForm!" (keyup.enter)="addActivity()">
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityName"
           >Activity Name</mat-label
@@ -129,7 +129,7 @@
     <mat-card-title i18n="@@activity-dialog-update-title"
       >Update Activity</mat-card-title
     >
-    <form [formGroup]="addActivityForm!">
+    <form [formGroup]="addActivityForm!" (keyup.enter)="editActivity()">
       <mat-form-field appearance="fill">
         <mat-label>Activity Name</mat-label>
         <input
