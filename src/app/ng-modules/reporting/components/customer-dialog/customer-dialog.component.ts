@@ -1,3 +1,4 @@
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -22,18 +23,30 @@ export class CustomerDialogComponent implements OnInit {
   currentCustomer?: Customer;
   addCurrentCustomerSub?: Subscription;
   updateCustomerSub?: Subscription;
+  customerInternal?: boolean;
 
   addCustomer() {
+    if (this.currentCustomer)
+      if (this.customerInternal === true) this.currentCustomer.internal = 'YES';
+      else {
+        this.currentCustomer.internal = 'NO';
+      }
     if (this.checkAbleToRequestAddCustomer())
-      if (this.currentCustomer)
+      if (this.currentCustomer) {
         this.addCurrentCustomerSub = this.customerService
           .addCustomer(this.currentCustomer)
           .subscribe((newCustomer: Customer) => {
             this.dialogRef.close(newCustomer);
           });
+      }
   }
 
   editCustomer() {
+    if (this.currentCustomer)
+      if (this.customerInternal === true) this.currentCustomer.internal = 'YES';
+      else {
+        this.currentCustomer.internal = 'NO';
+      }
     if (this.checkAbleToRequestUpdateCustomer())
       if (this.currentCustomer) {
         this.updateCustomerSub = this.customerService
@@ -95,6 +108,7 @@ export class CustomerDialogComponent implements OnInit {
       ),
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
     });
+    this.customerInternal = this.currentCustomer?.internal === 'YES';
   }
 
   get name() {

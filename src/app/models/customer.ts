@@ -9,4 +9,5 @@ export interface Customer {
   customerDirectorName: string;
   customerDirectorTel: string;
   customerDirectorEmail: string;
+  internal: string;
 }
