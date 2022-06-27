@@ -26,8 +26,7 @@ export class CustomerDialogComponent implements OnInit {
   customerInternal?: boolean;
 
   addCustomer() {
-    if (this.currentCustomer && this.customerInternal)
-      this.currentCustomer.internal = this.customerInternal;
+    this.currentCustomer!.internal = this.customerInternal!;
     if (this.checkAbleToRequestAddCustomer())
       if (this.currentCustomer) {
         this.addCurrentCustomerSub = this.customerService
