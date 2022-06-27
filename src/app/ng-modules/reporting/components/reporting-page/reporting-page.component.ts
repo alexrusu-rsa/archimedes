@@ -123,10 +123,11 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.getAllProjects();
     this.selectedItemEmployee = this.noFilterUsers;
     this.nameFilter = this.noFilterUsers;
-    this.range = new FormGroup({
-      start: new FormControl(),
-      end: new FormControl(),
-    });
+    // this.range = new FormGroup({
+    //   start: new FormControl(),
+    //   end: new FormControl(),
+    // });
+    this.initializeRangeInSelector();
   }
 
   ngOnDestroy(): void {
@@ -135,7 +136,31 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.allProjectsSub?.unsubscribe();
     this.allEmployeesSub?.unsubscribe();
   }
-
+  initializeRangeInSelector() {
+    const currentDate = new Date();
+    console.log(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    );
+    console.log(
+      new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+        currentDate.getDate()
+      )
+    );
+    this.range = new FormGroup({
+      start: new FormControl(
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+      ),
+      end: new FormControl(
+        new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+          currentDate.getDate()
+        )
+      ),
+    });
+  }
   get start() {
     return this.range?.get('start');
   }
