@@ -26,11 +26,8 @@ export class CustomerDialogComponent implements OnInit {
   customerInternal?: boolean;
 
   addCustomer() {
-    if (this.currentCustomer)
-      if (this.customerInternal === true) this.currentCustomer.internal = 'YES';
-      else {
-        this.currentCustomer.internal = 'NO';
-      }
+    if (this.currentCustomer && this.customerInternal)
+      this.currentCustomer.internal = this.customerInternal;
     if (this.checkAbleToRequestAddCustomer())
       if (this.currentCustomer) {
         this.addCurrentCustomerSub = this.customerService
@@ -42,11 +39,7 @@ export class CustomerDialogComponent implements OnInit {
   }
 
   editCustomer() {
-    if (this.currentCustomer)
-      if (this.customerInternal === true) this.currentCustomer.internal = 'YES';
-      else {
-        this.currentCustomer.internal = 'NO';
-      }
+    this.currentCustomer!.internal = this.customerInternal!;
     if (this.checkAbleToRequestUpdateCustomer())
       if (this.currentCustomer) {
         this.updateCustomerSub = this.customerService
@@ -94,7 +87,11 @@ export class CustomerDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentCustomer = <Customer>{};
-    if (this.customer !== null) this.currentCustomer = this.customer;
+    this.customerInternal = false;
+    if (this.customer !== null) {
+      this.currentCustomer = this.customer;
+      this.customerInternal = this.currentCustomer?.internal;
+    }
     this.addCustomerForm = new FormGroup({
       name: new FormControl(this.currentCustomer?.customerName),
       cui: new FormControl(this.currentCustomer?.customerCUI),
@@ -108,7 +105,6 @@ export class CustomerDialogComponent implements OnInit {
       ),
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
     });
-    this.customerInternal = this.currentCustomer?.internal === 'YES';
   }
 
   get name() {
