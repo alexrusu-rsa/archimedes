@@ -16,6 +16,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
@@ -37,7 +39,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatSnackBarModule,
     MatSelectModule,
     MatTableModule,
+    MatCheckboxModule,
     MatChipsModule,
+    MatSlideToggleModule,
     MatProgressBarModule,
   ],
   exports: [
@@ -56,6 +60,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatSelectModule,
     MatTableModule,
     MatChipsModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
     MatProgressBarModule,
   ],
 })
