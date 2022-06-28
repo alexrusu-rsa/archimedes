@@ -22,14 +22,8 @@ export class UserDialogComponent implements OnInit {
   currentUser?: User;
   addCurrentUserSub?: Subscription;
   updateUserSub?: Subscription;
-  adminUserCheck?: boolean;
 
   addUser() {
-    if (this.adminUserCheck) {
-      this.currentUser!.roles = 'admin';
-    } else {
-      this.currentUser!.roles = 'user';
-    }
     if (this.checkAbleToRequestAddUser())
       if (this.currentUser)
         this.addCurrentUserSub = this.userService
@@ -40,11 +34,6 @@ export class UserDialogComponent implements OnInit {
   }
 
   editUser() {
-    if (this.adminUserCheck) {
-      this.currentUser!.roles = 'admin';
-    } else {
-      this.currentUser!.roles = 'user';
-    }
     if (this.checkAbleToRequestUpdateUser())
       if (this.currentUser) {
         this.updateUserSub = this.userService
@@ -67,11 +56,7 @@ export class UserDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = <User>{};
-    this.adminUserCheck = false;
-    if (this.user !== null) {
-      this.currentUser = this.user;
-      this.adminUserCheck = this.user.roles?.includes('admin');
-    }
+    if (this.user !== null) this.currentUser = this.user;
     this.addUserForm = new FormGroup({
       email: new FormControl(this.currentUser?.email),
       surname: new FormControl(this.currentUser?.surname),
