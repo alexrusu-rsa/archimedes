@@ -24,6 +24,7 @@
 <mat-card class="card-container">
   <a href=""></a>
   <mat-card class="secondary-card" *ngFor="let user of allUsers">
+    <mat-card-subtitle>{{ user.roles }}</mat-card-subtitle>
     <a class="user-details" routerLink="/employee/{{ user.id }}">
       <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
       <mat-card-subtitle>
