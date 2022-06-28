@@ -6,8 +6,6 @@ import { Activity } from '../models/activity';
 })
 export class DateRangePipe implements PipeTransform {
   transform(value: Activity[], start: Date, end: Date): Activity[] {
-    // const endDate = end;
-    // endDate.setDate(end.getDate() + 1);
     const filteredActivities = value.filter(
       (activity) =>
         this.stringToDate(activity.date) >= start &&
