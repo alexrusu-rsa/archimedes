@@ -44,7 +44,7 @@
       class="secondary-card"
       *ngFor="
         let activity of this.allActivities!
-          | dateRange: this.start?.value._d:this.end?.value._d
+          | dateRange: this.start?.value:this.end?.value
           | employee: this.selectedItemEmployee
       "
     >
