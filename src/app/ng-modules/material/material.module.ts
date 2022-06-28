@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [],
@@ -41,6 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
     MatChipsModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
   ],
   exports: [
     MatButtonModule,
@@ -60,6 +62,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatChipsModule,
     MatCheckboxModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
   ],
 })
 export class MaterialModule {}
