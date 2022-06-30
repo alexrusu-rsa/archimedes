@@ -61,7 +61,7 @@ export class CustomerService {
       );
   }
 
-  updateCustomer(customer: Customer): Observable<RequestWrapper> {
+  updateCustomer(customer: Customer): Observable<Customer> {
     return this.httpClient
       .put(this.customersUrl + '/' + customer.id, customer, {
         observe: 'response',
@@ -69,31 +69,61 @@ export class CustomerService {
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Customer updated');
-          return res.body as RequestWrapper;
+          return res.body as Customer;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'updateCustomer'
-          )
+          this.responseHandlingService.handleError<Customer>('updateCustomer')
         )
       );
   }
 
-  addCustomer(customer: Customer): Observable<RequestWrapper> {
+  addCustomer(customer: Customer): Observable<Customer> {
     return this.httpClient
-      .post<RequestWrapper>(this.customersUrl, customer, {
+      .post<Customer>(this.customersUrl, customer, {
         observe: 'response',
       })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Customer added');
-          return res.body as RequestWrapper;
+          return res.body as Customer;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'addCustomer'
-          )
+          this.responseHandlingService.handleError<Customer>('addCustomer')
         )
       );
+  }
+
+  getCustomerInvoicePDF(
+    customerId: string,
+    invoiceNumber: string,
+    selectedMonthYear: string
+  ) {
+    return this.httpClient.get(
+      this.customersUrl +
+        '/invoice/pdf/' +
+        customerId +
+        '/' +
+        invoiceNumber +
+        '/' +
+        selectedMonthYear,
+      { observe: 'response', responseType: 'blob' }
+    );
+  }
+
+  getCustomerInvoiceXLSX(
+    customerId: string,
+    invoiceNumber: string,
+    selectedMonthYear: string
+  ) {
+    return this.httpClient.get(
+      this.customersUrl +
+        '/invoice/xlsx/' +
+        customerId +
+        '/' +
+        invoiceNumber +
+        '/' +
+        selectedMonthYear,
+      { observe: 'response', responseType: 'blob' }
+    );
   }
 }

@@ -1,0 +1,51 @@
+<mat-card-title class="page-title" i18n="@@customer-page-title">
+  Customer page
+</mat-card-title>
+
+<div class="header-activity">
+  <mat-form-field appearance="fill" class="header-searchbar">
+    <mat-label i18n="@@customer-page-search-hint">Search customer</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex: RSA SOFT"
+      #input
+    />
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    class="header-add-button theme-add-card"
+    (click)="addCustomer()"
+  >
+    <mat-icon color="accent">add_box</mat-icon>
+  </button>
+</div>
+
+<mat-card class="card-container">
+  <mat-card class="secondary-card" *ngFor="let customer of allCustomers">
+    <mat-card-title>
+      {{ customer.customerName }}
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="customer.internal"
+      >Internal Company</mat-card-subtitle
+    >
+
+    <mat-card-actions align="end">
+      <button mat-button color="accent" (click)="editCustomer(customer)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="deleteCustomer(customer.id!)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <button mat-raised-button class="secondary-card" (click)="addCustomer()">
+    <mat-icon color="accent">add_box</mat-icon>
+  </button>
+</mat-card>

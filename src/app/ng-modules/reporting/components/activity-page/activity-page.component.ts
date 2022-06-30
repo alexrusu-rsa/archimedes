@@ -36,15 +36,14 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const userId = this.activeRoute.snapshot.paramMap.get('id');
-    if (userId) this.getUser(userId);
-    this.selectedDate = new Date();
-    this.dateChanges();
-  }
-
-  getUser(userId: string): void {
-    this.getUserSub = this.userService
-      .getUser(userId)
-      .subscribe((result: User) => (this.user = result));
+    if (userId)
+      this.getUserSub = this.userService
+        .getUser(userId)
+        .subscribe((result: User) => {
+          this.user = result;
+          this.selectedDate = new Date();
+          this.dateChanges();
+        });
   }
 
   dateChanges() {
@@ -57,18 +56,21 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       if (this.user?.id)
         this.activitiesOfTheDaySub = this.activityService
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
-          .subscribe((response) => (this.activitiesOfTheDay = response));
+          .subscribe((response) => {
+            this.activitiesOfTheDay = response;
+          });
     }
   }
 
   deleteActivity(activityToDelete: Activity) {
-    this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
-      (activity) => activity.id !== activityToDelete.id
-    );
     if (activityToDelete.id)
       this.deleteActivitySub = this.activityService
         .deleteActivity(activityToDelete.id)
-        .subscribe();
+        .subscribe(() => {
+          this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
+            (activity) => activity.id !== activityToDelete.id
+          );
+        });
   }
 
   addNewActivity() {
@@ -76,15 +78,20 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    this.dialog.open(ActivityDialogComponent, {
+    const dialogRef = this.dialog.open(ActivityDialogComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
       },
+      panelClass: 'full-width-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
     });
   }
 
-  editActivityForm(activityToEdit: Activity) {
+  editActivity(activityToEdit: Activity) {
     const dateToSend = this.datepipe.transform(
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
@@ -95,7 +102,27 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         date: dateToSend,
         activity: activityToEdit,
       },
+      panelClass: 'full-width-dialog',
     });
+  }
+
+  sortActivitiesByStart(activities: Activity[]) {
+    const sortedActivities = activities.sort(
+      (activityA, activityB) =>
+        this.getTimeInDateFormat(activityA.start!).getTime() -
+        this.getTimeInDateFormat(activityB.start!).getTime()
+    );
+    return sortedActivities;
+  }
+
+  getTimeInDateFormat(hhmm: string) {
+    return new Date(
+      0,
+      0,
+      0,
+      Number(hhmm.slice(0, 2)),
+      Number(hhmm.slice(3, 5))
+    );
   }
 
   ngOnDestroy(): void {

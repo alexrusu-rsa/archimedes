@@ -1,27 +1,34 @@
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
 :host
-  display: flex
-  gap: 2vh
-  flex-direction: column
-  height: 100%
+  @include host-mixin
 
-.header-activity
-  display: flex
-  justify-content: space-between
-  height: 6%
+  .mat-input-element
+    @include mat-input-element
+
+  .header-activity
+    @include header-activity
+
+    .header-add-button
+      @include header-add-button
+
+    .header-datepicker
+      @include header-datepicker
 
 .card-container
-  flex: 1
-  display: flex
-  gap: 2vh
-  flex-direction: column
-  align-content: flex-start
-  overflow: hidden
-  height: 100%
-  margin-bottom: 2%
+  @include card-container
 
   .secondary-card
-    background-color: #393939
+    @include secondary-card
 
-    .mat-card-actions
-      margin: 0!important
-      padding: 0!important
+  .mat-card-actions
+    @include mat-card-actions
+
+.page-title
+  @include page-title
+
+@media (max-width: $media-query-400px)
+  .header-add-button
+    display: none
+  .header-datepicker
+    width: $full-width

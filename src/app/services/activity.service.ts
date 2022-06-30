@@ -2,8 +2,10 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { start } from 'repl';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../models/activity';
@@ -30,6 +32,16 @@ export class ActivityService {
       .pipe(
         catchError(
           this.responseHandlingService.handleError<Activity>(`getActivity id`)
+        )
+      );
+  }
+
+  getAllActivityTypes(): Observable<string[]> {
+    return this.httpClient
+      .get<string[]>(this.activitiesUrl + '/types')
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<string[]>('getActivityTypes')
         )
       );
   }
@@ -61,25 +73,23 @@ export class ActivityService {
       );
   }
 
-  addActivity(activity: Activity): Observable<RequestWrapper> {
+  addActivity(activity: Activity): Observable<Activity> {
     return this.httpClient
-      .post<RequestWrapper>(this.activitiesUrl, activity, {
+      .post<Activity>(this.activitiesUrl, activity, {
         observe: 'response',
       })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Activity added');
-          return res.body as RequestWrapper;
+          return res.body as Activity;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'addActivity'
-          )
+          this.responseHandlingService.handleError<Activity>('addActivity')
         )
       );
   }
 
-  updateActivity(activity: Activity): Observable<RequestWrapper> {
+  updateActivity(activity: Activity): Observable<Activity> {
     return this.httpClient
       .put(this.activitiesUrl + '/' + activity.id, activity, {
         observe: 'response',
@@ -87,12 +97,10 @@ export class ActivityService {
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Activity updated');
-          return res.body as RequestWrapper;
+          return res.body as Activity;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'updateActivity'
-          )
+          this.responseHandlingService.handleError<Activity>('updateActivity')
         )
       );
   }
@@ -140,6 +148,24 @@ export class ActivityService {
         catchError(
           this.responseHandlingService.handleError<Activity[]>(
             `getActivitiesOfEmployee`
+          )
+        )
+      );
+  }
+
+  getActivitiesInRange(startDate: string, endDate: string) {
+    const activitiesByRangeUrl = this.activitiesUrl + '/range';
+    let qParams = new HttpParams();
+    qParams = qParams.append('startDate', startDate);
+    qParams = qParams.append('endDate', endDate);
+    return this.httpClient
+      .get<Activity[]>(activitiesByRangeUrl, {
+        params: qParams,
+      })
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<Activity[]>(
+            `getActivitiesByRange`
           )
         )
       );

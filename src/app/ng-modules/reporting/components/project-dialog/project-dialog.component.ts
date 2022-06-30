@@ -1,10 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
-import { ProjectCustomersPack } from 'src/app/models/projectCustomersPack';
+import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -16,7 +17,9 @@ export class ProjectDialogComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public projectCustomers: ProjectCustomersPack
+    private customerService: CustomerService,
+    public datepipe: DatePipe,
+    @Inject(MAT_DIALOG_DATA) public currentProjectToUpdate: Project
   ) {}
 
   addProjectForm?: FormGroup;
@@ -27,13 +30,21 @@ export class ProjectDialogComponent implements OnInit {
   customerNameForm = '';
   selectedItem?: string;
   newProject?: Project;
+  getCustomersSub?: Subscription;
+  getCustomerOfProjectToUpdate?: Subscription;
+  selectedProjectCustomer?: Customer;
+
+  selectedDate?: Date;
+  selectedDateString?: string;
 
   addProject() {
     if (this.checkAbleToRequestAddProject())
       if (this.currentProject)
         this.addCurrentProjectSub = this.projectService
           .addProject(this.currentProject)
-          .subscribe();
+          .subscribe((newProject: Project) => {
+            this.dialogRef.close(newProject);
+          });
   }
 
   editProject() {
@@ -41,8 +52,31 @@ export class ProjectDialogComponent implements OnInit {
       if (this.currentProject) {
         this.updateProjectSub = this.projectService
           .updateProject(this.currentProject)
-          .subscribe();
+          .subscribe((updatedProject: Project) => {
+            this.dialogRef.close(updatedProject);
+          });
       }
+  }
+
+  getCustomers() {
+    this.getCustomersSub = this.customerService
+      .getCustomers()
+      .subscribe((result) => {
+        this.customers = result;
+      });
+  }
+
+  dateChanges() {
+    const dateFormatted = this.datepipe.transform(
+      this.selectedDate,
+      'dd/MM/yyyy'
+    );
+  }
+
+  getCustomerOfSelectedProject() {
+    this.getCustomerOfProjectToUpdate = this.customerService
+      .getCustomer(this.currentProjectToUpdate.customerId)
+      .subscribe((result) => (this.selectedProjectCustomer = result));
   }
 
   checkAbleToRequestAddProject(): boolean {
@@ -60,31 +94,67 @@ export class ProjectDialogComponent implements OnInit {
   }
 
   checkAndAdd() {
+    const dateToString = this.datepipe.transform(
+      this.selectedDate,
+      'dd/MM/yyyy'
+    );
+    if (dateToString) this.newProject!.dueDate = dateToString;
     this.newProject!.customerId = this.customerName?.value;
     this.newProject!.projectName = this.name?.value;
+    this.newProject!.contract = this.contract?.value;
     this.currentProject = this.newProject;
     this.addProject();
   }
 
   checkAndUpdate() {
+    const dateToString = this.datepipe.transform(
+      this.selectedDate,
+      'dd/MM/yyyy'
+    );
     this.newProject!.id = this.currentProject?.id;
     this.newProject!.customerId = this.customerName?.value;
     this.newProject!.projectName = this.name?.value;
+    this.newProject!.contract = this.contract?.value;
+    if (dateToString) this.newProject!.dueDate = dateToString;
     this.currentProject = this.newProject;
     this.editProject();
   }
 
-  ngOnInit(): void {
-    this.currentProject = <Project>{};
-    this.newProject = <Project>{};
-    this.customers = this.projectCustomers.customers;
-
-    if (this.projectCustomers.project !== undefined) {
-      this.currentProject = this.projectCustomers.project;
+  setProjectToBeUpdatedDate(project: Project) {
+    const dueDateString = project.dueDate;
+    if (dueDateString) {
+      const dueDateStringSplit = dueDateString.split('/');
+      this.selectedDate = new Date(
+        dueDateStringSplit[2] +
+          '-' +
+          dueDateStringSplit[1] +
+          '-' +
+          dueDateStringSplit[0]
+      );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.addCurrentProjectSub?.unsubscribe();
+    this.getCustomersSub?.unsubscribe();
+    this.updateProjectSub?.unsubscribe();
+    this.getCustomerOfProjectToUpdate?.unsubscribe();
+  }
+  ngOnInit(): void {
+    this.getCustomers();
+    this.currentProject = <Project>{};
+
+    this.newProject = <Project>{};
+    if (this.currentProjectToUpdate) {
+      this.currentProject = this.currentProjectToUpdate;
+      this.setProjectToBeUpdatedDate(this.currentProject);
+      this.getCustomerOfSelectedProject();
+    }
+
     this.addProjectForm = new FormGroup({
       customerName: new FormControl(this.currentProject?.customerId),
       name: new FormControl(this.currentProject?.projectName),
+      contract: new FormControl(this.currentProject.contract),
     });
   }
   get customerName() {
@@ -92,5 +162,11 @@ export class ProjectDialogComponent implements OnInit {
   }
   get name() {
     return this.addProjectForm?.get('name');
+  }
+  get contract() {
+    return this.addProjectForm?.get('contract');
+  }
+  get dueDate() {
+    return this.addProjectForm?.get('dueDate');
   }
 }

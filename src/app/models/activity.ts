@@ -4,6 +4,8 @@ export interface Activity {
   date: string;
   start?: string;
   end?: string;
+  projectId?: string;
+  activityType?: string;
   description?: string;
   extras?: string;
   employeeId: string;

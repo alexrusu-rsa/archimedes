@@ -1,47 +1,97 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { Activity } from 'src/app/models/activity';
 import { User } from 'src/app/models/user';
-import { ActivityService } from 'src/app/services/activity.service';
-import { UserLoginService } from 'src/app/services/user-login.service';
+import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
+import { UserService } from 'src/app/services/user.service';
+import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
   styleUrls: ['./user-page.component.sass'],
 })
-export class UserDetailsComponent implements OnInit {
-  currentUser?: User;
-  currentUserActivities?: Activity[];
-  currentUserActivitiesSub?: Subscription;
-  currentUserSub?: Subscription;
+export class UserPageComponent implements OnInit, OnDestroy {
+  allUsers: User[] = [];
+  allUsersSubscrption?: Subscription;
+  deleteUserSubscription?: Subscription;
+  users: User[] = [];
+  search = '';
+  userResetPasswordSub?: Subscription;
 
   constructor(
-    @Inject(ActivatedRoute)
-    private activeRoute: ActivatedRoute,
-    private usersService: UserLoginService,
-    private activityService: ActivityService
+    private userService: UserService,
+    private userManagePasswordService: UserManagePasswordService,
+    public dialog: MatDialog
   ) {}
 
-  getEmployee(id: string) {
-    this.currentUserSub = this.usersService.getUser(id).subscribe((result) => {
-      this.currentUser = result;
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  ngOnDestroy(): void {
+    this.allUsersSubscrption?.unsubscribe();
+    this.deleteUserSubscription?.unsubscribe();
+  }
+
+  getUsers() {
+    this.allUsersSubscrption = this.userService
+      .getUsers()
+      .subscribe((result) => {
+        this.allUsers = result;
+        this.users = result;
+      });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.allUsers = this.users?.filter((user: User) =>
+      user.surname.toLowerCase().includes(filterValue.trim().toLowerCase())
+    );
+  }
+
+  searchUsersWithName() {
+    if (this.search !== '')
+      this.allUsers = this.allUsers?.filter(
+        (user) => user.surname === this.search
+      );
+  }
+
+  sendPasswordResetRequest(user: User) {
+    this.userResetPasswordSub = this.userManagePasswordService
+      .resetPasswordFor(user)
+      .subscribe((result)=>{
+      });
+  }
+
+  checkSearch() {
+    if (this.search === '') {
+      this.allUsersSubscrption?.unsubscribe();
+      this.getUsers();
+    }
+  }
+
+  addUser() {
+    const dialogRef = this.dialog.open(UserDialogComponent, {
+      panelClass: 'full-width-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((newUser: User) => {
+      if (newUser) this.allUsers.push(newUser);
     });
   }
 
-  getActivitiesOfEmployee(id: string) {
-    this.currentUserActivitiesSub = this.activityService
-      .getActivitiesByEmployee(id)
-      .subscribe((result) => {
-        this.currentUserActivities = result;
-      });
+  editUser(user: User) {
+    this.dialog.open(UserDialogComponent, {
+      data: user,
+      panelClass: 'full-width-dialog',
+    });
   }
-  ngOnInit(): void {
-    const userId = this.activeRoute.snapshot.paramMap.get('id');
-    if (userId) {
-      this.getEmployee(userId);
-      this.getActivitiesOfEmployee(userId);
-    }
+
+  deleteUser(userId: string) {
+    this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
+    this.deleteUserSubscription = this.userService
+      .deleteUser(userId)
+      .subscribe();
   }
 }

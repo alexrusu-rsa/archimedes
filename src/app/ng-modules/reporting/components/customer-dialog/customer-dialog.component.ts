@@ -1,8 +1,10 @@
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
+import { RequestWrapper } from 'src/app/models/request-wrapper';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -24,10 +26,13 @@ export class CustomerDialogComponent implements OnInit {
 
   addCustomer() {
     if (this.checkAbleToRequestAddCustomer())
-      if (this.currentCustomer)
+      if (this.currentCustomer) {
         this.addCurrentCustomerSub = this.customerService
           .addCustomer(this.currentCustomer)
-          .subscribe();
+          .subscribe((newCustomer: Customer) => {
+            this.dialogRef.close(newCustomer);
+          });
+      }
   }
 
   editCustomer() {
@@ -35,7 +40,9 @@ export class CustomerDialogComponent implements OnInit {
       if (this.currentCustomer) {
         this.updateCustomerSub = this.customerService
           .updateCustomer(this.currentCustomer)
-          .subscribe();
+          .subscribe((updatedCustomer: Customer) => {
+            this.dialogRef.close();
+          });
       }
   }
 
@@ -76,7 +83,12 @@ export class CustomerDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentCustomer = <Customer>{};
-    if (this.customer !== null) this.currentCustomer = this.customer;
+    this.currentCustomer.internal = false;
+    if (this.customer !== null) {
+      this.currentCustomer = this.customer;
+      this.currentCustomer.internal = this.customer.internal;
+    }
+
     this.addCustomerForm = new FormGroup({
       name: new FormControl(this.currentCustomer?.customerName),
       cui: new FormControl(this.currentCustomer?.customerCUI),

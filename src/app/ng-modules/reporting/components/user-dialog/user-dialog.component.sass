@@ -1,0 +1,34 @@
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
+
+.dialog-container
+  @include dialog-container-users-activities
+
+.flex-container
+  display: flex
+
+.flex-child
+  flex: 1
+
+.mat-card-title
+  margin-bottom: $mat-card-title-bottom-margin
+
+.flex-child:first-child
+  margin-right: 20px
+
+.mat-dialog-content
+  @include mat-dialog-content-users-activities
+
+.mat-form-field
+  @include mat-form-field
+
+h3
+  text-align: center
+
+.mat-raised-button
+  width: $full-width
+  margin: 0!important
+  margin-top: 3%!important
+  align-self: center
+.mat-hint
+  @include mat-hint

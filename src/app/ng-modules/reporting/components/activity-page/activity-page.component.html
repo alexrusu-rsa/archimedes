@@ -1,41 +1,61 @@
-<mat-card-title> {{ user?.name }}{{ user?.surname }} </mat-card-title>
+<mat-card-title class="page-title">
+  {{ user?.name }} {{ user?.surname }}
+</mat-card-title>
 
 <div class="header-activity">
-  <mat-form-field appearance="fill">
-    <input matInput [matDatepicker]="datePicker" [(ngModel)]="selectedDate" (dateChange)="dateChanges()" />
+  <mat-form-field appearance="fill" class="header-datepicker">
+    <input
+      matInput
+      [matDatepicker]="datePicker"
+      [(ngModel)]="selectedDate"
+      (dateChange)="dateChanges()"
+    />
     <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #datePicker touchUi></mat-datepicker>
   </mat-form-field>
 
-  <button mat-raised-button (click)="addNewActivity()">
-    <mat-icon color="primary">add_box</mat-icon>
+  <button
+    class="header-add-button"
+    mat-raised-button
+    (click)="addNewActivity()"
+  >
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </div>
 
 <mat-card *ngIf="user" class="card-container">
-  <mat-card-title *ngIf="daySelected">Activities of selected day</mat-card-title>
+  <mat-card-title *ngIf="daySelected" i18n="@@activity-page-title"
+    >Activities of selected day</mat-card-title
+  >
 
-  <mat-card class="secondary-card" *ngFor="let activity of activitiesOfTheDay">
+  <mat-card
+    class="secondary-card"
+    *ngFor="let activity of sortActivitiesByStart(activitiesOfTheDay)"
+  >
     <mat-card-title>{{ activity.name }}</mat-card-title>
     <mat-card-subtitle>
-      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle>
+      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
+    >
     <mat-card-content>
       {{ activity.description }}
     </mat-card-content>
 
     <mat-card-actions align="end">
-      <button mat-button color="primary" (click)="editActivityForm(activity)">
+      <button mat-button color="accent" (click)="editActivity(activity)">
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button mat-raised-button color="primary" (click)="deleteActivity(activity)">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="deleteActivity(activity)"
+      >
         <mat-icon>delete</mat-icon>
       </button>
-
     </mat-card-actions>
   </mat-card>
 
   <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
-    <mat-icon color="primary">add_box</mat-icon>
+    <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>

@@ -1,0 +1,29 @@
+<div class="dialog-container">
+  <mat-card-title i18n="@@invoice-dialog-title">Invoice Number:</mat-card-title>
+  <form>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        [(ngModel)]="invoiceNumber"
+        [ngModelOptions]="{ standalone: true }"
+        type="text"
+      />
+    </mat-form-field>
+  </form>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="downloadPDF()"
+    i18n="@@invoice-dialog-pdf-button"
+  >
+    Download PDF
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="downloadXLSX()"
+    i18n="@@invoice-dialog-xlsx-button"
+  >
+    Download XLSX
+  </button>
+</div>
