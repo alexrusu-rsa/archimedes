@@ -39,6 +39,7 @@ const routes: Routes = [
   {
     path: 'admin-dashboard',
     component: AdminDashboardPageComponent,
+    canActivate: [RoleGuard],
   },
   {
     path: '',
