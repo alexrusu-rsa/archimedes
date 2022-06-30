@@ -8,6 +8,7 @@ import { CustomerPageComponent } from './components/customer-page/customer-page.
 import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
 import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
+import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-dashboard-page.component';
 
 const routes: Routes = [
   { path: 'dashboard/:id', component: ActivityPageComponent },
@@ -34,6 +35,10 @@ const routes: Routes = [
     path: 'invoice',
     component: InvoicePageComponent,
     canActivate: [RoleGuard],
+  },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardPageComponent,
   },
   {
     path: '',

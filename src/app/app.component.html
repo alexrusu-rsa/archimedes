@@ -53,6 +53,14 @@
         >Reporting
       </a>
       <a
+        *ngIf="isAdmin && isAdmin !== undefined"
+        mat-list-item
+        routerLink="reporting/admin-dashboard"
+        (click)="sidenav.close()"
+        i18n="@@menu-reporting-button"
+        >Admin Dashboard : DEV
+      </a>
+      <a
         mat-list-item
         routerLink="reporting/invoice"
         (click)="sidenav.close()"
