@@ -42,7 +42,6 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
 
   addActivity() {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
-      console.log(this.currentActivity);
       this.addCurrentActivitySub = this.activityService
         .addActivity(this.currentActivity)
         .subscribe((newActivity: Activity) =>
@@ -144,11 +143,6 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
           employeeId: this.userDateActivity.employeeId,
         };
         this.currentActivity = activity;
-        if (this.currentActivity.projectId) {
-          this.projectNameFormControl.setValue(
-            "Archimedes"
-          );
-        }
       }
     }
     this.addActivityForm = new FormGroup({
