@@ -24,6 +24,8 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public userDateActivity: UserDateActivity
   ) {}
 
+  projectNameFormControl = new FormControl();
+
   currentActivity?: Activity;
   addActivityForm?: FormGroup;
   addCurrentActivitySub?: Subscription;
@@ -36,9 +38,11 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   activityTypes?: [string, string][];
   activityTypesSub?: Subscription;
   filteredProjects?: Observable<Project[]>;
+  findProjectIdSub?: Subscription;
 
   addActivity() {
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
+      console.log(this.currentActivity);
       this.addCurrentActivitySub = this.activityService
         .addActivity(this.currentActivity)
         .subscribe((newActivity: Activity) =>
@@ -65,7 +69,20 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
         );
       });
   }
+  onSelectionChange(event: any) {
+    const selectedProjectId = this.projects?.find(
+      (project) => project.projectName === event.option.value
+    );
+    this.currentActivity!.projectId = selectedProjectId?.id;
+  }
 
+  findProjectNameWithId(projectId: string): string {
+    const projectWithId = this.projects?.find(
+      (project) => project.id === projectId
+    );
+    if (projectWithId) return projectWithId.projectName;
+    return '';
+  }
   getActivityTypes() {
     this.activityTypesSub = this.activityService
       .getAllActivityTypes()
@@ -75,14 +92,14 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
 
   checkAbleToRequestAddActivity(): boolean {
-    if(!this.checkEndStart()) return false;
+    if (!this.checkEndStart()) return false;
     if (this.name?.pristine || this.end?.pristine || this.start?.pristine)
       return false;
     return true;
   }
 
   checkAbleToRequestUpdateActivity(): boolean {
-    if(!this.checkEndStart()) return false;
+    if (!this.checkEndStart()) return false;
     if (
       this.name?.value !== '' &&
       this.end?.value !== '' &&
@@ -103,9 +120,13 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
 
   checkEndStart(): boolean {
-    const startDateWithTime = this.dateFormatService.getNewDateWithTime(this.start?.value);
-    const endDateWithTime =this.dateFormatService.getNewDateWithTime(this.end?.value);
-      if(endDateWithTime.getTime() < startDateWithTime.getTime()) return false;
+    const startDateWithTime = this.dateFormatService.getNewDateWithTime(
+      this.start?.value
+    );
+    const endDateWithTime = this.dateFormatService.getNewDateWithTime(
+      this.end?.value
+    );
+    if (endDateWithTime.getTime() < startDateWithTime.getTime()) return false;
     return true;
   }
 
@@ -123,6 +144,11 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
           employeeId: this.userDateActivity.employeeId,
         };
         this.currentActivity = activity;
+        if (this.currentActivity.projectId) {
+          this.projectNameFormControl.setValue(
+            "Archimedes"
+          );
+        }
       }
     }
     this.addActivityForm = new FormGroup({
