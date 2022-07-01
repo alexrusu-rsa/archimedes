@@ -36,9 +36,9 @@
           [(ngModel)]="currentActivity.start"
         />
       </mat-form-field>
-      <mat-hint color="warn"
-      *ngIf="!this.checkEndStart()"
-      >Make sure you enter a valid combination of start/end time.</mat-hint>
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityEnd">End</mat-label>
@@ -51,9 +51,9 @@
           [(ngModel)]="currentActivity.end"
         />
       </mat-form-field>
-      <mat-hint
-      *ngIf="!this.checkEndStart()" color="warn"
-      >Make sure you enter a valid combination of start/end time.</mat-hint>
+      <mat-hint *ngIf="!this.checkEndStart()" color="warn"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityProject">Project</mat-label>
@@ -62,17 +62,21 @@
           aria-label="Project"
           matInput
           [(ngModel)]="currentActivity.projectId"
-          formControlName="projectName"
           [matAutocomplete]="auto"
         />
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-autocomplete
+          autoActiveFirstOption
+          #auto="matAutocomplete"
+          [(ngModel)]="currentActivity.projectId"
+          (optionSelected)="onSelectionChange($event)"
+        >
+          <mat-option value="null">No project</mat-option>
           <mat-option
             *ngFor="let project of filteredProjects | async"
-            [(ngModel)]="project.id"
             [value]="project.projectName"
+            ngDefaultControl
+            >{{ project.projectName }}</mat-option
           >
-            {{ project.projectName }}
-          </mat-option>
         </mat-autocomplete>
       </mat-form-field>
 
@@ -164,9 +168,9 @@
           [(ngModel)]="currentActivity.start"
         />
       </mat-form-field>
-      <mat-hint color="warn"
-      *ngIf="!this.checkEndStart()"
-      >Make sure you enter a valid combination of start/end time.</mat-hint>
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityEnd">End</mat-label>
@@ -179,9 +183,9 @@
           [(ngModel)]="currentActivity.end"
         />
       </mat-form-field>
-      <mat-hint color="warn"
-      *ngIf="!this.checkEndStart()"
-      >Make sure you enter a valid combination of start/end time.</mat-hint>
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
 
       <mat-form-field appearance="fill">
         <mat-label i18n="@@activity-dialog-activityProject">Project</mat-label>
@@ -189,18 +193,23 @@
           type="text"
           aria-label="Project"
           matInput
-          [(ngModel)]="currentActivity.projectId"
+          [value]="findProjectNameWithId(currentActivity.projectId!)"
           formControlName="projectName"
           [matAutocomplete]="auto"
         />
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-autocomplete
+          autoActiveFirstOption
+          #auto="matAutocomplete"
+          [(ngModel)]="currentActivity.projectId"
+          (optionSelected)="onSelectionChange($event)"
+        >
+          <mat-option value="null">No project</mat-option>
           <mat-option
             *ngFor="let project of filteredProjects | async"
-            [(ngModel)]="project.id"
             [value]="project.projectName"
+            ngDefaultControl
+            >{{ project.projectName }}</mat-option
           >
-            {{ project.projectName }}
-          </mat-option>
         </mat-autocomplete>
       </mat-form-field>
 
