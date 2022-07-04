@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription, take, timer } from 'rxjs';
+import { elementAt, Subscription, take, timer } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { RequestWrapper } from '../../../models/request-wrapper';
 import { User } from '../../../models/user';
@@ -38,14 +38,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.localStorageService.role = response.role;
         this.localStorageService.userId = response.userId;
         const userId = response.userId;
-        if (response.userId === null) this.logInProgress = false;
+        if (response.userId) this.logInProgress = false;
+        else this.logInProgress = true;
         this.router.navigate(['reporting/dashboard/', userId]);
       });
-    if (
-      this.localStorageService.accessToken !== undefined &&
-      this.localStorageService.accessToken !== null
-    )
-      this.logInProgress = false;
+    this.logInProgress = true;
   }
 
   ngOnInit(): void {
@@ -70,5 +67,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.logInSub?.unsubscribe();
+    this.logInProgress = false;
   }
 }
