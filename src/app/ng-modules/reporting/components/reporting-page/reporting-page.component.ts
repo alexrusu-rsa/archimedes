@@ -51,7 +51,7 @@ const moment = _rollupMoment || _moment;
 })
 export class ReportingPageComponent implements OnInit, OnDestroy {
   date = new FormControl(moment());
-
+  startDate?: Date;
   selectedMonth?: string;
   selectedYear?: string;
 
@@ -123,9 +123,24 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.getAllProjects();
     this.selectedItemEmployee = this.noFilterUsers;
     this.nameFilter = this.noFilterUsers;
+
+    const currentDate = new Date();
+
+    const startDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+
+    const endDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
+
     this.range = new FormGroup({
-      start: new FormControl(),
-      end: new FormControl(),
+      start: new FormControl(<Date>startDate),
+      end: new FormControl(<Date>endDate),
     });
   }
 

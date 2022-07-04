@@ -22,6 +22,7 @@ import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoic
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
+import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DateRangePipe } from './pipes/date-range.pipe';
     InvoiceDialogComponent,
     DateRangePipe,
     EmployeePipe,
+    AdminDashboardPageComponent,
   ],
   imports: [
     BrowserModule,
