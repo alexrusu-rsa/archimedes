@@ -34,15 +34,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.logInSub = this.userLoginService
       .logUserIn(user)
       .subscribe((response: any) => {
+        if (response === undefined) this.logInProgress = false;
         this.localStorageService.accessToken = response.access_token;
         this.localStorageService.role = response.role;
         this.localStorageService.userId = response.userId;
         const userId = response.userId;
-        if (response.userId) this.logInProgress = false;
-        else this.logInProgress = true;
         this.router.navigate(['reporting/dashboard/', userId]);
       });
-    this.logInProgress = true;
   }
 
   ngOnInit(): void {
