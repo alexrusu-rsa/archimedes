@@ -41,8 +41,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (response.userId === null) this.logInProgress = false;
         this.router.navigate(['reporting/dashboard/', userId]);
       });
-    await timer(1500).pipe(take(1)).toPromise();
-    this.logInProgress = false;
+    if (
+      this.localStorageService.accessToken !== undefined &&
+      this.localStorageService.accessToken !== null
+    )
+      this.logInProgress = false;
   }
 
   ngOnInit(): void {
