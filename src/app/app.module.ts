@@ -23,6 +23,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
 import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
+import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashbo
     DateRangePipe,
     EmployeePipe,
     AdminDashboardPageComponent,
+    FirstUserPageComponent
   ],
   imports: [
     BrowserModule,
