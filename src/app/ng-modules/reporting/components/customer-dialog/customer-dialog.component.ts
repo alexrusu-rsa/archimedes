@@ -1,6 +1,6 @@
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
@@ -25,7 +25,8 @@ export class CustomerDialogComponent implements OnInit {
   updateCustomerSub?: Subscription;
 
   addCustomer() {
-    if (this.checkAbleToRequestAddCustomer())
+    console.log(this.checkAbleToRequestAddCustomer());
+    if (this.checkAbleToRequestAddCustomer() === true)
       if (this.currentCustomer) {
         this.addCurrentCustomerSub = this.customerService
           .addCustomer(this.currentCustomer)
@@ -47,35 +48,17 @@ export class CustomerDialogComponent implements OnInit {
   }
 
   checkAbleToRequestAddCustomer(): boolean {
-    if (
-      this.name?.pristine ||
-      this.cui?.pristine ||
-      this.reg?.pristine ||
-      this.address?.pristine ||
-      this.city?.pristine ||
-      this.country?.pristine ||
-      this.directorName?.pristine ||
-      this.directorEmail?.pristine ||
-      this.directorTel?.pristine
-    )
-      return false;
+    for (const [key, value] of Object.entries(this.addCustomerForm?.value)) {
+      if (value === undefined || value === '') return false;
+    }
     return true;
   }
 
   checkAbleToRequestUpdateCustomer(): boolean {
-    if (
-      this.name?.value !== '' &&
-      this.cui?.value !== '' &&
-      this.reg?.value !== '' &&
-      this.address?.value !== '' &&
-      this.city?.value !== '' &&
-      this.country?.value !== '' &&
-      this.directorName?.value !== '' &&
-      this.directorEmail?.value !== '' &&
-      this.directorTel?.value !== ''
-    )
-      return true;
-    return false;
+    for (const [key, value] of Object.entries(this.addCustomerForm?.value)) {
+      if (value === undefined || value === '') return false;
+    }
+    return true;
   }
   dialogClose() {
     this.dialogRef.close();
@@ -90,17 +73,35 @@ export class CustomerDialogComponent implements OnInit {
     }
 
     this.addCustomerForm = new FormGroup({
-      name: new FormControl(this.currentCustomer?.customerName),
-      cui: new FormControl(this.currentCustomer?.customerCUI),
-      reg: new FormControl(this.currentCustomer?.customerReg),
-      address: new FormControl(this.currentCustomer?.customerAddress),
-      city: new FormControl(this.currentCustomer?.customerCity),
-      country: new FormControl(this.currentCustomer?.customerCountry),
-      directorName: new FormControl(this.currentCustomer?.customerDirectorName),
-      directorEmail: new FormControl(
-        this.currentCustomer?.customerDirectorEmail
+      name: new FormControl(this.currentCustomer?.customerName, [
+        Validators.required,
+      ]),
+      cui: new FormControl(this.currentCustomer?.customerCUI, [
+        Validators.required,
+      ]),
+      reg: new FormControl(this.currentCustomer?.customerReg, [
+        Validators.required,
+      ]),
+      address: new FormControl(this.currentCustomer?.customerAddress, [
+        Validators.required,
+      ]),
+      city: new FormControl(this.currentCustomer?.customerCity, [
+        Validators.required,
+      ]),
+      country: new FormControl(this.currentCustomer?.customerCountry, [
+        Validators.required,
+      ]),
+      directorName: new FormControl(
+        this.currentCustomer?.customerDirectorName,
+        [Validators.required]
       ),
-      directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
+      directorEmail: new FormControl(
+        this.currentCustomer?.customerDirectorEmail,
+        [Validators.required]
+      ),
+      directorTel: new FormControl(this.currentCustomer?.customerDirectorTel, [
+        Validators.required,
+      ]),
     });
   }
 
