@@ -96,7 +96,8 @@ export class CustomerService {
   getCustomerInvoicePDF(
     customerId: string,
     invoiceNumber: string,
-    selectedMonthYear: string
+    selectedMonth: string,
+    selectedYear: string
   ) {
     return this.httpClient.get(
       this.customersUrl +
@@ -105,7 +106,9 @@ export class CustomerService {
         '/' +
         invoiceNumber +
         '/' +
-        selectedMonthYear,
+        selectedMonth +
+        '/' +
+        selectedYear,
       { observe: 'response', responseType: 'blob' }
     );
   }
@@ -113,7 +116,8 @@ export class CustomerService {
   getCustomerInvoiceXLSX(
     customerId: string,
     invoiceNumber: string,
-    selectedMonthYear: string
+    selectedMonth: string,
+    selectedYear: string
   ) {
     return this.httpClient.get(
       this.customersUrl +
@@ -122,7 +126,9 @@ export class CustomerService {
         '/' +
         invoiceNumber +
         '/' +
-        selectedMonthYear,
+        selectedMonth +
+        '/' +
+        selectedYear,
       { observe: 'response', responseType: 'blob' }
     );
   }
