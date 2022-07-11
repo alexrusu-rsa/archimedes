@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { RequestWrapper } from 'src/app/models/request-wrapper';
 import { CustomerService } from 'src/app/services/customer.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-customer-dialog',
@@ -16,6 +17,7 @@ export class CustomerDialogComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<CustomerDialogComponent>,
+    private notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public customer: Customer
   ) {}
 
@@ -25,8 +27,7 @@ export class CustomerDialogComponent implements OnInit {
   updateCustomerSub?: Subscription;
 
   addCustomer() {
-    console.log(this.checkAbleToRequestAddCustomer());
-    if (this.checkAbleToRequestAddCustomer() === true)
+    if (this.checkAbleToRequestAddCustomer() === true) {
       if (this.currentCustomer) {
         this.addCurrentCustomerSub = this.customerService
           .addCustomer(this.currentCustomer)
@@ -34,10 +35,16 @@ export class CustomerDialogComponent implements OnInit {
             this.dialogRef.close(newCustomer);
           });
       }
+    } else {
+      this.notificationService.openSnackBar(
+        'You need to fill all required data',
+        500
+      );
+    }
   }
 
   editCustomer() {
-    if (this.checkAbleToRequestUpdateCustomer())
+    if (this.checkAbleToRequestUpdateCustomer()) {
       if (this.currentCustomer) {
         this.updateCustomerSub = this.customerService
           .updateCustomer(this.currentCustomer)
@@ -45,6 +52,12 @@ export class CustomerDialogComponent implements OnInit {
             this.dialogRef.close();
           });
       }
+    } else {
+      this.notificationService.openSnackBar(
+        'You need to fill all required data',
+        404
+      );
+    }
   }
 
   checkAbleToRequestAddCustomer(): boolean {
