@@ -4,4 +4,5 @@ export interface Project {
   customerId: string;
   dueDate?: string;
   contract?: string;
+  contractSignDate?: string;
 }
