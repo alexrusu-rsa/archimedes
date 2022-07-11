@@ -46,7 +46,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
           this.customerId,
           this.invoiceNumber,
           this.invoiceDataWrapper.month,
-          this.invoiceDataWrapper.yearg
+          this.invoiceDataWrapper.year
         )
         .subscribe((response: any) => {
           this.dialogRef.close(response);

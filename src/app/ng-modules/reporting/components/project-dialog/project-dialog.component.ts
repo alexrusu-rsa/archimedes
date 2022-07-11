@@ -33,7 +33,6 @@ export class ProjectDialogComponent implements OnInit {
   getCustomersSub?: Subscription;
   getCustomerOfProjectToUpdate?: Subscription;
   selectedProjectCustomer?: Customer;
-
   selectedDate?: Date;
   selectedDateString?: string;
 
