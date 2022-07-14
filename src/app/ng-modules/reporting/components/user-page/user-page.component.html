@@ -54,19 +54,21 @@
   </button>
 </mat-card>
 
-<mat-card class="card-container">
+<mat-card *ngIf="allRates" class="card-container">
   <mat-card-title> Employee Rates </mat-card-title>
-  <table mat-table [dataSource]="ratesToDisplay!" class="secondary-card">
+  <table mat-table [dataSource]="allRates" class="secondary-card">
     <ng-container matColumnDef="projectId">
       <th mat-header-cell *matHeaderCellDef>Project ID</th>
       <td mat-cell *matCellDef="let rate">
-        {{ rate.projectId }}
+        {{ rate.projectId | projectIdName: projects }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="employeeId">
       <th mat-header-cell *matHeaderCellDef>Employee ID</th>
-      <td mat-cell *matCellDef="let rate">{{ rate.employeeId }}</td>
+      <td mat-cell *matCellDef="let rate">
+        {{ rate.employeeId }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="rate">
@@ -80,7 +82,7 @@
     </ng-container>
 
     <ng-container matColumnDef="employeeTimeCommitement">
-      <th mat-header-cell *matHeaderCellDef>Employee Time Commitment</th>
+      <th mat-header-cell *matHeaderCellDef>Employee Time Commitement</th>
       <td mat-cell *matCellDef="let rate">
         {{ rate.employeeTimeCommitement }}
       </td>

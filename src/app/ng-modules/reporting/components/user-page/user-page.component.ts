@@ -10,7 +10,6 @@ import { UserManagePasswordService } from 'src/app/services/user-manage-password
 import { UserService } from 'src/app/services/user.service';
 import { RateDialogComponent } from '../rate-dialog/rate-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
-
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -26,14 +25,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
   userResetPasswordSub?: Subscription;
   allRatesSub?: Subscription;
   deleteRateSub?: Subscription;
-  ratesToDisplay: Rate[] = [];
   projects?: Project[];
   displayedColumns: string[] = [
     'projectId',
     'employeeId',
     'rate',
     'rateType',
-    'employeeTimeCommitment',
+    'employeeTimeCommitement',
     'editButton',
     'deleteButton',
   ];
@@ -58,27 +56,12 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.projectsSub?.unsubscribe();
   }
 
-  generateRatesToDisplay() {
-    this.allRates.forEach((rate) => {
-      const currentRate: Rate = {
-        projectId: this.findProjectNameWithId(rate.projectId),
-        employeeId: this.findEmployeeNameWithId(rate.employeeId),
-        rate: rate.rate,
-        rateType: rate.rateType,
-        employeeTimeCommitement: rate.employeeTimeCommitement,
-      };
-      this.ratesToDisplay.push(currentRate);
-    });
-    console.log(this.allRates);
-    console.log('................');
-    console.log(this.ratesToDisplay);
-  }
-
   findEmployeeNameWithId(employeeId: string): string {
     const employeeWithId = this.users?.find(
-      (project) => project.id === employeeId
+      (employee) => employee.id === employeeId
     );
-    if (employeeWithId) return employeeWithId.name + employeeWithId.surname;
+    if (employeeWithId)
+      return `${employeeWithId.name} ${employeeWithId.surname}`;
     return '';
   }
 
@@ -128,7 +111,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
   getRates() {
     this.allRatesSub = this.rateService.getRates().subscribe((result) => {
       this.allRates = result;
-      this.generateRatesToDisplay();
     });
   }
 
