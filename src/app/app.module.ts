@@ -23,6 +23,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
 import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
+import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashbo
     DateRangePipe,
     EmployeePipe,
     AdminDashboardPageComponent,
+    RateDialogComponent,
   ],
   imports: [
     BrowserModule,

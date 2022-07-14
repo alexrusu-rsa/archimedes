@@ -1,9 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { map, startWith, Subscription } from 'rxjs';
+import { Project } from 'src/app/models/project';
+import { Rate } from 'src/app/models/rate';
 import { User } from 'src/app/models/user';
+import { ProjectService } from 'src/app/services/project.service';
+import { RateService } from 'src/app/services/rate.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
 import { UserService } from 'src/app/services/user.service';
+import { RateDialogComponent } from '../rate-dialog/rate-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 
 @Component({
@@ -17,21 +22,64 @@ export class UserPageComponent implements OnInit, OnDestroy {
   deleteUserSubscription?: Subscription;
   users: User[] = [];
   search = '';
+  allRates: Rate[] = [];
   userResetPasswordSub?: Subscription;
-
+  allRatesSub?: Subscription;
+  deleteRateSub?: Subscription;
+  ratesToDisplay: Rate[] = [];
+  projects?: Project[];
+  displayedColumns: string[] = [
+    'projectId',
+    'employeeId',
+    'rate',
+    'rateType',
+    'employeeTimeCommitment',
+    'editButton',
+    'deleteButton',
+  ];
+  projectsSub?: Subscription;
   constructor(
     private userService: UserService,
+    private projectService: ProjectService,
+    private rateService: RateService,
     private userManagePasswordService: UserManagePasswordService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.getUsers();
+    this.getRates();
+    this.getProjects();
   }
 
   ngOnDestroy(): void {
     this.allUsersSubscrption?.unsubscribe();
     this.deleteUserSubscription?.unsubscribe();
+    this.projectsSub?.unsubscribe();
+  }
+
+  generateRatesToDisplay() {
+    this.allRates.forEach((rate) => {
+      const currentRate: Rate = {
+        projectId: this.findProjectNameWithId(rate.projectId),
+        employeeId: this.findEmployeeNameWithId(rate.employeeId),
+        rate: rate.rate,
+        rateType: rate.rateType,
+        employeeTimeCommitement: rate.employeeTimeCommitement,
+      };
+      this.ratesToDisplay.push(currentRate);
+    });
+    console.log(this.allRates);
+    console.log('................');
+    console.log(this.ratesToDisplay);
+  }
+
+  findEmployeeNameWithId(employeeId: string): string {
+    const employeeWithId = this.users?.find(
+      (project) => project.id === employeeId
+    );
+    if (employeeWithId) return employeeWithId.name + employeeWithId.surname;
+    return '';
   }
 
   getUsers() {
@@ -41,6 +89,20 @@ export class UserPageComponent implements OnInit, OnDestroy {
         this.allUsers = result;
         this.users = result;
       });
+  }
+
+  findProjectNameWithId(projectId: string): string {
+    const projectWithId = this.projects?.find(
+      (project) => project.id === projectId
+    );
+    if (projectWithId) return projectWithId.projectName;
+    return '';
+  }
+
+  getProjects() {
+    this.projectsSub = this.projectService.getProjects().subscribe((result) => {
+      this.projects = result;
+    });
   }
 
   applyFilter(event: Event) {
@@ -60,8 +122,14 @@ export class UserPageComponent implements OnInit, OnDestroy {
   sendPasswordResetRequest(user: User) {
     this.userResetPasswordSub = this.userManagePasswordService
       .resetPasswordFor(user)
-      .subscribe((result)=>{
-      });
+      .subscribe((result) => {});
+  }
+
+  getRates() {
+    this.allRatesSub = this.rateService.getRates().subscribe((result) => {
+      this.allRates = result;
+      this.generateRatesToDisplay();
+    });
   }
 
   checkSearch() {
@@ -81,11 +149,36 @@ export class UserPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  addRate() {
+    const dialogRef = this.dialog.open(RateDialogComponent, {
+      panelClass: 'full-width-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((newRate: Rate) => {
+      this.getRates();
+    });
+  }
+
+  editRate(rate: Rate) {
+    this.dialog.open(RateDialogComponent, {
+      data: rate,
+      panelClass: 'full-width-dialog',
+    });
+  }
+
   editUser(user: User) {
     this.dialog.open(UserDialogComponent, {
       data: user,
       panelClass: 'full-width-dialog',
     });
+  }
+
+  deleteRate(rate: Rate) {
+    this.deleteRateSub = this.rateService
+      .deleteRate(rate.id!)
+      .subscribe((result) => {
+        this.getRates();
+      });
   }
 
   deleteUser(userId: string) {
