@@ -66,13 +66,6 @@ export class ProjectDialogComponent implements OnInit {
       });
   }
 
-  // dateChanges() {
-  //   const dateFormatted = this.datepipe.transform(
-  //     this.selectedDate,
-  //     'dd/MM/yyyy'
-  //   );
-  // }
-
   getCustomerOfSelectedProject() {
     this.getCustomerOfProjectToUpdate = this.customerService
       .getCustomer(this.currentProjectToUpdate.customerId)
@@ -140,11 +133,7 @@ export class ProjectDialogComponent implements OnInit {
     if (dueDateString) {
       const dueDateStringSplit = dueDateString.split('/');
       this.selectedDate = new Date(
-        dueDateStringSplit[2] +
-          '-' +
-          dueDateStringSplit[1] +
-          '-' +
-          dueDateStringSplit[0]
+        `${dueDateStringSplit[2]}-${dueDateStringSplit[1]}-${dueDateStringSplit[0]}`
       );
     }
   }
@@ -154,11 +143,7 @@ export class ProjectDialogComponent implements OnInit {
     if (contractSignDateString) {
       const contractSignDateSplit = contractSignDateString.split('/');
       this.contractSignDate = new Date(
-        contractSignDateSplit[2] +
-          '-' +
-          contractSignDateSplit[1] +
-          '-' +
-          contractSignDateSplit[0]
+        `${contractSignDateSplit[2]}-${contractSignDateSplit[1]}-${contractSignDateSplit[0]}`
       );
     }
   }
