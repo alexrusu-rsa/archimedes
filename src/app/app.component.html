@@ -61,14 +61,6 @@
         >Admin Dashboard
       </a>
       <a
-        *ngIf="isAdmin && isAdmin !== undefined"
-        mat-list-item
-        routerLink="reporting/first-user-page"
-        (click)="sidenav.close()"
-        >First User Page
-      </a>
-
-      <a
         mat-list-item
         routerLink="reporting/invoice"
         (click)="sidenav.close()"

@@ -48,9 +48,7 @@
           required
         />
 
-        <mat-hint
-          *ngIf="!checkPasswordsMatch(password?.value, reEnteredPassword?.value)"
-        >
+        <mat-hint *ngIf="testPasswordsMatch">
           Passwords do not match.
         </mat-hint>
       </mat-form-field>
@@ -62,10 +60,4 @@
       Register account
     </button>
   </mat-card-actions>
-
-  <!-- <mat-progress-bar
-    *ngIf="logInProgress"
-    color="accent"
-    mode="indeterminate"
-  ></mat-progress-bar> -->
 </mat-card>

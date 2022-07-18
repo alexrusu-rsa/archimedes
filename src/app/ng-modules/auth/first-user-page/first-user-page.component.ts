@@ -17,6 +17,7 @@ export class FirstUserPageComponent implements OnInit {
   checkPassword?: string;
   getUsersNumberSub?: Subscription;
   addAdminSub?: Subscription;
+  testPasswordsMatch?: boolean;
 
   ngOnInit(): void {
     this.getUsersNumberSub = this.userService
@@ -53,6 +54,7 @@ export class FirstUserPageComponent implements OnInit {
     this.user.seniority = seniority;
     this.user.timePerDay = timePerDay;
     this.user.password = password;
+    this.testPasswordsMatch = this.password === this.checkPassword;
 
     if (
       this.checkPasswordsMatch(
