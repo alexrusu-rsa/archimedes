@@ -17,7 +17,6 @@ export class CustomerDialogComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<CustomerDialogComponent>,
-    private notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public customer: Customer
   ) {}
 
@@ -27,36 +26,22 @@ export class CustomerDialogComponent implements OnInit {
   updateCustomerSub?: Subscription;
 
   addCustomer() {
-    if (this.checkAbleToRequestAddCustomer() === true) {
-      if (this.currentCustomer) {
-        this.addCurrentCustomerSub = this.customerService
-          .addCustomer(this.currentCustomer)
-          .subscribe((newCustomer: Customer) => {
-            this.dialogRef.close(newCustomer);
-          });
-      }
-    } else {
-      this.notificationService.openSnackBar(
-        'You need to fill all required data',
-        500
-      );
+    if (this.currentCustomer) {
+      this.addCurrentCustomerSub = this.customerService
+        .addCustomer(this.currentCustomer)
+        .subscribe((newCustomer: Customer) => {
+          this.dialogRef.close(newCustomer);
+        });
     }
   }
 
   editCustomer() {
-    if (this.checkAbleToRequestUpdateCustomer()) {
-      if (this.currentCustomer) {
-        this.updateCustomerSub = this.customerService
-          .updateCustomer(this.currentCustomer)
-          .subscribe((updatedCustomer: Customer) => {
-            this.dialogRef.close();
-          });
-      }
-    } else {
-      this.notificationService.openSnackBar(
-        'You need to fill all required data',
-        404
-      );
+    if (this.currentCustomer) {
+      this.updateCustomerSub = this.customerService
+        .updateCustomer(this.currentCustomer)
+        .subscribe((updatedCustomer: Customer) => {
+          this.dialogRef.close(updatedCustomer);
+        });
     }
   }
 
@@ -104,17 +89,11 @@ export class CustomerDialogComponent implements OnInit {
       country: new FormControl(this.currentCustomer?.customerCountry, [
         Validators.required,
       ]),
-      directorName: new FormControl(
-        this.currentCustomer?.customerDirectorName,
-        [Validators.required]
-      ),
+      directorName: new FormControl(this.currentCustomer?.customerDirectorName),
       directorEmail: new FormControl(
-        this.currentCustomer?.customerDirectorEmail,
-        [Validators.required]
+        this.currentCustomer?.customerDirectorEmail
       ),
-      directorTel: new FormControl(this.currentCustomer?.customerDirectorTel, [
-        Validators.required,
-      ]),
+      directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
     });
   }
 

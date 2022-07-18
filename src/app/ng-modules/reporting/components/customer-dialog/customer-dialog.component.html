@@ -99,7 +99,8 @@
               type="text"
               formControlName="country"
             />
-            <mat-hint *ngIf="country?.value === undefined || country?.value === ''"
+            <mat-hint
+              *ngIf="country?.value === undefined || country?.value === ''"
               >You must enter customer's country</mat-hint
             >
           </mat-form-field>
@@ -114,9 +115,6 @@
               type="text"
               formControlName="directorName"
             />
-            <mat-hint *ngIf="directorName?.value === undefined || directorName?.value === ''"
-              >You must enter customer's city</mat-hint
-            >
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -129,9 +127,6 @@
               type="text"
               formControlName="directorEmail"
             />
-            <mat-hint *ngIf="directorEmail?.value === undefined || directorEmail?.value === ''"
-              >You must enter customer's city</mat-hint
-            >
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -144,9 +139,6 @@
               type="text"
               formControlName="directorTel"
             />
-             <mat-hint *ngIf="directorTel?.value === undefined || directorTel?.value === ''"
-              >You must enter customer's director telephone number</mat-hint
-            >
           </mat-form-field>
         </div>
       </div>
