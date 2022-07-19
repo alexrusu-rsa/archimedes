@@ -28,6 +28,26 @@ export class UserService {
       );
   }
 
+  getUsersNumber(): Observable<number> {
+    return this.httpClient
+      .get<number>(this.usersUrl + '/number')
+      .pipe(
+        catchError(this.responseHandlingService.handleError<number>('getUser'))
+      );
+  }
+
+  addAdmin(user: User): Observable<User> {
+    return this.httpClient
+      .post<User>(this.usersUrl + '/first', user, { observe: 'response' })
+      .pipe(
+        map((res) => {
+          this.responseHandlingService.handleResponse('First user added!');
+          return res.body as User;
+        }),
+        catchError(this.responseHandlingService.handleError<User>('addAdmin'))
+      );
+  }
+
   deleteUser(id: string): Observable<RequestWrapper> {
     const deleteUserUrl = this.usersUrl + '/' + id;
     return this.httpClient

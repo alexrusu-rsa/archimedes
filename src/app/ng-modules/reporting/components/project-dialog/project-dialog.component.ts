@@ -33,7 +33,6 @@ export class ProjectDialogComponent implements OnInit {
   getCustomersSub?: Subscription;
   getCustomerOfProjectToUpdate?: Subscription;
   selectedProjectCustomer?: Customer;
-
   selectedDate?: Date;
   selectedDateString?: string;
 
@@ -102,6 +101,7 @@ export class ProjectDialogComponent implements OnInit {
     this.newProject!.customerId = this.customerName?.value;
     this.newProject!.projectName = this.name?.value;
     this.newProject!.contract = this.contract?.value;
+    this.newProject!.invoiceTerm = this.invoiceTerm?.value;
     this.currentProject = this.newProject;
     this.addProject();
   }
@@ -115,6 +115,7 @@ export class ProjectDialogComponent implements OnInit {
     this.newProject!.customerId = this.customerName?.value;
     this.newProject!.projectName = this.name?.value;
     this.newProject!.contract = this.contract?.value;
+    this.newProject!.invoiceTerm = this.invoiceTerm?.value;
     if (dateToString) this.newProject!.dueDate = dateToString;
     this.currentProject = this.newProject;
     this.editProject();
@@ -154,7 +155,8 @@ export class ProjectDialogComponent implements OnInit {
     this.addProjectForm = new FormGroup({
       customerName: new FormControl(this.currentProject?.customerId),
       name: new FormControl(this.currentProject?.projectName),
-      contract: new FormControl(this.currentProject.contract),
+      contract: new FormControl(this.currentProject?.contract),
+      invoiceTerm: new FormControl(this.currentProject?.invoiceTerm),
     });
   }
   get customerName() {
@@ -168,5 +170,8 @@ export class ProjectDialogComponent implements OnInit {
   }
   get dueDate() {
     return this.addProjectForm?.get('dueDate');
+  }
+  get invoiceTerm() {
+    return this.addProjectForm?.get('invoiceTerm');
   }
 }

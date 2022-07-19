@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './ng-modules/auth/auth.guard';
+import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
 import { LoginComponent } from './ng-modules/auth/login/login.component';
 import { ResetPasswordComponent } from './ng-modules/auth/reset-password/reset-password.component';
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
@@ -9,7 +10,8 @@ const routes: Routes = [
   {
     path: 'auth',
     children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: '', redirectTo: 'first-user', pathMatch: 'full' },
+      { path: 'first-user', component: FirstUserPageComponent},
       { path: 'login', component: LoginComponent },
       { path: 'resetpassword', component: ResetPasswordComponent },
     ],

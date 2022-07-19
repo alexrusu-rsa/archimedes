@@ -9,6 +9,7 @@ import { ReportingPageComponent } from './components/reporting-page/reporting-pa
 import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-dashboard-page.component';
+import { FirstUserPageComponent } from '../auth/first-user-page/first-user-page.component';
 
 const routes: Routes = [
   { path: 'dashboard/:id', component: ActivityPageComponent },
@@ -40,6 +41,10 @@ const routes: Routes = [
     path: 'admin-dashboard',
     component: AdminDashboardPageComponent,
     canActivate: [RoleGuard],
+  },
+  {
+    path: 'first-user-page',
+    component: FirstUserPageComponent,
   },
   {
     path: '',
