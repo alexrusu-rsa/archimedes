@@ -120,15 +120,12 @@ export class ProjectDialogComponent implements OnInit {
     this.newProject!.customerId = this.customerName?.value;
     this.newProject!.projectName = this.name?.value;
     this.newProject!.contract = this.contract?.value;
-<<<<<<< HEAD
     if (dateToString && contractSignDateToString) {
       this.newProject!.dueDate = dateToString;
       this.newProject!.contractSignDate = contractSignDateToString;
     }
-=======
     this.newProject!.invoiceTerm = this.invoiceTerm?.value;
     if (dateToString) this.newProject!.dueDate = dateToString;
->>>>>>> dev
     this.currentProject = this.newProject;
     this.editProject();
   }
