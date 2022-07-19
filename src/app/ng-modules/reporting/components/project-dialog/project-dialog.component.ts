@@ -34,7 +34,7 @@ export class ProjectDialogComponent implements OnInit {
   getCustomerOfProjectToUpdate?: Subscription;
   selectedProjectCustomer?: Customer;
   selectedDate?: Date;
-  selectedDateString?: string;
+  contractSignDate?: Date;
 
   addProject() {
     if (this.checkAbleToRequestAddProject())
@@ -65,13 +65,6 @@ export class ProjectDialogComponent implements OnInit {
       });
   }
 
-  dateChanges() {
-    const dateFormatted = this.datepipe.transform(
-      this.selectedDate,
-      'dd/MM/yyyy'
-    );
-  }
-
   getCustomerOfSelectedProject() {
     this.getCustomerOfProjectToUpdate = this.customerService
       .getCustomer(this.currentProjectToUpdate.customerId)
@@ -97,7 +90,15 @@ export class ProjectDialogComponent implements OnInit {
       this.selectedDate,
       'dd/MM/yyyy'
     );
-    if (dateToString) this.newProject!.dueDate = dateToString;
+    const contractSignDateToString = this.datepipe.transform(
+      this.contractSignDate,
+      'dd/MM/yyyy'
+    );
+    if (dateToString && contractSignDateToString) {
+      this.newProject!.dueDate = dateToString;
+      this.newProject!.contractSignDate = contractSignDateToString;
+    }
+
     this.newProject!.customerId = this.customerName?.value;
     this.newProject!.projectName = this.name?.value;
     this.newProject!.contract = this.contract?.value;
@@ -111,12 +112,23 @@ export class ProjectDialogComponent implements OnInit {
       this.selectedDate,
       'dd/MM/yyyy'
     );
+    const contractSignDateToString = this.datepipe.transform(
+      this.contractSignDate,
+      'dd/MM/yyyy'
+    );
     this.newProject!.id = this.currentProject?.id;
     this.newProject!.customerId = this.customerName?.value;
     this.newProject!.projectName = this.name?.value;
     this.newProject!.contract = this.contract?.value;
+<<<<<<< HEAD
+    if (dateToString && contractSignDateToString) {
+      this.newProject!.dueDate = dateToString;
+      this.newProject!.contractSignDate = contractSignDateToString;
+    }
+=======
     this.newProject!.invoiceTerm = this.invoiceTerm?.value;
     if (dateToString) this.newProject!.dueDate = dateToString;
+>>>>>>> dev
     this.currentProject = this.newProject;
     this.editProject();
   }
@@ -126,11 +138,17 @@ export class ProjectDialogComponent implements OnInit {
     if (dueDateString) {
       const dueDateStringSplit = dueDateString.split('/');
       this.selectedDate = new Date(
-        dueDateStringSplit[2] +
-          '-' +
-          dueDateStringSplit[1] +
-          '-' +
-          dueDateStringSplit[0]
+        `${dueDateStringSplit[2]}-${dueDateStringSplit[1]}-${dueDateStringSplit[0]}`
+      );
+    }
+  }
+
+  setProjectToBeUpdatedContractSignDate(project: Project) {
+    const contractSignDateString = project.contractSignDate;
+    if (contractSignDateString) {
+      const contractSignDateSplit = contractSignDateString.split('/');
+      this.contractSignDate = new Date(
+        `${contractSignDateSplit[2]}-${contractSignDateSplit[1]}-${contractSignDateSplit[0]}`
       );
     }
   }
@@ -149,6 +167,7 @@ export class ProjectDialogComponent implements OnInit {
     if (this.currentProjectToUpdate) {
       this.currentProject = this.currentProjectToUpdate;
       this.setProjectToBeUpdatedDate(this.currentProject);
+      this.setProjectToBeUpdatedContractSignDate(this.currentProject);
       this.getCustomerOfSelectedProject();
     }
 

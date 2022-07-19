@@ -50,7 +50,6 @@
           matInput
           [matDatepicker]="datePicker"
           [(ngModel)]="selectedDate"
-          (dateChange)="dateChanges()"
           [ngModelOptions]="{ standalone: true }"
         />
         <mat-datepicker-toggle
@@ -59,7 +58,20 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #datePicker touchUi></mat-datepicker>
       </mat-form-field>
-
+      <mat-form-field appearance="fill" class="header-datepicker">
+        <mat-label>Contract Sign Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datePickerContractSign"
+          [(ngModel)]="contractSignDate"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <mat-datepicker-toggle
+          [for]="datePickerContractSign"
+          matSuffix
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePickerContractSign touchUi></mat-datepicker>
+      </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Project Invoice Term</mat-label>
         <input
@@ -130,7 +142,6 @@
           matInput
           [matDatepicker]="datePicker"
           [(ngModel)]="selectedDate"
-          (dateChange)="dateChanges()"
           [ngModelOptions]="{ standalone: true }"
         />
         <mat-datepicker-toggle
@@ -139,6 +150,22 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #datePicker touchUi></mat-datepicker>
       </mat-form-field>
+      <<<<<<< HEAD
+      <mat-form-field appearance="fill" class="header-datepicker">
+        <mat-label>Contract Sign Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datePickerContractSign"
+          [(ngModel)]="contractSignDate"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <mat-datepicker-toggle
+          [for]="datePickerContractSign"
+          matSuffix
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePickerContractSign touchUi></mat-datepicker>
+      </mat-form-field>
+      =======
 
       <mat-form-field appearance="fill">
         <mat-label>Project Invoice Term</mat-label>
@@ -149,7 +176,8 @@
           type="text"
         />
       </mat-form-field>
-      
+
+      >>>>>>> dev
     </form>
 
     <mat-dialog-actions>
