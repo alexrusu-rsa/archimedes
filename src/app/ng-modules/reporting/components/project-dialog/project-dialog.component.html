@@ -59,6 +59,16 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #datePicker touchUi></mat-datepicker>
       </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Project Invoice Term</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentProject.invoiceTerm"
+          formControlName="invoiceTerm"
+          type="text"
+        />
+      </mat-form-field>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions *ngIf="currentProjectToUpdate === null">
@@ -129,6 +139,17 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #datePicker touchUi></mat-datepicker>
       </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Project Invoice Term</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentProject.invoiceTerm"
+          formControlName="invoiceTerm"
+          type="text"
+        />
+      </mat-form-field>
+      
     </form>
 
     <mat-dialog-actions>
