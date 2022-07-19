@@ -24,8 +24,7 @@ import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
 import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
-import { EmployeeIdToNamePipe } from './pipes/employee-id-to-name.pipe';
-import { ProjectIdToNamePipe } from './pipes/project-id-to-name.pipe';
+import { ProjectidPipe } from './pipes/projectid.pipe';
 
 @NgModule({
   declarations: [
@@ -44,8 +43,7 @@ import { ProjectIdToNamePipe } from './pipes/project-id-to-name.pipe';
     EmployeePipe,
     AdminDashboardPageComponent,
     RateDialogComponent,
-    EmployeeIdToNamePipe,
-    ProjectIdToNamePipe,
+    ProjectidPipe,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +66,5 @@ import { ProjectIdToNamePipe } from './pipes/project-id-to-name.pipe';
     },
   ],
   bootstrap: [AppComponent],
-  exports: [ProjectIdToNamePipe, EmployeeIdToNamePipe],
 })
 export class AppModule {}

@@ -26,6 +26,9 @@ export class UserPageComponent implements OnInit, OnDestroy {
   allRatesSub?: Subscription;
   deleteRateSub?: Subscription;
   projects?: Project[];
+
+  test: string[] = ['ABC', 'def'];
+
   displayedColumns: string[] = [
     'projectId',
     'employeeId',
