@@ -1,6 +1,6 @@
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { ConsoleLogger } from '@angular/compiler-cli';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith, Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './rate-dialog.component.html',
   styleUrls: ['./rate-dialog.component.sass'],
 })
-export class RateDialogComponent implements OnInit {
+export class RateDialogComponent implements OnInit, OnDestroy {
   currentRate?: Rate;
   addRateForm?: FormGroup;
   addRateSub?: Subscription;
@@ -29,6 +29,8 @@ export class RateDialogComponent implements OnInit {
   filteredUsers?: Observable<User[]>;
   selectedItemProject?: string;
   selectedItemEmployee?: string;
+  allRateTypes?: [string, string][];
+  getAllRateTypesSub?: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<RateDialogComponent>,
@@ -42,7 +44,7 @@ export class RateDialogComponent implements OnInit {
     if (this.checkAbleToRequestAddRate()) {
       this.currentRate!.projectId = this.projectId?.value;
       this.currentRate!.employeeId = this.employeeId?.value;
-      console.log(this.currentRate);
+      this.currentRate!.rateType = this.employeeRateType?.value;
       this.addRateSub = this.rateService
         .addRate(this.currentRate!)
         .subscribe((newRate: Rate) => {
@@ -50,9 +52,12 @@ export class RateDialogComponent implements OnInit {
         });
     }
   }
+
   editRate() {
-    console.log(this.currentRate);
     if (this.checkAbleToRequestUpdateRate()) {
+      this.currentRate!.projectId = this.projectId?.value;
+      this.currentRate!.employeeId = this.employeeId?.value;
+      this.currentRate!.rateType = this.employeeRateType?.value;
       this.updateRateSub = this.rateService
         .updateRate(this.currentRate!)
         .subscribe((updatedRate: Rate) => {
@@ -61,29 +66,12 @@ export class RateDialogComponent implements OnInit {
     }
   }
 
-  onSelectionChange(event: any) {
-    const selectedProjectId = this.projects?.find(
-      (project) => project.projectName === event.option.value
-    );
-    if (selectedProjectId?.id && this.currentRate)
-      this.currentRate.projectId = selectedProjectId!.id;
-  }
-
-  findEmployeeNameWithId(employeeId: string): string {
-    const employeeWithId = this.users?.find(
-      (employee) => employee.id === employeeId
-    );
-    if (employeeWithId)
-      return `${employeeWithId.name} ${employeeWithId.surname}`;
-    return '';
-  }
-
-  onSelectionChangeEmp(event: any) {
-    const selectedEmployeeId = this.users?.find(
-      (user) => user.name === event.option.value
-    );
-    if (selectedEmployeeId?.id && this.currentRate)
-      this.currentRate.employeeId = selectedEmployeeId!.id;
+  async getRateTypes() {
+    this.getAllRateTypesSub = await this.rateService
+      .getAllRateTypes()
+      .subscribe((result) => {
+        this.allRateTypes = Object.entries(result);
+      });
   }
 
   getProjects() {
@@ -92,6 +80,15 @@ export class RateDialogComponent implements OnInit {
       this.filteredProjects = this.projectId?.valueChanges.pipe(
         startWith(''),
         map((value) => this.filter(value))
+      );
+    });
+  }
+  getEmployees() {
+    this.usersSub = this.userService.getUsers().subscribe((result) => {
+      this.users = result;
+      this.filteredUsers = this.employeeId?.valueChanges.pipe(
+        startWith(''),
+        map((value) => this.filterEmp(value))
       );
     });
   }
@@ -110,24 +107,6 @@ export class RateDialogComponent implements OnInit {
     );
   }
 
-  findProjectNameWithId(projectId: string): string {
-    const projectWithId = this.projects?.find(
-      (project) => project.id === projectId
-    );
-    if (projectWithId) return projectWithId.projectName;
-    return '';
-  }
-
-  getEmployees() {
-    this.usersSub = this.userService.getUsers().subscribe((result) => {
-      this.users = result;
-      this.filteredUsers = this.employeeId?.valueChanges.pipe(
-        startWith(''),
-        map((value) => this.filterEmp(value))
-      );
-    });
-  }
-
   checkAbleToRequestAddRate(): boolean {
     return true;
   }
@@ -140,10 +119,12 @@ export class RateDialogComponent implements OnInit {
     this.currentRate = <Rate>{};
     this.getEmployees();
     this.getProjects();
+
     if (this.rate !== null) {
       this.currentRate = this.rate;
+      this.selectedItemEmployee = this.rate.employeeId;
+      this.selectedItemProject = this.rate.projectId;
     }
-    console.log(this.currentRate);
 
     this.addRateForm = new FormGroup({
       projectId: new FormControl(this.currentRate?.projectId),
@@ -154,6 +135,15 @@ export class RateDialogComponent implements OnInit {
         this.currentRate?.employeeTimeCommitement
       ),
     });
+    this.getRateTypes();
+  }
+
+  ngOnDestroy(): void {
+    this.getAllRateTypesSub?.unsubscribe();
+    this.addRateSub?.unsubscribe();
+    this.usersSub?.unsubscribe();
+    this.projectsSub?.unsubscribe();
+    this.updateRateSub?.unsubscribe();
   }
 
   get projectId() {

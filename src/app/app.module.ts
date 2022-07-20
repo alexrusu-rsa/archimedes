@@ -24,7 +24,7 @@ import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
 import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
-import { ProjectidPipe } from './pipes/projectid.pipe';
+import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,6 @@ import { ProjectidPipe } from './pipes/projectid.pipe';
     EmployeePipe,
     AdminDashboardPageComponent,
     RateDialogComponent,
-    ProjectidPipe,
   ],
   imports: [
     BrowserModule,
@@ -55,8 +54,8 @@ import { ProjectidPipe } from './pipes/projectid.pipe';
     AuthModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    CustomPipeModule,
   ],
-
   providers: [
     DatePipe,
     {
@@ -66,5 +65,6 @@ import { ProjectidPipe } from './pipes/projectid.pipe';
     },
   ],
   bootstrap: [AppComponent],
+  exports: [CustomPipeModule],
 })
 export class AppModule {}

@@ -4,14 +4,12 @@
     <form [formGroup]="addRateForm!" (keyup.enter)="addRate()">
       <mat-form-field appearance="fill">
         <mat-label>Project name</mat-label>
-        <mat-select
-          [(ngModel)]="selectedItemProject"
-          formControlName="projectId"
-        >
+        <mat-select formControlName="projectId">
           <mat-option
             *ngFor="let project of projects"
             [value]="project.id"
             ngDefaultControl
+            required="true"
           >
             {{ project.projectName }}
           </mat-option>
@@ -20,14 +18,13 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Employee name</mat-label>
-        <mat-select
-          [(ngModel)]="selectedItemEmployee"
-          formControlName="employeeId"
-        >
+        <mat-select formControlName="employeeId">
           <mat-option
             *ngFor="let user of users"
             [value]="user.id"
             ngDefaultControl
+            required="true"
+            required="true"
           >
             {{ user.name }} {{ user.surname }}
           </mat-option>
@@ -46,14 +43,16 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Rate Type</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentRate.rateType"
-          type="text"
-          formControlName="employeeRateType"
-          required="true"
-        />
+        <mat-label>Rate type</mat-label>
+        <mat-select formControlName="employeeRateType">
+          <mat-option
+            *ngFor="let rateType of allRateTypes"
+            [value]="rateType[1]"
+            ngDefaultControl
+          >
+            {{ rateType[1] }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Employee Time Commitement</mat-label>
@@ -118,15 +117,18 @@
         />
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Rate Type</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentRate.rateType"
-          type="text"
-          formControlName="employeeRateType"
-          required="true"
-        />
+        <mat-label>Rate type</mat-label>
+        <mat-select formControlName="employeeRateType">
+          <mat-option
+            *ngFor="let rateType of allRateTypes"
+            [value]="rateType[1]"
+            ngDefaultControl
+          >
+            {{ rateType[1] }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Employee Time Commitement</mat-label>
         <input

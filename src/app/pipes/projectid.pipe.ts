@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Project } from '../models/project';
 
 @Pipe({
-  name: 'projectid'
+  name: 'projectid',
 })
 export class ProjectidPipe implements PipeTransform {
-
-  transform(): unknown {
-    return null;
+  transform(id: string, projects: Project[]): string {
+    const matchingProject = projects.filter((project) => project.id === id);
+    if (matchingProject) return matchingProject[0].projectName;
+    return id;
   }
-
 }

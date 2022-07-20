@@ -59,15 +59,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.projectsSub?.unsubscribe();
   }
 
-  findEmployeeNameWithId(employeeId: string): string {
-    const employeeWithId = this.users?.find(
-      (employee) => employee.id === employeeId
-    );
-    if (employeeWithId)
-      return `${employeeWithId.name} ${employeeWithId.surname}`;
-    return '';
-  }
-
   getUsers() {
     this.allUsersSubscrption = this.userService
       .getUsers()
@@ -75,14 +66,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
         this.allUsers = result;
         this.users = result;
       });
-  }
-
-  findProjectNameWithId(projectId: string): string {
-    const projectWithId = this.projects?.find(
-      (project) => project.id === projectId
-    );
-    if (projectWithId) return projectWithId.projectName;
-    return '';
   }
 
   getProjects() {
@@ -145,9 +128,12 @@ export class UserPageComponent implements OnInit, OnDestroy {
   }
 
   editRate(rate: Rate) {
-    this.dialog.open(RateDialogComponent, {
+    const dialogRef = this.dialog.open(RateDialogComponent, {
       data: rate,
       panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((updatedRate: Rate) => {
+      this.getRates();
     });
   }
 

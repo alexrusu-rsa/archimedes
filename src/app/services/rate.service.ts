@@ -44,6 +44,16 @@ export class RateService {
       );
   }
 
+  getAllRateTypes(): Observable<string[]> {
+    return this.httpClient
+      .get<string[]>(this.ratesUrl + '/types')
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<string[]>('getRateTypes')
+        )
+      );
+  }
+
   deleteRate(id: string): Observable<RequestWrapper> {
     const deleteRateUrl = `${this.ratesUrl}/${id}`;
     return this.httpClient
