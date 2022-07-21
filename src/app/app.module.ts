@@ -23,6 +23,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
 import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
+import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
+import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
 
 
@@ -42,6 +44,7 @@ import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-
     DateRangePipe,
     EmployeePipe,
     AdminDashboardPageComponent,
+    RateDialogComponent,
     FirstUserPageComponent
   ],
   imports: [
@@ -54,8 +57,8 @@ import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-
     AuthModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
+    CustomPipeModule,
   ],
-
   providers: [
     DatePipe,
     {
@@ -64,7 +67,7 @@ import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-
       multi: true,
     },
   ],
-
   bootstrap: [AppComponent],
+  exports: [CustomPipeModule],
 })
 export class AppModule {}
