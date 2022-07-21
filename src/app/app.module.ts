@@ -25,6 +25,8 @@ import { DateRangePipe } from './pipes/date-range.pipe';
 import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
+import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
     EmployeePipe,
     AdminDashboardPageComponent,
     RateDialogComponent,
+    FirstUserPageComponent
   ],
   imports: [
     BrowserModule,

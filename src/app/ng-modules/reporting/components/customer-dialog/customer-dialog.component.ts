@@ -1,11 +1,12 @@
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { RequestWrapper } from 'src/app/models/request-wrapper';
 import { CustomerService } from 'src/app/services/customer.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-customer-dialog',
@@ -25,57 +26,37 @@ export class CustomerDialogComponent implements OnInit {
   updateCustomerSub?: Subscription;
 
   addCustomer() {
-    if (this.checkAbleToRequestAddCustomer())
-      if (this.currentCustomer) {
-        this.addCurrentCustomerSub = this.customerService
-          .addCustomer(this.currentCustomer)
-          .subscribe((newCustomer: Customer) => {
-            this.dialogRef.close(newCustomer);
-          });
-      }
+    if (this.currentCustomer) {
+      this.addCurrentCustomerSub = this.customerService
+        .addCustomer(this.currentCustomer)
+        .subscribe((newCustomer: Customer) => {
+          this.dialogRef.close(newCustomer);
+        });
+    }
   }
 
   editCustomer() {
-    if (this.checkAbleToRequestUpdateCustomer())
-      if (this.currentCustomer) {
-        this.updateCustomerSub = this.customerService
-          .updateCustomer(this.currentCustomer)
-          .subscribe((updatedCustomer: Customer) => {
-            this.dialogRef.close();
-          });
-      }
+    if (this.currentCustomer) {
+      this.updateCustomerSub = this.customerService
+        .updateCustomer(this.currentCustomer)
+        .subscribe((updatedCustomer: Customer) => {
+          this.dialogRef.close(updatedCustomer);
+        });
+    }
   }
 
   checkAbleToRequestAddCustomer(): boolean {
-    if (
-      this.name?.pristine ||
-      this.cui?.pristine ||
-      this.reg?.pristine ||
-      this.address?.pristine ||
-      this.city?.pristine ||
-      this.country?.pristine ||
-      this.directorName?.pristine ||
-      this.directorEmail?.pristine ||
-      this.directorTel?.pristine
-    )
-      return false;
+    for (const [key, value] of Object.entries(this.addCustomerForm?.value)) {
+      if (value === undefined || value === '') return false;
+    }
     return true;
   }
 
   checkAbleToRequestUpdateCustomer(): boolean {
-    if (
-      this.name?.value !== '' &&
-      this.cui?.value !== '' &&
-      this.reg?.value !== '' &&
-      this.address?.value !== '' &&
-      this.city?.value !== '' &&
-      this.country?.value !== '' &&
-      this.directorName?.value !== '' &&
-      this.directorEmail?.value !== '' &&
-      this.directorTel?.value !== ''
-    )
-      return true;
-    return false;
+    for (const [key, value] of Object.entries(this.addCustomerForm?.value)) {
+      if (value === undefined || value === '') return false;
+    }
+    return true;
   }
   dialogClose() {
     this.dialogRef.close();
@@ -90,12 +71,24 @@ export class CustomerDialogComponent implements OnInit {
     }
 
     this.addCustomerForm = new FormGroup({
-      name: new FormControl(this.currentCustomer?.customerName),
-      cui: new FormControl(this.currentCustomer?.customerCUI),
-      reg: new FormControl(this.currentCustomer?.customerReg),
-      address: new FormControl(this.currentCustomer?.customerAddress),
-      city: new FormControl(this.currentCustomer?.customerCity),
-      country: new FormControl(this.currentCustomer?.customerCountry),
+      name: new FormControl(this.currentCustomer?.customerName, [
+        Validators.required,
+      ]),
+      cui: new FormControl(this.currentCustomer?.customerCUI, [
+        Validators.required,
+      ]),
+      reg: new FormControl(this.currentCustomer?.customerReg, [
+        Validators.required,
+      ]),
+      address: new FormControl(this.currentCustomer?.customerAddress, [
+        Validators.required,
+      ]),
+      city: new FormControl(this.currentCustomer?.customerCity, [
+        Validators.required,
+      ]),
+      country: new FormControl(this.currentCustomer?.customerCountry, [
+        Validators.required,
+      ]),
       directorName: new FormControl(this.currentCustomer?.customerDirectorName),
       directorEmail: new FormControl(
         this.currentCustomer?.customerDirectorEmail
