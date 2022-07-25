@@ -26,7 +26,7 @@ import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashbo
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
-
+import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-page/user-settings-page.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-
     EmployeePipe,
     AdminDashboardPageComponent,
     RateDialogComponent,
-    FirstUserPageComponent
+    FirstUserPageComponent,
+    UserSettingsPageComponent,
   ],
   imports: [
     BrowserModule,
