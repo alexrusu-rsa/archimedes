@@ -2,9 +2,20 @@
   <mat-card-title i18n="@@invoice-dialog-title">Invoice Number:</mat-card-title>
   <form>
     <mat-form-field appearance="fill">
+      <mat-label>Invoice Number</mat-label>
       <input
         matInput
         [(ngModel)]="invoiceNumber"
+        [ngModelOptions]="{ standalone: true }"
+        type="text"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Euro Exchange</mat-label>
+      <input
+        matInput
+        [(ngModel)]="euroExchange"
         [ngModelOptions]="{ standalone: true }"
         type="text"
       />
