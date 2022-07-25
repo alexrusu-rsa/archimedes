@@ -10,9 +10,10 @@ import { InvoicePageComponent } from './components/invoice-page/invoice-page.com
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-dashboard-page.component';
 import { FirstUserPageComponent } from '../auth/first-user-page/first-user-page.component';
+import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
-  { path: 'dashboard/:id', component: ActivityPageComponent },
+  { path: 'activity/:id', component: ActivityPageComponent },
   {
     path: 'user',
     component: UserPageComponent,
@@ -43,12 +44,17 @@ const routes: Routes = [
     canActivate: [RoleGuard],
   },
   {
+    path: 'dashboard',
+    component: UserDashboardComponent,
+    canActivate: [RoleGuard],
+  },
+  {
     path: 'first-user-page',
     component: FirstUserPageComponent,
   },
   {
     path: '',
-    redirectTo: 'dashboard/:id',
+    redirectTo: 'activity/:id',
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
