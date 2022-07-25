@@ -75,6 +75,16 @@
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
+        routerLink="reporting/admin-dashboard"
+        (click)="sidenav.close()"
+        i18n="@@menu-reporting-button"
+        >Admin Dashboard
+      </a>
+      <a mat-list-item routerLink="reporting/settings" (click)="sidenav.close()"
+        >Settings
+      </a>
+      <a
+        mat-list-item
         routerLink="reporting/invoice"
         (click)="sidenav.close()"
         i18n="@@menu-invoices-button"
