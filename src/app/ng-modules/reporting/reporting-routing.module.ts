@@ -13,7 +13,7 @@ import { FirstUserPageComponent } from '../auth/first-user-page/first-user-page.
 import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
 
 const routes: Routes = [
-  { path: 'activity/:id', component: ActivityPageComponent },
+  { path: 'dashboard/:id', component: ActivityPageComponent },
   {
     path: 'user',
     component: UserPageComponent,
@@ -53,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'activity/:id',
+    redirectTo: 'dashboard/:id',
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
