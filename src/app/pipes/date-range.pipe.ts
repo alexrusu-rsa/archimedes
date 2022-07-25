@@ -6,12 +6,15 @@ import { Activity } from '../models/activity';
 })
 export class DateRangePipe implements PipeTransform {
   transform(value: Activity[], start: Date, end: Date): Activity[] {
-    const filteredActivities = value.filter(
-      (activity) =>
-        this.stringToDate(activity.date) >= start &&
-        this.stringToDate(activity.date) <= end
-    );
-    return filteredActivities;
+    if (value !== undefined) {
+      const filteredActivities = value.filter(
+        (activity) =>
+          this.stringToDate(activity.date) >= start &&
+          this.stringToDate(activity.date) <= end
+      );
+      if (filteredActivities) return filteredActivities;
+    }
+    return [];
   }
 
   private stringToDate(dateString: string) {

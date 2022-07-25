@@ -76,5 +76,17 @@
         activity.extras
       }}</mat-card-content>
     </mat-card>
+    <mat-card
+      *ngIf="
+        !(
+          this.allActivities!
+          | dateRange: this.start?.value:this.end?.value
+          | employee: this.selectedItemEmployee
+        ).length
+      "
+      class="secondary-card"
+    >
+      <mat-card-title>No entries to be displayed yet.</mat-card-title>
+    </mat-card>
   </div>
 </mat-card>
