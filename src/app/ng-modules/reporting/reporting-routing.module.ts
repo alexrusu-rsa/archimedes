@@ -12,7 +12,7 @@ import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-
 import { FirstUserPageComponent } from '../auth/first-user-page/first-user-page.component';
 
 const routes: Routes = [
-  { path: 'dashboard/:id', component: ActivityPageComponent },
+  { path: 'activity/:id', component: ActivityPageComponent },
   {
     path: 'user',
     component: UserPageComponent,
