@@ -22,6 +22,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   selectedMonth?: string;
   selectedYear?: string;
   selectedMonthYear?: string;
+  euroExchange?: number;
   pdfSub?: Subscription;
   xlsxSub?: Subscription;
 
@@ -32,7 +33,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
           this.customerId,
           this.invoiceNumber,
           this.invoiceDataWrapper.month,
-          this.invoiceDataWrapper.year
+          this.invoiceDataWrapper.year,
+          this.euroExchange!
         )
         .subscribe((response: any) => {
           this.dialogRef.close(response);
@@ -46,7 +48,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
           this.customerId,
           this.invoiceNumber,
           this.invoiceDataWrapper.month,
-          this.invoiceDataWrapper.year
+          this.invoiceDataWrapper.year,
+          this.euroExchange!
         )
         .subscribe((response: any) => {
           this.dialogRef.close(response);
