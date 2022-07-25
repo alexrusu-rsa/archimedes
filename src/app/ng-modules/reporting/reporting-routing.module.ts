@@ -50,7 +50,6 @@ const routes: Routes = [
   {
     path: 'settings',
     component: UserSettingsPageComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: '',
