@@ -44,4 +44,30 @@ export class UserManagePasswordService {
         )
       );
   }
+
+  changePasswordFor(
+    newPassword: string,
+    userId: string
+  ): Observable<RequestWrapper> {
+    const changePasswordUrl = this.userUrl + '/' + 'change';
+    return this.httpClient
+      .put<RequestWrapper>(
+        changePasswordUrl,
+        { userId, newPassword },
+        {
+          observe: 'response',
+        }
+      )
+      .pipe(
+        map((res) => {
+          this.responseHandlingService.handleResponse('Password changed succesfully');
+          return res.body as RequestWrapper;
+        }),
+        catchError(
+          this.responseHandlingService.handleError<RequestWrapper>(
+            'changepassword'
+          )
+        )
+      );
+  }
 }
