@@ -14,13 +14,19 @@
     <mat-datepicker #datePicker touchUi></mat-datepicker>
   </mat-form-field>
 
-  <button
-    class="header-add-button"
-    mat-raised-button
-    (click)="addNewActivity()"
-  >
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
+  <div class="right-side">
+    <mat-card class="time-booked-card">
+      <mat-card-subtitle>Time booked:{{ totalTimeBooked }}</mat-card-subtitle>
+    </mat-card>
+
+    <button
+      class="header-add-button"
+      mat-raised-button
+      (click)="addNewActivity()"
+    >
+      <mat-icon color="accent">add_box</mat-icon>
+    </button>
+  </div>
 </div>
 
 <mat-card *ngIf="user" class="card-container">

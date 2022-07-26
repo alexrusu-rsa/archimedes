@@ -9,6 +9,7 @@ import { UserLoginService } from '../../../../services/user-login.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
+import { start } from 'repl';
 
 @Component({
   selector: 'app-activity-page',
@@ -24,6 +25,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   activitiesOfTheDay: Activity[] = [];
   daySelected?: string;
   selectedDate?: Date;
+  totalTimeBooked?: string;
 
   constructor(
     @Inject(ActivatedRoute)
@@ -58,6 +60,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
           .subscribe((response) => {
             this.activitiesOfTheDay = response;
+            this.getTotalTimeBookedToday();
           });
     }
   }
@@ -71,6 +74,42 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
             (activity) => activity.id !== activityToDelete.id
           );
         });
+    this.getTotalTimeBookedToday();
+  }
+
+  getTotalTimeBookedToday() {
+    if (this.activitiesOfTheDay) {
+      let milisecondsTotalForToday = 0;
+      this.activitiesOfTheDay.forEach((activity) => {
+        const startDate = new Date();
+        const endDate = new Date();
+        const startHour = Number(activity.start?.split(':')[0]);
+        const startMinute = Number(activity.start?.split(':')[1]);
+        startDate.setHours(startHour);
+        startDate.setMinutes(startMinute);
+        startDate.setSeconds(0);
+        const endHour = Number(activity.end?.split(':')[0]);
+        const endMinute = Number(activity.end?.split(':')[1]);
+        endDate.setHours(endHour);
+        endDate.setMinutes(endMinute);
+        endDate.setSeconds(0);
+        const timeForCurrentActivityMillis =
+          endDate.getTime() - startDate.getTime();
+        milisecondsTotalForToday += timeForCurrentActivityMillis;
+      });
+
+      this.totalTimeBooked = this.formatMilisecondsToHoursMinutes(
+        milisecondsTotalForToday
+      );
+    }
+  }
+
+  formatMilisecondsToHoursMinutes(milliseconds: number) {
+    const seconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes - hours * 60;
+    return ` ${hours}h ${remainingMinutes}min`;
   }
 
   addNewActivity() {
@@ -88,6 +127,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((newActivity: Activity) => {
       if (newActivity) this.activitiesOfTheDay.push(newActivity);
+      this.getTotalTimeBookedToday();
     });
   }
 
@@ -96,13 +136,16 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    this.dialog.open(ActivityDialogComponent, {
+    const dialogRef = this.dialog.open(ActivityDialogComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
         activity: activityToEdit,
       },
       panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getTotalTimeBookedToday();
     });
   }
 
