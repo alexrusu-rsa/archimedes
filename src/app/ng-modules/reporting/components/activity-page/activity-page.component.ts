@@ -212,5 +212,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.activitiesOfTheDaySub?.unsubscribe();
     this.deleteActivitySub?.unsubscribe();
     this.getUserSub?.unsubscribe();
+    this.allCustomersSub?.unsubscribe();
+    this.allProjectsSub?.unsubscribe();
   }
 }
