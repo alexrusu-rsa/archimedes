@@ -35,7 +35,7 @@ export class DuplicateActivityDialogComponent implements OnInit {
     });
   }
 
-  getDatesInRange() {
+  addCurrentActivityToDatesInRange() {
     if (this.currentActivity)
       this.addActivitiesInRangeSub = this.activityService
         .addDuplicates({
@@ -46,10 +46,6 @@ export class DuplicateActivityDialogComponent implements OnInit {
         .subscribe((result) => {
           this.dialogRef.close(result);
         });
-  }
-
-  addCurrentActivityToDatesInRange() {
-    this.getDatesInRange();
   }
 
   duplicateActivitiesToSelectedRange() {
