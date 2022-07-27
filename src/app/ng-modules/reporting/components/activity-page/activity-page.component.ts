@@ -69,12 +69,12 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     if (activityToDelete.id)
       this.deleteActivitySub = this.activityService
         .deleteActivity(activityToDelete.id)
-        .subscribe(() => {
+        .subscribe((result) => {
           this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
             (activity) => activity.id !== activityToDelete.id
           );
+          this.getTotalTimeBookedToday();
         });
-    this.getTotalTimeBookedToday();
   }
 
   getTotalTimeBookedToday() {
