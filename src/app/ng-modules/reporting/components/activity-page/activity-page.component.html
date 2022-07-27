@@ -47,6 +47,17 @@
     <mat-card-content>
       {{ activity.description }}
     </mat-card-content>
+    <mat-chip-list>
+      <div>
+        <mat-chip
+          >{{
+            activity.projectId!
+              | customerfromprojectid: allProjects!:allCustomers!
+          }}
+          - {{ activity.projectId! | projectid: allProjects! }}</mat-chip
+        >
+      </div>
+    </mat-chip-list>
 
     <mat-card-actions align="end">
       <button mat-button color="accent" (click)="editActivity(activity)">
