@@ -73,9 +73,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
             (activity) => activity.id !== activityToDelete.id
           );
-          if (result) {
-            this.getTotalTimeBookedToday();
-          }
+          this.getTotalTimeBookedToday();
         });
   }
 
