@@ -9,6 +9,7 @@ import { UserLoginService } from '../../../../services/user-login.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
+import { DuplicateActivityDialogComponent } from '../duplicate-activity-dialog/duplicate-activity-dialog.component';
 
 @Component({
   selector: 'app-activity-page',
@@ -103,6 +104,16 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         activity: activityToEdit,
       },
       panelClass: 'full-width-dialog',
+    });
+  }
+
+  duplicateActivity(activity: Activity) {
+    const dialogRef = this.dialog.open(DuplicateActivityDialogComponent, {
+      data: activity,
+      panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.dateChanges();
     });
   }
 
