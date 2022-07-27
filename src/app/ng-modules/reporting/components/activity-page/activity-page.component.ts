@@ -9,7 +9,7 @@ import { UserLoginService } from '../../../../services/user-login.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
-import { start } from 'repl';
+import { DuplicateActivityDialogComponent } from '../duplicate-activity-dialog/duplicate-activity-dialog.component';
 
 @Component({
   selector: 'app-activity-page',
@@ -146,6 +146,16 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getTotalTimeBookedToday();
+    });
+  }
+
+  duplicateActivity(activity: Activity) {
+    const dialogRef = this.dialog.open(DuplicateActivityDialogComponent, {
+      data: activity,
+      panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.dateChanges();
     });
   }
 
