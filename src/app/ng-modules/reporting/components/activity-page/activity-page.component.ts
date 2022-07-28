@@ -10,6 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { DuplicateActivityDialogComponent } from '../duplicate-activity-dialog/duplicate-activity-dialog.component';
+import { Customer } from 'src/app/models/customer';
+import { Project } from 'src/app/models/project';
+import { CustomerService } from 'src/app/services/customer.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { throws } from 'assert';
 
 @Component({
   selector: 'app-activity-page',
@@ -27,16 +32,26 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   selectedDate?: Date;
   totalTimeBooked?: string;
 
+  allCustomers?: Customer[];
+  allProjects?: Project[];
+
+  allCustomersSub?: Subscription;
+  allProjectsSub?: Subscription;
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
     private userService: UserLoginService,
     private activityService: ActivityService,
     public datepipe: DatePipe,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private customerService: CustomerService,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit(): void {
+    this.getCustomers();
+    this.getProjects();
     const userId = this.activeRoute.snapshot.paramMap.get('id');
     if (userId)
       this.getUserSub = this.userService
@@ -112,6 +127,21 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     return ` ${hours}h ${remainingMinutes}min`;
   }
 
+  getCustomers() {
+    this.allCustomersSub = this.customerService
+      .getCustomers()
+      .subscribe((result) => {
+        this.allCustomers = result;
+      });
+  }
+  getProjects() {
+    this.allProjectsSub = this.projectService
+      .getProjects()
+      .subscribe((result) => {
+        this.allProjects = result;
+      });
+  }
+
   addNewActivity() {
     const dateToSend = this.datepipe.transform(
       this.selectedDate?.toString(),
@@ -182,5 +212,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.activitiesOfTheDaySub?.unsubscribe();
     this.deleteActivitySub?.unsubscribe();
     this.getUserSub?.unsubscribe();
+    this.allCustomersSub?.unsubscribe();
+    this.allProjectsSub?.unsubscribe();
   }
 }
