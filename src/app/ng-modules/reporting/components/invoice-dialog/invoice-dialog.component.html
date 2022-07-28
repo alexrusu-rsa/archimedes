@@ -1,24 +1,35 @@
 <div class="dialog-container">
-  <mat-card-title i18n="@@invoice-dialog-title">Invoice Number:</mat-card-title>
-  <form>
+  <mat-card-title i18n="@@invoice-dialog-title"
+    >Set data for invoice</mat-card-title
+  >
+  <mat-hint
+    *ngIf="
+      invoiceDataWrapper.month === null ||
+      invoiceDataWrapper.month === undefined
+    "
+    >You must select a month on the datepicker first.</mat-hint
+  >
+  <form [formGroup]="invoiceForm!">
     <mat-form-field appearance="fill">
       <mat-label>Invoice Number</mat-label>
-      <input
-        matInput
-        [(ngModel)]="invoiceNumber"
-        [ngModelOptions]="{ standalone: true }"
-        type="text"
-      />
+      <input matInput formControlName="invoiceNumber" type="text" />
+      <mat-hint *ngIf="!invoiceNumber?.valid"
+        >The invoice number is required.</mat-hint
+      >
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Euro Exchange</mat-label>
       <input
         matInput
-        [(ngModel)]="euroExchange"
-        [ngModelOptions]="{ standalone: true }"
+        placeholder="4.97"
+        formControlName="euroExchange"
         type="text"
       />
+
+      <mat-hint *ngIf="!euroExchange?.valid"
+        >Enter a value like: 4.98 or 4.9</mat-hint
+      >
     </mat-form-field>
   </form>
   <button
