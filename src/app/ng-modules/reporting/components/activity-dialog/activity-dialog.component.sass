@@ -3,12 +3,17 @@
 
 .dialog-container
   @include dialog-container-users-activities
+  overflow-y: auto
 
 .mat-dialog-content
   @include mat-dialog-content-users-activities
-
+  overflow-y: auto
   .mat-form-field
     @include mat-form-field
+
+@media (max-height: 950px)
+  .mat-dialog-content
+    display: block !important
 
 h3
   text-align: center
