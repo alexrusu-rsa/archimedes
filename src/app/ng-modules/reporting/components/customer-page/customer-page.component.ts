@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-customer-page',
@@ -66,11 +67,18 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   }
 
   deleteCustomer(customerId: string) {
-    this.allCustomers = this.allCustomers?.filter(
-      (customer) => customer.id !== customerId
-    );
-    this.deleteCustomerSubscription = this.customerService
-      .deleteCustomer(customerId)
-      .subscribe();
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.allCustomers = this.allCustomers?.filter(
+          (customer) => customer.id !== customerId
+        );
+        this.deleteCustomerSubscription = this.customerService
+          .deleteCustomer(customerId)
+          .subscribe();
+      }
+    });
   }
 }
