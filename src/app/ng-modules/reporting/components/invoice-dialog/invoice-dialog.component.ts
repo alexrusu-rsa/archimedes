@@ -78,7 +78,10 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
     this.customerId = this.invoiceDataWrapper.customerId;
 
     this.invoiceForm = new FormGroup({
-      invoiceNumber: new FormControl(this.invoiceNr, [Validators.required]),
+      invoiceNumber: new FormControl(this.invoiceNr, [
+        Validators.required,
+        Validators.pattern('[0-9]{1,4}'),
+      ]),
       euroExchange: new FormControl(this.euroExch, [
         Validators.required,
         Validators.pattern('[0-9]{1}[.][0-9]{1,2}'),
