@@ -35,7 +35,13 @@
 
 .time-booked-card
   align-content: end
-  
+
 .right-side
   display: flex
   column-gap: 20px
+
+@media (max-width: 540px)
+  .header-datepicker
+    width: $full-width
+  .right-side
+    display: none
