@@ -131,7 +131,16 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
       });
   }
 
+  preselectMonthAndYear() {
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    this.selectedMonth = (month + 1).toString();
+    this.selectedYear = year.toString();
+  }
+
   ngOnInit(): void {
+    this.preselectMonthAndYear();
     this.getAllCustomers();
     this.getAllProjects();
   }
