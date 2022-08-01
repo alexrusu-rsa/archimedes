@@ -39,7 +39,10 @@ export class AppComponent implements OnInit, OnDestroy {
     const userBrowserLanguage = navigator.language.toLocaleString();
     let appInUserLanguageURL = window.location.host + '/' + userBrowserLanguage;
     if (window.location.href.split('/')[3] !== userBrowserLanguage) {
-      if (window.location.href.includes('localhost')||window.location.href.includes('archimedes.rsasoft')) {
+      if (
+        window.location.href.includes('localhost') ||
+        window.location.href.includes('archimedes.rsasoft')
+      ) {
         appInUserLanguageURL = 'http://' + appInUserLanguageURL;
       } else {
         appInUserLanguageURL = 'https://' + appInUserLanguageURL;
@@ -69,7 +72,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.activeTokenSub = this.localStorageService.accessTokenValue.subscribe(
       (nextValue) => {
         if (!this.tokenExpired(nextValue!)) {
-          this.router.navigate(['reporting/dashboard/' + this.currentUserId]);
+          if (this.isAdmin) {
+            this.router.navigate(['reporting/admin-dashboard']);
+          } else {
+            this.router.navigate(['reporting/activity/' + this.currentUserId]);
+          }
         } else {
           this.authService.doLogout();
         }
