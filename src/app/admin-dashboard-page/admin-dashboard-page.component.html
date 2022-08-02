@@ -2,15 +2,16 @@
 
 <div class="header-activity"></div>
 <mat-card class="card-container">
-  <mat-list class="container">
-    <mat-card
-      mat-list-item
-      class="dashboard-button secondary-card"
-      routerLink="../../reporting/dashboard/{{ this.currentUserId }}"
-    >
-      <mat-icon>event_note</mat-icon>
-      <a class="button-title"> Activities </a>
-    </mat-card>
+  <mat-card>
+    <mat-list class="container">
+      <mat-card
+        mat-list-item
+        class="dashboard-button secondary-card"
+        routerLink="../../reporting/activity/{{ this.currentUserId }}"
+      >
+        <mat-icon>event_note</mat-icon>
+        <a class="button-title"> Activities </a>
+      </mat-card>
 
     <mat-card
       mat-list-item
@@ -29,7 +30,7 @@
       <mat-icon>people</mat-icon>
       <a class="button-title"> Customers </a>
     </mat-card>
-    
+
     <mat-card
       mat-list-item
       routerLink="../../reporting/project"
