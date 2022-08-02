@@ -27,6 +27,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   pdfSub?: Subscription;
   xlsxSub?: Subscription;
   invoiceForm?: FormGroup;
+  customerName?: string;
+  getCustomerNameSub?: Subscription;
 
   downloadXLSX() {
     if (this.checkAbleToRequestInvoice())
@@ -40,7 +42,11 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             Number(this.euroExchange?.value)
           )
           .subscribe((response: any) => {
-            this.dialogRef.close(response);
+            this.dialogRef.close({
+              response: response,
+              customerName: this.customerName,
+              invoiceNumber: this.invoiceNumber?.value,
+            });
           });
   }
 
@@ -56,7 +62,11 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             Number(this.euroExchange?.value)
           )
           .subscribe((response: any) => {
-            this.dialogRef.close(response);
+            this.dialogRef.close({
+              response: response,
+              customerName: this.customerName,
+              invoiceNumber: this.invoiceNumber?.value,
+            });
           });
       }
   }
@@ -76,7 +86,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
     this.selectedMonthYear =
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
-
+    this.customerName = this.invoiceDataWrapper.customerName;
+    console.log(this.invoiceDataWrapper);
     this.invoiceForm = new FormGroup({
       invoiceNumber: new FormControl(this.invoiceNr, [
         Validators.required,
@@ -84,7 +95,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
       ]),
       euroExchange: new FormControl(this.euroExch, [
         Validators.required,
-        Validators.pattern('[0-9]{1}[.][0-9]{1,2}'),
+        Validators.pattern('[0-9]{1}[.][0-9]{2,5}'),
       ]),
     });
   }

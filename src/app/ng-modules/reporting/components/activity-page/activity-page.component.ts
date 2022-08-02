@@ -15,6 +15,7 @@ import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { throws } from 'assert';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-activity-page',
@@ -81,15 +82,22 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   }
 
   deleteActivity(activityToDelete: Activity) {
-    if (activityToDelete.id)
-      this.deleteActivitySub = this.activityService
-        .deleteActivity(activityToDelete.id)
-        .subscribe((result) => {
-          this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
-            (activity) => activity.id !== activityToDelete.id
-          );
-          this.getTotalTimeBookedToday();
-        });
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        if (activityToDelete.id)
+          this.deleteActivitySub = this.activityService
+            .deleteActivity(activityToDelete.id)
+            .subscribe((result) => {
+              this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
+                (activity) => activity.id !== activityToDelete.id
+              );
+              this.getTotalTimeBookedToday();
+            });
+      }
+    });
   }
 
   getTotalTimeBookedToday() {

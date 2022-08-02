@@ -2,7 +2,7 @@
   Invoices
 </mat-card-title>
 <div class="header-activity">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="header-datepicker">
     <mat-label i18n="@@invoice-page-month-year-hint">Month and Year</mat-label>
     <input matInput [matDatepicker]="datepicker" [formControl]="date" />
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
@@ -36,7 +36,7 @@
         *ngIf="project.id"
         mat-raised-button
         color="accent"
-        (click)="downloadInvoice(project.id)"
+        (click)="downloadInvoice(project.id, project.customerId)"
       >
         <mat-icon>table_chart</mat-icon>
         <mat-icon>picture_as_pdf</mat-icon>

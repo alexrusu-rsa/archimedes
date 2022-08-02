@@ -42,3 +42,41 @@ a
 
   .header-searchbar
     width: $full-width
+
+.mat-header-cell
+  text-align: center
+.mat-cell
+  text-align: center
+@media (max-width: 700px)
+  .mat-header-cell
+    font-size: 10px
+  .mat-cell
+    font-size: 10px
+    padding: 0 !important
+
+@media (max-width: 525px)
+  .mat-header-cell
+    font-size: 8px
+    padding: 0 !important
+    border-left: 1px solid #5a5a5a
+    border-right: 1px solid #5a5a5a
+  .mat-cell
+    font-size: 8px
+    border-left: 1px solid #5a5a5a
+    border-right: 1px solid #5a5a5a
+    .mat-raised-button
+      width: 30px !important
+      padding: 0 !important
+  .edit-cell .delete-cell
+    width: 50px !important
+
+@media (max-width: 350px)
+  .rates-card
+    padding: 0
+    .mat-card-title
+      padding-left: 20px
+      padding-top: 20px
+    .rate-add-button
+      margin-bottom: 16px
+      margin-left: 16px
+      margin-right: 16px

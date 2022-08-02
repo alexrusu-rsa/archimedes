@@ -2,7 +2,7 @@
   >Reporting Page</mat-card-title
 >
 <div class="header-activity">
-  <mat-form-field appearance="fill" *ngIf="range">
+  <mat-form-field appearance="fill" *ngIf="range" class="ranged-datepicker">
     <mat-label i18n="@@reporting-page-selectDateRange"
       >Select date range</mat-label
     >
@@ -14,7 +14,7 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 
-  <mat-form-field *ngIf="allEmployees" appearance="fill">
+  <mat-form-field *ngIf="allEmployees" appearance="fill" class="employee-select">
     <mat-label i18n="@@reporting-page-employeeName">Employee name</mat-label>
     <mat-select [(ngModel)]="selectedItemEmployee">
       <mat-option [value]="noFilterUsers" i18n="@@reporting-page-users">
