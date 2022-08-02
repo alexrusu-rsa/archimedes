@@ -84,7 +84,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
       ]),
       euroExchange: new FormControl(this.euroExch, [
         Validators.required,
-        Validators.pattern('[0-9]{1}[.][0-9]{1,2}'),
+        Validators.pattern('[0-9]{1}[.][0-9]{2,5}'),
       ]),
     });
   }
