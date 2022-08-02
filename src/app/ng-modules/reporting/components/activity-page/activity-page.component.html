@@ -46,22 +46,22 @@
     >
     <mat-card-content>
       {{ activity.description }}
+      <mat-chip-list
+        *ngIf="activity.projectId !== null && activity.projectId !== ''"
+      >
+        <div>
+          <mat-chip
+            >{{
+              activity.projectId!
+                | customerfromprojectid: allProjects!:allCustomers!
+            }}
+            {{ activity.projectId! | projectid: allProjects! }}</mat-chip
+          >
+        </div>
+      </mat-chip-list>
     </mat-card-content>
-    <mat-chip-list
-      *ngIf="activity.projectId !== null && activity.projectId !== ''"
-    >
-      <div>
-        <mat-chip
-          >{{
-            activity.projectId!
-              | customerfromprojectid: allProjects!:allCustomers!
-          }}
-          {{ activity.projectId! | projectid: allProjects! }}</mat-chip
-        >
-      </div>
-    </mat-chip-list>
 
-    <mat-card-actions align="end">
+    <mat-card-actions class="custom-card-actions" align="end">
       <button mat-button color="accent" (click)="editActivity(activity)">
         <mat-icon>edit</mat-icon>
       </button>

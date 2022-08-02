@@ -2,7 +2,7 @@
   Invoices
 </mat-card-title>
 <div class="header-activity">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" class="header-datepicker">
     <mat-label i18n="@@invoice-page-month-year-hint">Month and Year</mat-label>
     <input matInput [matDatepicker]="datepicker" [formControl]="date" />
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>

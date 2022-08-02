@@ -24,7 +24,7 @@
       <mat-label>Euro Exchange</mat-label>
       <input
         matInput
-        placeholder="Example: 4.97"
+        placeholder="Example: 4.97, 4.9283"
         formControlName="euroExchange"
         type="text"
       />
@@ -33,7 +33,7 @@
         *ngIf="
           !euroExchange?.valid && (euroExchange?.touched || euroExchange?.dirty)
         "
-        >Enter a value like: 4.98 or 4.9</mat-hint
+        >Enter a value like 4.98 or 4.92394</mat-hint
       >
     </mat-form-field>
   </form>
