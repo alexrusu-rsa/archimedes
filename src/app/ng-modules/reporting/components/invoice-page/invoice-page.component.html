@@ -36,7 +36,7 @@
         *ngIf="project.id"
         mat-raised-button
         color="accent"
-        (click)="downloadInvoice(project.id)"
+        (click)="downloadInvoice(project.id, project.customerId)"
       >
         <mat-icon>table_chart</mat-icon>
         <mat-icon>picture_as_pdf</mat-icon>
