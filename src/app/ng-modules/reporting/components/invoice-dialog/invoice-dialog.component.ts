@@ -1,4 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
@@ -18,52 +19,84 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   ) {}
 
   customerId?: string;
-  invoiceNumber?: string;
   selectedMonth?: string;
   selectedYear?: string;
   selectedMonthYear?: string;
-  euroExchange?: number;
+  invoiceNr?: string;
+  euroExch?: string;
   pdfSub?: Subscription;
   xlsxSub?: Subscription;
+  invoiceForm?: FormGroup;
 
   downloadXLSX() {
-    if (this.customerId && this.invoiceNumber && this.selectedMonthYear)
-      this.xlsxSub = this.customerService
-        .getCustomerInvoiceXLSX(
-          this.customerId,
-          this.invoiceNumber,
-          this.invoiceDataWrapper.month,
-          this.invoiceDataWrapper.year,
-          this.euroExchange!
-        )
-        .subscribe((response: any) => {
-          this.dialogRef.close(response);
-        });
+    if (this.checkAbleToRequestInvoice())
+      if (this.customerId && this.invoiceNumber && this.selectedMonthYear)
+        this.xlsxSub = this.customerService
+          .getCustomerInvoiceXLSX(
+            this.customerId,
+            this.invoiceNumber.value,
+            this.invoiceDataWrapper.month,
+            this.invoiceDataWrapper.year,
+            Number(this.euroExchange?.value)
+          )
+          .subscribe((response: any) => {
+            this.dialogRef.close(response);
+          });
   }
 
   downloadPDF() {
-    if (this.customerId && this.invoiceNumber && this.selectedMonthYear) {
-      this.pdfSub = this.customerService
-        .getCustomerInvoicePDF(
-          this.customerId,
-          this.invoiceNumber,
-          this.invoiceDataWrapper.month,
-          this.invoiceDataWrapper.year,
-          this.euroExchange!
-        )
-        .subscribe((response: any) => {
-          this.dialogRef.close(response);
-        });
+    if (this.checkAbleToRequestInvoice())
+      if (this.customerId && this.invoiceNumber && this.selectedMonthYear) {
+        this.pdfSub = this.customerService
+          .getCustomerInvoicePDF(
+            this.customerId,
+            this.invoiceNumber.value,
+            this.invoiceDataWrapper.month,
+            this.invoiceDataWrapper.year,
+            Number(this.euroExchange?.value)
+          )
+          .subscribe((response: any) => {
+            this.dialogRef.close(response);
+          });
+      }
+  }
+
+  checkAbleToRequestInvoice(): boolean {
+    if (
+      this.invoiceDataWrapper.month === null ||
+      this.invoiceDataWrapper.month === undefined
+    ) {
+      return false;
     }
+    if (!this.invoiceNumber?.valid || !this.euroExchange?.valid) return false;
+    return true;
   }
 
   ngOnInit(): void {
     this.selectedMonthYear =
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
+
+    this.invoiceForm = new FormGroup({
+      invoiceNumber: new FormControl(this.invoiceNr, [
+        Validators.required,
+        Validators.pattern('[0-9]{1,4}'),
+      ]),
+      euroExchange: new FormControl(this.euroExch, [
+        Validators.required,
+        Validators.pattern('[0-9]{1}[.][0-9]{2,5}'),
+      ]),
+    });
   }
   ngOnDestroy(): void {
     this.xlsxSub?.unsubscribe();
     this.pdfSub?.unsubscribe();
+  }
+
+  get invoiceNumber() {
+    return this.invoiceForm?.get('invoiceNumber');
+  }
+  get euroExchange() {
+    return this.invoiceForm?.get('euroExchange');
   }
 }

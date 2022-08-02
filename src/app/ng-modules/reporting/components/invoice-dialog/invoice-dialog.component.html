@@ -1,24 +1,40 @@
 <div class="dialog-container">
-  <mat-card-title i18n="@@invoice-dialog-title">Invoice Number:</mat-card-title>
-  <form>
+  <mat-card-title i18n="@@invoice-dialog-title"
+    >Set data for invoice</mat-card-title
+  >
+  <form [formGroup]="invoiceForm!">
     <mat-form-field appearance="fill">
       <mat-label>Invoice Number</mat-label>
       <input
         matInput
-        [(ngModel)]="invoiceNumber"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="invoiceNumber"
         type="text"
+        placeholder="Example: 1234"
       />
+      <mat-hint
+        *ngIf="
+          !invoiceNumber?.valid &&
+          (invoiceNumber?.touched || invoiceNumber?.dirty)
+        "
+        >The invoice number is required.</mat-hint
+      >
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Euro Exchange</mat-label>
       <input
         matInput
-        [(ngModel)]="euroExchange"
-        [ngModelOptions]="{ standalone: true }"
+        placeholder="Example: 4.97, 4.9283"
+        formControlName="euroExchange"
         type="text"
       />
+
+      <mat-hint
+        *ngIf="
+          !euroExchange?.valid && (euroExchange?.touched || euroExchange?.dirty)
+        "
+        >Enter a value like 4.98 or 4.92394</mat-hint
+      >
     </mat-form-field>
   </form>
   <button
