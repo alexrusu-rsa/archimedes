@@ -13,13 +13,32 @@
     <mat-nav-list>
       <a
         mat-list-item
-        *ngIf="!isAdmin || isAdmin === undefined"
+        *ngIf="
+          hasToken === true &&
+          hasToken !== undefined &&
+          (!isAdmin || isAdmin === undefined)
+        "
         routerLink="reporting/dashboard"
         (click)="sidenav.close()"
         i18n="@@menu-home-button"
         >Home</a
       >
 
+      <a
+        mat-list-item
+        *ngIf="isAdmin && isAdmin !== undefined"
+        routerLink="reporting/admin-dashboard"
+        (click)="sidenav.close()"
+        >Home</a
+      >
+
+      <a
+        mat-list-item
+        *ngIf="isAdmin && isAdmin !== undefined"
+        routerLink="reporting/activity/{{ this.currentUserId }}"
+        (click)="sidenav.close()"
+        >Activities</a
+      >
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
@@ -68,8 +87,12 @@
         i18n="@@menu-reporting-button"
         >Reporting
       </a>
+      <a mat-list-item routerLink="reporting/settings" (click)="sidenav.close()"
+        >Settings
+      </a>
       <a
         mat-list-item
+        *ngIf="isAdmin && isAdmin !== undefined"
         routerLink="reporting/invoice"
         (click)="sidenav.close()"
         i18n="@@menu-invoices-button"

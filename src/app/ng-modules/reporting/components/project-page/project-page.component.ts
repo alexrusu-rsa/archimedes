@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { domainToASCII } from 'url';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 
 @Component({
@@ -68,11 +69,18 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   deleteProject(projectId: string) {
-    this.allProjects = this.allProjects?.filter(
-      (project) => project.id !== projectId
-    );
-    this.deleteProjectSubscription = this.projectService
-      .deleteProject(projectId)
-      .subscribe();
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.allProjects = this.allProjects?.filter(
+          (project) => project.id !== projectId
+        );
+        this.deleteProjectSubscription = this.projectService
+          .deleteProject(projectId)
+          .subscribe();
+      }
+    });
   }
 }

@@ -8,6 +8,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { RateService } from 'src/app/services/rate.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
 import { UserService } from 'src/app/services/user.service';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { RateDialogComponent } from '../rate-dialog/rate-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 @Component({
@@ -114,6 +116,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((newUser: User) => {
       if (newUser) this.allUsers.push(newUser);
+      this.dialog.open(NewUserDialogComponent, { data: newUser.password });
     });
   }
 
@@ -145,17 +148,31 @@ export class UserPageComponent implements OnInit, OnDestroy {
   }
 
   deleteRate(rate: Rate) {
-    this.deleteRateSub = this.rateService
-      .deleteRate(rate.id!)
-      .subscribe((result) => {
-        this.getRates();
-      });
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.deleteRateSub = this.rateService
+          .deleteRate(rate.id!)
+          .subscribe((result) => {
+            this.getRates();
+          });
+      }
+    });
   }
 
   deleteUser(userId: string) {
-    this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
-    this.deleteUserSubscription = this.userService
-      .deleteUser(userId)
-      .subscribe();
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      panelClass: 'full-width-dialog',
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
+        this.deleteUserSubscription = this.userService
+          .deleteUser(userId)
+          .subscribe();
+      }
+    });
   }
 }

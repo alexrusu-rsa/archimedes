@@ -5,7 +5,7 @@
 
   .header-activity
     @include header-activity
-
+    display: flex !important
   .card-container
     @include card-container
 
@@ -27,8 +27,17 @@
 .page-title
   @include page-title
 
-@media (max-width: $media-query-400px)
-  .header-add-button
-    display: none
-  .header-searchbar
+@media (max-width: 500px)
+  .header-activity
+    display: flex !important
+    flex-direction: column
+    grid-template-columns: repeat(1, 1fr)
+  .ranged-datepicker
     width: $full-width
+    display: block
+  .employee-select
+    width: $full-width
+    display: block
+  .card-container
+    margin-top: 70px
+

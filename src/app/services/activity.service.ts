@@ -9,6 +9,7 @@ import { start } from 'repl';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../models/activity';
+import { ActivityDuplicateRange } from '../models/activity-duplicate-range';
 import { RequestWrapper } from '../models/request-wrapper';
 import { ResponseHandlingService } from './response-handling.service';
 
@@ -52,6 +53,26 @@ export class ActivityService {
       .pipe(
         catchError(
           this.responseHandlingService.handleError<Activity[]>(`getActivities`)
+        )
+      );
+  }
+
+  addDuplicates(
+    activityDuplicateRange: ActivityDuplicateRange
+  ): Observable<RequestWrapper> {
+    return this.httpClient
+      .post(this.activitiesUrl + '/duplicate', activityDuplicateRange, {
+        observe: 'response',
+      })
+      .pipe(
+        map((res) => {
+          this.responseHandlingService.handleResponse('Activities duplicated');
+          return res.body as RequestWrapper;
+        }),
+        catchError(
+          this.responseHandlingService.handleError<RequestWrapper>(
+            'duplicateActivity'
+          )
         )
       );
   }

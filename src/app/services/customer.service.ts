@@ -97,11 +97,12 @@ export class CustomerService {
     customerId: string,
     invoiceNumber: string,
     selectedMonth: string,
-    selectedYear: string
+    selectedYear: string,
+    euroExchange: number
   ) {
     return this.httpClient.get(
       this.customersUrl +
-        `/invoice/pdf/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}`,
+        `/invoice/pdf/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}`,
       { observe: 'response', responseType: 'blob' }
     );
   }
@@ -110,11 +111,12 @@ export class CustomerService {
     customerId: string,
     invoiceNumber: string,
     selectedMonth: string,
-    selectedYear: string
+    selectedYear: string,
+    euroExchange: number
   ) {
     return this.httpClient.get(
       this.customersUrl +
-        `/invoice/xlsx/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}`,
+        `/invoice/xlsx/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}`,
       { observe: 'response', responseType: 'blob' }
     );
   }

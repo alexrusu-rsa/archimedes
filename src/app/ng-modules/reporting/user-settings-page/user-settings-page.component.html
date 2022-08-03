@@ -1,0 +1,51 @@
+<mat-card-title class="page-title">Settings</mat-card-title>
+<mat-card class="card-container">
+  <div class="flex-container">
+    <mat-card class="secondary-card">
+      <mat-card-title>Change your password</mat-card-title>
+      <form [formGroup]="resetPasswordForm!">
+        <mat-form-field appearance="fill">
+          <mat-label>Current password</mat-label>
+          <input
+            matInput
+            [(ngModel)]="passwordValue"
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            required="true"
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label> Re-type your password</mat-label>
+          <input
+            type="password"
+            matInput
+            [type]="hideCheck ? 'password' : 'text'"
+            formControlName="checkPassword"
+            [(ngModel)]="checkPasswordValue"
+          />
+          <mat-icon matSuffix (click)="hideCheck = !hideCheck">{{
+            hideCheck ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </mat-form-field>
+        <mat-hint *ngIf="passwordsDoNotMatch" color="red">
+          Passwords do not match
+        </mat-hint>
+      </form>
+
+      <button mat-raised-button color="accent" (click)="changePassword()">
+        Change Password
+      </button>
+    </mat-card>
+    <mat-card class="secondary-card">
+      <div *ngIf="currentUser">
+        <mat-card-subtitle>{{ currentUser.role }}</mat-card-subtitle>
+        <mat-card-title
+          >{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title
+        >
+      </div>
+    </mat-card>
+  </div>
+</mat-card>

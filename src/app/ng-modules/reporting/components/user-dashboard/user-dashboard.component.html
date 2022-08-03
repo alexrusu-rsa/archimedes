@@ -7,59 +7,22 @@
       <mat-card
         mat-list-item
         class="dashboard-button secondary-card"
-        routerLink="../../reporting/dashboard/{{ this.currentUserId }}"
+        routerLink="../../reporting/activity/{{ this.currentUserId }}"
       >
         <mat-icon>event_note</mat-icon>
         <a class="button-title"> Activities </a>
       </mat-card>
-
       <mat-card
         mat-list-item
-        routerLink="../../reporting/user"
         class="dashboard-button secondary-card"
+        routerLink="../../reporting/settings"
       >
-        <mat-icon>person</mat-icon>
-        <a class="button-title"> Users </a>
-      </mat-card>
-
-      <mat-card
-        mat-list-item
-        routerLink="../../reporting/customer"
-        class="dashboard-button secondary-card"
-      >
-        <mat-icon>people</mat-icon>
-        <a class="button-title"> Customers </a>
+        <mat-icon>settings</mat-icon>
+        <a class="button-title"> Settings </a>
       </mat-card>
     </mat-list>
   </div>
   <div>
-    <mat-list class="container">
-      <mat-card
-        mat-list-item
-        routerLink="../../reporting/project"
-        class="dashboard-button secondary-card"
-      >
-        <mat-icon>list_alt</mat-icon>
-        <a class="button-title"> Projects </a>
-      </mat-card>
-
-      <mat-card
-        mat-list-item
-        routerLink="../../reporting/invoice"
-        class="dashboard-button secondary-card"
-      >
-        <mat-icon>assignment_turned_in</mat-icon>
-        <a class="button-title"> Invoices </a></mat-card
-      >
-
-      <mat-card
-        mat-list-item
-        routerLink="../../reporting/user-reporting"
-        class="dashboard-button secondary-card"
-      >
-        <mat-icon>timelapse</mat-icon>
-        <a class="button-title"> Reporting </a>
-      </mat-card>
-    </mat-list>
+    <mat-list class="container"> </mat-list>
   </div>
 </mat-card>

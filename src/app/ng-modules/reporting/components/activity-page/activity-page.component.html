@@ -14,13 +14,21 @@
     <mat-datepicker #datePicker touchUi></mat-datepicker>
   </mat-form-field>
 
-  <button
-    class="header-add-button"
-    mat-raised-button
-    (click)="addNewActivity()"
-  >
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
+  <div class="right-side">
+    <mat-card class="time-booked-card">
+      <mat-card-subtitle
+        >Time booked: <strong>{{ totalTimeBooked }}</strong></mat-card-subtitle
+      >
+    </mat-card>
+
+    <button
+      class="header-add-button"
+      mat-raised-button
+      (click)="addNewActivity()"
+    >
+      <mat-icon color="accent">add_box</mat-icon>
+    </button>
+  </div>
 </div>
 
 <mat-card *ngIf="user" class="card-container">
@@ -38,9 +46,22 @@
     >
     <mat-card-content>
       {{ activity.description }}
+      <mat-chip-list
+        *ngIf="activity.projectId !== null && activity.projectId !== ''"
+      >
+        <div>
+          <mat-chip
+            >{{
+              activity.projectId!
+                | customerfromprojectid: allProjects!:allCustomers!
+            }}
+            {{ activity.projectId! | projectid: allProjects! }}</mat-chip
+          >
+        </div>
+      </mat-chip-list>
     </mat-card-content>
 
-    <mat-card-actions align="end">
+    <mat-card-actions class="custom-card-actions" align="end">
       <button mat-button color="accent" (click)="editActivity(activity)">
         <mat-icon>edit</mat-icon>
       </button>
@@ -51,6 +72,9 @@
         (click)="deleteActivity(activity)"
       >
         <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-button color="accent" (click)="duplicateActivity(activity)">
+        <mat-icon>control_point_duplicate</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>

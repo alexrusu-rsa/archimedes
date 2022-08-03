@@ -98,29 +98,35 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
       });
   }
 
-  downloadInvoice(customerId: string) {
-    const dialogRef = this.dialog.open(InvoiceDialogComponent, {
-      data: <InvoiceDataWrapper>{
-        customerId: customerId,
-        month: this.selectedMonth,
-        year: this.selectedYear,
-      },
-      panelClass: 'full-width-dialog',
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      const a = document.createElement('a');
-      const objectUrl = URL.createObjectURL(result.body);
-      a.href = objectUrl;
-      if (
-        result.body.type ===
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      )
-        a.download = 'invoice.xlsx';
-      else {
-        a.download = 'invoice.pdf';
-      }
-      a.click();
-    });
+  async downloadInvoice(projectId: string, customerId: string) {
+    const currentCustomerName = await this.allCustomers?.filter(
+      (customer) => customer.id === customerId
+    );
+    if (currentCustomerName) {
+      const dialogRef = this.dialog.open(InvoiceDialogComponent, {
+        data: <InvoiceDataWrapper>{
+          customerId: projectId,
+          month: this.selectedMonth,
+          year: this.selectedYear,
+          customerName: currentCustomerName[0].customerName,
+        },
+        panelClass: 'full-width-dialog',
+      });
+      dialogRef.afterClosed().subscribe((result: any) => {
+        const a = document.createElement('a');
+        const objectUrl = URL.createObjectURL(result.response.body);
+        a.href = objectUrl;
+        if (
+          result.response.body.type ===
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+          a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
+        else {
+          a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
+        }
+        a.click();
+      });
+    }
   }
 
   getAllProjects() {
@@ -131,7 +137,16 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
       });
   }
 
+  preselectMonthAndYear() {
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    this.selectedMonth = (month + 1).toString();
+    this.selectedYear = year.toString();
+  }
+
   ngOnInit(): void {
+    this.preselectMonthAndYear();
     this.getAllCustomers();
     this.getAllProjects();
   }

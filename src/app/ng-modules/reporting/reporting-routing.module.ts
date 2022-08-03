@@ -11,9 +11,13 @@ import { ProjectPageComponent } from './components/project-page/project-page.com
 import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-dashboard-page.component';
 import { FirstUserPageComponent } from '../auth/first-user-page/first-user-page.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
+import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
 
 const routes: Routes = [
-  { path: 'activity/:id', component: ActivityPageComponent },
+  {
+    path: 'activity/:id',
+    component: ActivityPageComponent,
+  },
   {
     path: 'user',
     component: UserPageComponent,
@@ -52,8 +56,12 @@ const routes: Routes = [
     component: FirstUserPageComponent,
   },
   {
+    path: 'settings',
+    component: UserSettingsPageComponent,
+  },
+  {
     path: '',
-    redirectTo: 'activity/:id',
+    redirectTo: 'admin-dashboard',
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
