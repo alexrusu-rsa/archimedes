@@ -28,7 +28,6 @@ import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +46,7 @@ import { UserDashboardComponent } from './ng-modules/reporting/components/user-d
     AdminDashboardPageComponent,
     RateDialogComponent,
     FirstUserPageComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,

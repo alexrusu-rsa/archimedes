@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.localStorageService.role = response.role;
         this.localStorageService.userId = response.userId;
         const userId = response.userId;
+        if()
         this.router.navigate(['reporting/dashboard']);
       });
   }

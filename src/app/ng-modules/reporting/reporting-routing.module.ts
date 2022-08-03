@@ -46,7 +46,6 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: UserDashboardComponent,
-    canActivate: [RoleGuard],
   },
   {
     path: 'first-user-page',
