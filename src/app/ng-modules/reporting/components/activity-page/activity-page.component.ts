@@ -16,6 +16,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { throws } from 'assert';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-activity-page',
@@ -39,6 +40,9 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   allCustomersSub?: Subscription;
   allProjectsSub?: Subscription;
 
+  activitiesToDisplay?: Activity[];
+  selectedFilterProjectId?: string;
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -53,6 +57,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getCustomers();
     this.getProjects();
+
     const userId = this.activeRoute.snapshot.paramMap.get('id');
     if (userId)
       this.getUserSub = this.userService
@@ -62,6 +67,10 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           this.selectedDate = new Date();
           this.dateChanges();
         });
+  }
+
+  setValueOfSelectedProject(event: MatSelectChange) {
+    this.selectedFilterProjectId = event.value;
   }
 
   dateChanges() {

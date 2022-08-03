@@ -87,7 +87,6 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
     this.customerName = this.invoiceDataWrapper.customerName;
-    console.log(this.invoiceDataWrapper);
     this.invoiceForm = new FormGroup({
       invoiceNumber: new FormControl(this.invoiceNr, [
         Validators.required,
