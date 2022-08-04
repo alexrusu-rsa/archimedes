@@ -26,12 +26,11 @@ import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashbo
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
-import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-page/user-settings-page.component';
 import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
-import { FilterprojectPipe } from './pipes/filterproject.pipe';
+import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -51,11 +50,11 @@ import { FilterprojectPipe } from './pipes/filterproject.pipe';
     AdminDashboardPageComponent,
     RateDialogComponent,
     FirstUserPageComponent,
-    UserDashboardComponent,
     UserSettingsPageComponent,
     DuplicateActivityDialogComponent,
     DeleteConfirmationDialogComponent,
     NewUserDialogComponent,
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,
