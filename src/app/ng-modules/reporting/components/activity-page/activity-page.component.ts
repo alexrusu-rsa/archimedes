@@ -48,6 +48,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   currentEmployeeCommitmentSub?: Subscription;
 
   timeBookedContainerColor?: string;
+  subscriptions?: Subscription[];
 
   constructor(
     @Inject(ActivatedRoute)
@@ -75,22 +76,21 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           this.selectedDate = new Date();
           this.dateChanges();
         });
+      this.subscriptions?.push(this.getUserSub);
     }
   }
 
-  computeTimeBookedCardColor(totalTimeBooked: string) {
-    const totalTimeBookedHoursNumber = parseInt(totalTimeBooked.split('.')[0]);
-    const totalTimeBookedMinutes = parseInt(totalTimeBooked.split('.')[1]);
-    if (totalTimeBookedHoursNumber === 0 && totalTimeBookedMinutes === 0) {
+  computeTimeBookedCardColor(hours: string, minutes: string) {
+    if (parseInt(hours) === 0 && parseInt(minutes) === 0) {
       this.timeBookedContainerColor = 'red';
       return;
     }
-    if (totalTimeBookedHoursNumber < this.currentEmployeeCommitment!) {
+    if (parseInt(hours) < this.currentEmployeeCommitment!) {
       this.timeBookedContainerColor = 'orange';
       return;
     }
 
-    if (totalTimeBookedHoursNumber >= this.currentEmployeeCommitment!) {
+    if (parseInt(hours) >= this.currentEmployeeCommitment!) {
       this.timeBookedContainerColor = 'green';
       return;
     }
@@ -102,6 +102,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       .subscribe((result: Rate) => {
         this.currentEmployeeCommitment = result.employeeTimeCommitement;
       });
+    this.subscriptions?.push(this.currentEmployeeCommitmentSub);
   }
 
   setValueOfSelectedProject(event: MatSelectChange) {
@@ -122,6 +123,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
             this.activitiesOfTheDay = response;
             this.getTotalTimeBookedToday();
           });
+      this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
   }
 
@@ -140,6 +142,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
               );
               this.getTotalTimeBookedToday();
             });
+        this.subscriptions?.push(this.deleteActivitySub!);
       }
     });
   }
@@ -176,7 +179,10 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes - hours * 60;
-    this.computeTimeBookedCardColor(`${hours}.${remainingMinutes}`);
+    this.computeTimeBookedCardColor(
+      hours.toString(),
+      remainingMinutes.toString()
+    );
     return ` ${hours}.${remainingMinutes}`;
   }
 
@@ -186,6 +192,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.allCustomers = result;
       });
+    this.subscriptions?.push(this.allCustomersSub);
   }
   getProjects() {
     this.allProjectsSub = this.projectService
@@ -193,6 +200,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.allProjects = result;
       });
+    this.subscriptions?.push(this.allProjectsSub);
   }
 
   addNewActivity() {
@@ -262,11 +270,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.activitiesOfTheDaySub?.unsubscribe();
-    this.deleteActivitySub?.unsubscribe();
-    this.getUserSub?.unsubscribe();
-    this.allCustomersSub?.unsubscribe();
-    this.allProjectsSub?.unsubscribe();
-    this.currentEmployeeCommitmentSub?.unsubscribe();
+    this.subscriptions?.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 }
