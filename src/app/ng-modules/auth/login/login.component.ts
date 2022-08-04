@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (response.role === 'admin') {
           this.router.navigate(['reporting/admin-dashboard/']);
         } else {
-          this.router.navigate(['reporting/dashboard/', userId]);
+          this.router.navigate(['reporting/dashboard/']);
         }
       });
   }
