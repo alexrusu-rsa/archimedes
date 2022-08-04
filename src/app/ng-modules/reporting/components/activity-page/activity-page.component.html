@@ -15,9 +15,13 @@
   </mat-form-field>
 
   <div class="right-side">
-    <mat-card class="time-booked-card">
+    <mat-card
+      class="time-booked-card"
+      [ngStyle]="{ 'background-color': timeBookedContainerColor}"
+    >
       <mat-card-subtitle
-        >Time booked: <strong>{{ totalTimeBooked }}</strong></mat-card-subtitle
+        >Time booked: <strong>{{ totalTimeBooked }}</strong
+        >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
       >
     </mat-card>
 

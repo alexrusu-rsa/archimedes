@@ -17,7 +17,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { throws } from 'assert';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { MatSelectChange } from '@angular/material/select';
-
+import { RateService } from 'src/app/services/rate.service';
+import { Rate } from '../../../../models/rate';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -43,6 +44,11 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   activitiesToDisplay?: Activity[];
   selectedFilterProjectId?: string;
 
+  currentEmployeeCommitment?: number;
+  currentEmployeeCommitmentSub?: Subscription;
+
+  timeBookedContainerColor?: string;
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -51,7 +57,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     public datepipe: DatePipe,
     public dialog: MatDialog,
     private customerService: CustomerService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private rateService: RateService
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +66,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.getProjects();
 
     const userId = this.activeRoute.snapshot.paramMap.get('id');
-    if (userId)
+    if (userId) {
+      this.getCurrentEmployeeCommitment(userId);
       this.getUserSub = this.userService
         .getUser(userId)
         .subscribe((result: User) => {
@@ -67,6 +75,33 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           this.selectedDate = new Date();
           this.dateChanges();
         });
+    }
+  }
+
+  computeTimeBookedCardColor(totalTimeBooked: string) {
+    const totalTimeBookedHoursNumber = parseInt(totalTimeBooked.split('.')[0]);
+    const totalTimeBookedMinutes = parseInt(totalTimeBooked.split('.')[1]);
+    if (totalTimeBookedHoursNumber === 0 && totalTimeBookedMinutes === 0) {
+      this.timeBookedContainerColor = 'red';
+      return;
+    }
+    if (totalTimeBookedHoursNumber < this.currentEmployeeCommitment!) {
+      this.timeBookedContainerColor = 'orange';
+      return;
+    }
+
+    if (totalTimeBookedHoursNumber >= this.currentEmployeeCommitment!) {
+      this.timeBookedContainerColor = 'green';
+      return;
+    }
+  }
+
+  getCurrentEmployeeCommitment(employeeId: string) {
+    this.currentEmployeeCommitmentSub = this.rateService
+      .getRateForEmployeeId(employeeId)
+      .subscribe((result: Rate) => {
+        this.currentEmployeeCommitment = result.employeeTimeCommitement;
+      });
   }
 
   setValueOfSelectedProject(event: MatSelectChange) {
@@ -141,7 +176,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes - hours * 60;
-    return ` ${hours}h ${remainingMinutes}min`;
+    this.computeTimeBookedCardColor(`${hours}.${remainingMinutes}`);
+    return ` ${hours}.${remainingMinutes}`;
   }
 
   getCustomers() {
@@ -231,5 +267,6 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.getUserSub?.unsubscribe();
     this.allCustomersSub?.unsubscribe();
     this.allProjectsSub?.unsubscribe();
+    this.currentEmployeeCommitmentSub?.unsubscribe();
   }
 }
