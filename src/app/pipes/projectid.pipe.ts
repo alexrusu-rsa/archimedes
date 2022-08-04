@@ -6,8 +6,11 @@ import { Project } from '../models/project';
 })
 export class ProjectidPipe implements PipeTransform {
   transform(id: string, projects: Project[]): string {
-    const matchingProject = projects.filter((project) => project.id === id);
-    if (matchingProject) return matchingProject[0].projectName;
+    if (projects) {
+      const matchingProject = projects.filter((project) => project.id === id);
+      if (matchingProject) return matchingProject[0].projectName;
+      return id;
+    }
     return id;
   }
 }
