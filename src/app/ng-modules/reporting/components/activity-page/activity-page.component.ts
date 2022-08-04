@@ -17,7 +17,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { throws } from 'assert';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { MatSelectChange } from '@angular/material/select';
-
+import { RateService } from 'src/app/services/rate.service';
+import { Rate } from '../../../../models/rate';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -43,6 +44,12 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   activitiesToDisplay?: Activity[];
   selectedFilterProjectId?: string;
 
+  currentEmployeeCommitment?: number;
+  currentEmployeeCommitmentSub?: Subscription;
+
+  timeBookedContainerColor?: string;
+  subscriptions?: Subscription[];
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -51,7 +58,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     public datepipe: DatePipe,
     public dialog: MatDialog,
     private customerService: CustomerService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private rateService: RateService
   ) {}
 
   ngOnInit(): void {
@@ -59,7 +67,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.getProjects();
 
     const userId = this.activeRoute.snapshot.paramMap.get('id');
-    if (userId)
+    if (userId) {
+      this.getCurrentEmployeeCommitment(userId);
       this.getUserSub = this.userService
         .getUser(userId)
         .subscribe((result: User) => {
@@ -67,6 +76,33 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           this.selectedDate = new Date();
           this.dateChanges();
         });
+      this.subscriptions?.push(this.getUserSub);
+    }
+  }
+
+  computeTimeBookedCardColor(hours: string, minutes: string) {
+    if (parseInt(hours) === 0 && parseInt(minutes) === 0) {
+      this.timeBookedContainerColor = 'red';
+      return;
+    }
+    if (parseInt(hours) < this.currentEmployeeCommitment!) {
+      this.timeBookedContainerColor = 'orange';
+      return;
+    }
+
+    if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+      this.timeBookedContainerColor = 'green';
+      return;
+    }
+  }
+
+  getCurrentEmployeeCommitment(employeeId: string) {
+    this.currentEmployeeCommitmentSub = this.rateService
+      .getRateForEmployeeId(employeeId)
+      .subscribe((result: Rate) => {
+        this.currentEmployeeCommitment = result.employeeTimeCommitement;
+      });
+    this.subscriptions?.push(this.currentEmployeeCommitmentSub);
   }
 
   setValueOfSelectedProject(event: MatSelectChange) {
@@ -87,6 +123,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
             this.activitiesOfTheDay = response;
             this.getTotalTimeBookedToday();
           });
+      this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
   }
 
@@ -105,6 +142,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
               );
               this.getTotalTimeBookedToday();
             });
+        this.subscriptions?.push(this.deleteActivitySub!);
       }
     });
   }
@@ -141,7 +179,11 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes - hours * 60;
-    return ` ${hours}h ${remainingMinutes}min`;
+    this.computeTimeBookedCardColor(
+      hours.toString(),
+      remainingMinutes.toString()
+    );
+    return ` ${hours}.${remainingMinutes}`;
   }
 
   getCustomers() {
@@ -150,6 +192,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.allCustomers = result;
       });
+    this.subscriptions?.push(this.allCustomersSub);
   }
   getProjects() {
     this.allProjectsSub = this.projectService
@@ -157,6 +200,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.allProjects = result;
       });
+    this.subscriptions?.push(this.allProjectsSub);
   }
 
   addNewActivity() {
@@ -226,10 +270,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.activitiesOfTheDaySub?.unsubscribe();
-    this.deleteActivitySub?.unsubscribe();
-    this.getUserSub?.unsubscribe();
-    this.allCustomersSub?.unsubscribe();
-    this.allProjectsSub?.unsubscribe();
+    this.subscriptions?.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 }
