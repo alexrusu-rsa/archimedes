@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
 
@@ -7,7 +7,7 @@ import { LocalStorageService } from 'src/app/services/localstorage.service';
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.sass'],
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, OnDestroy {
   constructor(private localStorageService: LocalStorageService) {}
   currentUserIdSub?: Subscription;
   currentUserId?: string;
@@ -17,5 +17,8 @@ export class UserDashboardComponent implements OnInit {
         if (result) this.currentUserId = result;
       }
     );
+  }
+  ngOnDestroy(): void {
+    this.currentUserIdSub?.unsubscribe();
   }
 }
