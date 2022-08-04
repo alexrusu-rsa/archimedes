@@ -31,6 +31,7 @@ import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-
 import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
+import { FilterprojectPipe } from './pipes/filterproject.pipe';
 
 @NgModule({
   declarations: [
