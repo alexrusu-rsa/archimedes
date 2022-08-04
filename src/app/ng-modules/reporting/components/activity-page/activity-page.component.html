@@ -82,6 +82,11 @@
           >
         </div>
       </mat-chip-list>
+      <mat-chip-list
+        *ngIf="activity.projectId === undefined || activity.projectId === null"
+      >
+        <mat-chip> Internal </mat-chip>
+      </mat-chip-list>
     </mat-card-content>
 
     <mat-card-actions class="custom-card-actions" align="end">
