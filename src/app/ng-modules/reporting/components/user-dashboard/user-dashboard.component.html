@@ -1,0 +1,28 @@
+<mat-card-title class="page-title"> User Dashboard </mat-card-title>
+
+<div class="header-activity"></div>
+<mat-card class="card-container">
+  <div>
+    <mat-list class="container">
+      <mat-card
+        mat-list-item
+        class="dashboard-button secondary-card"
+        routerLink="../../reporting/activity/{{ this.currentUserId }}"
+      >
+        <mat-icon>event_note</mat-icon>
+        <a class="button-title"> Activities </a>
+      </mat-card>
+      <mat-card
+        mat-list-item
+        class="dashboard-button secondary-card"
+        routerLink="../../reporting/settings"
+      >
+        <mat-icon>settings</mat-icon>
+        <a class="button-title"> Settings </a>
+      </mat-card>
+    </mat-list>
+  </div>
+  <div>
+    <mat-list class="container"> </mat-list>
+  </div>
+</mat-card>
