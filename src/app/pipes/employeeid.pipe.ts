@@ -6,9 +6,13 @@ import { User } from '../models/user';
 })
 export class EmployeeidPipe implements PipeTransform {
   transform(id: string, users: User[]): string {
-    const matchingUser = users.filter((user) => user.id === id);
-    if (matchingUser[0].name && matchingUser[0].surname)
-      return `${matchingUser[0].name} ${matchingUser[0].surname}`;
+    if (id && users) {
+      const matchingUser = users.find((user) => user.id === id);
+      if (matchingUser)
+        if (matchingUser.name && matchingUser.surname)
+          return `${matchingUser.name} ${matchingUser.surname}`;
+      return 'could not find user name;';
+    }
     return id;
   }
 }
