@@ -15,9 +15,13 @@
   </mat-form-field>
 
   <div class="right-side">
-    <mat-card class="time-booked-card">
+    <mat-card
+      class="time-booked-card"
+      [ngStyle]="{ 'background-color': timeBookedContainerColor}"
+    >
       <mat-card-subtitle
-        >Time booked: <strong>{{ totalTimeBooked }}</strong></mat-card-subtitle
+        >Time booked: <strong>{{ totalTimeBooked }}</strong
+        >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
       >
     </mat-card>
 
@@ -36,9 +40,32 @@
     >Activities of selected day</mat-card-title
   >
 
+  <mat-card class="secondary-card">
+    <mat-card-title> Filters </mat-card-title>
+    <mat-label>Filter by project</mat-label>
+    <mat-form-field>
+      <mat-select
+        (selectionChange)="setValueOfSelectedProject($event)"
+        [(ngModel)]="selectedFilterProjectId"
+      >
+        <mat-option [value]="null"> All projects </mat-option>
+        <mat-option
+          *ngFor="let project of allProjects"
+          [value]="project.id"
+          required="true"
+          ngDefaultControl
+        >
+          {{ project.projectName }}
+        </mat-option>
+      </mat-select></mat-form-field
+    >
+  </mat-card>
   <mat-card
     class="secondary-card"
-    *ngFor="let activity of sortActivitiesByStart(activitiesOfTheDay)"
+    *ngFor="
+      let activity of sortActivitiesByStart(activitiesOfTheDay)
+        | filterproject: selectedFilterProjectId!
+    "
   >
     <mat-card-title>{{ activity.name }}</mat-card-title>
     <mat-card-subtitle>
@@ -59,6 +86,11 @@
           >
         </div>
       </mat-chip-list>
+      <mat-chip-list
+        *ngIf="activity.projectId === undefined || activity.projectId === null"
+      >
+        <mat-chip> Internal </mat-chip>
+      </mat-chip-list>
     </mat-card-content>
 
     <mat-card-actions class="custom-card-actions" align="end">
@@ -78,7 +110,6 @@
       </button>
     </mat-card-actions>
   </mat-card>
-
   <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
     <mat-icon color="accent">add_box</mat-icon>
   </button>

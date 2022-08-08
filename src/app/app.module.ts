@@ -30,6 +30,7 @@ import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-
 import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
+import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { NewUserDialogComponent } from './ng-modules/reporting/components/new-us
     DuplicateActivityDialogComponent,
     DeleteConfirmationDialogComponent,
     NewUserDialogComponent,
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,

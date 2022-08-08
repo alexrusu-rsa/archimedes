@@ -18,7 +18,7 @@
           hasToken !== undefined &&
           (!isAdmin || isAdmin === undefined)
         "
-        routerLink="reporting/activity/{{ this.currentUserId }}"
+        routerLink="reporting/dashboard"
         (click)="sidenav.close()"
         i18n="@@menu-home-button"
         >Home</a
@@ -39,6 +39,22 @@
         (click)="sidenav.close()"
         >Activities</a
       >
+      <a
+        *ngIf="isAdmin && isAdmin !== undefined"
+        mat-list-item
+        routerLink="reporting/admin-dashboard"
+        (click)="sidenav.close()"
+        >Home</a
+      >
+
+      <a
+        mat-list-item
+        *ngIf="hasToken === true && hasToken !== undefined"
+        routerLink="reporting/activity/{{ this.currentUserId }}"
+        (click)="sidenav.close()"
+        >Activities</a
+      >
+
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
