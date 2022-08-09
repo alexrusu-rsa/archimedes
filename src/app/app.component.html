@@ -39,17 +39,14 @@
         (click)="sidenav.close()"
         >Activities</a
       >
-      <a
-        *ngIf="isAdmin && isAdmin !== undefined"
-        mat-list-item
-        routerLink="reporting/admin-dashboard"
-        (click)="sidenav.close()"
-        >Home</a
-      >
 
       <a
         mat-list-item
-        *ngIf="hasToken === true && hasToken !== undefined"
+        *ngIf="
+          hasToken === true &&
+          hasToken !== undefined &&
+          (!isAdmin || isAdmin === undefined)
+        "
         routerLink="reporting/activity/{{ this.currentUserId }}"
         (click)="sidenav.close()"
         >Activities</a

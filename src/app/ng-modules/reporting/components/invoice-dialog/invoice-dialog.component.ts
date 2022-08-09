@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -5,6 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
 import { CustomerService } from 'src/app/services/customer.service';
+import { StringLiteral } from 'typescript';
 
 @Component({
   selector: 'app-invoice-dialog',
@@ -15,7 +17,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public invoiceDataWrapper: InvoiceDataWrapper,
     public dialogRef: MatDialogRef<InvoiceDialogComponent>,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    public datepipe: DatePipe
   ) {}
 
   customerId?: string;
@@ -30,6 +33,10 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   customerName?: string;
   getCustomerNameSub?: Subscription;
 
+  selectedDate?: Date;
+
+  dateFormatted?: number;
+
   downloadXLSX() {
     if (this.checkAbleToRequestInvoice())
       if (this.customerId && this.invoiceNumber && this.selectedMonthYear)
@@ -39,7 +46,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             this.invoiceNumber.value,
             this.invoiceDataWrapper.month,
             this.invoiceDataWrapper.year,
-            Number(this.euroExchange?.value)
+            Number(this.euroExchange?.value),
+            this.dateFormatted!
           )
           .subscribe((response: any) => {
             this.dialogRef.close({
@@ -59,7 +67,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             this.invoiceNumber.value,
             this.invoiceDataWrapper.month,
             this.invoiceDataWrapper.year,
-            Number(this.euroExchange?.value)
+            Number(this.euroExchange?.value),
+            this.dateFormatted!
           )
           .subscribe((response: any) => {
             this.dialogRef.close({
@@ -82,7 +91,16 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
     return true;
   }
 
+  OnDateChange(event?: any) {
+    this.selectedDate = event;
+    this.dateFormatted = event.getTime();
+    console.log(this.dateFormatted);
+    console.log(this.selectedDate);
+  }
+
   ngOnInit(): void {
+    this.selectedDate = new Date();
+    this.OnDateChange(this.selectedDate);
     this.selectedMonthYear =
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
