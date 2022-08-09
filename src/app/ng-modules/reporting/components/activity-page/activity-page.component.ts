@@ -50,6 +50,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   timeBookedContainerColor?: string;
   subscriptions?: Subscription[];
 
+  projectsIdsOfCurrentDayActivities?: string[];
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -78,6 +80,24 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         });
       this.subscriptions?.push(this.getUserSub);
     }
+  }
+
+  getIdsOfProjectsOfTodayActivities() {
+    const notUniqueProjectIds: string[] = [];
+    this.activitiesOfTheDay.forEach((activity) => {
+      if (activity.projectId) notUniqueProjectIds.push(activity.projectId);
+    });
+    const uniqueProjectIds = [...new Set(notUniqueProjectIds)];
+    this.projectsIdsOfCurrentDayActivities = uniqueProjectIds;
+  }
+
+  groupActivitiesOnProjects() {
+    const activitiesOnProjects: Activity[][] = [];
+    this.projectsIdsOfCurrentDayActivities?.forEach((projectId) => {
+      this.activitiesOfTheDay.filter(
+        (activity) => activity.projectId === projectId
+      );
+    });
   }
 
   computeTimeBookedCardColor(hours: string, minutes: string) {
@@ -121,6 +141,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
           .subscribe((response) => {
             this.activitiesOfTheDay = response;
+            this.getIdsOfProjectsOfTodayActivities();
             this.getTotalTimeBookedToday();
           });
       this.subscriptions?.push(this.activitiesOfTheDaySub!);
