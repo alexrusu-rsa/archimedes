@@ -20,6 +20,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate.service';
 import { Rate } from '../../../../models/rate';
 import { createKeywordTypeNode } from 'typescript';
+import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -52,6 +53,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   subscriptions?: Subscription[];
 
   projectsIdsOfCurrentDayActivities?: string[];
+
+  projectsOfCurrentDayAndActivities?: ProjectIdActivities[] = [];
 
   constructor(
     @Inject(ActivatedRoute)
@@ -92,13 +95,27 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.projectsIdsOfCurrentDayActivities = uniqueProjectIds;
   }
 
-  groupActivitiesOnProjects() {
-    const activitiesOnProjects: Activity[][] = [];
-    this.projectsIdsOfCurrentDayActivities?.forEach((projectId) => {
-      this.activitiesOfTheDay.filter(
-        (activity) => activity.projectId === projectId
+  sortActivitiesOnEachIndividualProject() {
+    this.projectsOfCurrentDayAndActivities?.forEach((project) => {
+      project.activitiesWithProjectId = this.sortActivitiesByStart(
+        project.activitiesWithProjectId
       );
     });
+  }
+
+  groupActivitiesOnProjectsUsingProjecIdActivitiesModel() {
+    if (this.projectsIdsOfCurrentDayActivities)
+      this.projectsIdsOfCurrentDayActivities.forEach((projectId) => {
+        const activitiesOfCurrentProject = this.activitiesOfTheDay.filter(
+          (activity) => activity.projectId === projectId
+        );
+        if (activitiesOfCurrentProject) {
+          this.projectsOfCurrentDayAndActivities?.push(<ProjectIdActivities>{
+            projectId: projectId,
+            activitiesWithProjectId: activitiesOfCurrentProject,
+          });
+        }
+      });
   }
 
   computeTimeBookedCardColor(hours: string, minutes: string) {
@@ -135,6 +152,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       this.selectedDate,
       'dd/MM/yyyy'
     );
+    this.projectsOfCurrentDayAndActivities = [];
     if (dateFormatted) {
       this.daySelected = dateFormatted;
       if (this.user?.id)
@@ -144,6 +162,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
             this.activitiesOfTheDay = response;
             this.getIdsOfProjectsOfTodayActivities();
             this.getTotalTimeBookedToday();
+            this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
           });
       this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
@@ -164,6 +183,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
               );
               this.getTotalTimeBookedToday();
               this.getIdsOfProjectsOfTodayActivities();
+              this.projectsOfCurrentDayAndActivities = [];
+              this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
             });
         this.subscriptions?.push(this.deleteActivitySub!);
       }
@@ -243,6 +264,31 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       if (newActivity) this.activitiesOfTheDay.push(newActivity);
       this.getTotalTimeBookedToday();
       this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+    });
+  }
+
+  addActivityOnCertainProject(projectId: string) {
+    const dateToSend = this.datepipe.transform(
+      this.selectedDate?.toString(),
+      'dd/MM/yyyy'
+    );
+    const dialogRef = this.dialog.open(ActivityDialogComponent, {
+      data: <UserDateActivity>{
+        employeeId: this.user?.id,
+        date: dateToSend,
+        projectId: projectId,
+      },
+      panelClass: 'full-width-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
+      this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
     });
   }
 
@@ -262,6 +308,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(() => {
       this.getTotalTimeBookedToday();
       this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
     });
   }
 
