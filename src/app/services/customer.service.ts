@@ -101,7 +101,6 @@ export class CustomerService {
     euroExchange: number,
     dateFormatted: number
   ) {
-    console.log(dateFormatted);
     return this.httpClient.get(
       this.customersUrl +
         `/invoice/pdf/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}`,
@@ -117,7 +116,6 @@ export class CustomerService {
     euroExchange: number,
     dateFormatted: number
   ) {
-    console.log(dateFormatted);
     return this.httpClient.get(
       this.customersUrl +
         `/invoice/xlsx/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}`,
