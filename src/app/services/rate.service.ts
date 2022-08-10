@@ -69,13 +69,13 @@ export class RateService {
       );
   }
 
-  getRateForEmployeeId(employeeId: string): Observable<Rate> {
+  getRateForEmployeeId(employeeId: string): Observable<Rate[]> {
     const requestUrl = `${this.ratesUrl}/rateemployee/${employeeId}`;
     return this.httpClient
-      .get<Rate>(requestUrl)
+      .get<Rate[]>(requestUrl)
       .pipe(
         catchError(
-          this.responseHandlingService.handleError<Rate>(`get rate by id`)
+          this.responseHandlingService.handleError<Rate[]>(`get rate by id`)
         )
       );
   }
