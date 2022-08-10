@@ -163,6 +163,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
             this.getIdsOfProjectsOfTodayActivities();
             this.getTotalTimeBookedToday();
             this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+            this.sortActivitiesOnEachIndividualProject();
           });
       this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
@@ -185,6 +186,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
               this.getIdsOfProjectsOfTodayActivities();
               this.projectsOfCurrentDayAndActivities = [];
               this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+              this.sortActivitiesOnEachIndividualProject();
             });
         this.subscriptions?.push(this.deleteActivitySub!);
       }
@@ -266,6 +268,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       this.getIdsOfProjectsOfTodayActivities();
       this.projectsOfCurrentDayAndActivities = [];
       this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
     });
   }
 
@@ -289,6 +292,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       this.getIdsOfProjectsOfTodayActivities();
       this.projectsOfCurrentDayAndActivities = [];
       this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
     });
   }
 
@@ -310,6 +314,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       this.getIdsOfProjectsOfTodayActivities();
       this.projectsOfCurrentDayAndActivities = [];
       this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
     });
   }
 
