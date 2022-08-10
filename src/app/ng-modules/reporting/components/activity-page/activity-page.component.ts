@@ -19,6 +19,7 @@ import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate.service';
 import { Rate } from '../../../../models/rate';
+import { createKeywordTypeNode } from 'typescript';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -162,6 +163,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
                 (activity) => activity.id !== activityToDelete.id
               );
               this.getTotalTimeBookedToday();
+              this.getIdsOfProjectsOfTodayActivities();
             });
         this.subscriptions?.push(this.deleteActivitySub!);
       }
@@ -240,6 +242,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((newActivity: Activity) => {
       if (newActivity) this.activitiesOfTheDay.push(newActivity);
       this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
     });
   }
 
@@ -258,6 +261,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
     });
   }
 

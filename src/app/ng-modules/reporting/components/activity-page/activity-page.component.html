@@ -17,7 +17,7 @@
   <div class="right-side">
     <mat-card
       class="time-booked-card"
-      [ngStyle]="{ 'background-color': timeBookedContainerColor}"
+      [ngStyle]="{ 'background-color': timeBookedContainerColor }"
     >
       <mat-card-subtitle
         >Time booked: <strong>{{ totalTimeBooked }}</strong
@@ -113,4 +113,13 @@
   <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
     <mat-icon color="accent">add_box</mat-icon>
   </button>
+
+  <mat-card *ngFor="let projectId of projectsIdsOfCurrentDayActivities">
+    <mat-card-title>{{ projectId | projectid: allProjects! }}</mat-card-title>
+    <div *ngFor="let activity of activitiesOfTheDay">
+      <mat-card *ngIf="activity.projectId === projectId">
+        {{ activity.name }}
+      </mat-card>
+    </div>
+  </mat-card>
 </mat-card>
