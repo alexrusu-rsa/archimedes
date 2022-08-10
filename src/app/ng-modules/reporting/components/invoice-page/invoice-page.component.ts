@@ -65,7 +65,7 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
   selectedDate?: Date;
   selectedMonth?: string;
   selectedYear?: string;
-
+  selectedDateToDisplay?: string;
   constructor(
     private customerService: CustomerService,
     private activityService: ActivityService,
@@ -81,12 +81,17 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
     datepicker: MatDatepicker<Moment>
   ) {
     const ctrlValue = this.date.value;
+
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
 
     this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
     this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
+    this.selectedDateToDisplay = `
+      ${ctrlValue._d.toString().split(' ')[1]} ${
+      ctrlValue._d.toString().split(' ')[3]
+    }`;
     datepicker.close();
   }
 
@@ -143,6 +148,9 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
     const year = today.getFullYear();
     this.selectedMonth = (month + 1).toString();
     this.selectedYear = year.toString();
+    this.selectedDateToDisplay = `${today.toString().split(' ')[1]} ${
+      today.toString().split(' ')[3]
+    }`;
   }
 
   ngOnInit(): void {
