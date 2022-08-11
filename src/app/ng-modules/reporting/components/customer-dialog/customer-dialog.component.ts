@@ -94,7 +94,7 @@ export class CustomerDialogComponent implements OnInit {
         this.currentCustomer?.customerDirectorEmail
       ),
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
-      shortName: new FormControl(this.currentCustomer?.customerShortName),
+      shortName: new FormControl(this.currentCustomer?.shortName),
     });
   }
 

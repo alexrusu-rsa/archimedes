@@ -10,5 +10,5 @@ export interface Customer {
   customerDirectorTel: string;
   customerDirectorEmail: string;
   internal: boolean;
-  customerShortName: string;
+  shortName: string;
 }
