@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity.service';
 import { DateFormatService } from 'src/app/services/date-format.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     private dateFormatService: DateFormatService,
     private activityService: ActivityService,
     private projectService: ProjectService,
+    private localStorageService: LocalStorageService,
     @Inject(MAT_DIALOG_DATA) public userDateActivity: UserDateActivity
   ) {}
 
@@ -58,15 +60,28 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
 
   getProjects() {
-    this.getProjectsSub = this.projectService
-      .getProjects()
-      .subscribe((result) => {
-        this.projects = result;
-        this.filteredProjects = this.projectName?.valueChanges.pipe(
-          startWith(''),
-          map((value) => this.filter(value))
-        );
-      });
+    if (this.localStorageService.role === 'admin') {
+      this.getProjectsSub = this.projectService
+        .getProjects()
+        .subscribe((result) => {
+          this.projects = result;
+          this.filteredProjects = this.projectName?.valueChanges.pipe(
+            startWith(''),
+            map((value) => this.filter(value))
+          );
+        });
+    } else {
+      if (this.localStorageService.userId)
+        this.getProjectsSub = this.projectService
+          .getProjectsUser(this.localStorageService.userId)
+          .subscribe((result) => {
+            this.projects = result;
+            this.filteredProjects = this.projectName?.valueChanges.pipe(
+              startWith(''),
+              map((value) => this.filter(value))
+            );
+          });
+    }
   }
   onSelectionChange(event: any) {
     const selectedProjectId = this.projects?.find(

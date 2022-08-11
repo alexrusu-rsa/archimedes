@@ -19,6 +19,8 @@ import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate.service';
 import { Rate } from '../../../../models/rate';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
+import e from 'express';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -59,7 +61,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private customerService: CustomerService,
     private projectService: ProjectService,
-    private rateService: RateService
+    private rateService: RateService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -195,12 +198,23 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.subscriptions?.push(this.allCustomersSub);
   }
   getProjects() {
-    this.allProjectsSub = this.projectService
-      .getProjects()
-      .subscribe((result) => {
-        this.allProjects = result;
-      });
-    this.subscriptions?.push(this.allProjectsSub);
+    if (this.localStorageService.role === 'admin') {
+      this.allProjectsSub = this.projectService
+        .getProjects()
+        .subscribe((result) => {
+          this.allProjects = result;
+        });
+      this.subscriptions?.push(this.allProjectsSub);
+    } else {
+      if (this.localStorageService.userId) {
+        this.allProjectsSub = this.projectService
+          .getProjectsUser(this.localStorageService.userId)
+          .subscribe((result) => {
+            this.allProjects = result;
+          });
+        this.subscriptions?.push(this.allProjectsSub);
+      }
+    }
   }
 
   addNewActivity() {
