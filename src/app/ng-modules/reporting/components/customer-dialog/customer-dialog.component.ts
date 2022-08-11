@@ -94,6 +94,7 @@ export class CustomerDialogComponent implements OnInit {
         this.currentCustomer?.customerDirectorEmail
       ),
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
+      shortName: new FormControl(this.currentCustomer?.customerShortName),
     });
   }
 
@@ -123,5 +124,8 @@ export class CustomerDialogComponent implements OnInit {
   }
   get directorTel() {
     return this.addCustomerForm?.get('directorTel');
+  }
+  get shortName() {
+    return this.addCustomerForm?.get('shortName');
   }
 }

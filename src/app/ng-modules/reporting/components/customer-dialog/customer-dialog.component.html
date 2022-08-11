@@ -6,24 +6,23 @@
   >
   <mat-dialog-content *ngIf="currentCustomer && customer === null">
     <form [formGroup]="addCustomerForm!" (keyup.enter)="addCustomer()">
-      <mat-form-field class="first-form-field" appearance="fill">
-        <mat-label i18n="@@customer-dialog-customerName"
-          >Customer Name</mat-label
-        >
-        <input
-          matInput
-          [(ngModel)]="currentCustomer.customerName"
-          type="text"
-          formControlName="name"
-          required="true"
-        />
-        <mat-hint *ngIf="name?.value === undefined || name?.value === ''"
-          >You must enter a customer name</mat-hint
-        >
-      </mat-form-field>
-
       <div class="flex-container">
         <div class="flex-child">
+          <mat-form-field class="first-form-field" appearance="fill">
+            <mat-label i18n="@@customer-dialog-customerName"
+              >Customer Name</mat-label
+            >
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.customerName"
+              type="text"
+              formControlName="name"
+              required="true"
+            />
+            <mat-hint *ngIf="name?.value === undefined || name?.value === ''"
+              >You must enter a customer name</mat-hint
+            >
+          </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label i18n="@@customer-dialog-customerCUI"
               >Customer CUI</mat-label
@@ -89,6 +88,15 @@
           </mat-form-field>
         </div>
         <div class="flex-child">
+          <mat-form-field appearance="fill">
+            <mat-label>Customer Short Name</mat-label>
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.customerShortName"
+              type="text"
+              formControlName="shortName"
+            />
+          </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label i18n="@@customer-dialog-customerCountry"
               >Customer Country</mat-label
@@ -164,20 +172,20 @@
   >
   <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
     <form [formGroup]="addCustomerForm!" (keyup.enter)="editCustomer()">
-      <mat-form-field class="first-form-field" appearance="fill">
-        <mat-label i18n="@@customer-dialog-customerName"
-          >Customer Name</mat-label
-        >
-        <input
-          matInput
-          [(ngModel)]="currentCustomer.customerName"
-          type="text"
-          formControlName="name"
-          required="true"
-        />
-      </mat-form-field>
       <div class="flex-container">
         <div class="flex-child">
+          <mat-form-field class="first-form-field" appearance="fill">
+            <mat-label i18n="@@customer-dialog-customerName"
+              >Customer Name</mat-label
+            >
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.customerName"
+              type="text"
+              formControlName="name"
+              required="true"
+            />
+          </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label i18n="@@customer-dialog-customerCUI"
               >Customer CUI</mat-label
@@ -230,6 +238,15 @@
           </mat-form-field>
         </div>
         <div class="flex-child">
+          <mat-form-field appearance="fill">
+            <mat-label>Customer Short Name</mat-label>
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.customerShortName"
+              type="text"
+              formControlName="shortName"
+            />
+          </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label i18n="@@customer-dialog-customerCountry"
               >Customer Country</mat-label
