@@ -17,7 +17,7 @@
   <div class="right-side">
     <mat-card
       class="time-booked-card"
-      [ngStyle]="{ 'background-color': timeBookedContainerColor}"
+      [ngStyle]="{ 'background-color': timeBookedContainerColor }"
     >
       <mat-card-subtitle
         >Time booked: <strong>{{ totalTimeBooked }}</strong
@@ -34,12 +34,7 @@
     </button>
   </div>
 </div>
-
-<mat-card *ngIf="user" class="card-container">
-  <mat-card-title *ngIf="daySelected" i18n="@@activity-page-title"
-    >Activities of selected day</mat-card-title
-  >
-
+<mat-card class="card-container">
   <mat-card class="secondary-card">
     <mat-card-title> Filters </mat-card-title>
     <mat-label>Filter by project</mat-label>
@@ -60,6 +55,11 @@
       </mat-select></mat-form-field
     >
   </mat-card>
+</mat-card>
+<mat-card *ngIf="user" class="card-container">
+  <mat-card-title *ngIf="daySelected" i18n="@@activity-page-title"
+    >Activities of selected day</mat-card-title
+  >
   <mat-card
     class="secondary-card"
     *ngFor="
