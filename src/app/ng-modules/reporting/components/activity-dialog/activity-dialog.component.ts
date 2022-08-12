@@ -141,6 +141,7 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
         const activity: Activity = {
           date: this.userDateActivity.date,
           employeeId: this.userDateActivity.employeeId,
+          projectId: this.userDateActivity.projectId,
         };
         this.currentActivity = activity;
       }
