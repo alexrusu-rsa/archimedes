@@ -55,6 +55,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   projectsIdsOfCurrentDayActivities?: string[];
 
   projectsOfCurrentDayAndActivities?: ProjectIdActivities[] = [];
+  currentEmployeeRates?: Rate[];
 
   constructor(
     @Inject(ActivatedRoute)
@@ -137,10 +138,18 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   getCurrentEmployeeCommitment(employeeId: string) {
     this.currentEmployeeCommitmentSub = this.rateService
       .getRateForEmployeeId(employeeId)
-      .subscribe((result: Rate) => {
-        this.currentEmployeeCommitment = result.employeeTimeCommitement;
+      .subscribe((result: Rate[]) => {
+        this.currentEmployeeRates = result;
+        this.computeCurrentEmployeTotalCommitment();
       });
     this.subscriptions?.push(this.currentEmployeeCommitmentSub);
+  }
+  computeCurrentEmployeTotalCommitment() {
+    let totalCommitment = 0;
+    this.currentEmployeeRates?.forEach((rate) => {
+      totalCommitment = totalCommitment + rate.employeeTimeCommitement!;
+    });
+    this.currentEmployeeCommitment = totalCommitment;
   }
 
   setValueOfSelectedProject(event: MatSelectChange) {
