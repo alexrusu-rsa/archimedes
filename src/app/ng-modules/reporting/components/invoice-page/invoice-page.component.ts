@@ -25,6 +25,7 @@ import {
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import e from 'express';
+import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -117,20 +118,24 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
         },
         panelClass: 'full-width-dialog',
       });
-      dialogRef.afterClosed().subscribe((result: any) => {
-        const a = document.createElement('a');
-        const objectUrl = URL.createObjectURL(result.response.body);
-        a.href = objectUrl;
-        if (
-          result.response.body.type ===
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        )
-          a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
-        else {
-          a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
-        }
-        a.click();
-      });
+      dialogRef
+        .afterClosed()
+        .subscribe((result: InvoiceDialogOnCloseResult) => {
+          if (result) {
+            const a = document.createElement('a');
+            const objectUrl = URL.createObjectURL(result.response.body);
+            a.href = objectUrl;
+            if (
+              result.response.body.type ===
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            )
+              a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
+            else {
+              a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
+            }
+            a.click();
+          }
+        });
     }
   }
 

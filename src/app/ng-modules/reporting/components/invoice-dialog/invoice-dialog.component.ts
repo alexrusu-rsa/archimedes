@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
 import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
+import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
 import { CustomerService } from 'src/app/services/customer.service';
 import { StringLiteral } from 'typescript';
 
@@ -50,7 +51,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             this.dateFormatted!
           )
           .subscribe((response: any) => {
-            this.dialogRef.close({
+            this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
               customerName: this.customerName,
               invoiceNumber: this.invoiceNumber?.value,
@@ -71,7 +72,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             this.dateFormatted!
           )
           .subscribe((response: any) => {
-            this.dialogRef.close({
+            this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
               customerName: this.customerName,
               invoiceNumber: this.invoiceNumber?.value,
@@ -94,8 +95,6 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   OnDateChange(event?: any) {
     this.selectedDate = event;
     this.dateFormatted = event.getTime();
-    console.log(this.dateFormatted);
-    console.log(this.selectedDate);
   }
 
   ngOnInit(): void {

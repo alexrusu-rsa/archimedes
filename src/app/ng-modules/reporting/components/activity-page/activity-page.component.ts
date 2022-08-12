@@ -19,6 +19,10 @@ import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate.service';
 import { Rate } from '../../../../models/rate';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
+import e from 'express';
+import { createKeywordTypeNode } from 'typescript';
+import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -50,6 +54,11 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   timeBookedContainerColor?: string;
   subscriptions?: Subscription[];
 
+  projectsIdsOfCurrentDayActivities?: string[];
+
+  projectsOfCurrentDayAndActivities?: ProjectIdActivities[] = [];
+  currentEmployeeRates?: Rate[];
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -59,7 +68,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private customerService: CustomerService,
     private projectService: ProjectService,
-    private rateService: RateService
+    private rateService: RateService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +88,38 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         });
       this.subscriptions?.push(this.getUserSub);
     }
+  }
+
+  getIdsOfProjectsOfTodayActivities() {
+    const notUniqueProjectIds: string[] = [];
+    this.activitiesOfTheDay.forEach((activity) => {
+      if (activity.projectId) notUniqueProjectIds.push(activity.projectId);
+    });
+    const uniqueProjectIds = [...new Set(notUniqueProjectIds)];
+    this.projectsIdsOfCurrentDayActivities = uniqueProjectIds;
+  }
+
+  sortActivitiesOnEachIndividualProject() {
+    this.projectsOfCurrentDayAndActivities?.forEach((project) => {
+      project.activitiesWithProjectId = this.sortActivitiesByStart(
+        project.activitiesWithProjectId
+      );
+    });
+  }
+
+  groupActivitiesOnProjectsUsingProjecIdActivitiesModel() {
+    if (this.projectsIdsOfCurrentDayActivities)
+      this.projectsIdsOfCurrentDayActivities.forEach((projectId) => {
+        const activitiesOfCurrentProject = this.activitiesOfTheDay.filter(
+          (activity) => activity.projectId === projectId
+        );
+        if (activitiesOfCurrentProject) {
+          this.projectsOfCurrentDayAndActivities?.push(<ProjectIdActivities>{
+            projectId: projectId,
+            activitiesWithProjectId: activitiesOfCurrentProject,
+          });
+        }
+      });
   }
 
   computeTimeBookedCardColor(hours: string, minutes: string) {
@@ -99,10 +141,18 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   getCurrentEmployeeCommitment(employeeId: string) {
     this.currentEmployeeCommitmentSub = this.rateService
       .getRateForEmployeeId(employeeId)
-      .subscribe((result: Rate) => {
-        this.currentEmployeeCommitment = result.employeeTimeCommitement;
+      .subscribe((result: Rate[]) => {
+        this.currentEmployeeRates = result;
+        this.computeCurrentEmployeTotalCommitment();
       });
     this.subscriptions?.push(this.currentEmployeeCommitmentSub);
+  }
+  computeCurrentEmployeTotalCommitment() {
+    let totalCommitment = 0;
+    this.currentEmployeeRates?.forEach((rate) => {
+      totalCommitment = totalCommitment + rate.employeeTimeCommitement!;
+    });
+    this.currentEmployeeCommitment = totalCommitment;
   }
 
   setValueOfSelectedProject(event: MatSelectChange) {
@@ -114,6 +164,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       this.selectedDate,
       'dd/MM/yyyy'
     );
+    this.projectsOfCurrentDayAndActivities = [];
     if (dateFormatted) {
       this.daySelected = dateFormatted;
       if (this.user?.id)
@@ -121,7 +172,10 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
           .subscribe((response) => {
             this.activitiesOfTheDay = response;
+            this.getIdsOfProjectsOfTodayActivities();
             this.getTotalTimeBookedToday();
+            this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+            this.sortActivitiesOnEachIndividualProject();
           });
       this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
@@ -141,6 +195,10 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
                 (activity) => activity.id !== activityToDelete.id
               );
               this.getTotalTimeBookedToday();
+              this.getIdsOfProjectsOfTodayActivities();
+              this.projectsOfCurrentDayAndActivities = [];
+              this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+              this.sortActivitiesOnEachIndividualProject();
             });
         this.subscriptions?.push(this.deleteActivitySub!);
       }
@@ -196,7 +254,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   }
   getProjects() {
     this.allProjectsSub = this.projectService
-      .getProjects()
+      .getProjectsUser(this.localStorageService.userId!)
       .subscribe((result) => {
         this.allProjects = result;
       });
@@ -219,6 +277,34 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((newActivity: Activity) => {
       if (newActivity) this.activitiesOfTheDay.push(newActivity);
       this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
+    });
+  }
+
+  addActivityOnCertainProject(projectId: string) {
+    const dateToSend = this.datepipe.transform(
+      this.selectedDate?.toString(),
+      'dd/MM/yyyy'
+    );
+    const dialogRef = this.dialog.open(ActivityDialogComponent, {
+      data: <UserDateActivity>{
+        employeeId: this.user?.id,
+        date: dateToSend,
+        projectId: projectId,
+      },
+      panelClass: 'full-width-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
+      this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
     });
   }
 
@@ -237,6 +323,10 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
     });
   }
 
