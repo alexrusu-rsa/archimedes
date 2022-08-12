@@ -19,6 +19,8 @@ import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate.service';
 import { Rate } from '../../../../models/rate';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
+import e from 'express';
 import { createKeywordTypeNode } from 'typescript';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 @Component({
@@ -66,7 +68,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private customerService: CustomerService,
     private projectService: ProjectService,
-    private rateService: RateService
+    private rateService: RateService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -251,7 +254,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   }
   getProjects() {
     this.allProjectsSub = this.projectService
-      .getProjects()
+      .getProjectsUser(this.localStorageService.userId!)
       .subscribe((result) => {
         this.allProjects = result;
       });
