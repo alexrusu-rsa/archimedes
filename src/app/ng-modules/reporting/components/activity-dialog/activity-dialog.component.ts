@@ -60,28 +60,15 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
 
   getProjects() {
-    if (this.localStorageService.role === 'admin') {
-      this.getProjectsSub = this.projectService
-        .getProjects()
-        .subscribe((result) => {
-          this.projects = result;
-          this.filteredProjects = this.projectName?.valueChanges.pipe(
-            startWith(''),
-            map((value) => this.filter(value))
-          );
-        });
-    } else {
-      if (this.localStorageService.userId)
-        this.getProjectsSub = this.projectService
-          .getProjectsUser(this.localStorageService.userId)
-          .subscribe((result) => {
-            this.projects = result;
-            this.filteredProjects = this.projectName?.valueChanges.pipe(
-              startWith(''),
-              map((value) => this.filter(value))
-            );
-          });
-    }
+    this.getProjectsSub = this.projectService
+      .getProjectsUser(this.localStorageService.userId!)
+      .subscribe((result) => {
+        this.projects = result;
+        this.filteredProjects = this.projectName?.valueChanges.pipe(
+          startWith(''),
+          map((value) => this.filter(value))
+        );
+      });
   }
   onSelectionChange(event: any) {
     const selectedProjectId = this.projects?.find(

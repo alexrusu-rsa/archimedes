@@ -198,23 +198,12 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.subscriptions?.push(this.allCustomersSub);
   }
   getProjects() {
-    if (this.localStorageService.role === 'admin') {
-      this.allProjectsSub = this.projectService
-        .getProjects()
-        .subscribe((result) => {
-          this.allProjects = result;
-        });
-      this.subscriptions?.push(this.allProjectsSub);
-    } else {
-      if (this.localStorageService.userId) {
-        this.allProjectsSub = this.projectService
-          .getProjectsUser(this.localStorageService.userId)
-          .subscribe((result) => {
-            this.allProjects = result;
-          });
-        this.subscriptions?.push(this.allProjectsSub);
-      }
-    }
+    this.allProjectsSub = this.projectService
+      .getProjectsUser(this.localStorageService.userId!)
+      .subscribe((result) => {
+        this.allProjects = result;
+      });
+    this.subscriptions?.push(this.allProjectsSub);
   }
 
   addNewActivity() {
