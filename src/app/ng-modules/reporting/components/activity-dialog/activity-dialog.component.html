@@ -61,6 +61,7 @@
           type="text"
           aria-label="Project"
           matInput
+          [value]="currentActivity.projectId! | projectid: projects!"
           [(ngModel)]="currentActivity.projectId"
           [matAutocomplete]="auto"
         />
@@ -193,7 +194,7 @@
           type="text"
           aria-label="Project"
           matInput
-          [value]="findProjectNameWithId(currentActivity.projectId!)"
+          [value]="currentActivity.projectId! | projectid: projects!"
           formControlName="projectName"
           [matAutocomplete]="auto"
         />
