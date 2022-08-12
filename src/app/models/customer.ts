@@ -10,4 +10,5 @@ export interface Customer {
   customerDirectorTel: string;
   customerDirectorEmail: string;
   internal: boolean;
+  shortName: string;
 }
