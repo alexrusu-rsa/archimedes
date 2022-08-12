@@ -108,7 +108,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   }
 
   groupActivitiesOnProjectsUsingProjecIdActivitiesModel() {
-    if (this.projectsIdsOfCurrentDayActivities)
+    if (this.projectsIdsOfCurrentDayActivities) {
       this.projectsIdsOfCurrentDayActivities.forEach((projectId) => {
         const activitiesOfCurrentProject = this.activitiesOfTheDay.filter(
           (activity) => activity.projectId === projectId
@@ -120,6 +120,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           });
         }
       });
+    }
   }
 
   computeTimeBookedCardColor(hours: string, minutes: string) {
@@ -157,6 +158,14 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
 
   setValueOfSelectedProject(event: MatSelectChange) {
     this.selectedFilterProjectId = event.value;
+    this.projectsOfCurrentDayAndActivities = [];
+    this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+    if (this.selectedFilterProjectId !== 'all') {
+      this.projectsOfCurrentDayAndActivities =
+        this.projectsOfCurrentDayAndActivities?.filter(
+          (entity) => entity.projectId === this.selectedFilterProjectId
+        );
+    }
   }
 
   dateChanges() {
