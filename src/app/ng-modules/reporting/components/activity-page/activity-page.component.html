@@ -60,62 +60,8 @@
       </mat-select></mat-form-field
     >
   </mat-card>
-  <!-- <mat-card
-    class="secondary-card"
-    *ngFor="
-      let activity of sortActivitiesByStart(activitiesOfTheDay)
-        | filterproject: selectedFilterProjectId!
-    "
-  >
-    <mat-card-title>{{ activity.name }}</mat-card-title>
-    <mat-card-subtitle>
-      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
-    >
-    <mat-card-content>
-      {{ activity.description }}
-      <mat-chip-list
-        *ngIf="activity.projectId !== null && activity.projectId !== ''"
-      >
-        <div>
-          <mat-chip
-            >{{
-              activity.projectId!
-                | customerfromprojectid: allProjects!:allCustomers!
-            }}
-            {{ activity.projectId! | projectid: allProjects! }}</mat-chip
-          >
-        </div>
-      </mat-chip-list>
-      <mat-chip-list
-        *ngIf="activity.projectId === undefined || activity.projectId === null"
-      >
-        <mat-chip> Internal </mat-chip>
-      </mat-chip-list>
-    </mat-card-content>
-
-    <mat-card-actions class="custom-card-actions" align="end">
-      <button mat-button color="accent" (click)="editActivity(activity)">
-        <mat-icon>edit</mat-icon>
-      </button>
-
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="deleteActivity(activity)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-button color="accent" (click)="duplicateActivity(activity)">
-        <mat-icon>control_point_duplicate</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card> -->
-  <!-- <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
-    <mat-icon color="accent">add_box</mat-icon>
-  </button> -->
 </mat-card>
 
-<!-- NEW PAGE CONTENT-->
 <mat-card
   class="card-container"
   *ngFor="let project of projectsOfCurrentDayAndActivities"
@@ -178,4 +124,3 @@
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>
-<!-- END NEW PAGE CONTENT-->
