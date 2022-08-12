@@ -19,7 +19,6 @@
   <mat-card class="secondary-card" *ngFor="let project of allProjects">
     <mat-card-subtitle
       *ngIf="selectedMonth && selectedYear"
-      i18n="@@invoice-page-project-date"
       >{{ selectedDateToDisplay }}</mat-card-subtitle
     >
     <mat-card-title>{{ project.projectName }}</mat-card-title>
