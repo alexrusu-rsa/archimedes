@@ -115,6 +115,7 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
           month: this.selectedMonth,
           year: this.selectedYear,
           customerName: currentCustomerName[0].customerName,
+          customerShortName: currentCustomerName[0].shortName,
         },
         panelClass: 'full-width-dialog',
       });
@@ -128,9 +129,13 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
             if (
               result.response.body.type ===
               'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            )
+            ) {
+              if (result.customerShortName)
+                a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.xlsx`;
               a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
-            else {
+            } else {
+              if (result.customerShortName)
+                a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.pdf`;
               a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
             }
             a.click();

@@ -33,7 +33,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   invoiceForm?: FormGroup;
   customerName?: string;
   getCustomerNameSub?: Subscription;
-
+  customerShortname?: string;
   selectedDate?: Date;
 
   dateFormatted?: number;
@@ -55,6 +55,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
               response: response,
               customerName: this.customerName,
               invoiceNumber: this.invoiceNumber?.value,
+              customerShortName: this.customerShortname,
             });
           });
   }
@@ -76,6 +77,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
               response: response,
               customerName: this.customerName,
               invoiceNumber: this.invoiceNumber?.value,
+              customerShortName: this.customerShortname,
             });
           });
       }
@@ -100,10 +102,14 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.selectedDate = new Date();
     this.OnDateChange(this.selectedDate);
+    if (this.invoiceDataWrapper.customerShortName) {
+      this.customerShortname = this.invoiceDataWrapper.customerShortName;
+    }
     this.selectedMonthYear =
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
     this.customerName = this.invoiceDataWrapper.customerName;
+
     this.invoiceForm = new FormGroup({
       invoiceNumber: new FormControl(this.invoiceNr, [
         Validators.required,
