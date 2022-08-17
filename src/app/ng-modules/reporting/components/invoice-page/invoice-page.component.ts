@@ -85,7 +85,6 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
 
     ctrlValue!.month(normalizedMonthAndYear.month());
     ctrlValue!.year(normalizedMonthAndYear.year());
-    // console.log(ctrlValue?.toString());
 
     this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
     this.selectedYear = normalizedMonthAndYear.year().toString();
