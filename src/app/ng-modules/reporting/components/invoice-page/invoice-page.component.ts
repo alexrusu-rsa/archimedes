@@ -83,15 +83,15 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
   ) {
     const ctrlValue = this.date.value;
 
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
+    ctrlValue!.month(normalizedMonthAndYear.month());
+    ctrlValue!.year(normalizedMonthAndYear.year());
 
     this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
     this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
     this.selectedDateToDisplay = `
-      ${ctrlValue._d.toString().split(' ')[1]} ${
-      ctrlValue._d.toString().split(' ')[3]
+      ${ctrlValue!._d.toString().split(' ')[1]} ${
+      ctrlValue!._d.toString().split(' ')[3]
     }`;
     datepicker.close();
   }
