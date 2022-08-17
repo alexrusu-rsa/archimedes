@@ -105,7 +105,6 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
     if (this.invoiceDataWrapper.customerShortName) {
       this.customerShortname = this.invoiceDataWrapper.customerShortName;
     }
-    console.log(this.customerShortname);
     this.selectedMonthYear =
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;

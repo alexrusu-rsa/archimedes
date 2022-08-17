@@ -109,7 +109,6 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
       (customer) => customer.id === customerId
     );
     if (currentCustomerName) {
-      console.log(currentCustomerName[0].shortName);
       const dialogRef = this.dialog.open(InvoiceDialogComponent, {
         data: <InvoiceDataWrapper>{
           customerId: projectId,
@@ -124,7 +123,6 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
         .afterClosed()
         .subscribe((result: InvoiceDialogOnCloseResult) => {
           if (result) {
-            console.log(result.customerShortName);
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(result.response.body);
             a.href = objectUrl;
