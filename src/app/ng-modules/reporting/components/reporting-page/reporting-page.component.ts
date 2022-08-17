@@ -20,7 +20,6 @@ import { UserService } from 'src/app/services/user.service';
 import { MatSelectChange } from '@angular/material/select';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
-import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 
 export const MY_FORMATS = {
   parse: {
