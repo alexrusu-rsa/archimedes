@@ -1,0 +1,28 @@
+@import 'src/styles/mixins.sass'
+@import 'src/styles/variables.sass'
+
+.dialog-container
+  @include dialog-container-users-activities
+  overflow-y: auto
+
+.mat-dialog-content
+  @include mat-dialog-content-users-activities
+  overflow-y: auto
+  .mat-form-field
+    @include mat-form-field
+    width: 100%
+
+@media (max-height: 950px)
+  .mat-dialog-content
+    display: block !important
+.form-invoice
+  display: flex
+  flex-direction: column
+h3
+  text-align: center
+
+.mat-raised-button
+  @include mat-raised-button
+
+.mat-card-title
+  margin-bottom: $mat-card-title-bottom-margin
