@@ -63,7 +63,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'admin-dashboard',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
   },
 ];
 
