@@ -3,4 +3,5 @@ export interface InvoiceDataWrapper {
   month: string;
   year: string;
   customerName: string;
+  customerShortName?: string;
 }
