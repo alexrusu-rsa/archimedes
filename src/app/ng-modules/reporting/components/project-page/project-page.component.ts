@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
+import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { domainToASCII } from 'url';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
@@ -16,20 +18,26 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   allProjects?: Project[];
   allProjectsSubscription?: Subscription;
   deleteProjectSubscription?: Subscription;
+  allCustomersSubscription?: Subscription;
   projects?: Project[];
+  allCustomers?: Customer[];
+  subscriptionArray?: Subscription[];
 
   constructor(
     private projectService: ProjectService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
     this.getProjects();
+    this.getCustomers();
   }
 
   ngOnDestroy(): void {
-    this.allProjectsSubscription?.unsubscribe();
-    this.deleteProjectSubscription?.unsubscribe();
+    this.subscriptionArray?.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 
   applyFilter(event: Event) {
@@ -40,6 +48,16 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         .includes(filterValue.trim().toLowerCase())
     );
   }
+
+  getCustomers() {
+    this.allCustomersSubscription = this.customerService
+      .getCustomers()
+      .subscribe((result) => {
+        this.allCustomers = result;
+      });
+    this.subscriptionArray?.push(this.allCustomersSubscription);
+  }
+
   getProjects() {
     this.allProjectsSubscription = this.projectService
       .getProjects()
@@ -47,6 +65,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         this.allProjects = result;
         this.projects = result;
       });
+    this.subscriptionArray?.push(this.allProjectsSubscription);
   }
 
   addProject() {
@@ -80,6 +99,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         this.deleteProjectSubscription = this.projectService
           .deleteProject(projectId)
           .subscribe();
+        this.subscriptionArray?.push(this.deleteProjectSubscription);
       }
     });
   }
