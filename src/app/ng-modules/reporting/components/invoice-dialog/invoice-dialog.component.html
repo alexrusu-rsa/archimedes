@@ -2,7 +2,7 @@
   <mat-card-title i18n="@@invoice-dialog-title"
     >Set data for invoice</mat-card-title
   >
-  <form [formGroup]="invoiceForm!">
+  <form [formGroup]="invoiceForm!" class="form-invoice">
     <mat-form-field appearance="fill">
       <mat-label>Invoice Number</mat-label>
       <input
@@ -36,19 +36,23 @@
         >Enter a value like 4.98 or 4.92394</mat-hint
       >
     </mat-form-field>
+    <mat-form-field appearance="fill" class="header-datepicker">
+      <mat-label>Invoice Emmitting Day</mat-label>
+      <input
+        matInput
+        [matDatepicker]="datePicker"
+        [(ngModel)]="selectedDate"
+        (dateInput)="OnDateChange($event.value)"
+        ngDefaultControl
+      />
+      <mat-datepicker-toggle
+        [for]="datePicker"
+        matSuffix
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datePicker touchUi></mat-datepicker>
+    </mat-form-field>
   </form>
-  <mat-form-field appearance="fill" class="header-datepicker">
-    <mat-label>Invoice Emmitting Day</mat-label>
-    <input
-      matInput
-      [matDatepicker]="datePicker"
-      [(ngModel)]="selectedDate"
-      (dateInput)="OnDateChange($event.value)"
-      ngDefaultControl
-    />
-    <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
-    <mat-datepicker #datePicker touchUi></mat-datepicker>
-  </mat-form-field>
+
   <button
     mat-raised-button
     color="accent"
