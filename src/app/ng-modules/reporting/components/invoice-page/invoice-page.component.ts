@@ -90,8 +90,8 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
     this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
     this.selectedDateToDisplay = `
-      ${ctrlValue!._d.toString().split(' ')[1]} ${
-      ctrlValue!._d.toString().split(' ')[3]
+      ${ctrlValue!.toString().split(' ')[1]} ${
+      ctrlValue!.toString().split(' ')[3]
     }`;
     datepicker.close();
   }
@@ -109,6 +109,7 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
       (customer) => customer.id === customerId
     );
     if (currentCustomerName) {
+      console.log(currentCustomerName[0].shortName);
       const dialogRef = this.dialog.open(InvoiceDialogComponent, {
         data: <InvoiceDataWrapper>{
           customerId: projectId,
@@ -123,6 +124,7 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
         .afterClosed()
         .subscribe((result: InvoiceDialogOnCloseResult) => {
           if (result) {
+            console.log(result.customerShortName);
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(result.response.body);
             a.href = objectUrl;
@@ -132,11 +134,13 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
             ) {
               if (result.customerShortName)
                 a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.xlsx`;
-              a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
+              else
+                a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
             } else {
               if (result.customerShortName)
                 a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.pdf`;
-              a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
+              else
+                a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
             }
             a.click();
           }
