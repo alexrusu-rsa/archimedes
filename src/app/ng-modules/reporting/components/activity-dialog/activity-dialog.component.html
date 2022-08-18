@@ -2,25 +2,18 @@
   <mat-dialog-content
     *ngIf="currentActivity && userDateActivity.activity === undefined"
   >
-    <mat-card-title i18n="@@activity-dialog-add-title"
-      >Add Activity</mat-card-title
-    >
+    <mat-card-title>Add Activity</mat-card-title>
     <form [formGroup]="addActivityForm!" (keyup.enter)="addActivity()">
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityName"
-          >Activity Name</mat-label
-        >
+        <mat-label>Activity Name</mat-label>
         <input matInput type="text" formControlName="name" required="true" />
-        <mat-hint
-          *ngIf="name?.touched && !name?.dirty"
-          i18n="@@activity-dialog-activityName-required"
-        >
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           Activity name is required
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityStart">Start</mat-label>
+        <mat-label>Start</mat-label>
         <input
           type="time"
           matInput
@@ -34,7 +27,7 @@
       >
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityEnd">End</mat-label>
+        <mat-label>End</mat-label>
         <input
           type="time"
           matInput
@@ -48,7 +41,7 @@
       >
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityProject">Project</mat-label>
+        <mat-label>Project</mat-label>
         <input
           type="text"
           aria-label="Project"
@@ -73,9 +66,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityType"
-          >Activity type</mat-label
-        >
+        <mat-label>Activity type</mat-label>
         <mat-select formControlName="activityType">
           <mat-option
             ngDefaultControl
@@ -87,25 +78,16 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityDescription"
-          >Activity Description</mat-label
-        >
+        <mat-label>Activity Description</mat-label>
         <textarea matInput type="text" formControlName="extras"> </textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityExtras"
-          >Activity Extras</mat-label
-        >
+        <mat-label>Activity Extras</mat-label>
         <textarea matInput type="text" formControlName="extras"> </textarea>
       </mat-form-field>
     </form>
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="addActivity()"
-      i18n="@@activity-dialog-add-button"
-    >
+    <button mat-raised-button color="accent" (click)="addActivity()">
       Add activity
     </button>
   </mat-dialog-content>
@@ -113,23 +95,18 @@
   <mat-dialog-content
     *ngIf="currentActivity && userDateActivity.activity !== undefined"
   >
-    <mat-card-title i18n="@@activity-dialog-update-title"
-      >Update Activity</mat-card-title
-    >
+    <mat-card-title>Update Activity</mat-card-title>
     <form [formGroup]="addActivityForm!" (keyup.enter)="editActivity()">
       <mat-form-field appearance="fill">
         <mat-label>Activity Name</mat-label>
         <input matInput type="text" formControlName="name" required="true" />
-        <mat-hint
-          *ngIf="name?.touched && !name?.dirty"
-          i18n="@@activity-dialog-activityName-required"
-        >
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
           Activity name is required
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityStart">Start</mat-label>
+        <mat-label>Start</mat-label>
         <input
           type="time"
           matInput
@@ -143,7 +120,7 @@
       >
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityEnd">End</mat-label>
+        <mat-label>End</mat-label>
         <input
           type="time"
           matInput
@@ -157,7 +134,7 @@
       >
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityProject">Project</mat-label>
+        <mat-label>Project</mat-label>
         <input
           type="text"
           aria-label="Project"
@@ -182,9 +159,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityType"
-          >Activity type</mat-label
-        >
+        <mat-label>Activity type</mat-label>
         <mat-select formControlName="activityType">
           <mat-option
             ngDefaultControl
@@ -196,17 +171,13 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityDescription"
-          >Activity Description</mat-label
-        >
+        <mat-label>Activity Description</mat-label>
         <textarea matInput type="text" formControlName="description">
         </textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label i18n="@@activity-dialog-activityExtras"
-          >Activity Extras</mat-label
-        >
+        <mat-label>Activity Extras</mat-label>
         <textarea matInput type="text" formControlName="extras"> </textarea>
       </mat-form-field>
     </form>
@@ -215,7 +186,6 @@
       color="accent"
       mat-raised-button
       (click)="editActivity()"
-      i18n="@@activity-dialog-update-button"
     >
       Update Activity
     </button>

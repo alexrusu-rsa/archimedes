@@ -1,7 +1,5 @@
 <div class="dialog-container">
-  <mat-card-title i18n="@@invoice-dialog-title"
-    >Set data for invoice</mat-card-title
-  >
+  <mat-card-title>Set data for invoice</mat-card-title>
   <form [formGroup]="invoiceForm!" class="form-invoice">
     <mat-form-field appearance="fill">
       <mat-label>Invoice Number</mat-label>
@@ -53,20 +51,10 @@
     </mat-form-field>
   </form>
 
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="downloadPDF()"
-    i18n="@@invoice-dialog-pdf-button"
-  >
+  <button mat-raised-button color="accent" (click)="downloadPDF()">
     Download PDF
   </button>
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="downloadXLSX()"
-    i18n="@@invoice-dialog-xlsx-button"
-  >
+  <button mat-raised-button color="accent" (click)="downloadXLSX()">
     Download XLSX
   </button>
 </div>

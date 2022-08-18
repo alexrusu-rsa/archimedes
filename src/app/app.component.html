@@ -20,7 +20,6 @@
         "
         routerLink="reporting/dashboard"
         (click)="sidenav.close()"
-        i18n="@@menu-home-button"
         >Home</a
       >
 
@@ -57,7 +56,6 @@
         mat-list-item
         routerLink="reporting/user"
         (click)="sidenav.close()"
-        i18n="@@menu-users-button"
         >Users</a
       >
       <a
@@ -65,7 +63,6 @@
         mat-list-item
         routerLink="reporting/project"
         (click)="sidenav.close()"
-        i18n="@@menu-projects-button"
         >Projects</a
       >
       <a
@@ -73,7 +70,6 @@
         mat-list-item
         routerLink="reporting/customer"
         (click)="sidenav.close()"
-        i18n="@@menu-customers-button"
         >Customers</a
       >
       <a
@@ -81,7 +77,6 @@
         mat-list-item
         routerLink="reporting/user-reporting"
         (click)="sidenav.close()"
-        i18n="@@menu-reporting-button"
         >Reporting
       </a>
       <a mat-list-item routerLink="reporting/settings" (click)="sidenav.close()"
@@ -92,14 +87,12 @@
         *ngIf="isAdmin && isAdmin !== undefined"
         routerLink="reporting/invoice"
         (click)="sidenav.close()"
-        i18n="@@menu-invoices-button"
         >Invoices
       </a>
       <a
         mat-list-item
         routerLink=""
         (click)="sidenav.close(); logOut()"
-        i18n="@@menu-logout-button"
         >Log Out</a
       >
     </mat-nav-list>

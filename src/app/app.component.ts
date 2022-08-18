@@ -35,23 +35,8 @@ export class AppComponent implements OnInit, OnDestroy {
   logOut() {
     this.authService.doLogout();
   }
-  redirectToLocale() {
-    const userBrowserLanguage = navigator.language.toLocaleString();
-    let appInUserLanguageURL = window.location.host + '/' + userBrowserLanguage;
-    if (window.location.href.split('/')[3] !== userBrowserLanguage) {
-      if (
-        window.location.href.includes('localhost') ||
-        window.location.href.includes('archimedes.rsasoft')
-      ) {
-        appInUserLanguageURL = 'http://' + appInUserLanguageURL;
-      } else {
-        appInUserLanguageURL = 'https://' + appInUserLanguageURL;
-      }
-      window.location.href = appInUserLanguageURL;
-    }
-  }
+
   ngOnInit() {
-    this.redirectToLocale();
     this.userIdSub = this.localStorageService.userIdValue.subscribe(
       (nextValue) => {
         if (nextValue) this.currentUserId = nextValue;
