@@ -43,6 +43,13 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   findProjectIdSub?: Subscription;
 
   addActivity() {
+    this.currentActivity!.name = this.name?.value;
+    this.currentActivity!.activityType = this.activityType?.value;
+    this.currentActivity!.start = this.start?.value;
+    this.currentActivity!.end = this.end?.value;
+    this.currentActivity!.description = this.description?.value;
+    this.currentActivity!.extras = this.extras?.value;
+
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
       this.addCurrentActivitySub = this.activityService
         .addActivity(this.currentActivity)
@@ -111,6 +118,12 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
 
   editActivity() {
+    this.currentActivity!.name = this.name?.value;
+    this.currentActivity!.activityType = this.activityType?.value;
+    this.currentActivity!.start = this.start?.value;
+    this.currentActivity!.end = this.end?.value;
+    this.currentActivity!.description = this.description?.value;
+    this.currentActivity!.extras = this.extras?.value;
     if (this.currentActivity && this.checkAbleToRequestUpdateActivity()) {
       this.updateEditActivitySub = this.activityService
         .updateActivity(this.currentActivity)
@@ -174,8 +187,17 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   get date() {
     return this.addActivityForm?.get('date');
   }
+  get activityType() {
+    return this.addActivityForm?.get('activityType');
+  }
   get projectName() {
     return this.addActivityForm?.get('projectName');
+  }
+  get description() {
+    return this.addActivityForm?.get('description');
+  }
+  get extras() {
+    return this.addActivityForm?.get('extras');
   }
 
   ngOnDestroy(): void {
