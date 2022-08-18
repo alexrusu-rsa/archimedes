@@ -25,12 +25,10 @@
   <a href=""></a>
   <mat-card class="secondary-card" *ngFor="let user of allUsers">
     <mat-card-subtitle>{{ user.roles }}</mat-card-subtitle>
-    <a class="user-details" routerLink="/employee/{{ user.id }}">
-      <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
-      <mat-card-subtitle>
-        {{ user.role }}
-      </mat-card-subtitle>
-    </a>
+    <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
+    <mat-card-subtitle>
+      {{ user.role }}
+    </mat-card-subtitle>
     <mat-card-actions align="end">
       <button mat-button color="accent" (click)="editUser(user)">
         <mat-icon>edit</mat-icon>
