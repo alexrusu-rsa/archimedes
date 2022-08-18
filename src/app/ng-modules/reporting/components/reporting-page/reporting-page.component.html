@@ -1,11 +1,7 @@
-<mat-card-title class="page-title" i18n="@@reporting-page-title"
-  >Reporting Page</mat-card-title
->
+<mat-card-title class="page-title">Reporting Page</mat-card-title>
 <div class="header-activity">
   <mat-form-field appearance="fill" *ngIf="range" class="ranged-datepicker">
-    <mat-label i18n="@@reporting-page-selectDateRange"
-      >Select date range</mat-label
-    >
+    <mat-label>Select date range</mat-label>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
       <input matStartDate formControlName="start" placeholder="Start date" />
       <input matEndDate formControlName="end" placeholder="End date" />
@@ -14,12 +10,14 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 
-  <mat-form-field *ngIf="allEmployees" appearance="fill" class="employee-select">
-    <mat-label i18n="@@reporting-page-employeeName">Employee name</mat-label>
+  <mat-form-field
+    *ngIf="allEmployees"
+    appearance="fill"
+    class="employee-select"
+  >
+    <mat-label>Employee name</mat-label>
     <mat-select [(ngModel)]="selectedItemEmployee">
-      <mat-option [value]="noFilterUsers" i18n="@@reporting-page-users">
-        All users
-      </mat-option>
+      <mat-option [value]="noFilterUsers"> All users </mat-option>
       <mat-option
         *ngFor="let employee of allEmployees"
         [value]="employee.id"
@@ -59,19 +57,13 @@
       <mat-card-subtitle
         >{{ activity.start }} - {{ activity.end }}</mat-card-subtitle
       >
-      <mat-card-subtitle
-        *ngIf="activity.description"
-        i18n="@@reporting-page-card-activityDescription"
+      <mat-card-subtitle *ngIf="activity.description"
         >DESCRIPTION</mat-card-subtitle
       >
       <mat-card-content *ngIf="activity.description">{{
         activity.description
       }}</mat-card-content>
-      <mat-card-subtitle
-        *ngIf="activity.extras"
-        i18n="@@reporting-page-card-activityExtras"
-        >EXTRAS</mat-card-subtitle
-      >
+      <mat-card-subtitle *ngIf="activity.extras">EXTRAS</mat-card-subtitle>
       <mat-card-content *ngIf="activity.extras">{{
         activity.extras
       }}</mat-card-content>

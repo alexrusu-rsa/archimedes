@@ -16,20 +16,10 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "i18n": {
-        "sourceLocale": "en-US",
-        "locales": {
-          "ro-RO": {
-            "translation": "src/locale/messages.ro.xlf"
-          }
-        }
-      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": true,
-            "aot": true,
             "outputPath": "dist/archimedes-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -115,12 +105,6 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            },
-            "ro": {
-              "aot": true,
-              "localize": ["ro"],
-              "outputPath": "dist/archimedes-frontend/ro",
-              "i18nMissingTranslation": "error"
             }
           },
           "defaultConfiguration": "production"
@@ -139,18 +123,9 @@
             },
             "development": {
               "browserTarget": "archimedes-frontend:build:development"
-            },
-            "ro": {
-              "browserTarget": "archimedes-frontend:build:ro"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "archimedes-frontend:build"
-          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
