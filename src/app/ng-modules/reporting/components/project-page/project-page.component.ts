@@ -16,9 +16,6 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog.compone
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
   allProjects?: Project[];
-  allProjectsSubscription?: Subscription;
-  deleteProjectSubscription?: Subscription;
-  allCustomersSubscription?: Subscription;
   projects?: Project[];
   allCustomers?: Customer[];
   subscriptionArray?: Subscription[];
@@ -50,22 +47,20 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   getCustomers() {
-    this.allCustomersSubscription = this.customerService
-      .getCustomers()
-      .subscribe((result) => {
+    this.subscriptionArray?.push(
+      this.customerService.getCustomers().subscribe((result) => {
         this.allCustomers = result;
-      });
-    this.subscriptionArray?.push(this.allCustomersSubscription);
+      })
+    );
   }
 
   getProjects() {
-    this.allProjectsSubscription = this.projectService
-      .getProjects()
-      .subscribe((result) => {
+    this.subscriptionArray?.push(
+      this.projectService.getProjects().subscribe((result) => {
         this.allProjects = result;
         this.projects = result;
-      });
-    this.subscriptionArray?.push(this.allProjectsSubscription);
+      })
+    );
   }
 
   addProject() {
@@ -96,10 +91,9 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
         this.allProjects = this.allProjects?.filter(
           (project) => project.id !== projectId
         );
-        this.deleteProjectSubscription = this.projectService
-          .deleteProject(projectId)
-          .subscribe();
-        this.subscriptionArray?.push(this.deleteProjectSubscription);
+        this.subscriptionArray?.push(
+          this.projectService.deleteProject(projectId).subscribe()
+        );
       }
     });
   }
