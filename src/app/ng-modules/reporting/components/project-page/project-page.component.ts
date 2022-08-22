@@ -47,20 +47,22 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   getCustomers() {
-    this.subscriptionArray?.push(
-      this.customerService.getCustomers().subscribe((result) => {
+    const getCustomersSub = this.customerService
+      .getCustomers()
+      .subscribe((result) => {
         this.allCustomers = result;
-      })
-    );
+      });
+    this.subscriptionArray?.push(getCustomersSub);
   }
 
   getProjects() {
-    this.subscriptionArray?.push(
-      this.projectService.getProjects().subscribe((result) => {
+    const getProjectsSub = this.projectService
+      .getProjects()
+      .subscribe((result) => {
         this.allProjects = result;
         this.projects = result;
-      })
-    );
+      });
+    this.subscriptionArray?.push(getProjectsSub);
   }
 
   addProject() {
