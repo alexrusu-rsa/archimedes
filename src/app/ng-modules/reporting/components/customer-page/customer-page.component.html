@@ -1,11 +1,13 @@
-<div class="row">
-  <mat-card-title class="page-title"> Customer page </mat-card-title>
+<div class="container mt-5">
+  <div class="row">
+    <mat-card-title class="page-title"> Customer page </mat-card-title>
+  </div>
 </div>
 
-<div class="container">
+<div class="container mt-3">
   <div class="row">
-    <div class="col-sm">
-      <mat-form-field appearance="fill" class="header-searchbar">
+    <div class="col-sm d-flex justify-content-start">
+      <mat-form-field appearance="fill" class="w-30 pt-3">
         <mat-label>Search customer</mat-label>
         <input
           matInput
@@ -15,33 +17,34 @@
         />
       </mat-form-field>
     </div>
-    <div class="col-sm">
-      <button
-        mat-raised-button
-        class="header-add-button theme-add-card"
-        (click)="addCustomer()"
-      >
+    <div class="col-sm d-flex justify-content-end">
+      <button mat-raised-button class="mt-3 mb-3" (click)="addCustomer()">
         <mat-icon color="accent">add_box</mat-icon>
       </button>
     </div>
   </div>
 </div>
 
-<mat-card>
-  <mat-card class="container" *ngFor="let customer of allCustomers">
-    <div class="row">
-      <mat-card-title>
-        {{ customer.customerName }}
-      </mat-card-title>
-    </div>
-    <div class="row">
-      <mat-card-subtitle *ngIf="customer.internal"
-        >Internal Company</mat-card-subtitle
-      >
-    </div>
+<div class="container mt-2">
+  <mat-card class="content-container">
+    <mat-card
+      *ngFor="let customer of allCustomers"
+      class="entity-card row mx-2 mb-3"
+    >
+      <div class="row">
+        <div class="col d-flex">
+          <mat-card-title class="mx-2 pt-2">
+            {{ customer.customerName }}
+          </mat-card-title>
+          <mat-chip-list class="mx-2 mt-2"
+            ><mat-chip  *ngIf="customer.internal"
+              >Internal Company</mat-chip
+            ></mat-chip-list
+          >
+        </div>
+      </div>
 
-    <div class="row">
-      <mat-card-actions align="end">
+      <mat-card-actions class="d-flex justify-content-end mb-2">
         <button mat-button color="accent" (click)="editCustomer(customer)">
           <mat-icon>edit</mat-icon>
         </button>
@@ -54,9 +57,15 @@
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
+    </mat-card>
+    <div class="row mx-2">
+      <button
+        class="w-100 add-button-card"
+        mat-raised-button
+        (click)="addCustomer()"
+      >
+        <mat-icon color="accent">add_box</mat-icon>
+      </button>
     </div>
   </mat-card>
-  <button mat-raised-button (click)="addCustomer()">
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
-</mat-card>
+</div>
