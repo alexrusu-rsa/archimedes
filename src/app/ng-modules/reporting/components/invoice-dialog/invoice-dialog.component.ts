@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
 import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
+import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
 import { CustomerService } from 'src/app/services/customer.service';
 import { StringLiteral } from 'typescript';
 
@@ -32,7 +33,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   invoiceForm?: FormGroup;
   customerName?: string;
   getCustomerNameSub?: Subscription;
-
+  customerShortname?: string;
   selectedDate?: Date;
 
   dateFormatted?: number;
@@ -50,10 +51,11 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             this.dateFormatted!
           )
           .subscribe((response: any) => {
-            this.dialogRef.close({
+            this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
               customerName: this.customerName,
               invoiceNumber: this.invoiceNumber?.value,
+              customerShortName: this.customerShortname,
             });
           });
   }
@@ -71,10 +73,11 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             this.dateFormatted!
           )
           .subscribe((response: any) => {
-            this.dialogRef.close({
+            this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
               customerName: this.customerName,
               invoiceNumber: this.invoiceNumber?.value,
+              customerShortName: this.customerShortname,
             });
           });
       }
@@ -94,17 +97,19 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   OnDateChange(event?: any) {
     this.selectedDate = event;
     this.dateFormatted = event.getTime();
-    console.log(this.dateFormatted);
-    console.log(this.selectedDate);
   }
 
   ngOnInit(): void {
     this.selectedDate = new Date();
     this.OnDateChange(this.selectedDate);
+    if (this.invoiceDataWrapper.customerShortName) {
+      this.customerShortname = this.invoiceDataWrapper.customerShortName;
+    }
     this.selectedMonthYear =
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
     this.customerName = this.invoiceDataWrapper.customerName;
+
     this.invoiceForm = new FormGroup({
       invoiceNumber: new FormControl(this.invoiceNr, [
         Validators.required,

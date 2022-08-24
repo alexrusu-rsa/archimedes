@@ -1,4 +1,3 @@
-import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -94,6 +93,7 @@ export class CustomerDialogComponent implements OnInit {
         this.currentCustomer?.customerDirectorEmail
       ),
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
+      shortName: new FormControl(this.currentCustomer?.shortName),
     });
   }
 
@@ -123,5 +123,8 @@ export class CustomerDialogComponent implements OnInit {
   }
   get directorTel() {
     return this.addCustomerForm?.get('directorTel');
+  }
+  get shortName() {
+    return this.addCustomerForm?.get('shortName');
   }
 }

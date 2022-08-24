@@ -1,8 +1,8 @@
-<mat-card-title i18n="@@project-page-title"> Project page </mat-card-title>
+<mat-card-title> Project page </mat-card-title>
 
 <div class="header-activity">
   <mat-form-field appearance="fill" class="header-searchbar">
-    <mat-label i18n="@@project-page-search-hint">Search project</mat-label>
+    <mat-label>Search project</mat-label>
     <input
       matInput
       (keyup)="applyFilter($event)"
@@ -22,7 +22,13 @@
 <mat-card class="card-container">
   <mat-card class="secondary-card" *ngFor="let project of allProjects">
     <mat-card-title> {{ project.projectName }} </mat-card-title>
-
+    <mat-chip-list *ngIf="project.id !== null && project.id !== ''">
+      <div>
+        <mat-chip
+          >{{ project.id! | customerfromprojectid: allProjects!:allCustomers! }}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
     <mat-card-actions align="end">
       <button mat-button color="accent" (click)="editProject(project)">
         <mat-icon>edit</mat-icon>

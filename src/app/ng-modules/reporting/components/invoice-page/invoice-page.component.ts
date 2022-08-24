@@ -25,6 +25,7 @@ import {
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import e from 'express';
+import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -65,7 +66,7 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
   selectedDate?: Date;
   selectedMonth?: string;
   selectedYear?: string;
-
+  selectedDateToDisplay?: string;
   constructor(
     private customerService: CustomerService,
     private activityService: ActivityService,
@@ -81,12 +82,17 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
     datepicker: MatDatepicker<Moment>
   ) {
     const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
+
+    ctrlValue!.month(normalizedMonthAndYear.month());
+    ctrlValue!.year(normalizedMonthAndYear.year());
 
     this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
     this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
+    this.selectedDateToDisplay = `
+      ${ctrlValue!.toString().split(' ')[1]} ${
+      ctrlValue!.toString().split(' ')[3]
+    }`;
     datepicker.close();
   }
 
@@ -109,23 +115,34 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
           month: this.selectedMonth,
           year: this.selectedYear,
           customerName: currentCustomerName[0].customerName,
+          customerShortName: currentCustomerName[0].shortName,
         },
         panelClass: 'full-width-dialog',
       });
-      dialogRef.afterClosed().subscribe((result: any) => {
-        const a = document.createElement('a');
-        const objectUrl = URL.createObjectURL(result.response.body);
-        a.href = objectUrl;
-        if (
-          result.response.body.type ===
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        )
-          a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
-        else {
-          a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
-        }
-        a.click();
-      });
+      dialogRef
+        .afterClosed()
+        .subscribe((result: InvoiceDialogOnCloseResult) => {
+          if (result) {
+            const a = document.createElement('a');
+            const objectUrl = URL.createObjectURL(result.response.body);
+            a.href = objectUrl;
+            if (
+              result.response.body.type ===
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            ) {
+              if (result.customerShortName)
+                a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.xlsx`;
+              else
+                a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
+            } else {
+              if (result.customerShortName)
+                a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.pdf`;
+              else
+                a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
+            }
+            a.click();
+          }
+        });
     }
   }
 
@@ -143,6 +160,9 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
     const year = today.getFullYear();
     this.selectedMonth = (month + 1).toString();
     this.selectedYear = year.toString();
+    this.selectedDateToDisplay = `${today.toString().split(' ')[1]} ${
+      today.toString().split(' ')[3]
+    }`;
   }
 
   ngOnInit(): void {
