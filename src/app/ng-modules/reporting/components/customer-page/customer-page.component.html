@@ -1,49 +1,62 @@
-<mat-card-title class="page-title"> Customer page </mat-card-title>
-
-<div class="header-activity">
-  <mat-form-field appearance="fill" class="header-searchbar">
-    <mat-label>Search customer</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex: RSA SOFT"
-      #input
-    />
-  </mat-form-field>
-
-  <button
-    mat-raised-button
-    class="header-add-button theme-add-card"
-    (click)="addCustomer()"
-  >
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
+<div class="row">
+  <mat-card-title class="page-title"> Customer page </mat-card-title>
 </div>
 
-<mat-card class="card-container">
-  <mat-card class="secondary-card" *ngFor="let customer of allCustomers">
-    <mat-card-title>
-      {{ customer.customerName }}
-    </mat-card-title>
-    <mat-card-subtitle *ngIf="customer.internal"
-      >Internal Company</mat-card-subtitle
-    >
-
-    <mat-card-actions align="end">
-      <button mat-button color="accent" (click)="editCustomer(customer)">
-        <mat-icon>edit</mat-icon>
-      </button>
-
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <mat-form-field appearance="fill" class="header-searchbar">
+        <mat-label>Search customer</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ex: RSA SOFT"
+          #input
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-sm">
       <button
         mat-raised-button
-        color="accent"
-        (click)="deleteCustomer(customer.id!)"
+        class="header-add-button theme-add-card"
+        (click)="addCustomer()"
       >
-        <mat-icon>delete</mat-icon>
+        <mat-icon color="accent">add_box</mat-icon>
       </button>
-    </mat-card-actions>
+    </div>
+  </div>
+</div>
+
+<mat-card>
+  <mat-card class="container" *ngFor="let customer of allCustomers">
+    <div class="row">
+      <mat-card-title>
+        {{ customer.customerName }}
+      </mat-card-title>
+    </div>
+    <div class="row">
+      <mat-card-subtitle *ngIf="customer.internal"
+        >Internal Company</mat-card-subtitle
+      >
+    </div>
+
+    <div class="row">
+      <mat-card-actions align="end">
+        <button mat-button color="accent" (click)="editCustomer(customer)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="deleteCustomer(customer.id!)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </div>
   </mat-card>
-  <button mat-raised-button class="secondary-card" (click)="addCustomer()">
+  <button mat-raised-button (click)="addCustomer()">
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>
