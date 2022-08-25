@@ -9,5 +9,13 @@
     "settings": "Settings",
     "invoices": "Invoices",
     "logOut": "Log out"
+  },
+  "admin-dashboard": {
+    "activities": "Activities",
+    "users": "Users",
+    "projects": "Projects",
+    "customers": "Customers",
+    "reporting": "Reporting",
+    "invoices": "Invoices"
   }
 }
