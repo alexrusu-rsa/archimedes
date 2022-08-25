@@ -29,20 +29,19 @@
       class="entity-card row mx-2 mb-3"
       *ngFor="let project of allProjects"
     >
-      <div class="row">
-        <div class="col d-flex">
+      <div class="container">
+        <div class="row">
           <mat-card-title class="mx-2 mt-2">
             {{ project.projectName }}
           </mat-card-title>
-          <mat-chip-list *ngIf="project.id !== null && project.id !== ''">
-            <div>
-              <mat-chip
-                >{{
-                  project.id!
-                    | customerfromprojectid: allProjects!:allCustomers!
-                }}
-              </mat-chip>
-            </div>
+        </div>
+        <div class="row">
+          <mat-chip-list class="mt-2" *ngIf="project.id !== null && project.id !== ''">
+            <mat-chip class="mx-2"
+              >{{
+                project.id! | customerfromprojectid: allProjects!:allCustomers!
+              }}
+            </mat-chip>
           </mat-chip-list>
         </div>
       </div>
