@@ -10,31 +10,55 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
-import { EditActivityComponent } from './ng-modules/reporting/components/edit-activity/edit-activity.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
+import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
 import { AuthModule } from './ng-modules/auth/auth.module';
 import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/snackbar-content.component';
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
-import { EmployeeDetailsComponent } from './ng-modules/reporting/components/employee-details/employee-details.component';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
+import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
+import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
+import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
+import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
+import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { EmployeePipe } from './pipes/employee.pipe';
+import { DateRangePipe } from './pipes/date-range.pipe';
+import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
+import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
+import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
+import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
+import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-page/user-settings-page.component';
+import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
+import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
+import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ActivityDialogComponent,
-    EditActivityComponent,
-    UserDashboardComponent,
+    ActivityPageComponent,
     SnackbarContentComponent,
-    EmployeeDetailsComponent,
+    UserDetailsComponent,
     UserDialogComponent,
+    ActivityDialogComponent,
     CustomerDialogComponent,
     ProjectDialogComponent,
+    ReportingPageComponent,
+    InvoicePageComponent,
+    InvoiceDialogComponent,
+    DateRangePipe,
+    EmployeePipe,
+    AdminDashboardPageComponent,
+    RateDialogComponent,
+    FirstUserPageComponent,
+    UserSettingsPageComponent,
+    DuplicateActivityDialogComponent,
+    DeleteConfirmationDialogComponent,
+    NewUserDialogComponent,
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,13 +69,8 @@ import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
     FormsModule,
     AuthModule,
     ReactiveFormsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    MatAutocompleteModule,
+    CustomPipeModule,
   ],
   providers: [
     DatePipe,
@@ -61,7 +80,7 @@ import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
       multi: true,
     },
   ],
-
   bootstrap: [AppComponent],
+  exports: [CustomPipeModule],
 })
 export class AppModule {}

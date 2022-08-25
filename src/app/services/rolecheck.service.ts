@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +16,7 @@ export class RoleCheckService {
     return localStorage.getItem('userId');
   }
   get isAdmin(): boolean {
-    let adminRole = localStorage.getItem('role');
+    const adminRole = localStorage.getItem('role');
     if (adminRole === 'admin') return true;
     return false;
   }

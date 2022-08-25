@@ -1,69 +1,193 @@
-<mat-dialog-content>
-  <form [formGroup]="addActivityForm!">
-    <mat-form-field appearance="fill">
-      <mat-label>Activity Name</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentActivity.name"
-        type="text"
-        formControlName="name"
-        required="true"
-      />
-      <mat-hint style="color: red"   *ngIf="name?.touched && !name?.dirty">
-        Activity name is required
-      </mat-hint>
-    </mat-form-field>
+<div class="dialog-container">
+  <mat-dialog-content
+    *ngIf="currentActivity && userDateActivity.activity === undefined"
+  >
+    <mat-card-title>Add Activity</mat-card-title>
+    <form [formGroup]="addActivityForm!" (keyup.enter)="addActivity()">
+      <mat-form-field appearance="fill">
+        <mat-label>Activity Name</mat-label>
+        <input matInput type="text" formControlName="name" required="true" />
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
+          Activity name is required
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Activity Start</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentActivity.start"
-        formControlName="start"
-        type="text"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="start?.touched && !start?.dirty">
-        Activity start time is required
-      </mat-hint>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Start</mat-label>
+        <input
+          type="time"
+          matInput
+          min="00:00"
+          max="24:00"
+          formControlName="start"
+        />
+      </mat-form-field>
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
 
-    <mat-form-field appearance="fill">
-      <mat-label>Activity End</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentActivity.end"
-        formControlName="end"
-        type="text"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="end?.touched && !end?.dirty">
-        Activity end time is required
-      </mat-hint>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>End</mat-label>
+        <input
+          type="time"
+          matInput
+          min="00:00"
+          max="24:00"
+          formControlName="end"
+        />
+      </mat-form-field>
+      <mat-hint *ngIf="!this.checkEndStart()" color="warn"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
 
-    <mat-form-field appearance="fill">
-      <mat-label>Activity Description</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentActivity.description"
-        type="text"
-        formControlName="description"
-      />
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Project</mat-label>
+        <input
+          type="text"
+          aria-label="Project"
+          matInput
+          [value]="currentActivity.projectId! | projectid: projects!"
+          formControlName="projectName"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete
+          autoActiveFirstOption
+          #auto="matAutocomplete"
+          (optionSelected)="onSelectionChange($event)"
+        >
+          <mat-option value="null">No project</mat-option>
+          <mat-option
+            *ngFor="let project of filteredProjects | async"
+            [value]="project.projectName"
+            ngDefaultControl
+            >{{ project.projectName }}</mat-option
+          >
+        </mat-autocomplete>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Activity Extras</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentActivity.extras"
-        type="text"
-        formControlName="extras"
-      />
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select formControlName="activityType">
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
 
-<mat-dialog-actions>
-  <button mat-raised-button (click)="addActivity()">Add activity</button>
-</mat-dialog-actions>
+      <mat-form-field appearance="fill">
+        <mat-label>Activity Description</mat-label>
+        <textarea matInput type="text" formControlName="extras"> </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Activity Extras</mat-label>
+        <textarea matInput type="text" formControlName="extras"> </textarea>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button color="accent" (click)="addActivity()">
+      Add activity
+    </button>
+  </mat-dialog-content>
+
+  <mat-dialog-content
+    *ngIf="currentActivity && userDateActivity.activity !== undefined"
+  >
+    <mat-card-title>Update Activity</mat-card-title>
+    <form [formGroup]="addActivityForm!" (keyup.enter)="editActivity()">
+      <mat-form-field appearance="fill">
+        <mat-label>Activity Name</mat-label>
+        <input matInput type="text" formControlName="name" required="true" />
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
+          Activity name is required
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Start</mat-label>
+        <input
+          type="time"
+          matInput
+          min="00:00"
+          max="24:00"
+          formControlName="start"
+        />
+      </mat-form-field>
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
+
+      <mat-form-field appearance="fill">
+        <mat-label>End</mat-label>
+        <input
+          type="time"
+          matInput
+          min="00:00"
+          max="24:00"
+          formControlName="end"
+        />
+      </mat-form-field>
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
+        >Make sure you enter a valid combination of start/end time.</mat-hint
+      >
+
+      <mat-form-field appearance="fill">
+        <mat-label>Project</mat-label>
+        <input
+          type="text"
+          aria-label="Project"
+          matInput
+          [value]="currentActivity.projectId! | projectid: projects!"
+          formControlName="projectName"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete
+          autoActiveFirstOption
+          #auto="matAutocomplete"
+          (optionSelected)="onSelectionChange($event)"
+        >
+          <mat-option value="null">No project</mat-option>
+          <mat-option
+            *ngFor="let project of filteredProjects | async"
+            [value]="project.projectName"
+            ngDefaultControl
+            >{{ project.projectName }}</mat-option
+          >
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Activity type</mat-label>
+        <mat-select formControlName="activityType">
+          <mat-option
+            ngDefaultControl
+            *ngFor="let activityType of activityTypes"
+            value="{{ activityType[1] }}"
+            >{{ activityType[1] }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Activity Description</mat-label>
+        <textarea matInput type="text" formControlName="description">
+        </textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Activity Extras</mat-label>
+        <textarea matInput type="text" formControlName="extras"> </textarea>
+      </mat-form-field>
+    </form>
+    <button
+      *ngIf="userDateActivity.activity !== undefined"
+      color="accent"
+      mat-raised-button
+      (click)="editActivity()"
+    >
+      Update Activity
+    </button>
+  </mat-dialog-content>
+</div>

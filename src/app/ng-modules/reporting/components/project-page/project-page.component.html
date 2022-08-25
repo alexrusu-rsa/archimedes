@@ -1,0 +1,49 @@
+<mat-card-title> Project page </mat-card-title>
+
+<div class="header-activity">
+  <mat-form-field appearance="fill" class="header-searchbar">
+    <mat-label>Search project</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex: Archimedes"
+      #input
+    />
+  </mat-form-field>
+  <button
+    mat-raised-button
+    class="header-add-button theme-add-card"
+    (click)="addProject()"
+  >
+    <mat-icon color="accent">add_box</mat-icon>
+  </button>
+</div>
+
+<mat-card class="card-container">
+  <mat-card class="secondary-card" *ngFor="let project of allProjects">
+    <mat-card-title> {{ project.projectName }} </mat-card-title>
+    <mat-chip-list *ngIf="project.id !== null && project.id !== ''">
+      <div>
+        <mat-chip
+          >{{ project.id! | customerfromprojectid: allProjects!:allCustomers! }}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
+    <mat-card-actions align="end">
+      <button mat-button color="accent" (click)="editProject(project)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="deleteProject(project.id!)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <button mat-raised-button class="secondary-card" (click)="addProject()">
+    <mat-icon color="accent">add_box</mat-icon>
+  </button>
+</mat-card>

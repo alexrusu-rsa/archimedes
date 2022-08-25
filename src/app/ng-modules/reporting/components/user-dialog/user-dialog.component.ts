@@ -1,5 +1,6 @@
+import { toUnredirectedSourceFile } from '@angular/compiler-cli/src/ngtsc/util/src/typescript';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormControlDirective, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -21,35 +22,63 @@ export class UserDialogComponent implements OnInit {
   currentUser?: User;
   addCurrentUserSub?: Subscription;
   updateUserSub?: Subscription;
+  adminUserCheck?: boolean;
 
   addUser() {
-    if (this.currentUser)
-      this.addCurrentUserSub = this.userService
-        .addUser(this.currentUser)
-        .subscribe();
-  }
-  dialogClose() {
-    this.dialogRef.close();
+    if (this.adminUserCheck) {
+      this.currentUser!.roles = 'admin';
+    } else {
+      this.currentUser!.roles = 'user';
+    }
+    if (this.checkAbleToRequestAddUser())
+      if (this.currentUser)
+        this.addCurrentUserSub = this.userService
+          .addUser(this.currentUser)
+          .subscribe((newUser: User) => {
+            this.dialogRef.close(newUser);
+          });
   }
 
   editUser() {
-    if (this.currentUser) {
-      this.updateUserSub = this.userService
-        .updateUser(this.currentUser)
-        .subscribe();
+    if (this.adminUserCheck) {
+      this.currentUser!.roles = 'admin';
+    } else {
+      this.currentUser!.roles = 'user';
     }
+    if (this.checkAbleToRequestUpdateUser())
+      if (this.currentUser) {
+        this.updateUserSub = this.userService
+          .updateUser(this.currentUser)
+          .subscribe((updatedUser: User) => {
+            this.dialogRef.close(updatedUser);
+          });
+      }
+  }
+
+  checkAbleToRequestAddUser(): boolean {
+    if (this.email?.pristine) return false;
+    return true;
+  }
+
+  checkAbleToRequestUpdateUser(): boolean {
+    if (this.email?.value !== '') return true;
+    return false;
   }
 
   ngOnInit(): void {
     this.currentUser = <User>{};
-    if (this.user !== null) this.currentUser = this.user;
+    this.adminUserCheck = false;
+    if (this.user !== null) {
+      this.currentUser = this.user;
+      this.adminUserCheck = this.user.roles?.includes('admin');
+    }
     this.addUserForm = new FormGroup({
       email: new FormControl(this.currentUser?.email),
       surname: new FormControl(this.currentUser?.surname),
       name: new FormControl(this.currentUser?.name),
       role: new FormControl(this.currentUser?.role),
       seniority: new FormControl(this.currentUser?.seniority),
-      password: new FormControl(this.currentUser?.password),
+      timePerDay: new FormControl(this.currentUser?.timePerDay),
     });
   }
 
@@ -75,5 +104,8 @@ export class UserDialogComponent implements OnInit {
 
   get seniority() {
     return this.addUserForm?.get('seniority');
+  }
+  get timePerDay() {
+    return this.addUserForm?.get('timePerDay');
   }
 }

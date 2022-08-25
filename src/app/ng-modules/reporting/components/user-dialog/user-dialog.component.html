@@ -1,203 +1,189 @@
-<mat-dialog-content *ngIf="currentUser && this.user === null">
-  <form [formGroup]="addUserForm!">
-    <mat-form-field appearance="fill">
-      <mat-label>User Surname</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.surname"
-        type="text"
-        formControlName="surname"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="surname?.touched && !surname?.dirty">
-        User surname is required
-      </mat-hint>
-    </mat-form-field>
+<div class="dialog-container">
+  <mat-dialog-content *ngIf="currentUser && user === null">
+    <mat-card-title>Add User</mat-card-title>
+    <form [formGroup]="addUserForm!" (keyup.enter)="addUser()">
+      <mat-form-field appearance="fill">
+        <mat-label>User Surname</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.surname"
+          type="text"
+          formControlName="surname"
+          required="true"
+        />
+        <mat-hint *ngIf="surname?.touched && !surname?.dirty">
+          User surname is required
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>User Name</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.name"
-        formControlName="name"
-        type="text"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
-        User name is required
-      </mat-hint>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User Name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.name"
+          formControlName="name"
+          type="text"
+          required="true"
+        />
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
+          User name is required
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>User Email</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.email"
-        formControlName="email"
-        type="text"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="email?.touched && !email?.dirty">
-        User email is required
-      </mat-hint>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User Email</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.email"
+          formControlName="email"
+          type="text"
+          required="true"
+        />
+        <mat-hint *ngIf="email?.touched && !email?.dirty">
+          User email is required
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>User Password</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.password"
-        formControlName="password"
-        type="password"
-        required="true"
-      />
-      <mat-hint
-        style="color: red"
-        *ngIf="password?.touched && !password?.dirty"
-      >
-        User password is required
-      </mat-hint>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User Role</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.role"
+          type="text"
+          formControlName="role"
+        />
+        <mat-hint *ngIf="role?.touched && !role?.dirty">
+          User role is required
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>User Role</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.role"
-        type="text"
-        formControlName="role"
-      />
-      <mat-hint style="color: red" *ngIf="role?.touched && !role?.dirty">
-        User role is required
-      </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>User Seniority </mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.seniority"
-        type="text"
-        formControlName="seniority"
-      />
-      <mat-hint
-        style="color: red"
-        *ngIf="seniority?.touched && !seniority?.dirty"
-      >
-        User role is required
-      </mat-hint>
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
-
-<mat-dialog-actions>
-  <button
-    *ngIf="this.user === null"
-    mat-raised-button
-    (click)="addUser(); dialogClose()"
-  >
-    Add user
-  </button>
-</mat-dialog-actions>
-<!-- EDIT -->
-<mat-dialog-content *ngIf="currentUser && this.user !== null">
-  <form [formGroup]="addUserForm!">
-    <mat-form-field appearance="fill">
-      <mat-label>User Surname</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.surname"
-        type="text"
-        formControlName="surname"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="surname?.touched && !surname?.dirty">
-        User surname is required
-      </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>User Name</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.name"
-        formControlName="name"
-        type="text"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="name?.touched && !name?.dirty">
-        User name is required
-      </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>User Email</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.email"
-        formControlName="email"
-        type="text"
-        required="true"
-      />
-      <mat-hint style="color: red" *ngIf="email?.touched && !email?.dirty">
-        User email is required
-      </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>User Password</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.password"
-        formControlName="password"
-        type="password"
-        required="true"
-      />
-      <mat-hint
-        style="color: red"
-        *ngIf="password?.touched && !password?.dirty"
-      >
-        User password is required
-      </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>User Role</mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.role"
-        type="text"
-        formControlName="role"
-      />
-      <mat-hint style="color: red" *ngIf="role?.touched && !role?.dirty">
-        User role is required
-      </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>User Seniority </mat-label>
-      <input
-        matInput
-        [(ngModel)]="currentUser.seniority"
-        type="text"
-        formControlName="seniority"
-      />
-      <mat-hint
-        style="color: red"
-        *ngIf="seniority?.touched && !seniority?.dirty"
-      >
-        User role is required
-      </mat-hint>
-    </mat-form-field>
-  </form>
-
-</mat-dialog-content>
- <mat-dialog-actions>
+      <mat-form-field appearance="fill">
+        <mat-label>User Seniority </mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.seniority"
+          type="text"
+          formControlName="seniority"
+        />
+        <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
+          User role is required
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User time/day </mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.timePerDay"
+          type="text"
+          formControlName="timePerDay"
+        />
+        <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
+          User Time/Day is required
+        </mat-hint>
+      </mat-form-field>
+    </form>
+    <mat-slide-toggle [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
     <button
-      *ngIf="this.user !== null"
+      *ngIf="this.user === null"
+      color="accent"
       mat-raised-button
-      (click)="editUser(); dialogClose()"
+      (click)="addUser()"
+    >
+      Add user
+    </button>
+  </mat-dialog-content>
+
+  <mat-dialog-content *ngIf="currentUser && user !== null">
+    <mat-card-title>Update user</mat-card-title>
+    <form [formGroup]="addUserForm!" (keyup.enter)="editUser()">
+      <mat-form-field appearance="fill">
+        <mat-label>User Surname</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.surname"
+          type="text"
+          formControlName="surname"
+          required="true"
+        />
+        <mat-hint *ngIf="surname?.touched && !surname?.dirty">
+          User surname is required
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>User Name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.name"
+          formControlName="name"
+          type="text"
+          required="true"
+        />
+        <mat-hint *ngIf="name?.touched && !name?.dirty">
+          User name is required
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>User Email</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.email"
+          formControlName="email"
+          type="text"
+          required="true"
+        />
+        <mat-hint *ngIf="email?.touched && !email?.dirty">
+          User email is required
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>User Role</mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.role"
+          type="text"
+          formControlName="role"
+        />
+        <mat-hint *ngIf="role?.touched && !role?.dirty">
+          User role is required
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>User Seniority </mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.seniority"
+          type="text"
+          formControlName="seniority"
+        />
+        <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
+          User seniority is required
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>User time/day </mat-label>
+        <input
+          matInput
+          [(ngModel)]="currentUser.timePerDay"
+          type="text"
+          formControlName="timePerDay"
+        />
+        <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
+          User Time/Day is required
+        </mat-hint>
+      </mat-form-field>
+    </form>
+    <mat-slide-toggle [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
+    <button
+      *ngIf="user !== null"
+      mat-raised-button
+      color="accent"
+      (click)="editUser()"
     >
       Update user
     </button>
-  </mat-dialog-actions>
+  </mat-dialog-content>
+</div>

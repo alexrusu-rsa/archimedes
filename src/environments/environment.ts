@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  translationPath: './assets/i18n/',
+  serviceURL: 'http://localhost:3000/',
 };
 
 /*

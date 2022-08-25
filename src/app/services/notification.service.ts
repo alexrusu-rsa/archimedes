@@ -17,4 +17,11 @@ export class NotificationService {
       data: new HttpErrorSnackbar(status, errorMessage),
     });
   }
+
+  openSuccesfulNotification(successMessage: string) {
+    this.snackBar.openFromComponent(SnackbarContentComponent, {
+      duration: this.durationInSeconds * 1000,
+      data: new HttpErrorSnackbar(undefined, undefined, successMessage),
+    });
+  }
 }

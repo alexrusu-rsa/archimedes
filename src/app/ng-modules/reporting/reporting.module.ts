@@ -4,13 +4,16 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReportingRoutingModule } from './reporting-routing.module';
-import { ManagementPageComponent } from './components/management-page/management-page.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../auth/auth.interceptor';
+import { UserPageComponent } from './components/user-page/user-page.component';
+import { CustomerPageComponent } from './components/customer-page/customer-page.component';
+import { ProjectPageComponent } from './components/project-page/project-page.component';
+import { CustomPipeModule } from 'src/app/custom-pipe/custom-pipe.module';
 
 @NgModule({
   declarations: [
-    ManagementPageComponent
+    UserPageComponent,
+    CustomerPageComponent,
+    ProjectPageComponent,
   ],
   imports: [
     CommonModule,
@@ -18,6 +21,7 @@ import { AuthInterceptor } from '../auth/auth.interceptor';
     FormsModule,
     RouterModule,
     ReportingRoutingModule,
+    CustomPipeModule,
   ],
 })
 export class ReportingModule {}

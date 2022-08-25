@@ -1,0 +1,122 @@
+<mat-card-title class="page-title">
+  {{ user?.name }} {{ user?.surname }}
+</mat-card-title>
+
+<div class="header-activity">
+  <mat-form-field appearance="fill" class="header-datepicker">
+    <input
+      matInput
+      [matDatepicker]="datePicker"
+      [(ngModel)]="selectedDate"
+      (dateChange)="dateChanges()"
+    />
+    <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #datePicker touchUi></mat-datepicker>
+  </mat-form-field>
+
+  <div class="right-side">
+    <mat-card
+      class="time-booked-card"
+      [ngStyle]="{ 'background-color': timeBookedContainerColor }"
+    >
+      <mat-card-subtitle
+        >Time booked: <strong>{{ totalTimeBooked }}</strong
+        >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
+      >
+    </mat-card>
+    <mat-form-field appearance="fill" class="project-filter-field">
+      <mat-label>Filter</mat-label>
+      <mat-select
+        (selectionChange)="setValueOfSelectedProject($event)"
+        [(ngModel)]="selectedFilterProjectId"
+      >
+        <mat-option [value]="'all'"> All projects </mat-option>
+        <mat-option
+          *ngFor="let project of allProjects"
+          [value]="project.id"
+          required="true"
+          ngDefaultControl
+        >
+          {{ project.projectName }}
+        </mat-option>
+      </mat-select></mat-form-field
+    >
+    <button
+      class="header-add-button"
+      mat-raised-button
+      (click)="addNewActivity()"
+    >
+      <mat-icon color="accent">add_box</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-card class="card-container" *ngIf="activitiesOfTheDay.length < 1">
+  <mat-card class="secondary-card">
+    <mat-card-title
+      >You have not reported any activities for this day yet.</mat-card-title
+    >
+  </mat-card>
+</mat-card>
+<mat-card
+  class="card-container"
+  *ngFor="let project of projectsOfCurrentDayAndActivities"
+>
+  <mat-card-title>{{
+    project.projectId | projectid: allProjects!
+  }}</mat-card-title>
+  <mat-card
+    class="secondary-card"
+    *ngFor="let activity of project.activitiesWithProjectId"
+  >
+    <mat-card-title>{{ activity.name }}</mat-card-title>
+    <mat-card-subtitle>
+      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
+    >
+    <mat-card-content>
+      {{ activity.description }}
+      <mat-chip-list
+        *ngIf="activity.projectId !== null && activity.projectId !== ''"
+      >
+        <div>
+          <mat-chip
+            >{{
+              activity.projectId!
+                | customerfromprojectid: allProjects!:allCustomers!
+            }}
+            {{ activity.projectId! | projectid: allProjects! }}</mat-chip
+          >
+        </div>
+      </mat-chip-list>
+      <mat-chip-list
+        *ngIf="activity.projectId === undefined || activity.projectId === null"
+      >
+        <mat-chip> Internal </mat-chip>
+      </mat-chip-list>
+    </mat-card-content>
+
+    <mat-card-actions class="custom-card-actions" align="end">
+      <button mat-button color="accent" (click)="editActivity(activity)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="deleteActivity(activity)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-button color="accent" (click)="duplicateActivity(activity)">
+        <mat-icon>control_point_duplicate</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <button
+    class="secondary-card"
+    mat-raised-button
+    (click)="addActivityOnCertainProject(project.projectId)"
+  >
+    <mat-icon color="accent">add_box</mat-icon>
+  </button>
+</mat-card>
