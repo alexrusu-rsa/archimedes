@@ -1,9 +1,9 @@
 <mat-card>
-  <mat-card-title>Login</mat-card-title>
+  <mat-card-title> {{ "loginPage.title" | translate }}</mat-card-title>
   <mat-card-content>
     <form [formGroup]="loginForm!" (keyup.enter)="logUserIn(user)">
       <mat-form-field>
-        <mat-label>Email</mat-label>
+        <mat-label>{{ "loginPage.email" | translate }}</mat-label>
         <input
           #userEmail
           matInput
@@ -14,12 +14,12 @@
           [(ngModel)]="user.email"
         />
         <mat-hint *ngIf="email?.invalid && email?.touched">
-          Email is required
+          {{ "loginPage.emailHint" | translate }}
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Password</mat-label>
+        <mat-label>{{ "loginPage.password" | translate }}</mat-label>
         <input
           #userPassword
           matInput
@@ -31,10 +31,8 @@
           required
         />
 
-        <mat-hint
-          *ngIf="password?.touched && password?.pristine"
-        >
-          Password is required
+        <mat-hint *ngIf="password?.touched && password?.pristine">
+          {{ "loginPage.passwordHint" | translate }}
         </mat-hint>
       </mat-form-field>
     </form>
@@ -45,14 +43,10 @@
       class="forgot-password-button"
       [routerLink]="['/auth/resetpassword']"
       routerLinkActive="router-link-active"
-      >Forgotten Password</a
+      >{{ "loginPage.forgottenPassword" | translate }}</a
     >
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="logUserIn(user)"
-    >
-      Log in
+    <button mat-raised-button color="accent" (click)="logUserIn(user)">
+      {{ "loginPage.logIn" | translate }}
     </button>
   </mat-card-actions>
 

@@ -17,5 +17,30 @@
     "customers": "Customers",
     "reporting": "Reporting",
     "invoices": "Invoices"
+  },
+  "firstUserPage": {
+    "title": "Register first account",
+    "email": "Email",
+    "emailHint": "Email is required",
+    "password": "Password",
+    "passwordHint": "Password is required",
+    "retypePassword": "Re-enter desired password",
+    "retypePasswordHint": "Passwords do not match.",
+    "registerAccount": "Register account"
+  },
+  "loginPage": {
+    "title": "Login",
+    "email": "Email",
+    "emailHint": "Email is required",
+    "password": "Password",
+    "passwordHint": "Password is required",
+    "forgottenPassword": "Forgotten Password",
+    "logIn": "Log in"
+  },
+  "resetPasswordPage": {
+    "title": "Reset your password",
+    "email": "Email",
+    "emailHint": "Email is required",
+    "resetPassword": "Reset Password"
   }
 }
