@@ -1,0 +1,13 @@
+{
+  "sidenav": {
+    "home": "Home",
+    "activities": "Activities",
+    "users": "Users",
+    "projects": "Projects",
+    "customers": "Customers",
+    "reporting": "Reporting",
+    "settings": "Settings",
+    "invoices": "Invoices",
+    "logOut": "Log out"
+  }
+}

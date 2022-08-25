@@ -35,6 +35,8 @@ import { DuplicateActivityDialogComponent } from './ng-modules/reporting/compone
 import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,13 @@ import { UserDashboardComponent } from './ng-modules/reporting/components/user-d
     ReactiveFormsModule,
     MatAutocompleteModule,
     CustomPipeModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     DatePipe,
