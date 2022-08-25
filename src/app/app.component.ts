@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 
@@ -14,7 +15,15 @@ export class AppComponent implements OnInit {
   urlToFormat = '';
   pageTitle?: string;
   userRole?: string;
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private translateService: TranslateService
+  ) {
+    this.translateService.addLangs(['en', 'de', 'ro']);
+    console.log(navigator.language);
+    this.translateService.setDefaultLang('en');
+  }
 
   logOut() {
     this.authService.doLogout();
