@@ -2,18 +2,20 @@
   <mat-dialog-content
     *ngIf="currentActivity && userDateActivity.activity === undefined"
   >
-    <mat-card-title>Add Activity</mat-card-title>
+    <mat-card-title>{{
+      "activity.dialog.addTitle" | translate
+    }}</mat-card-title>
     <form [formGroup]="addActivityForm!" (keyup.enter)="addActivity()">
       <mat-form-field appearance="fill">
-        <mat-label>Activity Name</mat-label>
+        <mat-label>{{ "activity.dialog.name" | translate }}</mat-label>
         <input matInput type="text" formControlName="name" required="true" />
         <mat-hint *ngIf="name?.touched && !name?.dirty">
-          Activity name is required
+          {{ "activity.dialog.nameHint" | translate }}
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Start</mat-label>
+        <mat-label>{{ "activity.dialog.startTime" | translate }}</mat-label>
         <input
           type="time"
           matInput
@@ -22,12 +24,12 @@
           formControlName="start"
         />
       </mat-form-field>
-      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
-        >Make sure you enter a valid combination of start/end time.</mat-hint
-      >
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()">{{
+        "activity.dialog.startTimeHint" | translate
+      }}</mat-hint>
 
       <mat-form-field appearance="fill">
-        <mat-label>End</mat-label>
+        <mat-label>{{ "activity.dialog.endTime" | translate }}</mat-label>
         <input
           type="time"
           matInput
@@ -36,12 +38,12 @@
           formControlName="end"
         />
       </mat-form-field>
-      <mat-hint *ngIf="!this.checkEndStart()" color="warn"
-        >Make sure you enter a valid combination of start/end time.</mat-hint
-      >
+      <mat-hint *ngIf="!this.checkEndStart()" color="warn">{{
+        "activity.dialog.endTimeHint" | translate
+      }}</mat-hint>
 
       <mat-form-field appearance="fill">
-        <mat-label>Project</mat-label>
+        <mat-label>{{ "activity.dialog.project" | translate }}</mat-label>
         <input
           type="text"
           aria-label="Project"
@@ -55,7 +57,9 @@
           #auto="matAutocomplete"
           (optionSelected)="onSelectionChange($event)"
         >
-          <mat-option value="null">No project</mat-option>
+          <mat-option value="null">{{
+            "activity.dialog.noProject" | translate
+          }}</mat-option>
           <mat-option
             *ngFor="let project of filteredProjects | async"
             [value]="project.projectName"
@@ -66,7 +70,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Activity type</mat-label>
+        <mat-label>{{ "activity.dialog.type" | translate }}</mat-label>
         <mat-select formControlName="activityType">
           <mat-option
             ngDefaultControl
@@ -78,35 +82,37 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Activity Description</mat-label>
+        <mat-label>{{ "activity.dialog.description" | translate }}</mat-label>
         <textarea matInput type="text" formControlName="extras"> </textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Activity Extras</mat-label>
+        <mat-label>{{ "activity.dialog.extras" | translate }}</mat-label>
         <textarea matInput type="text" formControlName="extras"> </textarea>
       </mat-form-field>
     </form>
     <button mat-raised-button color="accent" (click)="addActivity()">
-      Add activity
+      {{ "activity.dialog.submitAdd" | translate }}
     </button>
   </mat-dialog-content>
 
   <mat-dialog-content
     *ngIf="currentActivity && userDateActivity.activity !== undefined"
   >
-    <mat-card-title>Update Activity</mat-card-title>
+    <mat-card-title>{{
+      "activity.dialog.updateTitle" | translate
+    }}</mat-card-title>
     <form [formGroup]="addActivityForm!" (keyup.enter)="editActivity()">
       <mat-form-field appearance="fill">
-        <mat-label>Activity Name</mat-label>
+        <mat-label>{{ "activity.dialog.name" | translate }}</mat-label>
         <input matInput type="text" formControlName="name" required="true" />
         <mat-hint *ngIf="name?.touched && !name?.dirty">
-          Activity name is required
+          {{ "activity.dialog.nameHint" | translate }}
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Start</mat-label>
+        <mat-label>{{ "activity.dialog.startTime" | translate }}</mat-label>
         <input
           type="time"
           matInput
@@ -115,12 +121,12 @@
           formControlName="start"
         />
       </mat-form-field>
-      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
-        >Make sure you enter a valid combination of start/end time.</mat-hint
-      >
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()">{{
+        "activity.dialog.startTimeHint" | translate
+      }}</mat-hint>
 
       <mat-form-field appearance="fill">
-        <mat-label>End</mat-label>
+        <mat-label>{{ "activity.dialog.startTime" | translate }}</mat-label>
         <input
           type="time"
           matInput
@@ -129,12 +135,12 @@
           formControlName="end"
         />
       </mat-form-field>
-      <mat-hint color="warn" *ngIf="!this.checkEndStart()"
-        >Make sure you enter a valid combination of start/end time.</mat-hint
-      >
+      <mat-hint color="warn" *ngIf="!this.checkEndStart()">{{
+        "activity.dialog.startTimeHint" | translate
+      }}</mat-hint>
 
       <mat-form-field appearance="fill">
-        <mat-label>Project</mat-label>
+        <mat-label>{{ "activity.dialog.project" | translate }}</mat-label>
         <input
           type="text"
           aria-label="Project"
@@ -148,7 +154,9 @@
           #auto="matAutocomplete"
           (optionSelected)="onSelectionChange($event)"
         >
-          <mat-option value="null">No project</mat-option>
+          <mat-option value="null">{{
+            "activity.dialog.noProject" | translate
+          }}</mat-option>
           <mat-option
             *ngFor="let project of filteredProjects | async"
             [value]="project.projectName"
@@ -159,7 +167,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Activity type</mat-label>
+        <mat-label>{{ "activity.dialog.type" | translate }}</mat-label>
         <mat-select formControlName="activityType">
           <mat-option
             ngDefaultControl
@@ -171,13 +179,13 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Activity Description</mat-label>
+        <mat-label>{{ "activity.dialog.description" | translate }}</mat-label>
         <textarea matInput type="text" formControlName="description">
         </textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Activity Extras</mat-label>
+        <mat-label>{{ "activity.dialog.extras" | translate }}</mat-label>
         <textarea matInput type="text" formControlName="extras"> </textarea>
       </mat-form-field>
     </form>
@@ -187,7 +195,7 @@
       mat-raised-button
       (click)="editActivity()"
     >
-      Update Activity
+      {{ "activity.dialog.submitUpdate" | translate }}
     </button>
   </mat-dialog-content>
 </div>

@@ -42,5 +42,24 @@
     "email": "Email",
     "emailHint": "Email is required",
     "resetPassword": "Reset Password"
+  },
+  "activity": {
+    "dialog": {
+      "addTitle": "Add activity",
+      "name": "Activity name",
+      "nameHint": "Activity name is required",
+      "startTime": "Start time",
+      "startTimeHint": "Make sure you enter a valid combination of start/end time.",
+      "endTime": "End time",
+      "endTimeHint": "Make sure you enter a valid combination of start/end time.",
+      "project": "Project",
+      "noProject": "No project",
+      "type": "Activity type",
+      "description": "Activity description",
+      "extras": "Activity extras",
+      "submitAdd": "Add activity",
+      "updateTitle": "Update activity",
+      "submitUpdate": "Update activity"
+    }
   }
 }
