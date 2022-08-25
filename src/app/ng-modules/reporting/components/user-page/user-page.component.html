@@ -1,114 +1,158 @@
-<mat-card-title class="page-title">User page</mat-card-title>
-<div class="header-activity">
-  <mat-form-field appearance="fill" class="header-searchbar">
-    <mat-label>Search user</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex: Rusu"
-      #input
-    />
-  </mat-form-field>
-
-  <button
-    mat-raised-button
-    class="header-add-button theme-add-card"
-    (click)="addUser()"
-  >
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
+<div class="container mt-5">
+  <div class="row">
+    <mat-card-title class="page-title">User page</mat-card-title>
+  </div>
 </div>
 
-<mat-card class="card-container">
-  <a href=""></a>
-  <mat-card class="secondary-card" *ngFor="let user of allUsers">
-    <mat-card-subtitle>{{ user.roles }}</mat-card-subtitle>
-    <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
-    <mat-card-subtitle>
-      {{ user.role }}
-    </mat-card-subtitle>
-    <mat-card-actions align="end">
-      <button mat-button color="accent" (click)="editUser(user)">
-        <mat-icon>edit</mat-icon>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col d-flex justify-content-start">
+      <mat-form-field appearance="fill" class="w-30 pt-3">
+        <mat-label>Search user</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="Ex: Rusu"
+          #input
+        />
+      </mat-form-field>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button class="mt-3 mb-3" mat-raised-button (click)="addUser()">
+        <mat-icon color="accent">add_box</mat-icon>
       </button>
-      <button mat-raised-button color="accent" (click)="deleteUser(user.id!)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-card-actions>
-    <button
-      mat-raised-button
-      color="accent"
-      align="start"
-      (click)="sendPasswordResetRequest(user)"
-    >
-      Reset Password
-    </button>
-  </mat-card>
-  <button mat-raised-button class="secondary-card" (click)="addUser()">
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
-</mat-card>
+    </div>
+  </div>
+</div>
 
-<mat-card *ngIf="allRates" class="card-container rates-card">
-  <mat-card-title> Employee Rates </mat-card-title>
-  <table mat-table [dataSource]="allRates" class="secondary-card">
-    <ng-container matColumnDef="projectId">
-      <th mat-header-cell *matHeaderCellDef>Project</th>
-      <td mat-cell *matCellDef="let rate">
-        {{ rate.projectId | projectid: projects! }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="employeeId">
-      <th mat-header-cell *matHeaderCellDef>Employee</th>
-      <td mat-cell *matCellDef="let rate">
-        {{ rate.employeeId | employeeid: allUsers! }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="rate">
-      <th mat-header-cell *matHeaderCellDef>Rate</th>
-      <td mat-cell *matCellDef="let rate">{{ rate.rate }} &euro;</td>
-    </ng-container>
-
-    <ng-container matColumnDef="rateType">
-      <th mat-header-cell *matHeaderCellDef>Rate Type</th>
-      <td mat-cell *matCellDef="let rate">{{ rate.rateType }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="employeeTimeCommitement">
-      <th mat-header-cell *matHeaderCellDef>Commitment</th>
-      <td mat-cell *matCellDef="let rate">
-        {{ rate.employeeTimeCommitement }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="editButton">
-      <th mat-header-cell *matHeaderCellDef>Edit</th>
-      <td mat-cell class="edit-cell" *matCellDef="let rate">
-        <button mat-raised-button color="accent" (click)="editRate(rate)">
+<div class="container mt-2">
+  <mat-card class="content-container">
+    <a href=""></a>
+    <mat-card class="entity-card row mx-2 mb-3" *ngFor="let user of allUsers">
+      <mat-card-subtitle>{{ user.roles }}</mat-card-subtitle>
+      <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
+      <mat-card-subtitle>
+        {{ user.role }}
+      </mat-card-subtitle>
+      <mat-card-actions align="end">
+        <button mat-button color="accent" (click)="editUser(user)">
           <mat-icon>edit</mat-icon>
         </button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="deleteButton">
-      <th mat-header-cell class="delete-cell" *matHeaderCellDef>Delete</th>
-      <td mat-cell *matCellDef="let rate">
-        <button mat-raised-button (click)="deleteRate(rate)" color="accent">
+        <button mat-raised-button color="accent" (click)="deleteUser(user.id!)">
           <mat-icon>delete</mat-icon>
         </button>
-      </td>
-    </ng-container>
+        <button
+          mat-raised-button
+          color="accent"
+          align="start"
+          (click)="sendPasswordResetRequest(user)"
+        >
+          Reset Password
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <div class="row mx-2">
+      <button
+        mat-raised-button
+        class="add-button-card w-100"
+        (click)="addUser()"
+      >
+        <mat-icon color="accent">add_box</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <button
-    mat-raised-button
-    class="secondary-card rate-add-button"
-    (click)="addRate()"
+<div class="container mt-4 mb-4">
+  <mat-card
+    *ngIf="allRates"
+    class="container mt-2 content-container text-center"
   >
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
-</mat-card>
+    <div class="row m-2 text-start">
+      <mat-card-title> Employee Rates </mat-card-title>
+    </div>
+    <div class="row mx-2">
+      <table
+        mat-table
+        [dataSource]="allRates"
+        class="w-100 entity-card text-center"
+      >
+        <ng-container matColumnDef="projectId">
+          <th class="text-center" mat-header-cell *matHeaderCellDef>Project</th>
+          <td mat-cell *matCellDef="let rate">
+            {{ rate.projectId | projectid: projects! }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="employeeId">
+          <th class="text-center" mat-header-cell *matHeaderCellDef>
+            Employee
+          </th>
+          <td mat-cell *matCellDef="let rate">
+            {{ rate.employeeId | employeeid: allUsers! }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="rate">
+          <th class="text-center" mat-header-cell *matHeaderCellDef>Rate</th>
+          <td mat-cell *matCellDef="let rate">{{ rate.rate }} &euro;</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rateType">
+          <th class="text-center" mat-header-cell *matHeaderCellDef>
+            Rate Type
+          </th>
+          <td mat-cell *matCellDef="let rate">{{ rate.rateType }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="employeeTimeCommitement">
+          <th class="text-center" mat-header-cell *matHeaderCellDef>
+            Commitment
+          </th>
+          <td mat-cell *matCellDef="let rate">
+            {{ rate.employeeTimeCommitement }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editButton">
+          <th class="text-center" mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell class="edit-cell" *matCellDef="let rate">
+            <button mat-raised-button color="accent" (click)="editRate(rate)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deleteButton">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Delete</th>
+          <td mat-cell *matCellDef="let rate">
+            <button mat-raised-button (click)="deleteRate(rate)" color="accent">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr
+          class="mx-2"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+        ></tr>
+        <tr
+          class="mx-2"
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+
+    <div class="row mx-2 mt-2">
+      <button
+        class="add-button-card w-100"
+        mat-raised-button
+        (click)="addRate()"
+      >
+        <mat-icon color="accent">add_box</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

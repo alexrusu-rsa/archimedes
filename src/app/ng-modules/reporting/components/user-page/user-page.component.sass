@@ -1,82 +1,8 @@
-@import 'src/styles/mixins.sass'
 @import 'src/styles/variables.sass'
-:host
-  @include host-mixin
 
-  .mat-input-element
-    @include mat-input-element
-
-.header-activity
-  @include header-activity
-
-.card-container
-  @include card-container
-
-  .header-add-button
-    @include header-add-button
-
-  .header-datepicker
-    @include header-datepicker
-
-  .secondary-card
-    @include secondary-card
-
-  .theme-add-card
-    @include theme-add-card
-
-  .mat-card-actions
-    @include mat-card-actions
-
-a
-  @include mat-input-element
-
-.user-details
-  @include user-details
-
-.page-title
-  @include page-title
-
-@media (max-width: $media-query-400px)
-  .header-add-button
-    display: none
-
-  .header-searchbar
-    width: $full-width
-
-.mat-header-cell
-  text-align: center
-.mat-cell
-  text-align: center
-@media (max-width: 700px)
-  .mat-header-cell
-    font-size: 10px
-  .mat-cell
-    font-size: 10px
-    padding: 0 !important
-
-@media (max-width: 525px)
-  .mat-header-cell
-    font-size: 8px
-    padding: 0 !important
-    border-left: 1px solid #5a5a5a
-    border-right: 1px solid #5a5a5a
-  .mat-cell
-    font-size: 8px
-    border-left: 1px solid #5a5a5a
-    border-right: 1px solid #5a5a5a
-    .mat-raised-button
-      width: 30px !important
-      padding: 0 !important
-  .edit-cell .delete-cell
-    width: 50px !important
-
-@media (max-width: 350px)
-  .rates-card
-    padding: 0
-    .mat-card-title
-      padding-left: 20px
-      padding-top: 20px
-    .rate-add-button
-      margin-bottom: 16px
-      margin-left: 16px
-      margin-right: 16px
+.content-container
+  background: $rsasoft-layer1-card-color
+.entity-card
+  background: $rsasoft-layer2-card-color
+.add-button-card
+  background: $rsasoft-layer2-card-color
