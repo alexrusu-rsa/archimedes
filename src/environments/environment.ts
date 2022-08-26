@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serviceURL: 'https://archimedes-backend-dev.herokuapp.com/',
+  serviceURL: 'http://localhost:3000/',
 };
 
 /*
