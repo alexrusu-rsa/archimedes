@@ -5,7 +5,7 @@
 </div>
 <div class="container mt-4">
   <div class="row">
-    <div class="col col-xs-1 col-sm-4 col-md-6 col-lg-3 col-xl-3">
+    <div class="col col-sm-4 col-md-6 col-lg-3 col-xl-3">
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Month and Year</mat-label>
         <input matInput [matDatepicker]="datepicker" [formControl]="date" />
@@ -32,15 +32,15 @@
       class="entity-card row mx-2 mb-3"
       *ngFor="let project of allProjects"
     >
-      <div class="row">
+      <div class="">
         <mat-card-subtitle *ngIf="selectedMonth && selectedYear">{{
           selectedDateToDisplay
         }}</mat-card-subtitle>
       </div>
-      <div class="row">
+      <div class="">
         <mat-card-title>{{ project.projectName }}</mat-card-title>
       </div>
-      <div class="row">
+      <div class="">
         <mat-chip-list>
           <div *ngFor="let customer of allCustomers">
             <mat-chip *ngIf="customer.id === project.customerId">{{
@@ -49,25 +49,24 @@
           </div>
         </mat-chip-list>
       </div>
-      <div class="row justify-content-end">
-        <div
-          class="col col-xs-1 col-sm-4 col-md-4 col-lg-2 col-xl-2 d-flex justify-content-end"
+      <!-- <div
+        class="d-flex w-100 justify-content-center justify-content-sm-center justify-content-md-end justify-content-lg-end justify-content-xl-end"
+      > -->
+      <mat-card-actions
+        class="col-12 col-sm-12 col-md-12 d-flex d-sm-flex d-md-flex justify-content-center justify-content-sm-center justify-content-md-end mx-0 mx-sm-0 mx-md-0 px-2 px-md-0 mt-4 mt-sm-4 mt-md-0 mb-1"
+      >
+        <button
+          class="col-12 col-sm-12 col-md-4"
+          *ngIf="project.id"
+          mat-raised-button
+          color="accent"
+          (click)="downloadInvoice(project.id, project.customerId)"
         >
-          <mat-card-actions class="w-100">
-            <button
-              class="w-100"
-              *ngIf="project.id"
-              mat-raised-button
-              color="accent"
-              (click)="downloadInvoice(project.id, project.customerId)"
-            >
-              <mat-icon>table_chart</mat-icon>
-              <mat-icon>picture_as_pdf</mat-icon>
-              <mat-icon>vertical_align_bottom</mat-icon>
-            </button>
-          </mat-card-actions>
-        </div>
-      </div>
+          <mat-icon>table_chart</mat-icon>
+          <mat-icon>picture_as_pdf</mat-icon>
+          <mat-icon>vertical_align_bottom</mat-icon>
+        </button>
+      </mat-card-actions>
     </mat-card>
   </mat-card>
 </div>
