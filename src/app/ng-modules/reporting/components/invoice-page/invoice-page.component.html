@@ -1,43 +1,68 @@
-<mat-card-title class="page-title"> Invoices </mat-card-title>
-<div class="header-activity">
-  <mat-form-field appearance="fill" class="header-datepicker">
-    <mat-label>Month and Year</mat-label>
-    <input matInput [matDatepicker]="datepicker" [formControl]="date" />
-    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker
-      #datepicker
-      startView="multi-year"
-      (monthSelected)="setMonthAndYear($event, datepicker)"
-      panelClass="header-month-picker"
-    >
-    </mat-datepicker>
-  </mat-form-field>
+<div class="container mt-4">
+  <div class="row">
+    <mat-card-title class="page-title"> Invoices </mat-card-title>
+  </div>
 </div>
-<mat-card *ngIf="allCustomers" class="card-container">
-  <mat-card class="secondary-card" *ngFor="let project of allProjects">
-    <mat-card-subtitle *ngIf="selectedMonth && selectedYear">{{
-      selectedDateToDisplay
-    }}</mat-card-subtitle>
-    <mat-card-title>{{ project.projectName }}</mat-card-title>
-    <mat-chip-list>
-      <div *ngFor="let customer of allCustomers">
-        <mat-chip *ngIf="customer.id === project.customerId">{{
-          customer.customerName
-        }}</mat-chip>
-      </div>
-    </mat-chip-list>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="fill" class="header-datepicker">
+        <mat-label>Month and Year</mat-label>
+        <input matInput [matDatepicker]="datepicker" [formControl]="date" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #datepicker
+          startView="multi-year"
+          (monthSelected)="setMonthAndYear($event, datepicker)"
+          panelClass="header-month-picker"
+        >
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
 
-    <mat-card-actions align="end">
-      <button
-        *ngIf="project.id"
-        mat-raised-button
-        color="accent"
-        (click)="downloadInvoice(project.id, project.customerId)"
-      >
-        <mat-icon>table_chart</mat-icon>
-        <mat-icon>picture_as_pdf</mat-icon>
-        <mat-icon>vertical_align_bottom</mat-icon>
-      </button>
-    </mat-card-actions>
+<div class="container mt-2">
+  <div class="content-container"></div>
+  <mat-card *ngIf="allCustomers">
+    <mat-card
+      class="entity-card row mx-2 mb-3"
+      *ngFor="let project of allProjects"
+    >
+      <div class="row">
+        <mat-card-subtitle *ngIf="selectedMonth && selectedYear">{{
+          selectedDateToDisplay
+        }}</mat-card-subtitle>
+      </div>
+      <div class="row">
+        <mat-card-title>{{ project.projectName }}</mat-card-title>
+      </div>
+      <div class="row">
+        <mat-chip-list>
+          <div *ngFor="let customer of allCustomers">
+            <mat-chip *ngIf="customer.id === project.customerId">{{
+              customer.customerName
+            }}</mat-chip>
+          </div>
+        </mat-chip-list>
+      </div>
+      <div class="row">
+        <mat-card-actions class="d-flex justify-content-end">
+          <button
+            *ngIf="project.id"
+            mat-raised-button
+            color="accent"
+            (click)="downloadInvoice(project.id, project.customerId)"
+          >
+            <mat-icon>table_chart</mat-icon>
+            <mat-icon>picture_as_pdf</mat-icon>
+            <mat-icon>vertical_align_bottom</mat-icon>
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
   </mat-card>
-</mat-card>
+</div>
