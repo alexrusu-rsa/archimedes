@@ -1,13 +1,16 @@
-<div class="container mt-5">
+<div class="container mt-4 px-0">
   <div class="row">
-    <mat-card-title class="page-title">User page</mat-card-title>
+    <mat-card-title>User page</mat-card-title>
   </div>
 </div>
 
-<div class="container mt-3">
+<div class="container mt-4 px-0">
   <div class="row">
     <div class="col d-flex justify-content-start">
-      <mat-form-field appearance="fill" class="w-30 pt-3">
+      <mat-form-field
+        appearance="fill"
+        class="col-12 col-md-8 col-sm-8 col-lg-6 col-xl-5 pt-3"
+      >
         <mat-label>Search user</mat-label>
         <input
           matInput
@@ -17,7 +20,9 @@
         />
       </mat-form-field>
     </div>
-    <div class="col d-flex justify-content-end">
+    <div
+      class="col d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end"
+    >
       <button class="mt-3 mb-3" mat-raised-button (click)="addUser()">
         <mat-icon color="accent">add_box</mat-icon>
       </button>
@@ -25,36 +30,55 @@
   </div>
 </div>
 
-<div class="container mt-2">
+<div class="container m-0 p-0">
   <mat-card class="content-container">
     <a href=""></a>
-    <mat-card class="entity-card row mx-2 mb-3" *ngFor="let user of allUsers">
-      <mat-card-subtitle>{{ user.roles }}</mat-card-subtitle>
+    <mat-card
+      class="entity-card row mx-0 mb-3 p-2"
+      *ngFor="let user of allUsers"
+    >
+      <mat-card-subtitle class="mt-2">{{ user.roles }}</mat-card-subtitle>
       <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
       <mat-card-subtitle>
         {{ user.role }}
       </mat-card-subtitle>
-      <mat-card-actions align="end">
-        <button mat-button color="accent" (click)="editUser(user)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-raised-button color="accent" (click)="deleteUser(user.id!)">
-          <mat-icon>delete</mat-icon>
-        </button>
-        <button
-          mat-raised-button
-          color="accent"
-          align="start"
-          (click)="sendPasswordResetRequest(user)"
+      <div
+        class="row justify-content-center justify-content-md-center mx-0 px-2"
+      >
+        <mat-card-actions
+          class="col-12 mb-0 justify-content-center d-block d-md-flex d-sm-flex d-lg-flex d-xl-flex"
         >
-          Reset Password
-        </button>
-      </mat-card-actions>
+          <button
+            class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mx-0 mb-2"
+            mat-raised-button
+            color="accent"
+            (click)="sendPasswordResetRequest(user)"
+          >
+            Reset Password
+          </button>
+          <button
+            class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 mx-0 mb-2"
+            mat-button
+            color="accent"
+            (click)="editUser(user)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4 mx-0 mb-2"
+            mat-raised-button
+            color="accent"
+            (click)="deleteUser(user.id!)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </div>
     </mat-card>
-    <div class="row mx-2">
+    <div class="row mx-0">
       <button
         mat-raised-button
-        class="add-button-card w-100"
+        class="add-button-card col-12"
         (click)="addUser()"
       >
         <mat-icon color="accent">add_box</mat-icon>
@@ -63,91 +87,100 @@
   </mat-card>
 </div>
 
-<div class="container mt-4 mb-4">
+<div class="container mt-4 mb-4 mx-0 px-0">
   <mat-card
     *ngIf="allRates"
     class="container mt-2 content-container text-center"
   >
-    <div class="row m-2 text-start">
+    <div class="row text-start">
       <mat-card-title> Employee Rates </mat-card-title>
     </div>
-    <div class="row mx-2">
-      <table
-        mat-table
-        [dataSource]="allRates"
-        class="w-100 entity-card text-center"
-      >
-        <ng-container matColumnDef="projectId">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>Project</th>
-          <td mat-cell *matCellDef="let rate">
-            {{ rate.projectId | projectid: projects! }}
-          </td>
-        </ng-container>
 
-        <ng-container matColumnDef="employeeId">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>
-            Employee
-          </th>
-          <td mat-cell *matCellDef="let rate">
-            {{ rate.employeeId | employeeid: allUsers! }}
-          </td>
-        </ng-container>
+    <table mat-table [dataSource]="allRates" class="row">
+      <ng-container matColumnDef="projectId">
+        <th
+          mat-header-cell
+          class="col-1 col-md-1 p-0 p-md-0 text-md-start p-0"
+          *matHeaderCellDef
+        >
+          Project
+        </th>
+        <td
+          mat-cell
+          class="col-1 col-md-1 p-0 p-md-0 text-md-start"
+          *matCellDef="let rate"
+        >
+          {{ rate.projectId | projectid: projects! }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="rate">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>Rate</th>
-          <td mat-cell *matCellDef="let rate">{{ rate.rate }} &euro;</td>
-        </ng-container>
+      <ng-container matColumnDef="employeeId">
+        <th mat-header-cell class="col-3 p-0 p-md-0 col-md-3" *matHeaderCellDef>
+          Employee
+        </th>
+        <td
+          mat-cell
+          class="col-3 p-0 p-md-0 col-md-3 text-end"
+          *matCellDef="let rate"
+        >
+          {{ rate.employeeId | employeeid: allUsers! }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="rateType">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>
-            Rate Type
-          </th>
-          <td mat-cell *matCellDef="let rate">{{ rate.rateType }}</td>
-        </ng-container>
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell class="col-1 p-0" *matHeaderCellDef>Rate</th>
+        <td mat-cell class="col-1 p-0" *matCellDef="let rate">
+          {{ rate.rate }} &euro;
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="employeeTimeCommitement">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>
-            Commitment
-          </th>
-          <td mat-cell *matCellDef="let rate">
-            {{ rate.employeeTimeCommitement }}
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="rateType">
+        <th mat-header-cell class="col-1 p-0" *matHeaderCellDef>Rate Type</th>
+        <td mat-cell class="col-1 p-0" *matCellDef="let rate">
+          {{ rate.rateType }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="editButton">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>Edit</th>
-          <td mat-cell class="edit-cell" *matCellDef="let rate">
-            <button mat-raised-button color="accent" (click)="editRate(rate)">
-              <mat-icon>edit</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="employeeTimeCommitement">
+        <th mat-header-cell class="col-3 p-0" *matHeaderCellDef>Commitment</th>
+        <td mat-cell class="col-3 p-0" *matCellDef="let rate">
+          {{ rate.employeeTimeCommitement }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="deleteButton">
-          <th mat-header-cell *matHeaderCellDef class="text-center">Delete</th>
-          <td mat-cell *matCellDef="let rate">
-            <button mat-raised-button (click)="deleteRate(rate)" color="accent">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="editButton">
+        <th mat-header-cell class="col-1 p-0" *matHeaderCellDef>Edit</th>
+        <td mat-cell class="col-1 p-0" *matCellDef="let rate">
+          <button mat-raised-button color="accent" (click)="editRate(rate)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-        <tr
-          class="mx-2"
-          mat-header-row
-          *matHeaderRowDef="displayedColumns"
-        ></tr>
-        <tr
-          class="mx-2"
-          mat-row
-          *matRowDef="let row; columns: displayedColumns"
-        ></tr>
-      </table>
-    </div>
+      <ng-container matColumnDef="deleteButton">
+        <th mat-header-cell class="col-1 p-0" *matHeaderCellDef>Delete</th>
+        <td mat-cell class="col-1 p-0" *matCellDef="let rate">
+          <button mat-raised-button (click)="deleteRate(rate)" color="accent">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-    <div class="row mx-2 mt-2">
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+        class="p-0 p-md-0"
+      ></tr>
+      <tr
+        class="row d-flex col-12 p-0 p-md-0"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+    </table>
+
+    <div class="row mx-0">
       <button
-        class="add-button-card w-100"
+        class="add-button-card col-12"
         mat-raised-button
         (click)="addRate()"
       >
