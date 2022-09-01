@@ -1,15 +1,18 @@
-<mat-toolbar color="primary">
-  <button
-    *ngIf="hasToken === true && hasToken !== undefined"
-    mat-icon-button
-    (click)="sidenav.toggle()"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <h3>{{ pageTitle | titlecase }}</h3>
-</mat-toolbar>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav>
+<div class="row position-sticky fixed-top top-0 w-100">
+  <mat-toolbar color="primary">
+    <button
+      *ngIf="hasToken === true && hasToken !== undefined"
+      mat-icon-button
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h3>{{ pageTitle | titlecase }}</h3>
+  </mat-toolbar>
+</div>
+
+<mat-sidenav-container class="d-inline h-100 w-100">
+  <mat-sidenav #sidenav class="vh-100">
     <mat-nav-list>
       <a
         mat-list-item
@@ -89,15 +92,13 @@
         (click)="sidenav.close()"
         >Invoices
       </a>
-      <a
-        mat-list-item
-        routerLink=""
-        (click)="sidenav.close(); logOut()"
+      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()"
         >Log Out</a
       >
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+
+  <mat-sidenav-content class="container w-100 h-auto overflow-auto">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
