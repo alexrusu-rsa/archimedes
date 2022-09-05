@@ -7,6 +7,7 @@ h1
   font-size: 250%
 
 h2, h3
+  font: 400 14px / 20px Roboto, "Helvetica Neue", sans-serif
   font-family: Arial, Helvetica, sans-serif
   font-weight: lighter
 
@@ -14,20 +15,23 @@ html, body
   margin: 0
   height: $full-height
   width: $full-width
-  background: #303030
+  background: $rsasoft-background-color
+
+.mat-drawer-backdrop
+  min-height: 100vh
 
 *
   scrollbar-width: thin
-  scrollbar-color: #0000007c #424242
+  scrollbar-color: $rsasoft-layer1-card-color $rsasoft-layer2-card-color
 
 *::-webkit-scrollbar
   width: 12px
 
 *::-webkit-scrollbar-track
-  background: #424242
+  background: $rsasoft-layer2-card-color
 
 *::-webkit-scrollbar-thumb
-  background-color: #0000007c
+  background-color: $rsasoft-layer2-card-color
   border-radius: 20px
 
 body, input[type="text"], button
@@ -44,6 +48,3 @@ body, input[type="text"], button
   .full-width-dialog .mat-dialog-container
     max-width: 45vw !important
     max-height: 1000px !important
-
-.mat-drawer-backdrop
-  min-height: 100vh

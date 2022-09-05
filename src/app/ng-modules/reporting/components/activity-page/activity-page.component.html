@@ -120,3 +120,35 @@
     <mat-icon color="accent">add_box</mat-icon>
   </button>
 </mat-card>
+<mat-card *ngIf="activitiesWithNoProject?.length !== 0" class="card-container">
+  <mat-card-title> Other </mat-card-title>
+  <mat-card
+    class="secondary-card"
+    *ngFor="let activity of activitiesWithNoProject"
+  >
+    <mat-card-title>{{ activity.name }}</mat-card-title>
+    <mat-card-subtitle>
+      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
+    >
+
+    <mat-card-actions class="custom-card-actions" align="end">
+      <button mat-button color="accent" (click)="editActivity(activity)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="deleteActivity(activity)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-button color="accent" (click)="duplicateActivity(activity)">
+        <mat-icon>control_point_duplicate</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
+    <mat-icon color="accent">add_box</mat-icon>
+  </button>
+</mat-card>
