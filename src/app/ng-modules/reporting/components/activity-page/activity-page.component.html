@@ -1,154 +1,212 @@
-<mat-card-title class="page-title">
-  {{ user?.name }} {{ user?.surname }}
-</mat-card-title>
-
-<div class="header-activity">
-  <mat-form-field appearance="fill" class="header-datepicker">
-    <input
-      matInput
-      [matDatepicker]="datePicker"
-      [(ngModel)]="selectedDate"
-      (dateChange)="dateChanges()"
-    />
-    <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
-    <mat-datepicker #datePicker touchUi></mat-datepicker>
-  </mat-form-field>
-
-  <div class="right-side">
-    <mat-card
-      class="time-booked-card"
-      [ngStyle]="{ 'background-color': timeBookedContainerColor }"
-    >
-      <mat-card-subtitle
-        >Time booked: <strong>{{ totalTimeBooked }}</strong
-        >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
-      >
-    </mat-card>
-    <mat-form-field appearance="fill" class="project-filter-field">
-      <mat-label>Filter</mat-label>
-      <mat-select
-        (selectionChange)="setValueOfSelectedProject($event)"
-        [(ngModel)]="selectedFilterProjectId"
-      >
-        <mat-option [value]="'all'"> All projects </mat-option>
-        <mat-option
-          *ngFor="let project of allProjects"
-          [value]="project.id"
-          required="true"
-          ngDefaultControl
-        >
-          {{ project.projectName }}
-        </mat-option>
-      </mat-select></mat-form-field
-    >
-    <button
-      class="header-add-button"
-      mat-raised-button
-      (click)="addNewActivity()"
-    >
-      <mat-icon color="accent">add_box</mat-icon>
-    </button>
+<div class="container mt-4 mx-0 px-0">
+  <div class="row text-start mb-3">
+    <mat-card-title> {{ user?.name }} {{ user?.surname }} </mat-card-title>
   </div>
 </div>
 
-<mat-card class="card-container" *ngIf="activitiesOfTheDay.length < 1">
-  <mat-card class="secondary-card">
-    <mat-card-title
-      >You have not reported any activities for this day yet.</mat-card-title
+<div class="container mx-0 px-0 d-lg-flex">
+  <div class="row col-12 col-lg-6 mb-lg-0 mx-0 px-0 mb-2 pe-lg-2">
+    <mat-form-field
+      class="col-12 mx-0 px-0 col-md-8 col-lg-6"
+      appearance="fill"
     >
-  </mat-card>
-</mat-card>
-<mat-card
-  class="card-container"
-  *ngFor="let project of projectsOfCurrentDayAndActivities"
->
-  <mat-card-title>{{
-    project.projectId | projectid: allProjects!
-  }}</mat-card-title>
-  <mat-card
-    class="secondary-card"
-    *ngFor="let activity of project.activitiesWithProjectId"
-  >
-    <mat-card-title>{{ activity.name }}</mat-card-title>
-    <mat-card-subtitle>
-      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
-    >
-    <mat-card-content>
-      {{ activity.description }}
-      <mat-chip-list
-        *ngIf="activity.projectId !== null && activity.projectId !== ''"
+      <input
+        matInput
+        [matDatepicker]="datePicker"
+        [(ngModel)]="selectedDate"
+        (dateChange)="dateChanges()"
+      />
+      <mat-datepicker-toggle
+        [for]="datePicker"
+        matSuffix
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datePicker touchUi></mat-datepicker>
+    </mat-form-field>
+    <div class="col-12 mx-0 px-0 col-md-4 ps-md-4 col-lg-6">
+      <mat-card
+        class="col-12 text-center"
+        [ngStyle]="{ 'background-color': timeBookedContainerColor }"
       >
-        <div>
-          <mat-chip
-            >{{
-              activity.projectId!
-                | customerfromprojectid: allProjects!:allCustomers!
-            }}
-            {{ activity.projectId! | projectid: allProjects! }}</mat-chip
+        <mat-card-subtitle
+          >Time booked: <strong>{{ totalTimeBooked }}</strong
+          >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
+        >
+      </mat-card>
+    </div>
+  </div>
+  <div class="row mx-0 px-0 mb-2 col-lg-6 ps-lg-2">
+    <div class="col-12 mx-0 px-0 col-md-8 col-lg-6">
+      <mat-form-field class="col-12" appearance="fill">
+        <mat-label>Filter</mat-label>
+        <mat-select
+          (selectionChange)="setValueOfSelectedProject($event)"
+          [(ngModel)]="selectedFilterProjectId"
+        >
+          <mat-option [value]="'all'"> All projects </mat-option>
+          <mat-option
+            *ngFor="let project of allProjects"
+            [value]="project.id"
+            required="true"
+            ngDefaultControl
           >
-        </div>
-      </mat-chip-list>
-      <mat-chip-list
-        *ngIf="activity.projectId === undefined || activity.projectId === null"
+            {{ project.projectName }}
+          </mat-option>
+        </mat-select></mat-form-field
       >
-        <mat-chip> Internal </mat-chip>
-      </mat-chip-list>
-    </mat-card-content>
-
-    <mat-card-actions class="custom-card-actions" align="end">
-      <button mat-button color="accent" (click)="editActivity(activity)">
-        <mat-icon>edit</mat-icon>
+    </div>
+    <div class="col-12 mx-0 px-0 col-md-4 ps-md-4 col-lg-6">
+      <button class="col-12 p-2" mat-raised-button (click)="addNewActivity()">
+        <mat-icon color="accent">add_box</mat-icon>
       </button>
+    </div>
+  </div>
+</div>
 
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="deleteActivity(activity)"
+<div class="container mx-0 px-0">
+  <mat-card class="content-container" *ngIf="activitiesOfTheDay.length < 1">
+    <mat-card class="entity-card">
+      <mat-card-title
+        >You have not reported any activities for this day yet.</mat-card-title
       >
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-button color="accent" (click)="duplicateActivity(activity)">
-        <mat-icon>control_point_duplicate</mat-icon>
-      </button>
-    </mat-card-actions>
+    </mat-card>
   </mat-card>
-  <button
-    class="secondary-card"
-    mat-raised-button
-    (click)="addActivityOnCertainProject(project.projectId)"
-  >
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
-</mat-card>
-<mat-card *ngIf="activitiesWithNoProject?.length !== 0" class="card-container">
-  <mat-card-title> Other </mat-card-title>
+</div>
+<div class="container mx-0 px-0 mb-2">
   <mat-card
-    class="secondary-card"
-    *ngFor="let activity of activitiesWithNoProject"
+    class="container content-container mb-2"
+    *ngFor="let project of projectsOfCurrentDayAndActivities"
   >
-    <mat-card-title>{{ activity.name }}</mat-card-title>
-    <mat-card-subtitle>
-      {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
-    >
-
-    <mat-card-actions class="custom-card-actions" align="end">
-      <button mat-button color="accent" (click)="editActivity(activity)">
-        <mat-icon>edit</mat-icon>
-      </button>
-
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="deleteActivity(activity)"
+    <div class="row col-12 text-start mt-2 mx-0 px-0 mb-4">
+      <mat-card-title class="col-12 mx-0 px-0">{{
+        project.projectId | projectid: allProjects!
+      }}</mat-card-title>
+    </div>
+    <div class="row mx-0 px-0">
+      <mat-card
+        class="entity-card mx-0 mb-2"
+        *ngFor="let activity of project.activitiesWithProjectId"
       >
-        <mat-icon>delete</mat-icon>
+        <mat-card-title>{{ activity.name }}</mat-card-title>
+        <mat-card-subtitle>
+          {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
+        >
+        <mat-card-content>
+          {{ activity.description }}
+          <mat-chip-list
+            *ngIf="activity.projectId !== null && activity.projectId !== ''"
+          >
+            <div>
+              <mat-chip
+                >{{
+                  activity.projectId!
+                    | customerfromprojectid: allProjects!:allCustomers!
+                }}
+                {{ activity.projectId! | projectid: allProjects! }}</mat-chip
+              >
+            </div>
+          </mat-chip-list>
+          <mat-chip-list
+            *ngIf="
+              activity.projectId === undefined || activity.projectId === null
+            "
+          >
+            <mat-chip> Internal </mat-chip>
+          </mat-chip-list>
+        </mat-card-content>
+
+        <mat-card-actions
+          class="row mx-0 mt-0 mb-0 pt-0 pb-0 px-0 col-12 justify-content-end d-flex"
+        >
+          <button
+            mat-button
+            class="col-2 col-lg-1 mx-0 px-0"
+            color="accent"
+            (click)="editActivity(activity)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            mat-button
+            color="accent"
+            class="col-2 col-lg-1 mx-0 px-0"
+            (click)="duplicateActivity(activity)"
+          >
+            <mat-icon>control_point_duplicate</mat-icon>
+          </button>
+          <button
+            mat-raised-button
+            class="col-2 col-lg-1 mx-0 px-0"
+            color="accent"
+            (click)="deleteActivity(activity)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="row col-12 mx-0 px-0">
+      <button
+        class="entity-card col-12"
+        mat-raised-button
+        (click)="addActivityOnCertainProject(project.projectId)"
+      >
+        <mat-icon color="accent">add_box</mat-icon>
       </button>
-      <button mat-button color="accent" (click)="duplicateActivity(activity)">
-        <mat-icon>control_point_duplicate</mat-icon>
-      </button>
-    </mat-card-actions>
+    </div>
   </mat-card>
-  <button class="secondary-card" mat-raised-button (click)="addNewActivity()">
-    <mat-icon color="accent">add_box</mat-icon>
-  </button>
-</mat-card>
+</div>
+<div class="container mx-0 px-0">
+  <mat-card *ngIf="activitiesWithNoProject?.length !== 0">
+    <div class="row col-12 text-start mx-0 px-0"></div>
+    <mat-card-title class="col-12 mx-0 px-0 mb-3 mt-2"> Other </mat-card-title>
+    <mat-card
+      class="entity-card mb-2"
+      *ngFor="let activity of activitiesWithNoProject"
+    >
+      <mat-card-title>{{ activity.name }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
+      >
+
+      <mat-card-actions
+        class="row mx-0 mt-0 mb-0 pt-0 pb-0 px-0 col-12 justify-content-end d-flex"
+      >
+        <button
+          mat-button
+          class="col-2 col-lg-1 mx-0 px-0"
+          color="accent"
+          (click)="editActivity(activity)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-button
+          color="accent"
+          class="col-2 col-lg-1 mx-0 px-0"
+          (click)="duplicateActivity(activity)"
+        >
+          <mat-icon>control_point_duplicate</mat-icon>
+        </button>
+        <button
+          mat-raised-button
+          class="col-2 col-lg-1 mx-0 px-0"
+          color="accent"
+          (click)="deleteActivity(activity)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <div class="row col-12 mx-0 px-0">
+      <button
+        class="entity-card col-12"
+        mat-raised-button
+        (click)="addNewActivity()"
+      >
+        <mat-icon color="accent">add_box</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>
