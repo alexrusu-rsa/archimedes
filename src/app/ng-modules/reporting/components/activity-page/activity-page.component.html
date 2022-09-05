@@ -4,71 +4,64 @@
   </div>
 </div>
 
-<div class="container mx-0 px-0">
-  <div class="row col-12 mx-0 px-0 mb-2">
-    <div class="col col-12 col-md-9 ml-0 mx-0 px-0 mt-2 p-0">
-      <mat-form-field appearance="fill" class="col-12 no-padding-form-field">
-        <input
-          matInput
-          [matDatepicker]="datePicker"
-          [(ngModel)]="selectedDate"
-          (dateChange)="dateChanges()"
-        />
-        <mat-datepicker-toggle
-          [for]="datePicker"
-          matSuffix
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datePicker touchUi></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <div
-      class="col-12 mt-4 col-md-3 my-md-0 mx-0 px-0 py-0 justify-content-end d-flex"
+<div class="container mx-0 px-0 d-lg-flex">
+  <div class="row col-12 col-lg-6 mb-lg-0 mx-0 px-0 mb-2 pe-lg-2">
+    <mat-form-field
+      class="col-12 mx-0 px-0 col-md-8 col-lg-6"
+      appearance="fill"
     >
+      <input
+        matInput
+        [matDatepicker]="datePicker"
+        [(ngModel)]="selectedDate"
+        (dateChange)="dateChanges()"
+      />
+      <mat-datepicker-toggle
+        [for]="datePicker"
+        matSuffix
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datePicker touchUi></mat-datepicker>
+    </mat-form-field>
+    <div class="col-12 mx-0 px-0 col-md-4 ps-md-4 col-lg-6">
       <mat-card
-        class="col-12 col-md-6"
+        class="col-12 text-center"
         [ngStyle]="{ 'background-color': timeBookedContainerColor }"
       >
-        <mat-card-title class="d-md-none">Time booked:</mat-card-title>
-        <h6>{{ totalTimeBooked }}/{{ currentEmployeeCommitment }}</h6>
+        <mat-card-subtitle
+          >Time booked: <strong>{{ totalTimeBooked }}</strong
+          >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
+        >
       </mat-card>
     </div>
   </div>
-
-  <div class="container mx-0 px-0">
-    <div class="row col-12 mx-0 px-0 mb-2">
-      <div class="col col-12 col-md-9 mx-0 px-0 mt-3">
-        <mat-form-field appearance="fill" class="col-12 no-padding-form-field">
-          <mat-label>Filter</mat-label>
-          <mat-select
-            (selectionChange)="setValueOfSelectedProject($event)"
-            [(ngModel)]="selectedFilterProjectId"
+  <div class="row mx-0 px-0 mb-2 col-lg-6 ps-lg-2">
+    <div class="col-12 mx-0 px-0 col-md-8 col-lg-6">
+      <mat-form-field class="col-12" appearance="fill">
+        <mat-label>Filter</mat-label>
+        <mat-select
+          (selectionChange)="setValueOfSelectedProject($event)"
+          [(ngModel)]="selectedFilterProjectId"
+        >
+          <mat-option [value]="'all'"> All projects </mat-option>
+          <mat-option
+            *ngFor="let project of allProjects"
+            [value]="project.id"
+            required="true"
+            ngDefaultControl
           >
-            <mat-option [value]="'all'"> All projects </mat-option>
-            <mat-option
-              *ngFor="let project of allProjects"
-              [value]="project.id"
-              required="true"
-              ngDefaultControl
-            >
-              {{ project.projectName }}
-            </mat-option>
-          </mat-select></mat-form-field
-        >
-      </div>
-
-      <div class="col-12 col-md-3 my-md-0 mx-0 px-0 justify-content-end d-flex">
-        <button
-          class="col-12 col-md-6 m-0 md-mt-0 px-0"
-          mat-raised-button
-          (click)="addNewActivity()"
-        >
-          <mat-icon color="accent">add_box</mat-icon>
-        </button>
-      </div>
+            {{ project.projectName }}
+          </mat-option>
+        </mat-select></mat-form-field
+      >
+    </div>
+    <div class="col-12 mx-0 px-0 col-md-4 ps-md-4 col-lg-6">
+      <button class="col-12 p-2" mat-raised-button (click)="addNewActivity()">
+        <mat-icon color="accent">add_box</mat-icon>
+      </button>
     </div>
   </div>
 </div>
+
 <div class="container mx-0 px-0">
   <mat-card class="content-container" *ngIf="activitiesOfTheDay.length < 1">
     <mat-card class="entity-card">
