@@ -1,15 +1,16 @@
-<mat-card>
-  <mat-card-title>Login</mat-card-title>
-  <mat-card-content>
+<mat-card class="container mt-5 col-12 col-sm-10 col-md-8 col-lg-4 col-xl-4">
+  <mat-card-title class="row col-12 text-center mt-2 px-0 mx-0 mb-5"
+    >Login</mat-card-title
+  >
+  <mat-card-content class="container px-0">
     <form [formGroup]="loginForm!" (keyup.enter)="logUserIn(user)">
-      <mat-form-field>
+      <mat-form-field class="row col-12 px-0">
         <mat-label>Email</mat-label>
         <input
           #userEmail
           matInput
           id="email"
           type="email"
-          class="form-control"
           formControlName="email"
           [(ngModel)]="user.email"
         />
@@ -18,7 +19,7 @@
         </mat-hint>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="row col-12 px-0">
         <mat-label>Password</mat-label>
         <input
           #userPassword
@@ -26,34 +27,32 @@
           id="password"
           type="password"
           formControlName="password"
-          class="form-control"
           [(ngModel)]="user.password"
           required
         />
 
-        <mat-hint
-          *ngIf="password?.touched && password?.pristine"
-        >
+        <mat-hint *ngIf="password?.touched && password?.pristine">
           Password is required
         </mat-hint>
       </mat-form-field>
     </form>
   </mat-card-content>
 
-  <mat-card-actions>
-    <a
-      class="forgot-password-button"
-      [routerLink]="['/auth/resetpassword']"
-      routerLinkActive="router-link-active"
-      >Forgotten Password</a
-    >
-    <button
-      mat-raised-button
-      color="accent"
-      (click)="logUserIn(user)"
-    >
-      Log in
-    </button>
+  <mat-card-actions class="container">
+    <div class="row mx-0 px-0 col-12 p-2">
+      <a
+        class="text-white"
+        [routerLink]="['/auth/resetpassword']"
+        routerLinkActive="router-link-active"
+        >Forgotten Password</a
+      >
+    </div>
+
+    <div class="row mx-2 col-12 mb-4">
+      <button mat-raised-button color="accent" (click)="logUserIn(user)">
+        Log in
+      </button>
+    </div>
   </mat-card-actions>
 
   <mat-progress-bar

@@ -59,6 +59,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   projectsOfCurrentDayAndActivities?: ProjectIdActivities[] = [];
   currentEmployeeRates?: Rate[];
 
+  activitiesWithNoProject?: Activity[];
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -73,6 +75,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.groupActivitiesWithNoProject();
     this.getCustomers();
     this.getProjects();
 
@@ -88,6 +91,17 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         });
       this.subscriptions?.push(this.getUserSub);
     }
+  }
+
+  groupActivitiesWithNoProject() {
+    const allActivities = this.activitiesOfTheDay;
+    const noProjectActivities: Activity[] = [];
+    allActivities.forEach((activity) => {
+      if (activity.projectId === null) {
+        noProjectActivities.push(activity);
+      }
+    });
+    this.activitiesWithNoProject = noProjectActivities;
   }
 
   getIdsOfProjectsOfTodayActivities() {
@@ -108,6 +122,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   }
 
   groupActivitiesOnProjectsUsingProjecIdActivitiesModel() {
+    this.groupActivitiesWithNoProject();
     if (this.projectsIdsOfCurrentDayActivities) {
       this.projectsIdsOfCurrentDayActivities.forEach((projectId) => {
         const activitiesOfCurrentProject = this.activitiesOfTheDay.filter(
