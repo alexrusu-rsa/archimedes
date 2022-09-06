@@ -61,5 +61,10 @@
       "updateTitle": "Update activity",
       "submitUpdate": "Update activity"
     }
+  },
+  "customer": {
+    "page": {
+      "title": "Customer Page"
+    }
   }
 }
