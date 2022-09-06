@@ -1,6 +1,6 @@
 <div class="dialog-container">
   <mat-dialog-content>
-    <mat-card-title>Duplicate Activity</mat-card-title>
+    <mat-card-title> {{ "duplicate.dialog.title" | translate }}</mat-card-title>
 
     <mat-card class="secondary-card">
       <mat-card-title>{{ currentActivity?.name }}</mat-card-title>
@@ -13,7 +13,9 @@
     </mat-card>
 
     <mat-form-field appearance="fill" *ngIf="range">
-      <mat-label>Select date range</mat-label>
+      <mat-label>{{
+        "duplicate.dialog.selectDateRange" | translate
+      }}</mat-label>
       <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
         <input matStartDate formControlName="start" placeholder="Start date" />
         <input matEndDate formControlName="end" placeholder="End date" />
@@ -26,7 +28,7 @@
       color="accent"
       (click)="duplicateActivitiesToSelectedRange()"
     >
-      Duplicate activity
+      {{ "duplicate.dialog.title" | translate }}
     </button>
   </mat-dialog-content>
 </div>

@@ -1,8 +1,8 @@
 <div class="dialog-container">
-  <mat-card-title>Set data for invoice</mat-card-title>
+  <mat-card-title>{{ "invoice.dialog.title" | translate }}</mat-card-title>
   <form [formGroup]="invoiceForm!" class="form-invoice">
     <mat-form-field appearance="fill">
-      <mat-label>Invoice Number</mat-label>
+      <mat-label>{{ "invoice.dialog.invoiceNumber" | translate }}</mat-label>
       <input
         matInput
         formControlName="invoiceNumber"
@@ -14,12 +14,12 @@
           !invoiceNumber?.valid &&
           (invoiceNumber?.touched || invoiceNumber?.dirty)
         "
-        >The invoice number is required.</mat-hint
+        >{{ "invoice.dialog.invoiceNumberHint" | translate }}</mat-hint
       >
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Euro Exchange</mat-label>
+      <mat-label>{{ "invoice.dialog.euroExchange" | translate }}</mat-label>
       <input
         matInput
         placeholder="Example: 4.97, 4.9283"
@@ -31,11 +31,13 @@
         *ngIf="
           !euroExchange?.valid && (euroExchange?.touched || euroExchange?.dirty)
         "
-        >Enter a value like 4.98 or 4.92394</mat-hint
+        >{{ "invoice.dialog.euroExchangeHint" | translate }}4</mat-hint
       >
     </mat-form-field>
     <mat-form-field appearance="fill" class="header-datepicker">
-      <mat-label>Invoice Emmitting Day</mat-label>
+      <mat-label>{{
+        "invoice.dialog.invoiceEmittingDay" | translate
+      }}</mat-label>
       <input
         matInput
         [matDatepicker]="datePicker"
@@ -52,9 +54,9 @@
   </form>
 
   <button mat-raised-button color="accent" (click)="downloadPDF()">
-    Download PDF
+    {{ "invoice.dialog.downloadPDF" | translate }}
   </button>
   <button mat-raised-button color="accent" (click)="downloadXLSX()">
-    Download XLSX
+    {{ "invoice.dialog.downloadXLSX" | translate }}
   </button>
 </div>

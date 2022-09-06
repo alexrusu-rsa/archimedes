@@ -1,12 +1,17 @@
 <div class="container mt-4 px-0">
-  <div class="row"><mat-card-title> Project page </mat-card-title></div>
+  <div class="row">
+    <mat-card-title>{{ "project.page.title" | translate }}</mat-card-title>
+  </div>
 </div>
 
 <div class="container mt-4 px-0">
   <div class="row">
     <div class="col d-flex justify-content-start">
-      <mat-form-field appearance="fill" class="col-12 col-md-8 col-sm-8 col-lg-6 col-xl-5 pt-3">
-        <mat-label>Search project</mat-label>
+      <mat-form-field
+        appearance="fill"
+        class="col-12 col-md-8 col-sm-8 col-lg-6 col-xl-5 pt-3"
+      >
+        <mat-label>{{ "project.page.search" | translate }}</mat-label>
         <input
           matInput
           (keyup)="applyFilter($event)"

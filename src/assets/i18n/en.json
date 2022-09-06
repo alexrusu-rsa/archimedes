@@ -60,6 +60,9 @@
       "submitAdd": "Add activity",
       "updateTitle": "Update activity",
       "submitUpdate": "Update activity"
+    },
+    "page": {
+      "timeBooked": "Time booked: "
     }
   },
   "customer": {
@@ -67,6 +70,136 @@
       "title": "Customer Page",
       "search": "Search customer",
       "internal": "Internal Company"
+    },
+    "dialog": {
+      "addTitle": "Add customer",
+      "customerName": "Customer Name",
+      "customerNameHint": "You must enter a customer name",
+      "customerCUI": "Customer CUI",
+      "customerCUIHint": "You must enter a customer CUI",
+      "customerReg": "Customer Reg",
+      "customerRegHint": "You must enter a customer Reg",
+      "customerAddress": "Customer Address",
+      "customerAddressHint": "You must enter the customer's address",
+      "customerCity": "Customer City",
+      "customerCityHint": "You must enter the customer's city",
+      "customerShortName": "Customer Short Name",
+      "customerCountry": "Customer Country",
+      "customerCountryHint": "You must enter customer's country",
+      "customerDirectorName": "Customer Director Name",
+      "customerDirectorEmail": "Customer Director Email",
+      "customerDirectorTel": "Customer Director Tel",
+      "updateTitle": "Update customer"
     }
+  },
+  "confirmation": {
+    "dialog": {
+      "title": "Are you sure you want to delete this item?",
+      "yesButton": "Yes, delete",
+      "cancel": "Cancel"
+    }
+  },
+  "duplicate": {
+    "dialog": {
+      "title": "Duplicate activity",
+      "selectDateRange": "Select date range"
+    }
+  },
+  "invoice": {
+    "dialog": {
+      "title": "Set data for invoice",
+      "invoiceNumber": "Invoice number",
+      "invoiceNumberHint": "You must enter a invoice number",
+      "euroExchange": "Euro Exchange",
+      "euroExchangeHint": "Enter a value like 4.98 or 4.92394",
+      "invoiceEmittingDay": "Invoice Emitting Day",
+      "downloadPDF": "Download PDF",
+      "downloadXLSX": "Download XLSX"
+    },
+    "page": {
+      "title": "Invoices",
+      "monthAndYear": "Month and Year"
+    }
+  },
+  "project": {
+    "dialog": {
+      "titleAdd": "Add Project",
+      "name": "Project Name",
+      "customerName": "Customer Name",
+      "contract": "Project Contract",
+      "dueDate": "Project Due Date",
+      "contractSignDate": "Contract Sign Date",
+      "invoiceTerm": "Project Invoice Term",
+      "titleUpdate": "Update Project"
+    },
+    "page": {
+      "title": "Project page",
+      "search": "Search project"
+    }
+  },
+  "rate": {
+    "dialog": {
+      "addTitle": "Add Rate",
+      "projectName": "Project name",
+      "employeeName": "Employee name",
+      "rate": "Rate",
+      "rateType": "Rate type",
+      "employeeTimeCommitmeent": "Employee Time Commitment",
+      "updateTitle": "Update rate"
+    }
+  },
+  "reporting": {
+    "page": {
+      "title": "Reporting Page",
+      "selectDateRange": "Select date range",
+      "employeeName": "Employee Name",
+      "description": "DESCRIPTION",
+      "noActivitiesTitle": "No entries to be displayed yet."
+    }
+  },
+  "userDashboard": {
+    "title": "User Dashboard",
+    "activities": "Activities",
+    "settings": "Settings"
+  },
+  "user": {
+    "dialog": {
+      "addTitle": "Add User",
+      "surname": "User Surname",
+      "surnameHint": "User surname is required",
+      "name": "User Name",
+      "nameHint": "User name is required",
+      "email": "Email",
+      "emailHint": "Email is required",
+      "role": "User Role",
+      "roleHint": "User role is required",
+      "seniority": "User seniority",
+      "seniorityHint": "User seniority is required",
+      "timePerDay": "User time/day",
+      "timePerDayHint": "User time/day is required",
+      "adminToggleText": "Admin",
+      "updateTitle": "Update User"
+    },
+    "page": {
+      "title": "User page",
+      "search": "Search user",
+      "resetPassword": "Reset Password",
+      "employeeRates": "Employee Rates",
+      "thProject": "Project",
+      "thEmployee": "Employee",
+      "thRate": "Rate",
+      "thRateType": "Type",
+      "thTime": "Time",
+      "thEdit": "Edit",
+      "thDelete": "Delete"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "changePassword": "Change your password",
+    "currentPassword": "Current password",
+    "retypePassword": "Re-type your passowrd",
+    "passwordsNoMatch": "Passwords do not match",
+    "changePasswordButton": "Change password"
   }
 }
