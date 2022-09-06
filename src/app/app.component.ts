@@ -60,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
           if (this.isAdmin) {
             this.router.navigate(['reporting/admin-dashboard']);
           } else {
-            this.router.navigate(['reporting/activity/' + this.currentUserId]);
+            this.router.navigate(['reporting/dashboard/']);
           }
         } else {
           this.authService.doLogout();
