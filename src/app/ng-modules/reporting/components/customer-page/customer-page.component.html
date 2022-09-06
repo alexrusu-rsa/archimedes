@@ -11,7 +11,7 @@
         appearance="fill"
         class="col-12 col-md-8 col-sm-8 col-lg-6 col-xl-5 pt-3"
       >
-        <mat-label>Search customer</mat-label>
+        <mat-label>{{ "customer.page.search" | translate }}</mat-label>
         <input
           matInput
           (keyup)="applyFilter($event)"
@@ -45,7 +45,7 @@
         <mat-chip-list
           class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 justify-content-end mt-2"
           ><mat-chip class="mx-2" *ngIf="customer.internal"
-            >Internal Company</mat-chip
+            >{{ "customer.page.internal" | translate }}</mat-chip
           ></mat-chip-list
         >
       </div>

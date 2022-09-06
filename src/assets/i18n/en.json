@@ -64,7 +64,9 @@
   },
   "customer": {
     "page": {
-      "title": "Customer Page"
+      "title": "Customer Page",
+      "search": "Search customer",
+      "internal": "Internal Company"
     }
   }
 }
