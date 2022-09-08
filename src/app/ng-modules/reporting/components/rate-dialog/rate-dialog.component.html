@@ -1,152 +1,205 @@
-<div class="dialog-container">
-  <mat-dialog-content *ngIf="currentRate && rate === null">
-    <mat-card-title>Add Rate</mat-card-title>
-    <form [formGroup]="addRateForm!" (keyup.enter)="addRate()">
-      <mat-form-field appearance="fill">
-        <mat-label>Project name</mat-label>
-        <mat-select formControlName="projectId">
-          <mat-option
-            *ngFor="let project of projects"
-            [value]="project.id"
-            ngDefaultControl
-            required="true"
-          >
-            {{ project.projectName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Employee name</mat-label>
-        <mat-select formControlName="employeeId">
-          <mat-option
-            *ngFor="let user of users"
-            [value]="user.id"
-            ngDefaultControl
-            required="true"
-            required="true"
-          >
-            {{ user.name }} {{ user.surname }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Rate</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentRate.rate"
-          type="text"
-          formControlName="employeeRate"
-          required="true"
-        />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Rate type</mat-label>
-        <mat-select formControlName="employeeRateType">
-          <mat-option
-            *ngFor="let rateType of allRateTypes"
-            [value]="rateType[1]"
-            ngDefaultControl
-          >
-            {{ rateType[1] }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Employee Time Commitement</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentRate.employeeTimeCommitement"
-          type="text"
-          formControlName="employeeTimeCommitement"
-          required="true"
-        />
-      </mat-form-field>
-    </form>
-    <button
-      *ngIf="rate === null"
-      mat-raised-button
-      color="accent"
-      (click)="addRate()"
-    >
-      Add rate
-    </button>
-  </mat-dialog-content>
-  <mat-dialog-content *ngIf="currentRate && rate !== null">
-    <mat-card-title>Update Rate</mat-card-title>
-    <form [formGroup]="addRateForm!" (keyup.enter)="editRate()">
-      <mat-form-field appearance="fill">
-        <mat-label>Project name</mat-label>
-        <mat-select [(value)]="selectedItemProject" formControlName="projectId">
-          <mat-option
-            *ngFor="let project of projects"
-            [value]="project.id"
-            ngDefaultControl
-          >
-            {{ project.projectName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Employee name</mat-label>
-        <mat-select
-          [(value)]="selectedItemEmployee"
-          formControlName="employeeId"
+<div class="container mx-0 px-0">
+  <mat-dialog-content
+    class="container mx-0 px-0"
+    *ngIf="currentRate && rate === null"
+  >
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
         >
-          <mat-option
-            *ngFor="let user of users"
-            [value]="user.id"
-            ngDefaultControl
-          >
-            {{ user.name }} {{ user.surname }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          Add rate</mat-card-title
+        >
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Rate</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentRate.rate"
-          type="text"
-          formControlName="employeeRate"
-          required="true"
-        />
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Rate type</mat-label>
-        <mat-select formControlName="employeeRateType">
-          <mat-option
-            *ngFor="let rateType of allRateTypes"
-            [value]="rateType[1]"
-            ngDefaultControl
-          >
-            {{ rateType[1] }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Employee Time Commitement</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentRate.employeeTimeCommitement"
-          type="text"
-          formControlName="employeeTimeCommitement"
-          required="true"
-        />
-      </mat-form-field>
-    </form>
-    <button
-      *ngIf="rate !== null"
-      mat-raised-button
-      color="accent"
-      (click)="editRate()"
+    <form
+      class="container mt-2 mx-0 px-0 col-12"
+      [formGroup]="addRateForm!"
+      (keyup.enter)="addRate()"
     >
-      Update rate
-    </button>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Project name</mat-label>
+          <mat-select formControlName="projectId">
+            <mat-option
+              *ngFor="let project of projects"
+              [value]="project.id"
+              ngDefaultControl
+              required="true"
+            >
+              {{ project.projectName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Employee name</mat-label>
+          <mat-select formControlName="employeeId">
+            <mat-option
+              *ngFor="let user of users"
+              [value]="user.id"
+              ngDefaultControl
+              required="true"
+              required="true"
+            >
+              {{ user.name }} {{ user.surname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Rate</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentRate.rate"
+            type="text"
+            formControlName="employeeRate"
+            required="true"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Rate type</mat-label>
+          <mat-select formControlName="employeeRateType">
+            <mat-option
+              *ngFor="let rateType of allRateTypes"
+              [value]="rateType[1]"
+              ngDefaultControl
+            >
+              {{ rateType[1] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Employee Time Commitement</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentRate.employeeTimeCommitement"
+            type="text"
+            formControlName="employeeTimeCommitement"
+            required="true"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="row col-12 mx-0 px-0">
+      <button mat-raised-button color="accent" (click)="addRate()">
+        Add activity
+      </button>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-content
+    class="container mx-0 px-0"
+    *ngIf="currentRate && rate !== null"
+  >
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+        >
+          Update rate</mat-card-title
+        >
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <form
+      class="container mt-2 mx-0 px-0 col-12"
+      [formGroup]="addRateForm!"
+      (keyup.enter)="editRate()"
+    >
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Project name</mat-label>
+          <mat-select
+            [(value)]="selectedItemProject"
+            formControlName="projectId"
+          >
+            <mat-option
+              *ngFor="let project of projects"
+              [value]="project.id"
+              ngDefaultControl
+            >
+              {{ project.projectName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Employee name</mat-label>
+          <mat-select
+            [(value)]="selectedItemEmployee"
+            formControlName="employeeId"
+          >
+            <mat-option
+              *ngFor="let user of users"
+              [value]="user.id"
+              ngDefaultControl
+            >
+              {{ user.name }} {{ user.surname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Rate</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentRate.rate"
+            type="text"
+            formControlName="employeeRate"
+            required="true"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Rate type</mat-label>
+          <mat-select formControlName="employeeRateType">
+            <mat-option
+              *ngFor="let rateType of allRateTypes"
+              [value]="rateType[1]"
+              ngDefaultControl
+            >
+              {{ rateType[1] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>Employee Time Commitement</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentRate.employeeTimeCommitement"
+            type="text"
+            formControlName="employeeTimeCommitement"
+            required="true"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="row col-12 mx-0 px-0">
+      <button mat-raised-button color="accent" (click)="editRate()">
+        Update rate
+      </button>
+    </div>
   </mat-dialog-content>
 </div>
