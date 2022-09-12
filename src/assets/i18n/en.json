@@ -102,7 +102,9 @@
   "duplicate": {
     "dialog": {
       "title": "Duplicate activity",
-      "selectDateRange": "Select date range"
+      "selectDateRange": "Select date range",
+      "startDate": "Start date",
+      "endDate": "End date"
     }
   },
   "invoice": {
@@ -114,7 +116,8 @@
       "euroExchangeHint": "Enter a value like 4.98 or 4.92394",
       "invoiceEmittingDay": "Invoice Emitting Day",
       "downloadPDF": "Download PDF",
-      "downloadXLSX": "Download XLSX"
+      "downloadXLSX": "Download XLSX",
+      "euroExchangePlaceholder": "Example: 4.97, 4.9283"
     },
     "page": {
       "title": "Invoices",
@@ -154,7 +157,9 @@
       "selectDateRange": "Select date range",
       "employeeName": "Employee Name",
       "description": "DESCRIPTION",
-      "noActivitiesTitle": "No entries to be displayed yet."
+      "noActivitiesTitle": "No entries to be displayed yet.",
+      "startDate": "Start date",
+      "endDate": "End date"
     }
   },
   "userDashboard": {
