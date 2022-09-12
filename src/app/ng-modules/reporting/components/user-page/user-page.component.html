@@ -1,6 +1,6 @@
 <div class="container mt-4 px-0">
   <div class="row">
-    <mat-card-title>User page</mat-card-title>
+    <mat-card-title>{{ "user.page.title" | translate }}</mat-card-title>
   </div>
 </div>
 
@@ -11,7 +11,7 @@
         appearance="fill"
         class="col-12 col-md-8 col-sm-8 col-lg-6 col-xl-5 pt-3"
       >
-        <mat-label>Search user</mat-label>
+        <mat-label>{{ "user.page.search" | translate }}</mat-label>
         <input
           matInput
           (keyup)="applyFilter($event)"
@@ -73,7 +73,7 @@
           color="accent"
           (click)="sendPasswordResetRequest(user)"
         >
-          Reset Password
+          {{ "user.page.resetPassword" | translate }}
         </button>
       </div>
     </mat-card>
@@ -95,7 +95,9 @@
     class="container mt-2 content-container text-center"
   >
     <div class="row text-start mt-2">
-      <mat-card-title> Employee Rates </mat-card-title>
+      <mat-card-title>{{
+        "user.page.employeeRates" | translate
+      }}</mat-card-title>
     </div>
 
     <table mat-table [dataSource]="allRates" class="row">
@@ -105,7 +107,7 @@
           class="col-3 col-md-2 d-flex justify-content-start align-items-center p-0 p-md-0 p-0 header-cell"
           *matHeaderCellDef
         >
-          Project
+          {{ "user.page.thProject" | translate }}
         </th>
         <td
           mat-cell
@@ -122,7 +124,7 @@
           class="col-3 col-md-2 p-0 d-flex justify-content-start align-items-center p-md-0 header-cell text-start"
           *matHeaderCellDef
         >
-          Employee
+          {{ "user.page.thEmployee" | translate }}
         </th>
         <td
           mat-cell
@@ -139,7 +141,7 @@
           class="col-2 d-flex justify-content-center align-items-center p-0 header-cell text-start"
           *matHeaderCellDef
         >
-          Rate
+          {{ "user.page.thRate" | translate }}
         </th>
         <td
           mat-cell
@@ -176,7 +178,7 @@
           class="d-none col-md-2 d-md-flex justify-content-md-center align-items-md-center p-0 header-cell"
           *matHeaderCellDef
         >
-          Time
+          {{ "user.page.thTime" | translate }}
         </th>
         <td
           mat-cell
@@ -193,7 +195,7 @@
           class="col-2 col-md-1 p-0 header-cell text-start d-flex justify-content-center align-items-center"
           *matHeaderCellDef
         >
-          Edit
+          {{ "user.page.thEdit" | translate }}
         </th>
         <td
           mat-cell
@@ -217,7 +219,7 @@
           class="col-2 col-md-1 p-0 header-cell text-start d-flex justify-content-center align-items-center"
           *matHeaderCellDef
         >
-          Delete
+          {{ "user.page.thDelete" | translate }}
         </th>
         <td
           mat-cell
@@ -226,7 +228,7 @@
         >
           <button
             mat-raised-button
-            class="small-icon-button "
+            class="small-icon-button"
             (click)="deleteRate(rate)"
             color="accent"
           >
