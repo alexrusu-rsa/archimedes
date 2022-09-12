@@ -1,13 +1,15 @@
 <div class="container mt-4">
   <div class="row">
-    <mat-card-title class="page-title"> Invoices </mat-card-title>
+    <mat-card-title class="page-title">{{
+      "invoice.page.title" | translate
+    }}</mat-card-title>
   </div>
 </div>
 <div class="container mt-4 px-0 mx-0">
   <div class="row">
     <div class="col col-sm-4 col-md-6 col-lg-3 col-xl-3">
       <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Month and Year</mat-label>
+        <mat-label>{{ "invoice.page.monthAndYear" | translate }}</mat-label>
         <input matInput [matDatepicker]="datepicker" [formControl]="date" />
         <mat-datepicker-toggle
           matSuffix
