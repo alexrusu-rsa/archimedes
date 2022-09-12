@@ -1,189 +1,252 @@
-<div class="dialog-container">
-  <mat-dialog-content *ngIf="currentUser && user === null">
-    <mat-card-title>Add User</mat-card-title>
-    <form [formGroup]="addUserForm!" (keyup.enter)="addUser()">
-      <mat-form-field appearance="fill">
-        <mat-label>User Surname</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.surname"
-          type="text"
-          formControlName="surname"
-          required="true"
-        />
-        <mat-hint *ngIf="surname?.touched && !surname?.dirty">
-          User surname is required
-        </mat-hint>
-      </mat-form-field>
+<div class="container mx-0 px-0">
+  <mat-dialog-content
+    class="container mx-0 px-0 col-12"
+    *ngIf="currentUser && user === null"
+  >
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "user.dialog.addTitle" | translate }}</mat-card-title
+        >
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>User Name</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.name"
-          formControlName="name"
-          type="text"
-          required="true"
-        />
-        <mat-hint *ngIf="name?.touched && !name?.dirty">
-          User name is required
-        </mat-hint>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>User Email</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.email"
-          formControlName="email"
-          type="text"
-          required="true"
-        />
-        <mat-hint *ngIf="email?.touched && !email?.dirty">
-          User email is required
-        </mat-hint>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>User Role</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.role"
-          type="text"
-          formControlName="role"
-        />
-        <mat-hint *ngIf="role?.touched && !role?.dirty">
-          User role is required
-        </mat-hint>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>User Seniority </mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.seniority"
-          type="text"
-          formControlName="seniority"
-        />
-        <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
-          User role is required
-        </mat-hint>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>User time/day </mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.timePerDay"
-          type="text"
-          formControlName="timePerDay"
-        />
-        <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
-          User Time/Day is required
-        </mat-hint>
-      </mat-form-field>
+    <form
+      class="container mt-2 mx-0 px-0 col-12"
+      [formGroup]="addUserForm!"
+      (keyup.enter)="addUser()"
+    >
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.surname" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.surname"
+            type="text"
+            formControlName="surname"
+            required="true"
+          />
+          <mat-hint *ngIf="surname?.touched && !surname?.dirty">
+            {{ "user.dialog.surnameHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.name" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.name"
+            formControlName="name"
+            type="text"
+            required="true"
+          />
+          <mat-hint *ngIf="name?.touched && !name?.dirty">
+            {{ "user.dialog.nameHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.email" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.email"
+            formControlName="email"
+            type="text"
+            required="true"
+          />
+          <mat-hint *ngIf="email?.touched && !email?.dirty">
+            {{ "user.dialog.emailHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.role" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.role"
+            type="text"
+            formControlName="role"
+          />
+          <mat-hint *ngIf="role?.touched && !role?.dirty">
+            {{ "user.dialog.roleHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.seniority" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.seniority"
+            type="text"
+            formControlName="seniority"
+          />
+          <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
+            {{ "user.dialog.seniorityHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.timePerDay" | translate }} </mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.timePerDay"
+            type="text"
+            formControlName="timePerDay"
+          />
+          <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
+            {{ "user.dialog.timePerDayHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
     </form>
     <mat-slide-toggle [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
-    <button
-      *ngIf="this.user === null"
-      color="accent"
-      mat-raised-button
-      (click)="addUser()"
-    >
-      Add user
-    </button>
+    <div class="row col-12 mx-0 px-0">
+      <button
+        *ngIf="this.user === null"
+        color="accent"
+        mat-raised-button
+        (click)="addUser()"
+      >
+        {{ "user.dialog.addTitle" | translate }}
+      </button>
+    </div>
   </mat-dialog-content>
 
-  <mat-dialog-content *ngIf="currentUser && user !== null">
-    <mat-card-title>Update user</mat-card-title>
-    <form [formGroup]="addUserForm!" (keyup.enter)="editUser()">
-      <mat-form-field appearance="fill">
-        <mat-label>User Surname</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.surname"
-          type="text"
-          formControlName="surname"
-          required="true"
-        />
-        <mat-hint *ngIf="surname?.touched && !surname?.dirty">
-          User surname is required
-        </mat-hint>
-      </mat-form-field>
+  <mat-dialog-content
+    class="container mx-0 px-0 col-12"
+    *ngIf="currentUser && user !== null"
+  >
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "user.dialog.updateTitle" | translate }}</mat-card-title
+        >
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <form
+      class="container mt-2 mx-0 px-0 col-12"
+      [formGroup]="addUserForm!"
+      (keyup.enter)="editUser()"
+    >
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.surname" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.surname"
+            type="text"
+            formControlName="surname"
+            required="true"
+          />
+          <mat-hint *ngIf="surname?.touched && !surname?.dirty">
+            {{ "user.dialog.surnameHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>User Name</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.name"
-          formControlName="name"
-          type="text"
-          required="true"
-        />
-        <mat-hint *ngIf="name?.touched && !name?.dirty">
-          User name is required
-        </mat-hint>
-      </mat-form-field>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.name" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.name"
+            formControlName="name"
+            type="text"
+            required="true"
+          />
+          <mat-hint *ngIf="name?.touched && !name?.dirty">
+            {{ "user.dialog.nameHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>User Email</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.email"
-          formControlName="email"
-          type="text"
-          required="true"
-        />
-        <mat-hint *ngIf="email?.touched && !email?.dirty">
-          User email is required
-        </mat-hint>
-      </mat-form-field>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.email" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.email"
+            formControlName="email"
+            type="text"
+            required="true"
+          />
+          <mat-hint *ngIf="email?.touched && !email?.dirty">
+            {{ "user.dialog.emailHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>User Role</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.role"
-          type="text"
-          formControlName="role"
-        />
-        <mat-hint *ngIf="role?.touched && !role?.dirty">
-          User role is required
-        </mat-hint>
-      </mat-form-field>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.role" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.role"
+            type="text"
+            formControlName="role"
+          />
+          <mat-hint *ngIf="role?.touched && !role?.dirty">
+            {{ "user.dialog.roleHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>User Seniority </mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.seniority"
-          type="text"
-          formControlName="seniority"
-        />
-        <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
-          User seniority is required
-        </mat-hint>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>User time/day </mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentUser.timePerDay"
-          type="text"
-          formControlName="timePerDay"
-        />
-        <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
-          User Time/Day is required
-        </mat-hint>
-      </mat-form-field>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.seniority" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.seniority"
+            type="text"
+            formControlName="seniority"
+          />
+          <mat-hint *ngIf="seniority?.touched && !seniority?.dirty">
+            {{ "user.dialog.seniorityHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "user.dialog.timePerDay" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentUser.timePerDay"
+            type="text"
+            formControlName="timePerDay"
+          />
+          <mat-hint *ngIf="timePerDay?.touched && !timePerDay?.dirty">
+            {{ "user.dialog.timePerDayHint" | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
     </form>
     <mat-slide-toggle [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
-    <button
-      *ngIf="user !== null"
-      mat-raised-button
-      color="accent"
-      (click)="editUser()"
-    >
-      Update user
-    </button>
+    <div class="row col-12 mx-0 px-0">
+      <button
+        *ngIf="user !== null"
+        mat-raised-button
+        color="accent"
+        (click)="editUser()"
+      >
+        {{ "user.dialog.updateTitle" | translate }}
+      </button>
+    </div>
   </mat-dialog-content>
 </div>

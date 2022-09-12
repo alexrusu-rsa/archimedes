@@ -1,11 +1,11 @@
 <mat-card class="container mt-5 col-12 col-sm-10 col-md-8 col-lg-4 col-xl-4">
-  <mat-card-title class="row col-12 text-center mt-2 px-0 mx-0 mb-5"
-    >Login</mat-card-title
-  >
+  <mat-card-title class="row col-12 text-center mt-2 px-0 mx-0 mb-5">{{
+    "loginPage.title" | translate
+  }}</mat-card-title>
   <mat-card-content class="container px-0">
     <form [formGroup]="loginForm!" (keyup.enter)="logUserIn(user)">
       <mat-form-field class="row col-12 px-0">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ "loginPage.email" | translate }}</mat-label>
         <input
           #userEmail
           matInput
@@ -15,12 +15,12 @@
           [(ngModel)]="user.email"
         />
         <mat-hint *ngIf="email?.invalid && email?.touched">
-          Email is required
+          {{ "loginPage.emailHint" | translate }}
         </mat-hint>
       </mat-form-field>
 
       <mat-form-field class="row col-12 px-0">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ "loginPage.password" | translate }}</mat-label>
         <input
           #userPassword
           matInput
@@ -32,7 +32,7 @@
         />
 
         <mat-hint *ngIf="password?.touched && password?.pristine">
-          Password is required
+          {{ "loginPage.passwordHint" | translate }}
         </mat-hint>
       </mat-form-field>
     </form>
@@ -44,7 +44,7 @@
         class="text-white"
         [routerLink]="['/auth/resetpassword']"
         routerLinkActive="router-link-active"
-        >Forgotten Password</a
+        >{{ "loginPage.forgottenPassword" | translate }}</a
       >
     </div>
 

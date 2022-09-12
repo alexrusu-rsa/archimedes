@@ -1,4 +1,6 @@
-<mat-card-title class="page-title"> User Dashboard </mat-card-title>
+<mat-card-title class="page-title"
+  >{{ "userDashboard.title" | translate }}
+</mat-card-title>
 
 <div class="header-activity"></div>
 <mat-card class="card-container">
@@ -10,7 +12,9 @@
         routerLink="../../reporting/activity/{{ this.currentUserId }}"
       >
         <mat-icon>event_note</mat-icon>
-        <a class="button-title"> Activities </a>
+        <a class="button-title"
+          >{{ "userDashboard.activities" | translate }}
+        </a>
       </mat-card>
       <mat-card
         mat-list-item
@@ -18,7 +22,7 @@
         routerLink="../../reporting/settings"
       >
         <mat-icon>settings</mat-icon>
-        <a class="button-title"> Settings </a>
+        <a class="button-title"> {{ "userDashboard.settings" | translate }} </a>
       </mat-card>
     </mat-list>
   </div>

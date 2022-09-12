@@ -1,14 +1,14 @@
 <div class="dialog-container">
   <mat-dialog-content>
     <mat-card-title>
-      Are you sure you want to delete this item?
+      {{ "confirmation.dialog.title" | translate }}
     </mat-card-title>
     <br />
     <button class="confirm-button" mat-raised-button (click)="confirm()">
-      Yes, delete
+      {{ "confirmation.dialog.yesButton" | translate }}
     </button>
     <button class="cancel-button" mat-raised-button (click)="cancel()">
-      Cancel
+      {{ "confirmation.dialog.cancel" | translate }}
     </button>
   </mat-dialog-content>
 </div>
