@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  serviceURL: 'http://localhost:3000/',
+  serviceURL: 'https://archimedes-backend-dev.herokuapp.com/',
+  translationPath: './assets/i18n/',
 };
 
 /*

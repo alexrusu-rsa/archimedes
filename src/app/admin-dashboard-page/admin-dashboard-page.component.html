@@ -2,15 +2,17 @@
 
 <div class="header-activity"></div>
 <mat-card class="card-container">
-    <mat-list class="container">
-      <mat-card
-        mat-list-item
-        class="dashboard-button secondary-card"
-        routerLink="../../reporting/activity/{{ this.currentUserId }}"
-      >
-        <mat-icon>event_note</mat-icon>
-        <a class="button-title"> Activities </a>
-      </mat-card>
+  <mat-list class="container">
+    <mat-card
+      mat-list-item
+      class="dashboard-button secondary-card"
+      routerLink="../../reporting/activity/{{ this.currentUserId }}"
+    >
+      <mat-icon>event_note</mat-icon>
+      <a class="button-title">
+        {{ "admin-dashboard.activities" | translate }}
+      </a>
+    </mat-card>
 
     <mat-card
       mat-list-item
@@ -18,7 +20,7 @@
       class="dashboard-button secondary-card"
     >
       <mat-icon>person</mat-icon>
-      <a class="button-title"> Users </a>
+      <a class="button-title"> {{ "admin-dashboard.users" | translate }} </a>
     </mat-card>
 
     <mat-card
@@ -27,7 +29,9 @@
       class="dashboard-button secondary-card"
     >
       <mat-icon>people</mat-icon>
-      <a class="button-title"> Customers </a>
+      <a class="button-title">
+        {{ "admin-dashboard.customers" | translate }}
+      </a>
     </mat-card>
 
     <mat-card
@@ -36,7 +40,7 @@
       class="dashboard-button secondary-card"
     >
       <mat-icon>list_alt</mat-icon>
-      <a class="button-title"> Projects </a>
+      <a class="button-title"> {{ "admin-dashboard.projects" | translate }} </a>
     </mat-card>
 
     <mat-card
@@ -45,7 +49,9 @@
       class="dashboard-button secondary-card"
     >
       <mat-icon>assignment_turned_in</mat-icon>
-      <a class="button-title"> Invoices </a></mat-card
+      <a class="button-title">
+        {{ "admin-dashboard.invoices" | translate }}
+      </a></mat-card
     >
 
     <mat-card
@@ -54,7 +60,9 @@
       class="dashboard-button secondary-card"
     >
       <mat-icon>timelapse</mat-icon>
-      <a class="button-title"> Reporting </a>
+      <a class="button-title">
+        {{ "admin-dashboard.reporting" | translate }}
+      </a>
     </mat-card>
   </mat-list>
 </mat-card>
