@@ -7,7 +7,7 @@
       <div class="col-8 mx-0 px-0">
         <mat-card-title
           class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
-          >Add Project</mat-card-title
+          >{{ "project.dialog.titleAdd" | translate }}</mat-card-title
         >
       </div>
 
@@ -25,7 +25,7 @@
     >
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Project Name</mat-label>
+          <mat-label>{{ "project.dialog.name" | translate }}</mat-label>
           <input
             matInput
             [(ngModel)]="currentProject.projectName"
@@ -38,7 +38,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Customer name</mat-label>
+          <mat-label>{{ "project.dialog.customerName" | translate }}</mat-label>
           <mat-select [(ngModel)]="selectedItem" formControlName="customerName">
             <mat-option
               *ngFor="let customer of customers"
@@ -53,7 +53,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Project Contract</mat-label>
+          <mat-label>{{ "project.dialog.contract" | translate }}</mat-label>
           <input
             matInput
             [(ngModel)]="currentProject.contract"
@@ -65,7 +65,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Due date</mat-label>
+          <mat-label>{{ "project.dialog.dueDate" | translate }}</mat-label>
           <input
             matInput
             [matDatepicker]="datePicker"
@@ -82,7 +82,9 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Contract Sign Date</mat-label>
+          <mat-label>{{
+            "project.dialog.contractSignDate" | translate
+          }}</mat-label>
           <input
             matInput
             [matDatepicker]="datePickerContractSign"
@@ -99,7 +101,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Project Invoice Term</mat-label>
+          <mat-label>{{ "project.dialog.invoiceTerm" | translate }}</mat-label>
           <input
             matInput
             [(ngModel)]="currentProject.invoiceTerm"
@@ -113,7 +115,7 @@
   <mat-dialog-actions *ngIf="currentProjectToUpdate === null">
     <div class="row col-12 mx-0 px-0">
       <button mat-raised-button color="accent" (click)="checkAndAdd()">
-        Add project
+        {{ "project.dialog.titleAdd" | translate }}
       </button>
     </div>
   </mat-dialog-actions>
@@ -126,7 +128,7 @@
       <div class="col-8 mx-0 px-0">
         <mat-card-title
           class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
-          >Update Project</mat-card-title
+          >{{ "project.dialog.titleUpdate" | translate }}</mat-card-title
         >
       </div>
 
@@ -144,7 +146,7 @@
     >
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Project Name</mat-label>
+          <mat-label>{{ "project.dialog.name" | translate }}</mat-label>
           <input
             matInput
             [(ngModel)]="currentProjectToUpdate.projectName"
@@ -157,7 +159,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Customer name</mat-label>
+          <mat-label>{{ "project.dialog.customerName" | translate }}</mat-label>
           <mat-select [(value)]="selectedItem" formControlName="customerName">
             <mat-option
               *ngFor="let customer of customers"
@@ -172,7 +174,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Project Contract</mat-label>
+          <mat-label>{{ "project.dialog.contract" | translate }}</mat-label>
           <input
             matInput
             [(ngModel)]="currentProject.contract"
@@ -184,7 +186,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Due date</mat-label>
+          <mat-label>{{ "project.dialog.dueDate" | translate }}</mat-label>
           <input
             matInput
             [matDatepicker]="datePicker"
@@ -201,7 +203,9 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Contract Sign Date</mat-label>
+          <mat-label>{{
+            "project.dialog.contractSignDate" | translate
+          }}</mat-label>
           <input
             matInput
             [matDatepicker]="datePickerContractSign"
@@ -218,7 +222,7 @@
 
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
-          <mat-label>Project Invoice Term</mat-label>
+          <mat-label>{{ "project.dialog.invoiceTerm" | translate }}</mat-label>
           <input
             matInput
             [(ngModel)]="currentProject.invoiceTerm"
@@ -237,7 +241,7 @@
           color="accent"
           (click)="checkAndUpdate()"
         >
-          Update project
+          {{ "project.dialog.titleUpdate" | translate }}
         </button>
       </div>
     </mat-dialog-actions>

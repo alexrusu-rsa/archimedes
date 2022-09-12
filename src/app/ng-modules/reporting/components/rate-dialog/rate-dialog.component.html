@@ -1,9 +1,9 @@
 <div class="dialog-container">
   <mat-dialog-content *ngIf="currentRate && rate === null">
-    <mat-card-title>Add Rate</mat-card-title>
+    <mat-card-title>{{ "rate.dialog.addTitle" | translate }}</mat-card-title>
     <form [formGroup]="addRateForm!" (keyup.enter)="addRate()">
       <mat-form-field appearance="fill">
-        <mat-label>Project name</mat-label>
+        <mat-label>{{ "rate.dialog.projectName" | translate }}</mat-label>
         <mat-select formControlName="projectId">
           <mat-option
             *ngFor="let project of projects"
@@ -17,7 +17,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Employee name</mat-label>
+        <mat-label>{{ "rate.dialog.employeeName" | translate }}</mat-label>
         <mat-select formControlName="employeeId">
           <mat-option
             *ngFor="let user of users"
@@ -32,7 +32,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Rate</mat-label>
+        <mat-label>{{ "rate.dialog.rate" | translate }}</mat-label>
         <input
           matInput
           [(ngModel)]="currentRate.rate"
@@ -43,7 +43,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Rate type</mat-label>
+        <mat-label>{{ "rate.dialog.rateType" | translate }}</mat-label>
         <mat-select formControlName="employeeRateType">
           <mat-option
             *ngFor="let rateType of allRateTypes"
@@ -55,7 +55,9 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Employee Time Commitement</mat-label>
+        <mat-label>{{
+          "rate.dialog.employeeTimeCommitment" | translate
+        }}</mat-label>
         <input
           matInput
           [(ngModel)]="currentRate.employeeTimeCommitement"
@@ -71,14 +73,14 @@
       color="accent"
       (click)="addRate()"
     >
-      Add rate
+      {{ "rate.dialog.addTitle" | translate }}
     </button>
   </mat-dialog-content>
   <mat-dialog-content *ngIf="currentRate && rate !== null">
-    <mat-card-title>Update Rate</mat-card-title>
+    <mat-card-title>{{ "rate.dialog.updateTitle" | translate }}</mat-card-title>
     <form [formGroup]="addRateForm!" (keyup.enter)="editRate()">
       <mat-form-field appearance="fill">
-        <mat-label>Project name</mat-label>
+        <mat-label>{{ "rate.dialog.projectName" | translate }}</mat-label>
         <mat-select [(value)]="selectedItemProject" formControlName="projectId">
           <mat-option
             *ngFor="let project of projects"
@@ -91,7 +93,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Employee name</mat-label>
+        <mat-label>{{ "rate.dialog.employeeName" | translate }}</mat-label>
         <mat-select
           [(value)]="selectedItemEmployee"
           formControlName="employeeId"
@@ -107,7 +109,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Rate</mat-label>
+        <mat-label>{{ "rate.dialog.rate" | translate }}</mat-label>
         <input
           matInput
           [(ngModel)]="currentRate.rate"
@@ -117,7 +119,7 @@
         />
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Rate type</mat-label>
+        <mat-label>{{ "rate.dialog.rateType" | translate }}</mat-label>
         <mat-select formControlName="employeeRateType">
           <mat-option
             *ngFor="let rateType of allRateTypes"
@@ -130,7 +132,9 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Employee Time Commitement</mat-label>
+        <mat-label>{{
+          "rate.dialog.employeeTimeCommitment" | translate
+        }}</mat-label>
         <input
           matInput
           [(ngModel)]="currentRate.employeeTimeCommitement"
@@ -146,7 +150,7 @@
       color="accent"
       (click)="editRate()"
     >
-      Update rate
+      {{ "rate.dialog.updateTitle" | translate }}
     </button>
   </mat-dialog-content>
 </div>
