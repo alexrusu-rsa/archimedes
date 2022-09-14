@@ -1,68 +1,152 @@
-<mat-card-title class="page-title"> Admin Dashboard </mat-card-title>
+<div class="container mx-0 px-0 mt-4">
+  <div class="row col-12 mx-0 px-0 mb-2">
+    <mat-card-title class="col-12 mx-0 px-0">Admin Dashboard</mat-card-title>
+  </div>
+</div>
 
-<div class="header-activity"></div>
-<mat-card class="card-container">
-  <mat-list class="container">
-    <mat-card
-      mat-list-item
-      class="dashboard-button secondary-card"
-      routerLink="../../reporting/activity/{{ this.currentUserId }}"
-    >
-      <mat-icon>event_note</mat-icon>
-      <a class="button-title">
-        {{ "admin-dashboard.activities" | translate }}
-      </a>
-    </mat-card>
+<mat-card class="container mx-0 px-0 d-flex flex-column">
+  <div class="row col-12 d-flex mx-0 px-2 my-0">
+    <div class="col-12 col-md-4 col-lg-4 my-2 my-md-0 mx-0 pe-md-1">
+      <mat-card
+        mat-list-item
+        class="dashboard-button secondary-card"
+        routerLink="../../reporting/activity/{{ this.currentUserId }}"
+      >
+        <div class="row col-12 mx-0 px-0">
+          <div
+            class="col-9 d-flex align-items-center justify-content-start py-4"
+          >
+            <a class="ps-2 button-title">
+              {{ "admin-dashboard.activities" | translate }}
+            </a>
+          </div>
+          <div
+            class="col-3 px-0 d-flex d-md-flex align-items-center justify-content-end"
+          >
+            <mat-icon class="col-6 w-100 h-100 ps-md-4 ps-3"
+              >event_note</mat-icon
+            >
+          </div>
+        </div>
+      </mat-card>
+    </div>
 
-    <mat-card
-      mat-list-item
-      routerLink="../../reporting/user"
-      class="dashboard-button secondary-card"
-    >
-      <mat-icon>person</mat-icon>
-      <a class="button-title"> {{ "admin-dashboard.users" | translate }} </a>
-    </mat-card>
+    <div class="col-12 col-md-4 col-lg-4 my-2 my-md-0 mx-0 px-md-1">
+      <mat-card
+        mat-list-item
+        routerLink="../../reporting/user"
+        class="dashboard-button secondary-card"
+      >
+        <div class="row col-12 mx-0 px-0">
+          <div
+            class="col-9 d-flex align-items-center justify-content-start py-4"
+          >
+            <a class="ps-2 button-title">
+              {{ "admin-dashboard.users" | translate }}
+            </a>
+          </div>
+          <div
+            class="col-3 px-0 d-flex d-md-flex align-items-center justify-content-end"
+          >
+            <mat-icon class="col-6 w-100 h-100 ps-md-4 ps-3">person</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+    </div>
 
-    <mat-card
-      mat-list-item
-      routerLink="../../reporting/customer"
-      class="dashboard-button secondary-card"
-    >
-      <mat-icon>people</mat-icon>
-      <a class="button-title">
-        {{ "admin-dashboard.customers" | translate }}
-      </a>
-    </mat-card>
-
-    <mat-card
-      mat-list-item
-      routerLink="../../reporting/project"
-      class="dashboard-button secondary-card"
-    >
-      <mat-icon>list_alt</mat-icon>
-      <a class="button-title"> {{ "admin-dashboard.projects" | translate }} </a>
-    </mat-card>
-
-    <mat-card
-      mat-list-item
-      routerLink="../../reporting/invoice"
-      class="dashboard-button secondary-card"
-    >
-      <mat-icon>assignment_turned_in</mat-icon>
-      <a class="button-title">
-        {{ "admin-dashboard.invoices" | translate }}
-      </a></mat-card
-    >
-
-    <mat-card
-      mat-list-item
-      routerLink="../../reporting/user-reporting"
-      class="dashboard-button secondary-card"
-    >
-      <mat-icon>timelapse</mat-icon>
-      <a class="button-title">
-        {{ "admin-dashboard.reporting" | translate }}
-      </a>
-    </mat-card>
-  </mat-list>
+    <div class="col-12 col-md-4 col-lg-4 my-2 my-md-0 mx-0 ps-md-1">
+      <mat-card
+        mat-list-item
+        routerLink="../../reporting/customer"
+        class="dashboard-button secondary-card"
+      >
+        <div class="row col-12 mx-0 px-0">
+          <div
+            class="col-9 d-flex align-items-center justify-content-start py-4"
+          >
+            <a class="ps-2 button-title">
+              {{ "admin-dashboard.customers" | translate }}
+            </a>
+          </div>
+          <div
+            class="col-3 px-0 d-flex d-md-flex align-items-center justify-content-end"
+          >
+            <mat-icon class="col-6 w-100 h-100 ps-md-4 ps-3">people</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row col-12 d-flex mx-0 px-2 my-0 mt-md-2">
+    <div class="col-12 col-md-4 col-lg-4 my-2 my-md-0 mx-0 pe-md-1">
+      <mat-card
+        mat-list-item
+        routerLink="../../reporting/project"
+        class="dashboard-button secondary-card"
+      >
+        <div class="row col-12 mx-0 px-0">
+          <div
+            class="col-9 d-flex align-items-center justify-content-start py-4"
+          >
+            <a class="ps-2 button-title">
+              {{ "admin-dashboard.projects" | translate }}
+            </a>
+          </div>
+          <div
+            class="col-3 px-0 d-flex d-md-flex align-items-center justify-content-end"
+          >
+            <mat-icon class="col-6 w-100 h-100 ps-md-4 ps-3">list_alt</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-12 col-md-4 col-lg-4 my-2 my-md-0 mx-0 px-md-1">
+      <mat-card
+        mat-list-item
+        routerLink="../../reporting/invoice"
+        class="dashboard-button secondary-card"
+      >
+        <div class="row col-12 mx-0 px-0">
+          <div
+            class="col-9 d-flex align-items-center justify-content-start py-4"
+          >
+            <a class="ps-2 button-title">
+              {{ "admin-dashboard.invoices" | translate }}
+            </a>
+          </div>
+          <div
+            class="col-3 px-0 d-flex d-md-flex align-items-center justify-content-end"
+          >
+            <mat-icon class="col-6 w-100 h-100 ps-md-4 ps-3"
+              >assignment_turned_in</mat-icon
+            >
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-12 col-md-4 col-lg-4 my-2 my-md-0 mx-0 ps-md-1">
+      <mat-card
+        mat-list-item
+        routerLink="../../reporting/user-reporting"
+        class="dashboard-button secondary-card"
+      >
+        <div class="row col-12 mx-0 px-0">
+          <div
+            class="col-9 d-flex align-items-center justify-content-start py-4"
+          >
+            <a class="ps-2 button-title">
+              {{ "admin-dashboard.reporting" | translate }}
+            </a>
+          </div>
+          <div
+            class="col-3 px-0 d-flex d-md-flex align-items-center justify-content-end"
+          >
+            <mat-icon class="col-6 w-100 h-100 ps-md-4 ps-3"
+              >timelapse</mat-icon
+            >
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
 </mat-card>
