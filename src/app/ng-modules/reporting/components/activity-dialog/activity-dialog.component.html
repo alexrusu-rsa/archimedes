@@ -149,7 +149,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12"
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addActivityForm!"
       (keyup.enter)="editActivity()"
     >
@@ -258,16 +258,16 @@
           <textarea matInput type="text" formControlName="extras"> </textarea>
         </mat-form-field>
       </div>
+      <div class="row col-12 mx-0 px-0 mb-3">
+        <button
+          *ngIf="userDateActivity.activity !== undefined"
+          color="accent"
+          mat-raised-button
+          (click)="editActivity()"
+        >
+          {{ "activity.dialog.submitUpdate" | translate }}
+        </button>
+      </div>
     </form>
-    <div class="row col-12 mx-0 px-0">
-      <button
-        *ngIf="userDateActivity.activity !== undefined"
-        color="accent"
-        mat-raised-button
-        (click)="editActivity()"
-      >
-        {{ "activity.dialog.submitUpdate" | translate }}
-      </button>
-    </div>
   </mat-dialog-content>
 </div>
