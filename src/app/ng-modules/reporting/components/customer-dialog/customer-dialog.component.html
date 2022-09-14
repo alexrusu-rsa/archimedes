@@ -1,12 +1,30 @@
-<div class="dialog-container">
-  <mat-card-title *ngIf="currentCustomer && customer === null"
-    >{{ "customer.dialog.addTitle" | translate }}
-  </mat-card-title>
-  <mat-dialog-content *ngIf="currentCustomer && customer === null">
-    <form [formGroup]="addCustomerForm!" (keyup.enter)="addCustomer()">
-      <div class="flex-container">
-        <div class="flex-child">
-          <mat-form-field class="first-form-field" appearance="fill">
+<div class="container mx-0 px-0">
+  <mat-dialog-content
+    class="container mx-0 px-0 col-12"
+    *ngIf="currentCustomer && customer === null"
+  >
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "customer.dialog.addTitle" | translate }}
+        </mat-card-title>
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <form
+      class="container mt-2 mx-0 px-0 col-12"
+      [formGroup]="addCustomerForm!"
+      (keyup.enter)="addCustomer()"
+    >
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerName" | translate
             }}</mat-label>
@@ -21,7 +39,9 @@
               "customer.dialog.customerNameHint" | translate
             }}</mat-hint>
           </mat-form-field>
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerCUI" | translate
             }}</mat-label>
@@ -36,8 +56,12 @@
               "customer.dialog.customerCUIHint" | translate
             }}</mat-hint>
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerReg" | translate
             }}</mat-label>
@@ -52,8 +76,9 @@
               "customer.dialog.customerRegHint" | translate
             }}</mat-hint>
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerAddress" | translate
             }}</mat-label>
@@ -69,8 +94,12 @@
               >{{ "customer.dialog.customerAddressHint" | translate }}</mat-hint
             >
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerCity" | translate
             }}</mat-label>
@@ -85,8 +114,8 @@
             }}</mat-hint>
           </mat-form-field>
         </div>
-        <div class="flex-child">
-          <mat-form-field appearance="fill">
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerShortName" | translate
             }}</mat-label>
@@ -97,7 +126,12 @@
               formControlName="shortName"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
+        </div>
+      </div>
+
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerCountry" | translate
             }}</mat-label>
@@ -112,8 +146,9 @@
               >{{ "customer.dialog.customerCountryHint" | translate }}</mat-hint
             >
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerDirectorName" | translate
             }}</mat-label>
@@ -124,8 +159,11 @@
               formControlName="directorName"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
+        </div>
+      </div>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerDirectorEmail" | translate
             }}</mat-label>
@@ -136,8 +174,9 @@
               formControlName="directorEmail"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerDirectorTel" | translate
             }}</mat-label>
@@ -151,27 +190,49 @@
         </div>
       </div>
     </form>
-    <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
-      "customer.page.internal" | translate
-    }}</mat-slide-toggle>
+    <div class="row col-12 mx-0 px-0">
+      <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
+        "customer.page.internal" | translate
+      }}</mat-slide-toggle>
+    </div>
+    <div class="row col-12 mx-0 px-0 mt-2">
+      <button
+        class="col-12 mx-0 px-0"
+        *ngIf="this.customer === null"
+        color="accent"
+        mat-raised-button
+        (click)="addCustomer()"
+      >
+        {{ "customer.dialog.addTitle" | translate }}
+      </button>
+    </div>
   </mat-dialog-content>
 
-  <button
-    *ngIf="this.customer === null"
-    color="accent"
-    mat-raised-button
-    (click)="addCustomer()"
+  <mat-dialog-content
+    class="container mx-0 px-0 col-12"
+    *ngIf="currentCustomer && this.customer !== null"
   >
-    {{ "customer.dialog.addTitle" | translate }}
-  </button>
-  <mat-card-title *ngIf="currentCustomer && this.customer !== null">{{
-    "customer.dialog.updateTitle" | translate
-  }}</mat-card-title>
-  <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
-    <form [formGroup]="addCustomerForm!" (keyup.enter)="editCustomer()">
-      <div class="flex-container">
-        <div class="flex-child">
-          <mat-form-field class="first-form-field" appearance="fill">
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "customer.dialog.updateTitle" | translate }}</mat-card-title
+        >
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <form
+      class="container mt-2 mx-0 px-0 col-12"
+      [formGroup]="addCustomerForm!"
+      (keyup.enter)="editCustomer()"
+    >
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerName" | translate
             }}</mat-label>
@@ -183,7 +244,9 @@
               required="true"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerCUI" | translate
             }}</mat-label>
@@ -195,8 +258,12 @@
               required="true"
             />
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerReg" | translate
             }}</mat-label>
@@ -208,8 +275,9 @@
               required="true"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerAddress" | translate
             }}</mat-label>
@@ -221,8 +289,12 @@
               required="true"
             />
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerCity" | translate
             }}</mat-label>
@@ -234,8 +306,8 @@
             />
           </mat-form-field>
         </div>
-        <div class="flex-child">
-          <mat-form-field appearance="fill">
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerShortName" | translate
             }}</mat-label>
@@ -246,7 +318,12 @@
               formControlName="shortName"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
+        </div>
+      </div>
+
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerCountry" | translate
             }}</mat-label>
@@ -257,7 +334,9 @@
               formControlName="country"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerDirectorName" | translate
             }}</mat-label>
@@ -268,8 +347,12 @@
               formControlName="directorName"
             />
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerDirectorEmail" | translate
             }}</mat-label>
@@ -280,8 +363,9 @@
               formControlName="directorEmail"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
             <mat-label>{{
               "customer.dialog.customerDirectorTel" | translate
             }}</mat-label>
@@ -294,18 +378,22 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
+          "customer.page.internal" | translate
+        }}</mat-slide-toggle>
+      </div>
     </form>
-    <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
-      "customer.page.internal" | translate
-    }}</mat-slide-toggle>
+    <div class="row col-12 mx-0 px-0 mt-2">
+      <button
+        class="col-12 mx-0 px-0"
+        *ngIf="this.customer !== null"
+        color="accent"
+        mat-raised-button
+        (click)="editCustomer()"
+      >
+        {{ "customer.dialog.updateTitle" | translate }}
+      </button>
+    </div>
   </mat-dialog-content>
-
-  <button
-    *ngIf="this.customer !== null"
-    color="accent"
-    mat-raised-button
-    (click)="editCustomer()"
-  >
-    {{ "customer.dialog.updateTitle" | translate }}
-  </button>
 </div>
