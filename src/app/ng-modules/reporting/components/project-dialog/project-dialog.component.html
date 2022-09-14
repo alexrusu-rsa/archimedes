@@ -19,7 +19,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12"
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addProjectForm!"
       (keyup.enter)="checkAndAdd()"
     >
@@ -110,15 +110,13 @@
           />
         </mat-form-field>
       </div>
+      <div class="row col-12 mx-0 px-0 pb-3">
+        <button mat-raised-button color="accent" (click)="checkAndAdd()">
+          {{ "project.dialog.titleAdd" | translate }}
+        </button>
+      </div>
     </form>
   </mat-dialog-content>
-  <mat-dialog-actions *ngIf="currentProjectToUpdate === null">
-    <div class="row col-12 mx-0 px-0">
-      <button mat-raised-button color="accent" (click)="checkAndAdd()">
-        {{ "project.dialog.titleAdd" | translate }}
-      </button>
-    </div>
-  </mat-dialog-actions>
 
   <mat-dialog-content
     class="container mx-0 px-0 col-12"
@@ -140,7 +138,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12"
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addProjectForm!"
       (keyup.enter)="checkAndUpdate()"
     >
@@ -231,10 +229,7 @@
           />
         </mat-form-field>
       </div>
-    </form>
-
-    <mat-dialog-actions>
-      <div class="row col-12 mx-0 px-0">
+      <div class="row col-12 mx-0 px-0 pb-3">
         <button
           *ngIf="currentProjectToUpdate !== null"
           mat-raised-button
@@ -244,6 +239,6 @@
           {{ "project.dialog.titleUpdate" | translate }}
         </button>
       </div>
-    </mat-dialog-actions>
+    </form>
   </mat-dialog-content>
 </div>
