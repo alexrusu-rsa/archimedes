@@ -163,6 +163,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       });
     this.subscriptions?.push(this.currentEmployeeCommitmentSub);
   }
+  
   computeCurrentEmployeTotalCommitment() {
     let totalCommitment = 0;
     this.currentEmployeeRates?.forEach((rate) => {

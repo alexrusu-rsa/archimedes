@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   DateAdapter,
   MAT_DATE_LOCALE,
@@ -20,6 +26,11 @@ import { UserService } from 'src/app/services/user.service';
 import { MatSelectChange } from '@angular/material/select';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
+import { CalendarDay } from 'src/app/models/calendar-day';
+import { RateService } from 'src/app/services/rate.service';
+import { Rate } from 'src/app/models/rate';
+import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-calendar';
+import e from 'express';
 
 export const MY_FORMATS = {
   parse: {
@@ -66,22 +77,31 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   pickedStartDate?: string;
   pickedEndDate?: string;
 
-  activitiesInRange?: Activity[];
+  activitiesInRange: Activity[] = [];
   activitiesInRangeSub?: Subscription;
 
   allProjects?: Project[];
   allProjectsSub?: Subscription;
 
+  allRates?: Rate[];
+  allRatesSub?: Subscription;
+
   noFilterUsers = 'ALLUSERS';
   nameFilter?: string;
 
   nameFilteredActivities?: Activity[];
-  filterRange?: Date[] = [];
+  filterRange: Date[] = [];
+
+  calendarDays?: CalendarDay[] = [];
+  datesInSelectedRange: Date[] = [];
+
+  employeesTotalCommitment?: number;
 
   constructor(
     private activityService: ActivityService,
     private userService: UserService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private rateService: RateService
   ) {}
 
   findEmployee(employeeId: string) {
@@ -92,11 +112,147 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     return this.allProjects?.find((project) => (project.id = projectId));
   }
 
+  generateCalendarDaysForEachDateInSelectedRange() {
+    this.datesInSelectedRange.forEach((date) => {
+      const newCalendarDay = <CalendarDay>(<unknown>{
+        color: '#ff0000',
+        timeBooked: 0,
+        expectedTimeCommitment: this.employeesTotalCommitment,
+        date: <Date>date,
+        employeesCommitment: [],
+      });
+      this.calendarDays?.push(newCalendarDay);
+    });
+    this.computeTimeCommitmentOnCalendarDaysAllEmployees();
+  }
+
+  computeTimeCommitmentOnCalendarDaysAllEmployees() {
+    this.calendarDays?.forEach((calendarDay) => {
+      this.allEmployees?.forEach((employee) => {
+        const filteredActivitiesOfEmployee = this.allActivities?.filter(
+          (activity) => activity.employeeId === employee.id
+        );
+        if (filteredActivitiesOfEmployee) {
+          let employeeReportedHours = 0;
+          let employeeReportedMinutes = 0;
+          filteredActivitiesOfEmployee?.forEach((activity) => {
+            if (
+              activity.date ===
+              this.transformNewDateToDBString(calendarDay.date)
+            ) {
+              employeeReportedHours =
+                employeeReportedHours +
+                Number(activity.workedTime?.split(':')[0]);
+              employeeReportedMinutes =
+                employeeReportedMinutes +
+                Number(activity.workedTime?.split(':')[1]);
+            }
+          });
+          const hoursFromMinutes = this.minutesToHours(employeeReportedHours);
+          if (hoursFromMinutes > 1) {
+            employeeReportedHours = Math.round(hoursFromMinutes);
+          }
+          const newEmployeeCommitmentCalendar = <EmployeeCommitmentCalendar>(<
+            unknown
+          >{
+            employee: employee.id,
+            reportedHours: employeeReportedHours,
+            employeeExpectedCommitment: this.getExpectedCommitmentOfEmployee(
+              employee.id!
+            ),
+          });
+          calendarDay.employeesCommitment.push(newEmployeeCommitmentCalendar);
+        }
+      });
+    });
+  }
+
+  minutesToHours(minutes: number): number {
+    return minutes / 60;
+  }
+
+  transformNewDateToDBString(date: Date): string {
+    //this might help for day selections.
+    // const nextDate = new Date();
+    // nextDate.setDate(date.getDate() + 1);
+    const ISODate = date.toISOString().split('T')[0];
+    return this.formatISOToDB(ISODate);
+  }
+
+  getExpectedCommitmentOfEmployee(employeeId: string): number {
+    let employeeTotalExpectedCommitment = 0;
+    this.allRates?.forEach((rate) => {
+      if (rate.employeeId === employeeId) {
+        employeeTotalExpectedCommitment =
+          employeeTotalExpectedCommitment + rate.employeeTimeCommitement!;
+      }
+    });
+    return employeeTotalExpectedCommitment;
+  }
+
+  formatISOToDB(dateISO: string): string {
+    const activityDate = dateISO.split('-');
+    return activityDate[2] + '/' + activityDate[1] + '/' + activityDate[0];
+  }
+
+  transformDateToDBString(date: Date): string {
+    return this.formatISOToDB(date.toISOString());
+  }
+
+  computeEmployeesTotalCommitment() {
+    let totalCommitment = 0;
+    this.allRates?.forEach((rate) => {
+      totalCommitment = totalCommitment + rate.employeeTimeCommitement!;
+    });
+    this.employeesTotalCommitment = totalCommitment;
+  }
+
+  generateCalendarDayColors() {
+    this.calendarDays?.forEach((calendarDay) => {
+      let totalCommitmentOfCalendarDay = 0;
+      calendarDay.employeesCommitment.forEach((employeeCommitment) => {
+        totalCommitmentOfCalendarDay =
+          totalCommitmentOfCalendarDay + employeeCommitment.reportedHours;
+      });
+      calendarDay.timeBooked = totalCommitmentOfCalendarDay;
+      if (totalCommitmentOfCalendarDay === 0) calendarDay.color = 'red';
+      if (totalCommitmentOfCalendarDay >= calendarDay.expectedTimeCommitment)
+        calendarDay.color = 'green';
+      if (
+        totalCommitmentOfCalendarDay > 0 &&
+        totalCommitmentOfCalendarDay < calendarDay.expectedTimeCommitment
+      )
+        calendarDay.color = 'orange';
+    });
+  }
+
+  dateChanges() {
+    this.activitiesInRange = [];
+    this.calendarDays = [];
+    this.datesInSelectedRange = [];
+    this.getAllActivitiesInRange(this.allActivities!);
+    this.getDatesInRange();
+    this.generateCalendarDaysForEachDateInSelectedRange();
+    this.generateCalendarDayColors();
+  }
+
+  getDatesInRange() {
+    const date = new Date(this.start?.value);
+    date.setDate(date.getDate());
+    const dates = [];
+    while (date <= this.end?.value) {
+      dates.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    this.datesInSelectedRange = dates;
+  }
+
   getAllUsers() {
     this.allEmployeesSub = this.userService
       .getUsers()
       .subscribe((result: User[]) => {
         this.allEmployees = result;
+        if (result) this.getEmployeeRates();
       });
   }
 
@@ -113,13 +269,48 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
       .getActivities()
       .subscribe((result: Activity[]) => {
         this.allActivities = result;
+        if (result) {
+          this.getAllActivitiesInRange(result);
+        }
       });
+  }
+
+  getEmployeeRates() {
+    this.allRatesSub = this.rateService.getRates().subscribe((result) => {
+      this.allRates = result;
+      if (result) {
+        this.computeEmployeesTotalCommitment();
+      }
+    });
+  }
+
+  getAllActivitiesInRange(activities: Activity[]) {
+    if (activities !== undefined) {
+      activities.forEach((activity) => {
+        if (
+          this.stringToDate(activity.date) >= this.start?.value &&
+          this.stringToDate(activity.date) <= this.end?.value
+        ) {
+          this.activitiesInRange?.push(activity);
+        }
+      });
+    }
+  }
+
+  private stringToDate(dateString: string) {
+    const splitDateString = dateString.split('/');
+    const dateStringISO =
+      splitDateString[2] + '-' + splitDateString[1] + '-' + splitDateString[0];
+    return new Date(dateStringISO);
   }
 
   ngOnInit(): void {
     this.getAllActivities();
     this.getAllUsers();
     this.getAllProjects();
+    this.getEmployeeRates();
+    this.getDatesInRange();
+
     this.selectedItemEmployee = this.noFilterUsers;
     this.nameFilter = this.noFilterUsers;
 
@@ -148,6 +339,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.allActivitiesSub?.unsubscribe();
     this.allProjectsSub?.unsubscribe();
     this.allEmployeesSub?.unsubscribe();
+    this.allRatesSub?.unsubscribe();
   }
 
   get start() {

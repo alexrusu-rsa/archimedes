@@ -8,11 +8,13 @@
       <input
         matStartDate
         formControlName="start"
+        (dateChange)="dateChanges()"
         placeholder="{{ 'reporting.page.startDate' | translate }}  "
       />
       <input
         matEndDate
         formControlName="end"
+        (dateChange)="dateChanges()"
         placeholder="{{ 'reporting.page.endDate' | translate }}  "
       />
     </mat-date-range-input>
@@ -39,6 +41,18 @@
   </mat-form-field>
 </div>
 
+<div class="container">
+  <div class="row col-12 mx-0 px-0">
+    <div class="col-2 mb-2 p-2 py-1" *ngFor="let calendarDay of calendarDays">
+      <mat-card [ngStyle]="{ 'background-color': calendarDay.color }">
+        <mat-card-title
+          >{{ calendarDay.timeBooked }}/{{ calendarDay.expectedTimeCommitment }}
+        </mat-card-title>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<!--
 <mat-card class="card-container">
   <div
     class="card-container"
@@ -93,4 +107,4 @@
       }}</mat-card-title>
     </mat-card>
   </div>
-</mat-card>
+</mat-card> -->
