@@ -18,7 +18,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12"
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addCustomerForm!"
       (keyup.enter)="addCustomer()"
     >
@@ -189,23 +189,23 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
+          "customer.page.internal" | translate
+        }}</mat-slide-toggle>
+      </div>
+      <div class="row col-12 mx-0 px-0 mt-1 pb-3">
+        <button
+          class="col-12 mx-0 px-0"
+          *ngIf="this.customer === null"
+          color="accent"
+          mat-raised-button
+          (click)="addCustomer()"
+        >
+          {{ "customer.dialog.addTitle" | translate }}
+        </button>
+      </div>
     </form>
-    <div class="row col-12 mx-0 px-0">
-      <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
-        "customer.page.internal" | translate
-      }}</mat-slide-toggle>
-    </div>
-    <div class="row col-12 mx-0 px-0 mt-2">
-      <button
-        class="col-12 mx-0 px-0"
-        *ngIf="this.customer === null"
-        color="accent"
-        mat-raised-button
-        (click)="addCustomer()"
-      >
-        {{ "customer.dialog.addTitle" | translate }}
-      </button>
-    </div>
   </mat-dialog-content>
 
   <mat-dialog-content
@@ -226,7 +226,7 @@
       </div>
     </div>
     <form
-      class="container mt-2 mx-0 px-0 col-12"
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addCustomerForm!"
       (keyup.enter)="editCustomer()"
     >
@@ -383,17 +383,17 @@
           "customer.page.internal" | translate
         }}</mat-slide-toggle>
       </div>
+      <div class="row col-12 mx-0 px-0 mt-1 pb-3">
+        <button
+          class="col-12 mx-0 px-0"
+          *ngIf="this.customer !== null"
+          color="accent"
+          mat-raised-button
+          (click)="editCustomer()"
+        >
+          {{ "customer.dialog.updateTitle" | translate }}
+        </button>
+      </div>
     </form>
-    <div class="row col-12 mx-0 px-0 mt-2">
-      <button
-        class="col-12 mx-0 px-0"
-        *ngIf="this.customer !== null"
-        color="accent"
-        mat-raised-button
-        (click)="editCustomer()"
-      >
-        {{ "customer.dialog.updateTitle" | translate }}
-      </button>
-    </div>
   </mat-dialog-content>
 </div>
