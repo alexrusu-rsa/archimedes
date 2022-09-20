@@ -8,4 +8,5 @@ export interface CalendarDay {
   expectedTimeCommitment: number;
   date: Date;
   employeesCommitment: EmployeeCommitmentCalendar[];
+  tooltipMessage: string;
 }

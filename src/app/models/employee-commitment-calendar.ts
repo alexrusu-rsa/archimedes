@@ -1,7 +1,7 @@
 import { User } from './user';
 
 export interface EmployeeCommitmentCalendar {
-  employee: User;
+  employeeId: string;
   reportedHours: number;
   employeeExpectedCommitment: number;
 }

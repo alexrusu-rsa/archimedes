@@ -115,11 +115,12 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   generateCalendarDaysForEachDateInSelectedRange() {
     this.datesInSelectedRange.forEach((date) => {
       const newCalendarDay = <CalendarDay>(<unknown>{
-        color: '#ff0000',
+        color: 'red',
         timeBooked: 0,
         expectedTimeCommitment: this.employeesTotalCommitment,
         date: <Date>date,
         employeesCommitment: [],
+        tooltipMessage: '',
       });
       this.calendarDays?.push(newCalendarDay);
     });
@@ -149,9 +150,8 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
             }
           });
           const hoursFromMinutes = this.minutesToHours(employeeReportedHours);
-          if (hoursFromMinutes > 1) {
-            employeeReportedHours = Math.round(hoursFromMinutes);
-          }
+          employeeReportedHours =
+            employeeReportedHours + Math.round(hoursFromMinutes);
           const newEmployeeCommitmentCalendar = <EmployeeCommitmentCalendar>(<
             unknown
           >{
@@ -167,6 +167,43 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  getTooltipText(calendarDay: CalendarDay): string {
+    return calendarDay.tooltipMessage;
+  }
+
+  generateTooltipMessagesForCalendarDays() {
+    this.calendarDays?.forEach((calendarDay) => {
+      let newMessage = '';
+      calendarDay.employeesCommitment.forEach((employeeCommitment) => {
+        newMessage =
+          newMessage +
+          this.genereateEmployeeMessageForTooltip(employeeCommitment);
+      });
+      console.log(newMessage);
+      calendarDay.tooltipMessage = newMessage;
+    });
+  }
+
+  genereateEmployeeMessageForTooltip(
+    employeeCommitment: EmployeeCommitmentCalendar
+  ): string {
+    if (employeeCommitment.reportedHours === 0) {
+      return 'Employee ${employeeCommitment.employeeId} has not reported any hours for this day. RED';
+    }
+    if (
+      employeeCommitment.reportedHours > 0 &&
+      employeeCommitment.reportedHours <
+        employeeCommitment.employeeExpectedCommitment
+    )
+      return 'Employee ${employeeCommitment.employeeId} has not reported enough hours for this day. ORANGE';
+
+    if (
+      employeeCommitment.reportedHours >=
+      employeeCommitment.employeeExpectedCommitment
+    )
+      return 'Employee ${employeeCommitment.employeeId} has reported the expected amount of hours for this day. GREEN ';
+    return '';
+  }
   minutesToHours(minutes: number): number {
     return minutes / 60;
   }
@@ -209,20 +246,30 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
 
   generateCalendarDayColors() {
     this.calendarDays?.forEach((calendarDay) => {
+      let color = 'green';
       let totalCommitmentOfCalendarDay = 0;
       calendarDay.employeesCommitment.forEach((employeeCommitment) => {
+        console.log('\n', employeeCommitment.reportedHours);
+        if (employeeCommitment.reportedHours === 0) color = 'red';
+        if (
+          employeeCommitment.reportedHours > 0 &&
+          employeeCommitment.reportedHours <
+            employeeCommitment.employeeExpectedCommitment
+        )
+          color = 'orange';
         totalCommitmentOfCalendarDay =
           totalCommitmentOfCalendarDay + employeeCommitment.reportedHours;
       });
       calendarDay.timeBooked = totalCommitmentOfCalendarDay;
-      if (totalCommitmentOfCalendarDay === 0) calendarDay.color = 'red';
-      if (totalCommitmentOfCalendarDay >= calendarDay.expectedTimeCommitment)
-        calendarDay.color = 'green';
-      if (
-        totalCommitmentOfCalendarDay > 0 &&
-        totalCommitmentOfCalendarDay < calendarDay.expectedTimeCommitment
-      )
-        calendarDay.color = 'orange';
+      // if (totalCommitmentOfCalendarDay === 0) calendarDay.color = 'red';
+      // if (totalCommitmentOfCalendarDay >= calendarDay.expectedTimeCommitment)
+      //   calendarDay.color = 'green';
+      // if (
+      //   totalCommitmentOfCalendarDay > 0 &&
+      //   totalCommitmentOfCalendarDay < calendarDay.expectedTimeCommitment
+      // )
+      //   calendarDay.color = 'orange';
+      calendarDay.color = color;
     });
   }
 

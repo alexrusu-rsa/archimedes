@@ -1,6 +1,11 @@
-<mat-card-title class="page-title">{{
-  "reporting.page.title" | translate
-}}</mat-card-title>
+<div class="container mt-2 mx-0 px-0">
+  <div class="row col-12 mx-0 px-0">
+    <mat-card-title class="page-title col-12 text-start">{{
+      "reporting.page.title" | translate
+    }}</mat-card-title>
+  </div>
+</div>
+
 <div class="header-activity">
   <mat-form-field appearance="fill" *ngIf="range" class="ranged-datepicker">
     <mat-label>{{ "reporting.page.selectDateRange" | translate }}</mat-label>
@@ -41,16 +46,51 @@
   </mat-form-field>
 </div>
 
-<div class="container">
-  <div class="row col-12 mx-0 px-0">
-    <div class="col-2 mb-2 p-2 py-1" *ngFor="let calendarDay of calendarDays">
-      <mat-card [ngStyle]="{ 'background-color': calendarDay.color }">
-        <mat-card-title
+<div class="container justify-content-center align-items-center mx-0 px-0">
+  <div
+    class="row col-12 d-flex justify-content-center align-items-center mx-0 px-0"
+  >
+    <div class="row col-7 mx-0 px-0 d-flex justify-content-around">
+      <mat-card class="col-1">
+        <mat-card-subtitle class="text-center">Mon</mat-card-subtitle>
+      </mat-card>
+      <mat-card class="col-1">
+        <mat-card-subtitle class="text-center">Tue</mat-card-subtitle>
+      </mat-card>
+      <mat-card class="col-1">
+        <mat-card-subtitle class="text-center">Wed</mat-card-subtitle>
+      </mat-card>
+      <mat-card class="col-1">
+        <mat-card-subtitle class="text-center">Thu</mat-card-subtitle>
+      </mat-card>
+      <mat-card class="col-1">
+        <mat-card-subtitle class="text-center">Fri</mat-card-subtitle>
+      </mat-card>
+      <mat-card class="col-1">
+        <mat-card-subtitle class="text-center">Sat</mat-card-subtitle>
+      </mat-card>
+      <mat-card class="col-1">
+        <mat-card-subtitle class="text-center">Sun</mat-card-subtitle>
+      </mat-card>
+    </div>
+    <div class="row col-7 mx-0 px-0 d-flex justify-content-around">
+      <mat-card
+        *ngFor="let calendarDay of calendarDays"
+        class="col-1 mx-0 px-0"
+        [ngStyle]="{ 'background-color': calendarDay.color }"
+      >
+        <mat-card-subtitle
+          class="text-center"
+          [matTooltip]="getTooltipText(calendarDay)"
           >{{ calendarDay.timeBooked }}/{{ calendarDay.expectedTimeCommitment }}
-        </mat-card-title>
+        </mat-card-subtitle>
       </mat-card>
     </div>
   </div>
+
+  <div
+    class="row col-7 d-flex justify-content-start align-items-center mx-0 px-0"
+  ></div>
 </div>
 <!--
 <mat-card class="card-container">
