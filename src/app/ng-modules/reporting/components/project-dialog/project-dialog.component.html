@@ -1,173 +1,244 @@
-<div class="dialog-container">
+<div class="container mx-0 px-0">
   <mat-dialog-content
+    class="container mx-0 px-0 col-12"
     *ngIf="currentProject && this.currentProjectToUpdate === null"
   >
-    <mat-card-title>Add Project</mat-card-title>
-    <form [formGroup]="addProjectForm!" (keyup.enter)="checkAndAdd()">
-      <mat-form-field appearance="fill">
-        <mat-label>Project Name</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentProject.projectName"
-          type="text"
-          formControlName="name"
-          required="true"
-        />
-      </mat-form-field>
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "project.dialog.titleAdd" | translate }}</mat-card-title
+        >
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Customer name</mat-label>
-        <mat-select [(ngModel)]="selectedItem" formControlName="customerName">
-          <mat-option
-            *ngFor="let customer of customers"
-            [value]="customer.id"
-            ngDefaultControl
-          >
-            {{ customer.customerName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Project Contract</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentProject.contract"
-          formControlName="contract"
-          type="text"
-        />
-      </mat-form-field>
+    <form
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      [formGroup]="addProjectForm!"
+      (keyup.enter)="checkAndAdd()"
+    >
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.name" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentProject.projectName"
+            type="text"
+            formControlName="name"
+            required="true"
+          />
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill" class="header-datepicker">
-        <mat-label>Due date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePicker"
-          [(ngModel)]="selectedDate"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <mat-datepicker-toggle
-          [for]="datePicker"
-          matSuffix
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datePicker touchUi></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="header-datepicker">
-        <mat-label>Contract Sign Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePickerContractSign"
-          [(ngModel)]="contractSignDate"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <mat-datepicker-toggle
-          [for]="datePickerContractSign"
-          matSuffix
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datePickerContractSign touchUi></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Project Invoice Term</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentProject.invoiceTerm"
-          formControlName="invoiceTerm"
-          type="text"
-        />
-      </mat-form-field>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.customerName" | translate }}</mat-label>
+          <mat-select [(ngModel)]="selectedItem" formControlName="customerName">
+            <mat-option
+              *ngFor="let customer of customers"
+              [value]="customer.id"
+              ngDefaultControl
+            >
+              {{ customer.customerName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.contract" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentProject.contract"
+            formControlName="contract"
+            type="text"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.dueDate" | translate }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePicker"
+            [(ngModel)]="selectedDate"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <mat-datepicker-toggle
+            [for]="datePicker"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker touchUi></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{
+            "project.dialog.contractSignDate" | translate
+          }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePickerContractSign"
+            [(ngModel)]="contractSignDate"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <mat-datepicker-toggle
+            [for]="datePickerContractSign"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePickerContractSign touchUi></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.invoiceTerm" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentProject.invoiceTerm"
+            formControlName="invoiceTerm"
+            type="text"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0 pb-3">
+        <button mat-raised-button color="accent" (click)="checkAndAdd()">
+          {{ "project.dialog.titleAdd" | translate }}
+        </button>
+      </div>
     </form>
   </mat-dialog-content>
-  <mat-dialog-actions *ngIf="currentProjectToUpdate === null">
-    <button mat-raised-button color="accent" (click)="checkAndAdd()">
-      Add project
-    </button>
-  </mat-dialog-actions>
 
-  <mat-dialog-content *ngIf="currentProject && currentProjectToUpdate !== null">
-    <mat-card-title>Update Project</mat-card-title>
+  <mat-dialog-content
+    class="container mx-0 px-0 col-12"
+    *ngIf="currentProject && currentProjectToUpdate !== null"
+  >
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "project.dialog.titleUpdate" | translate }}</mat-card-title
+        >
+      </div>
 
-    <form [formGroup]="addProjectForm!" (keyup.enter)="checkAndUpdate()">
-      <mat-form-field appearance="fill">
-        <mat-label>Project Name</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentProjectToUpdate.projectName"
-          type="text"
-          formControlName="name"
-          required="true"
-        />
-      </mat-form-field>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Customer name</mat-label>
-        <mat-select [(value)]="selectedItem" formControlName="customerName">
-          <mat-option
-            *ngFor="let customer of customers"
-            [value]="customer.id"
-            ngDefaultControl
-          >
-            {{ customer.customerName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Project Contract</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentProject.contract"
-          formControlName="contract"
-          type="text"
-        />
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="header-datepicker">
-        <mat-label>Due date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePicker"
-          [(ngModel)]="selectedDate"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <mat-datepicker-toggle
-          [for]="datePicker"
-          matSuffix
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datePicker touchUi></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="header-datepicker">
-        <mat-label>Contract Sign Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePickerContractSign"
-          [(ngModel)]="contractSignDate"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <mat-datepicker-toggle
-          [for]="datePickerContractSign"
-          matSuffix
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datePickerContractSign touchUi></mat-datepicker>
-      </mat-form-field>
+    <form
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      [formGroup]="addProjectForm!"
+      (keyup.enter)="checkAndUpdate()"
+    >
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.name" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentProjectToUpdate.projectName"
+            type="text"
+            formControlName="name"
+            required="true"
+          />
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Project Invoice Term</mat-label>
-        <input
-          matInput
-          [(ngModel)]="currentProject.invoiceTerm"
-          formControlName="invoiceTerm"
-          type="text"
-        />
-      </mat-form-field>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.customerName" | translate }}</mat-label>
+          <mat-select [(value)]="selectedItem" formControlName="customerName">
+            <mat-option
+              *ngFor="let customer of customers"
+              [value]="customer.id"
+              ngDefaultControl
+            >
+              {{ customer.customerName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.contract" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentProject.contract"
+            formControlName="contract"
+            type="text"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.dueDate" | translate }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePicker"
+            [(ngModel)]="selectedDate"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <mat-datepicker-toggle
+            [for]="datePicker"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker touchUi></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{
+            "project.dialog.contractSignDate" | translate
+          }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePickerContractSign"
+            [(ngModel)]="contractSignDate"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <mat-datepicker-toggle
+            [for]="datePickerContractSign"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePickerContractSign touchUi></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "project.dialog.invoiceTerm" | translate }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="currentProject.invoiceTerm"
+            formControlName="invoiceTerm"
+            type="text"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0 pb-3">
+        <button
+          *ngIf="currentProjectToUpdate !== null"
+          mat-raised-button
+          color="accent"
+          (click)="checkAndUpdate()"
+        >
+          {{ "project.dialog.titleUpdate" | translate }}
+        </button>
+      </div>
     </form>
-
-    <mat-dialog-actions>
-      <button
-        *ngIf="currentProjectToUpdate !== null"
-        mat-raised-button
-        color="accent"
-        (click)="checkAndUpdate()"
-      >
-        Update project
-      </button>
-    </mat-dialog-actions>
   </mat-dialog-content>
 </div>

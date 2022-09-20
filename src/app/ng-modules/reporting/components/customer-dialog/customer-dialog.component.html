@@ -1,13 +1,33 @@
-<div class="dialog-container">
-  <mat-card-title *ngIf="currentCustomer && customer === null"
-    >Add Customer</mat-card-title
+<div class="container mx-0 px-0">
+  <mat-dialog-content
+    class="container mx-0 px-0 col-12"
+    *ngIf="currentCustomer && customer === null"
   >
-  <mat-dialog-content *ngIf="currentCustomer && customer === null">
-    <form [formGroup]="addCustomerForm!" (keyup.enter)="addCustomer()">
-      <div class="flex-container">
-        <div class="flex-child">
-          <mat-form-field class="first-form-field" appearance="fill">
-            <mat-label>Customer Name</mat-label>
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "customer.dialog.addTitle" | translate }}
+        </mat-card-title>
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <form
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      [formGroup]="addCustomerForm!"
+      (keyup.enter)="addCustomer()"
+    >
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerName" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerName"
@@ -15,12 +35,16 @@
               formControlName="name"
               required="true"
             />
-            <mat-hint *ngIf="name?.value === undefined || name?.value === ''"
-              >You must enter a customer name</mat-hint
-            >
+            <mat-hint *ngIf="name?.value === undefined || name?.value === ''">{{
+              "customer.dialog.customerNameHint" | translate
+            }}</mat-hint>
           </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Customer CUI</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerCUI" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCUI"
@@ -28,13 +52,19 @@
               type="text"
               required="true"
             />
-            <mat-hint *ngIf="cui?.value === undefined || cui?.value === ''"
-              >You must enter a customer CUI</mat-hint
-            >
+            <mat-hint *ngIf="cui?.value === undefined || cui?.value === ''">{{
+              "customer.dialog.customerCUIHint" | translate
+            }}</mat-hint>
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Reg</mat-label>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerReg" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerReg"
@@ -42,13 +72,16 @@
               type="text"
               required="true"
             />
-            <mat-hint *ngIf="reg?.value === undefined || reg?.value === ''"
-              >You must enter a customer REG</mat-hint
-            >
+            <mat-hint *ngIf="reg?.value === undefined || reg?.value === ''">{{
+              "customer.dialog.customerRegHint" | translate
+            }}</mat-hint>
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Address</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerAddress" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerAddress"
@@ -58,26 +91,34 @@
             />
             <mat-hint
               *ngIf="address?.value === undefined || address?.value === ''"
-              >You must enter the customer's address</mat-hint
+              >{{ "customer.dialog.customerAddressHint" | translate }}</mat-hint
             >
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Customer City</mat-label>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerCity" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCity"
               type="text"
               formControlName="city"
             />
-            <mat-hint *ngIf="city?.value === undefined || city?.value === ''"
-              >You must enter customer's city</mat-hint
-            >
+            <mat-hint *ngIf="city?.value === undefined || city?.value === ''">{{
+              "customer.dialog.customerCityHint" | translate
+            }}</mat-hint>
           </mat-form-field>
         </div>
-        <div class="flex-child">
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Short Name</mat-label>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerShortName" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.shortName"
@@ -85,8 +126,15 @@
               formControlName="shortName"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Country</mat-label>
+        </div>
+      </div>
+
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerCountry" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCountry"
@@ -95,12 +143,15 @@
             />
             <mat-hint
               *ngIf="country?.value === undefined || country?.value === ''"
-              >You must enter customer's country</mat-hint
+              >{{ "customer.dialog.customerCountryHint" | translate }}</mat-hint
             >
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Director Name</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerDirectorName" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorName"
@@ -108,9 +159,14 @@
               formControlName="directorName"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Director Email</mat-label>
+        </div>
+      </div>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerDirectorEmail" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorEmail"
@@ -118,9 +174,12 @@
               formControlName="directorEmail"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Director Tel</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerDirectorTel" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorTel"
@@ -130,29 +189,53 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
+          "customer.page.internal" | translate
+        }}</mat-slide-toggle>
+      </div>
+      <div class="row col-12 mx-0 px-0 mt-1 pb-3">
+        <button
+          class="col-12 mx-0 px-0"
+          *ngIf="this.customer === null"
+          color="accent"
+          mat-raised-button
+          (click)="addCustomer()"
+        >
+          {{ "customer.dialog.addTitle" | translate }}
+        </button>
+      </div>
     </form>
-    <mat-slide-toggle [(ngModel)]="currentCustomer.internal"
-      >Internal Company</mat-slide-toggle
-    >
   </mat-dialog-content>
 
-  <button
-    *ngIf="this.customer === null"
-    color="accent"
-    mat-raised-button
-    (click)="addCustomer()"
+  <mat-dialog-content
+    class="container mx-0 px-0 col-12"
+    *ngIf="currentCustomer && this.customer !== null"
   >
-    Add customer
-  </button>
-  <mat-card-title *ngIf="currentCustomer && this.customer !== null"
-    >Update Customer</mat-card-title
-  >
-  <mat-dialog-content *ngIf="currentCustomer && this.customer !== null">
-    <form [formGroup]="addCustomerForm!" (keyup.enter)="editCustomer()">
-      <div class="flex-container">
-        <div class="flex-child">
-          <mat-form-field class="first-form-field" appearance="fill">
-            <mat-label>Customer Name</mat-label>
+    <div class="row col-12 mx-0 px-0">
+      <div class="col-8 mx-0 px-0">
+        <mat-card-title
+          class="col-12 text-start align-items-center mx-0 px-0 mb-0 pb-0 py-3"
+          >{{ "customer.dialog.updateTitle" | translate }}</mat-card-title
+        >
+      </div>
+      <div class="col-4 d-flex justify-content-end mx-0 px-0 pt-1">
+        <button mat-icon-button class="col-12" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <form
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      [formGroup]="addCustomerForm!"
+      (keyup.enter)="editCustomer()"
+    >
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerName" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerName"
@@ -161,8 +244,12 @@
               required="true"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Customer CUI</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerCUI" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCUI"
@@ -171,9 +258,15 @@
               required="true"
             />
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Reg</mat-label>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerReg" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerReg"
@@ -182,9 +275,12 @@
               required="true"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Address</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerAddress" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerAddress"
@@ -193,9 +289,15 @@
               required="true"
             />
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Customer City</mat-label>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerCity" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCity"
@@ -204,9 +306,11 @@
             />
           </mat-form-field>
         </div>
-        <div class="flex-child">
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Short Name</mat-label>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerShortName" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.shortName"
@@ -214,8 +318,15 @@
               formControlName="shortName"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Country</mat-label>
+        </div>
+      </div>
+
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerCountry" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerCountry"
@@ -223,8 +334,12 @@
               formControlName="country"
             />
           </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Director Name</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerDirectorName" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorName"
@@ -232,9 +347,15 @@
               formControlName="directorName"
             />
           </mat-form-field>
+        </div>
+      </div>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Director Email</mat-label>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerDirectorEmail" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorEmail"
@@ -242,9 +363,12 @@
               formControlName="directorEmail"
             />
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Customer Director Tel</mat-label>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.customerDirectorTel" | translate
+            }}</mat-label>
             <input
               matInput
               [(ngModel)]="currentCustomer.customerDirectorTel"
@@ -254,18 +378,22 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
+          "customer.page.internal" | translate
+        }}</mat-slide-toggle>
+      </div>
+      <div class="row col-12 mx-0 px-0 mt-1 pb-3">
+        <button
+          class="col-12 mx-0 px-0"
+          *ngIf="this.customer !== null"
+          color="accent"
+          mat-raised-button
+          (click)="editCustomer()"
+        >
+          {{ "customer.dialog.updateTitle" | translate }}
+        </button>
+      </div>
     </form>
-    <mat-slide-toggle [(ngModel)]="currentCustomer.internal"
-      >Internal Company</mat-slide-toggle
-    >
   </mat-dialog-content>
-
-  <button
-    *ngIf="this.customer !== null"
-    color="accent"
-    mat-raised-button
-    (click)="editCustomer()"
-  >
-    Update customer
-  </button>
 </div>

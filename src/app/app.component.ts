@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { TranslateService } from '@ngx-translate/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './services/auth.service';
@@ -29,8 +30,16 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private localStorageService: LocalStorageService
-  ) {}
+    private localStorageService: LocalStorageService,
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['en', 'de', 'ro']);
+    translate.setDefaultLang('en');
+
+    const browserLang = translate.getBrowserLang();
+    if (browserLang?.match(/en|de|ro/)) translate.use(browserLang);
+    else translate.use('en');
+  }
 
   logOut() {
     this.authService.doLogout();
@@ -60,7 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
           if (this.isAdmin) {
             this.router.navigate(['reporting/admin-dashboard']);
           } else {
-            this.router.navigate(['reporting/activity/' + this.currentUserId]);
+            this.router.navigate(['reporting/dashboard/']);
           }
         } else {
           this.authService.doLogout();

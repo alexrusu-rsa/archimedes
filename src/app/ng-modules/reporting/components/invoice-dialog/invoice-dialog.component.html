@@ -1,60 +1,85 @@
-<div class="dialog-container">
-  <mat-card-title>Set data for invoice</mat-card-title>
-  <form [formGroup]="invoiceForm!" class="form-invoice">
-    <mat-form-field appearance="fill">
-      <mat-label>Invoice Number</mat-label>
-      <input
-        matInput
-        formControlName="invoiceNumber"
-        type="text"
-        placeholder="Example: 1234"
-      />
-      <mat-hint
-        *ngIf="
-          !invoiceNumber?.valid &&
-          (invoiceNumber?.touched || invoiceNumber?.dirty)
-        "
-        >The invoice number is required.</mat-hint
-      >
-    </mat-form-field>
+<div class="container mx-0 px-0">
+  <mat-dialog-content class="container mx-0 px-0 col-12">
+    <div class="row col-12 mx-0 px-0">
+      <mat-card-title class="mx-0 px-0">{{
+        "invoice.dialog.title" | translate
+      }}</mat-card-title>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Euro Exchange</mat-label>
-      <input
-        matInput
-        placeholder="Example: 4.97, 4.9283"
-        formControlName="euroExchange"
-        type="text"
-      />
+    <form
+      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      [formGroup]="invoiceForm!"
+    >
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{
+            "invoice.dialog.invoiceNumber" | translate
+          }}</mat-label>
+          <input
+            matInput
+            formControlName="invoiceNumber"
+            type="text"
+            placeholder="Example: 1234"
+          />
+          <mat-hint
+            *ngIf="
+              !invoiceNumber?.valid &&
+              (invoiceNumber?.touched || invoiceNumber?.dirty)
+            "
+            >{{ "invoice.dialog.invoiceNumberHint" | translate }}</mat-hint
+          >
+        </mat-form-field>
+      </div>
 
-      <mat-hint
-        *ngIf="
-          !euroExchange?.valid && (euroExchange?.touched || euroExchange?.dirty)
-        "
-        >Enter a value like 4.98 or 4.92394</mat-hint
-      >
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="header-datepicker">
-      <mat-label>Invoice Emmitting Day</mat-label>
-      <input
-        matInput
-        [matDatepicker]="datePicker"
-        [(ngModel)]="selectedDate"
-        (dateInput)="OnDateChange($event.value)"
-        ngDefaultControl
-      />
-      <mat-datepicker-toggle
-        [for]="datePicker"
-        matSuffix
-      ></mat-datepicker-toggle>
-      <mat-datepicker #datePicker touchUi></mat-datepicker>
-    </mat-form-field>
-  </form>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{ "invoice.dialog.euroExchange" | translate }}</mat-label>
+          <input
+            matInput
+            placeholder="Example: 4.97, 4.9283"
+            formControlName="euroExchange"
+            type="text"
+          />
 
-  <button mat-raised-button color="accent" (click)="downloadPDF()">
-    Download PDF
-  </button>
-  <button mat-raised-button color="accent" (click)="downloadXLSX()">
-    Download XLSX
-  </button>
+          <mat-hint
+            *ngIf="
+              !euroExchange?.valid &&
+              (euroExchange?.touched || euroExchange?.dirty)
+            "
+            >{{ "invoice.dialog.euroExchangeHint" | translate }}</mat-hint
+          >
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-form-field class="mx-0 px-0" appearance="fill">
+          <mat-label>{{
+            "invoice.dialog.invoiceEmittingDay" | translate
+          }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datePicker"
+            [(ngModel)]="selectedDate"
+            (dateInput)="OnDateChange($event.value)"
+            ngDefaultControl
+          />
+          <mat-datepicker-toggle
+            [for]="datePicker"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datePicker touchUi></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <button mat-raised-button color="accent" (click)="downloadPDF()">
+          {{ "invoice.dialog.downloadPDF" | translate }}
+        </button>
+      </div>
+
+      <div class="row col-12 mx-0 px-0 mt-2 pb-3">
+        <button mat-raised-button color="accent" (click)="downloadXLSX()">
+          {{ "invoice.dialog.downloadXLSX" | translate }}
+        </button>
+      </div>
+    </form>
+  </mat-dialog-content>
 </div>

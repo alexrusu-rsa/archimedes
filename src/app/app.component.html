@@ -23,7 +23,7 @@
         "
         routerLink="reporting/dashboard"
         (click)="sidenav.close()"
-        >Home</a
+        >{{ "sidenav.home" | translate }}</a
       >
 
       <a
@@ -31,7 +31,7 @@
         *ngIf="isAdmin && isAdmin !== undefined"
         routerLink="reporting/admin-dashboard"
         (click)="sidenav.close()"
-        >Home</a
+        >{{ "sidenav.home" | translate }}</a
       >
 
       <a
@@ -39,7 +39,7 @@
         *ngIf="isAdmin && isAdmin !== undefined"
         routerLink="reporting/activity/{{ this.currentUserId }}"
         (click)="sidenav.close()"
-        >Activities</a
+        >{{ "sidenav.activities" | translate }}</a
       >
 
       <a
@@ -51,7 +51,7 @@
         "
         routerLink="reporting/activity/{{ this.currentUserId }}"
         (click)="sidenav.close()"
-        >Activities</a
+        >{{ "sidenav.activities" | translate }}</a
       >
 
       <a
@@ -59,46 +59,45 @@
         mat-list-item
         routerLink="reporting/user"
         (click)="sidenav.close()"
-        >Users</a
+        >{{ "sidenav.users" | translate }}</a
       >
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
         routerLink="reporting/project"
         (click)="sidenav.close()"
-        >Projects</a
+        >{{ "sidenav.projects" | translate }}</a
       >
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
         routerLink="reporting/customer"
         (click)="sidenav.close()"
-        >Customers</a
+        >{{ "sidenav.customers" | translate }}</a
       >
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
         routerLink="reporting/user-reporting"
         (click)="sidenav.close()"
-        >Reporting
+        >{{ "sidenav.reporting" | translate }}
       </a>
       <a mat-list-item routerLink="reporting/settings" (click)="sidenav.close()"
-        >Settings
+        >{{ "sidenav.settings" | translate }}
       </a>
       <a
         mat-list-item
         *ngIf="isAdmin && isAdmin !== undefined"
         routerLink="reporting/invoice"
         (click)="sidenav.close()"
-        >Invoices
+        >{{ "sidenav.invoices" | translate }}
       </a>
-      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()"
-        >Log Out</a
-      >
+      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()">{{
+        "sidenav.logOut" | translate
+      }}</a>
     </mat-nav-list>
   </mat-sidenav>
-
-  <mat-sidenav-content class="container w-100 h-auto overflow-auto">
+  <mat-sidenav-content class="container col-12 col-lg-10 h-auto overflow-auto">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
