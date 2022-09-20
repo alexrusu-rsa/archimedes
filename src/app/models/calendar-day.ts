@@ -1,6 +1,4 @@
-import { Activity } from './activity';
 import { EmployeeCommitmentCalendar } from './employee-commitment-calendar';
-import { User } from './user';
 
 export interface CalendarDay {
   color: string;

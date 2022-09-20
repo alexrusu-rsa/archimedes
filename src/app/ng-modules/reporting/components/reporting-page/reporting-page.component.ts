@@ -31,6 +31,8 @@ import { RateService } from 'src/app/services/rate.service';
 import { Rate } from 'src/app/models/rate';
 import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-calendar';
 import e from 'express';
+import { Calendar } from 'src/app/models/calendar';
+import { WeekCalendarDay } from 'src/app/models/week-calendar-day';
 
 export const MY_FORMATS = {
   parse: {
@@ -96,6 +98,10 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   datesInSelectedRange: Date[] = [];
 
   employeesTotalCommitment?: number;
+  calendar?: Calendar = <Calendar>{
+    numberOfWeeks: 0,
+    weeksInCalendar: [],
+  };
 
   constructor(
     private activityService: ActivityService,
@@ -179,7 +185,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
           newMessage +
           this.genereateEmployeeMessageForTooltip(employeeCommitment);
       });
-      console.log(newMessage);
       calendarDay.tooltipMessage = newMessage;
     });
   }
@@ -249,7 +254,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
       let color = 'green';
       let totalCommitmentOfCalendarDay = 0;
       calendarDay.employeesCommitment.forEach((employeeCommitment) => {
-        console.log('\n', employeeCommitment.reportedHours);
         if (employeeCommitment.reportedHours === 0) color = 'red';
         if (
           employeeCommitment.reportedHours > 0 &&
@@ -274,6 +278,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   dateChanges() {
+    this.calendar!.weeksInCalendar = [];
     this.activitiesInRange = [];
     this.calendarDays = [];
     this.datesInSelectedRange = [];
@@ -281,6 +286,78 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.getDatesInRange();
     this.generateCalendarDaysForEachDateInSelectedRange();
     this.generateCalendarDayColors();
+    this.calendar!.numberOfWeeks = this.getNumberOfWeeksToDisplay();
+    this.addDaysToWeeksInCalendar();
+  }
+
+  getNumberOfWeeksToDisplay(): number {
+    const lastIndex = this.calendarDays!.length - 1;
+    const numberOfDaysCheck = this.calendarDays!.length;
+
+    let numberOfDays = this.calendarDays!.length;
+
+    const firstDayNumber = this.calendarDays![0].date.getDay();
+    const lastDayNumber = this.calendarDays![lastIndex].date.getDay();
+
+    let numberOfWeeks = 0;
+    let cursor = firstDayNumber;
+
+    while (numberOfDays > 0) {
+      if (cursor === 7) {
+        numberOfWeeks = numberOfWeeks + 1;
+        cursor = 0;
+      }
+      cursor = cursor + 1;
+      numberOfDays = numberOfDays - 1;
+    }
+    if (cursor > 0) {
+      numberOfWeeks = numberOfWeeks + 1;
+    }
+    if (firstDayNumber + 1 + numberOfDaysCheck - 1 <= 7) {
+      numberOfWeeks = 1;
+    }
+    return numberOfWeeks;
+  }
+
+  addDaysToWeeksInCalendar() {
+    const newEmptyWeek = <WeekCalendarDay>{
+      weekDays: [],
+    };
+
+    let calendarWeeks = this.calendar!.numberOfWeeks;
+    const calendarDaysNumber = this.calendarDays!.length;
+
+    const lastIndex = this.calendarDays!.length - 1;
+    const firstDayNumber = this.calendarDays![0].date.getDay();
+    const lastDayNumber = this.calendarDays![lastIndex].date.getDay();
+
+    const newEmptyDay = <CalendarDay>{};
+
+    while (calendarWeeks > 0) {
+      this.calendar!.weeksInCalendar.push(newEmptyWeek);
+      calendarWeeks = calendarWeeks - 1;
+    }
+    let weekCursor = 0;
+    let cursor = 0;
+    let weekDayCursor = firstDayNumber;
+    let newWeek = <WeekCalendarDay>{
+      weekDays: [],
+    };
+
+    while (cursor < calendarDaysNumber) {
+      newWeek.weekDays!.push(this.calendarDays![cursor]);
+      if (weekDayCursor === 6) {
+        this.calendar!.weeksInCalendar[weekCursor] = newWeek;
+        newWeek = {};
+        newWeek = <WeekCalendarDay>{
+          weekDays: [],
+        };
+        weekCursor = weekCursor + 1;
+        weekDayCursor = 0;
+      }
+      weekDayCursor = weekDayCursor + 1;
+      cursor = cursor + 1;
+    }
   }
 
   getDatesInRange() {

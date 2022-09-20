@@ -47,50 +47,45 @@
 </div>
 
 <div class="container justify-content-center align-items-center mx-0 px-0">
-  <div
-    class="row col-12 d-flex justify-content-center align-items-center mx-0 px-0"
-  >
-    <div class="row col-7 mx-0 px-0 d-flex justify-content-around">
-      <mat-card class="col-1">
-        <mat-card-subtitle class="text-center">Mon</mat-card-subtitle>
+  <div class="row col-7 d-block mx-0 px-0">
+    <div class="row seven-cols d-flex justify-content-between">
+      <mat-card class="col-1 px-1">
+        <mat-card-subtitle class="text-center mx-1">Mon</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1">
-        <mat-card-subtitle class="text-center">Tue</mat-card-subtitle>
+      <mat-card class="col-1 px-1">
+        <mat-card-subtitle class="text-center mx-1">Tue</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1">
-        <mat-card-subtitle class="text-center">Wed</mat-card-subtitle>
+      <mat-card class="col-1 px-1">
+        <mat-card-subtitle class="text-center mx-1">Wed</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1">
-        <mat-card-subtitle class="text-center">Thu</mat-card-subtitle>
+      <mat-card class="col-1 px-1">
+        <mat-card-subtitle class="text-center mx-1">Thu</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1">
-        <mat-card-subtitle class="text-center">Fri</mat-card-subtitle>
+      <mat-card class="col-1 px-1">
+        <mat-card-subtitle class="text-center mx-1">Fri</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1">
-        <mat-card-subtitle class="text-center">Sat</mat-card-subtitle>
+      <mat-card class="col-1 px-1">
+        <mat-card-subtitle class="text-center mx-1">Sat</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1">
-        <mat-card-subtitle class="text-center">Sun</mat-card-subtitle>
+      <mat-card class="col-1 px-1">
+        <mat-card-subtitle class="text-center mx-1">Sun</mat-card-subtitle>
       </mat-card>
     </div>
-    <div class="row col-7 mx-0 px-0 d-flex justify-content-around">
+    <div
+      class="row seven-cols d-flex justify-content-betweeen"
+      *ngFor="let week of calendar?.weeksInCalendar"
+    >
       <mat-card
-        *ngFor="let calendarDay of calendarDays"
-        class="col-1 mx-0 px-0"
-        [ngStyle]="{ 'background-color': calendarDay.color }"
+        class="col-1 px-1"
+        *ngFor="let weekDay of week.weekDays"
+        [ngStyle]="{ 'background-color': weekDay.color }"
       >
-        <mat-card-subtitle
-          class="text-center"
-          [matTooltip]="getTooltipText(calendarDay)"
-          >{{ calendarDay.timeBooked }}/{{ calendarDay.expectedTimeCommitment }}
+        <mat-card-subtitle class="text-center"
+          >{{ weekDay.timeBooked }}/{{ weekDay.expectedTimeCommitment }}
         </mat-card-subtitle>
       </mat-card>
     </div>
   </div>
-
-  <div
-    class="row col-7 d-flex justify-content-start align-items-center mx-0 px-0"
-  ></div>
 </div>
 <!--
 <mat-card class="card-container">
