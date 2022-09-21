@@ -7,4 +7,5 @@ export interface CalendarDay {
   date: Date;
   employeesCommitment: EmployeeCommitmentCalendar[];
   tooltipMessage: string;
+  opacity?: number;
 }

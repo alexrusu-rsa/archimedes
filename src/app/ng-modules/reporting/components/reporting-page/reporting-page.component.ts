@@ -20,7 +20,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Activity } from 'src/app/models/activity';
 import { ActivityService } from 'src/app/services/activity.service';
-import { Subscription } from 'rxjs';
+import { last, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { MatSelectChange } from '@angular/material/select';
@@ -162,6 +162,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
             unknown
           >{
             employee: employee.id,
+            employeeName: employee.name + ' ' + employee.surname,
             reportedHours: employeeReportedHours,
             employeeExpectedCommitment: this.getExpectedCommitmentOfEmployee(
               employee.id!
@@ -193,22 +194,38 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     employeeCommitment: EmployeeCommitmentCalendar
   ): string {
     if (employeeCommitment.reportedHours === 0) {
-      return 'Employee ${employeeCommitment.employeeId} has not reported any hours for this day. RED';
+      return (
+        'Employee ' +
+        employeeCommitment.employeeName +
+        ' has not reported any hours for this day.' +
+        ' \n'
+      );
     }
     if (
       employeeCommitment.reportedHours > 0 &&
       employeeCommitment.reportedHours <
         employeeCommitment.employeeExpectedCommitment
     )
-      return 'Employee ${employeeCommitment.employeeId} has not reported enough hours for this day. ORANGE';
+      return (
+        'Employee  ' +
+        employeeCommitment.employeeName +
+        ' has not reported enough hours for this day.' +
+        ' \n'
+      );
 
     if (
       employeeCommitment.reportedHours >=
       employeeCommitment.employeeExpectedCommitment
     )
-      return 'Employee ${employeeCommitment.employeeId} has reported the expected amount of hours for this day. GREEN ';
+      return (
+        'Employee  ' +
+        employeeCommitment.employeeName +
+        ' has reported the expected amount of hours for this day.' +
+        ' \n'
+      );
     return '';
   }
+
   minutesToHours(minutes: number): number {
     return minutes / 60;
   }
@@ -265,14 +282,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
           totalCommitmentOfCalendarDay + employeeCommitment.reportedHours;
       });
       calendarDay.timeBooked = totalCommitmentOfCalendarDay;
-      // if (totalCommitmentOfCalendarDay === 0) calendarDay.color = 'red';
-      // if (totalCommitmentOfCalendarDay >= calendarDay.expectedTimeCommitment)
-      //   calendarDay.color = 'green';
-      // if (
-      //   totalCommitmentOfCalendarDay > 0 &&
-      //   totalCommitmentOfCalendarDay < calendarDay.expectedTimeCommitment
-      // )
-      //   calendarDay.color = 'orange';
       calendarDay.color = color;
     });
   }
@@ -288,6 +297,10 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.generateCalendarDayColors();
     this.calendar!.numberOfWeeks = this.getNumberOfWeeksToDisplay();
     this.addDaysToWeeksInCalendar();
+    this.addPaddingDaysToCalendarLastWeek();
+    this.addPaddingToCalendarFirstWeek();
+    this.generateTooltipMessagesForCalendarDays();
+    console.log(this.calendar);
   }
 
   getNumberOfWeeksToDisplay(): number {
@@ -319,6 +332,49 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     return numberOfWeeks;
   }
 
+  addPaddingDaysToCalendarLastWeek() {
+    const lastWeekIndex = this.calendar!.weeksInCalendar.length - 1;
+    if (this.calendar!.weeksInCalendar[lastWeekIndex].weekDays!.length < 7) {
+      const remainingDays =
+        7 - this.calendar!.weeksInCalendar[lastWeekIndex].weekDays!.length;
+      let cursor = 0;
+      while (cursor < remainingDays) {
+        this.calendar!.weeksInCalendar[lastWeekIndex].weekDays!.push(<
+          CalendarDay
+        >{
+          color: '#d4d4d4',
+          date: new Date(),
+          employeesCommitment: {},
+          expectedTimeCommitment: 0,
+          timeBooked: 0,
+          tooltipMessage: '',
+          opacity: 0,
+        });
+        cursor = cursor + 1;
+      }
+    }
+  }
+
+  addPaddingToCalendarFirstWeek() {
+    if (this.calendar!.weeksInCalendar[0].weekDays!.length < 7) {
+      const remainingDays =
+        7 - this.calendar!.weeksInCalendar[0].weekDays!.length;
+      let cursor = 0;
+      while (cursor < remainingDays) {
+        this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
+          color: '#d4d4d4',
+          date: new Date(),
+          employeesCommitment: {},
+          expectedTimeCommitment: 0,
+          timeBooked: 0,
+          tooltipMessage: '',
+          opacity: 0,
+        });
+        cursor = cursor + 1;
+      }
+    }
+  }
+
   addDaysToWeeksInCalendar() {
     const newEmptyWeek = <WeekCalendarDay>{
       weekDays: [],
@@ -345,8 +401,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     };
 
     while (cursor < calendarDaysNumber) {
-      newWeek.weekDays!.push(this.calendarDays![cursor]);
-      if (weekDayCursor === 6) {
+      if (weekDayCursor === 7) {
         this.calendar!.weeksInCalendar[weekCursor] = newWeek;
         newWeek = {};
         newWeek = <WeekCalendarDay>{
@@ -355,8 +410,16 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
         weekCursor = weekCursor + 1;
         weekDayCursor = 0;
       }
+      newWeek.weekDays!.push(this.calendarDays![cursor]);
       weekDayCursor = weekDayCursor + 1;
       cursor = cursor + 1;
+    }
+    let checkAllDaysAdded = 0;
+    this.calendar?.weeksInCalendar.forEach((week) => {
+      checkAllDaysAdded = checkAllDaysAdded + week.weekDays!.length;
+    });
+    if (checkAllDaysAdded < calendarDaysNumber) {
+      this.calendar!.weeksInCalendar[weekCursor] = newWeek;
     }
   }
 
