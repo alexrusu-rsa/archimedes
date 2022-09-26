@@ -1,84 +1,68 @@
-<div class="container mt-2 mx-0 px-0">
+<div class="container mt-4 mx-0 px-0">
   <div class="row col-12 mx-0 px-0">
-    <mat-card-title class="page-title col-12 text-start">{{
+    <mat-card-title class="page-title col-12 text-start mx-0 px-0">{{
       "reporting.page.title" | translate
     }}</mat-card-title>
   </div>
 </div>
 
-<div class="header-activity">
-  <mat-form-field appearance="fill" *ngIf="range" class="ranged-datepicker">
-    <mat-label>{{ "reporting.page.selectDateRange" | translate }}</mat-label>
-    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-      <input
-        matStartDate
-        formControlName="start"
-        (dateChange)="dateChanges()"
-        placeholder="{{ 'reporting.page.startDate' | translate }}  "
-      />
-      <input
-        matEndDate
-        formControlName="end"
-        (dateChange)="dateChanges()"
-        placeholder="{{ 'reporting.page.endDate' | translate }}  "
-      />
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
-
-  <mat-form-field
-    *ngIf="allEmployees"
-    appearance="fill"
-    class="employee-select"
-  >
-    <mat-label>{{ "reporting.page.employeeName" | translate }}</mat-label>
-    <mat-select [(ngModel)]="selectedItemEmployee">
-      <mat-option [value]="noFilterUsers"> All users </mat-option>
-      <mat-option
-        *ngFor="let employee of allEmployees"
-        [value]="employee.id"
-        ngDefaultControl
-      >
-        {{ employee.name }} - {{ employee.surname }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="container mx-0 px-0 mt-4">
+  <div class="row col-12 mx-0 px-0">
+    <mat-form-field appearance="fill" *ngIf="range" class="col-12 col-md-4 col-lg-3 mx-0 px-0">
+      <mat-label>{{ "reporting.page.selectDateRange" | translate }}</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input
+          matStartDate
+          formControlName="start"
+          (dateChange)="dateChanges()"
+          placeholder="{{ 'reporting.page.startDate' | translate }}  "
+        />
+        <input
+          matEndDate
+          formControlName="end"
+          (dateChange)="dateChanges()"
+          placeholder="{{ 'reporting.page.endDate' | translate }}  "
+        />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
 </div>
 
 <div class="container justify-content-center align-items-center mx-0 px-0">
   <div
-    class="row col-7 d-block mx-0 px-0 d-flex flex-column justify-content-center align-items-center"
+    class="row col-12 d-block mx-0 px-0 d-flex flex-column justify-content-center align-items-center"
   >
-    <div class="row seven-cols d-flex justify-content-between mb-3">
-      <mat-card class="col-1 px-1">
-        <mat-card-subtitle class="text-center mx-1">Mon</mat-card-subtitle>
+    <div class="row mx-0 px-0 seven-cols d-flex justify-content-between mb-3">
+      <mat-card class="col-1 mx-0 px-0">
+        <mat-card-subtitle class="text-center mx-0 px-0">Mo</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1 px-1">
-        <mat-card-subtitle class="text-center mx-1">Tue</mat-card-subtitle>
+      <mat-card class="col-1 mx-0 px-0">
+        <mat-card-subtitle class="text-center mx-0 px-0">Tu</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1 px-1">
-        <mat-card-subtitle class="text-center mx-1">Wed</mat-card-subtitle>
+      <mat-card class="col-1 mx-0 px-0">
+        <mat-card-subtitle class="text-center mx-0 px-0">We</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1 px-1">
-        <mat-card-subtitle class="text-center mx-1">Thu</mat-card-subtitle>
+      <mat-card class="col-1 mx-0 px-0">
+        <mat-card-subtitle class="text-center mx-0 px-0">Th</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1 px-1">
-        <mat-card-subtitle class="text-center mx-1">Fri</mat-card-subtitle>
+      <mat-card class="col-1 mx-0 px-0">
+        <mat-card-subtitle class="text-center mx-0 px-0">Fr</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1 px-1">
-        <mat-card-subtitle class="text-center mx-1">Sat</mat-card-subtitle>
+      <mat-card class="col-1 mx-0 px-0">
+        <mat-card-subtitle class="text-center mx-0 px-0">Sa</mat-card-subtitle>
       </mat-card>
-      <mat-card class="col-1 px-1">
-        <mat-card-subtitle class="text-center mx-1">Sun</mat-card-subtitle>
+      <mat-card class="col-1 mx-0 px-0">
+        <mat-card-subtitle class="text-center mx-0 px-0">Su</mat-card-subtitle>
       </mat-card>
     </div>
     <div
-      class="row seven-cols d-flex justify-content-between mb-3"
+      class="row seven-cols d-flex justify-content-between mb-3 mx-0 px-0"
       *ngFor="let week of calendar?.weeksInCalendar"
     >
       <mat-card
-        class="col-1"
+        class="col-1 mx-0 px-0"
         *ngFor="let weekDay of week.weekDays"
         matTooltip="{{ getTooltipText(weekDay) }}"
         [ngStyle]="{
@@ -99,59 +83,3 @@
     </div>
   </div>
 </div>
-<!--
-<mat-card class="card-container">
-  <div
-    class="card-container"
-    *ngIf="
-      this.start?.value !== null &&
-      this.end?.value !== null &&
-      this.selectedItemEmployee
-    "
-  >
-    <mat-card
-      class="secondary-card"
-      *ngFor="
-        let activity of this.allActivities!
-          | dateRange: this.start?.value:this.end?.value
-          | employee: this.selectedItemEmployee
-      "
-    >
-      <mat-card-subtitle
-        >{{ activity.date }} {{ findEmployee(activity.employeeId)?.name }} -
-        {{ findEmployee(activity.employeeId)?.surname }}</mat-card-subtitle
-      >
-      <mat-card-subtitle *ngIf="activity.projectId">
-        {{ findProject(activity.projectId)?.projectName }}</mat-card-subtitle
-      >
-      <mat-card-title>{{ activity.name }}</mat-card-title>
-      <mat-card-subtitle
-        >{{ activity.start }} - {{ activity.end }}</mat-card-subtitle
-      >
-      <mat-card-subtitle *ngIf="activity.description">{{
-        "reporting.page.description" | translate
-      }}</mat-card-subtitle>
-      <mat-card-content *ngIf="activity.description">{{
-        activity.description
-      }}</mat-card-content>
-      <mat-card-subtitle *ngIf="activity.extras">EXTRAS</mat-card-subtitle>
-      <mat-card-content *ngIf="activity.extras">{{
-        activity.extras
-      }}</mat-card-content>
-    </mat-card>
-    <mat-card
-      *ngIf="
-        !(
-          this.allActivities!
-          | dateRange: this.start?.value:this.end?.value
-          | employee: this.selectedItemEmployee
-        ).length
-      "
-      class="secondary-card"
-    >
-      <mat-card-title>{{
-        "reporting.page.noActivitiesTitle" | translate
-      }}</mat-card-title>
-    </mat-card>
-  </div>
-</mat-card> -->

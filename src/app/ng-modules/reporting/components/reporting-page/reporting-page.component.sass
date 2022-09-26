@@ -1,47 +1,6 @@
-@import 'src/styles/mixins.sass'
 @import 'src/styles/variables.sass'
-:host
-  @include host-mixin
 
-  .header-activity
-    @include header-activity
-    display: flex !important
-  .card-container
-    @include card-container
-
-    .header-add-button
-      @include header-add-button
-
-    .header-datepicker
-      @include header-datepicker
-
-  .secondary-card
-    @include secondary-card
-
-  .mat-card-actions
-    @include mat-card-actions
-
-  .theme-add-card
-    @include theme-add-card
-
-.page-title
-  @include page-title
-
-@media (max-width: 500px)
-  .header-activity
-    display: flex !important
-    flex-direction: column
-    grid-template-columns: repeat(1, 1fr)
-  .ranged-datepicker
-    width: $full-width
-    display: block
-  .employee-select
-    width: $full-width
-    display: block
-  .card-container
-    margin-top: 70px
-
-  @media (min-width: 768px)
+@media (min-width: 768px)
   .seven-cols .col-md-1,
   .seven-cols .col-sm-1,
   .seven-cols .col-lg-1
@@ -55,10 +14,6 @@
     width: 14.285714285714285714285714285714%
     *width: 14.285714285714285714285714285714%
 
-/**
- *  The following is not really needed in this case
- *  Only to demonstrate the usage of @media for large screens
- */
 @media (min-width: 1200px)
   .seven-cols .col-md-1,
   .seven-cols .col-sm-1,
