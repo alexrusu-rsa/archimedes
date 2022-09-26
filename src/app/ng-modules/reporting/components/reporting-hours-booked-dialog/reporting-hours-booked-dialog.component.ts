@@ -26,6 +26,5 @@ export class ReportingHoursBookedDialogComponent implements OnInit {
     const todayDate = this.employeeCommitmentOfSelectedDay.todayDate!;
     const dateToDisplay = this.datepipe.transform(todayDate, 'dd/MM/yyyy');
     this.dateToDisplay = dateToDisplay!;
-    console.log(this.employeeCommitmentToDisplay);
   }
 }

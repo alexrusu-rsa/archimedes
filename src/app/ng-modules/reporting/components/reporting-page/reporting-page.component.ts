@@ -238,9 +238,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   transformNewDateToDBString(date: Date): string {
-    //this might help for day selections.
-    // const nextDate = new Date();
-    // nextDate.setDate(date.getDate() + 1);
     const ISODate = date.toISOString().split('T')[0];
     return this.formatISOToDB(ISODate);
   }
