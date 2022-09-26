@@ -20,7 +20,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Activity } from 'src/app/models/activity';
 import { ActivityService } from 'src/app/services/activity.service';
-import { last, Subscription } from 'rxjs';
+import { first, last, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { MatSelectChange } from '@angular/material/select';
@@ -103,6 +103,9 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     weeksInCalendar: [],
   };
 
+  firstDayOfCalendarInitial?: Date;
+  lastDayOfCalendarInitial?: Date;
+
   constructor(
     private activityService: ActivityService,
     private userService: UserService,
@@ -134,44 +137,45 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   computeTimeCommitmentOnCalendarDaysAllEmployees() {
-    this.calendarDays?.forEach((calendarDay) => {
-      this.allEmployees?.forEach((employee) => {
-        const filteredActivitiesOfEmployee = this.allActivities?.filter(
-          (activity) => activity.employeeId === employee.id
-        );
-        if (filteredActivitiesOfEmployee) {
-          let employeeReportedHours = 0;
-          let employeeReportedMinutes = 0;
-          filteredActivitiesOfEmployee?.forEach((activity) => {
-            if (
-              activity.date ===
-              this.transformNewDateToDBString(calendarDay.date)
-            ) {
-              employeeReportedHours =
-                employeeReportedHours +
-                Number(activity.workedTime?.split(':')[0]);
-              employeeReportedMinutes =
-                employeeReportedMinutes +
-                Number(activity.workedTime?.split(':')[1]);
-            }
-          });
-          const hoursFromMinutes = this.minutesToHours(employeeReportedHours);
-          employeeReportedHours =
-            employeeReportedHours + Math.round(hoursFromMinutes);
-          const newEmployeeCommitmentCalendar = <EmployeeCommitmentCalendar>(<
-            unknown
-          >{
-            employee: employee.id,
-            employeeName: employee.name + ' ' + employee.surname,
-            reportedHours: employeeReportedHours,
-            employeeExpectedCommitment: this.getExpectedCommitmentOfEmployee(
-              employee.id!
-            ),
-          });
-          calendarDay.employeesCommitment.push(newEmployeeCommitmentCalendar);
-        }
+    if (this.calendarDays)
+      this.calendarDays?.forEach((calendarDay) => {
+        this.allEmployees?.forEach((employee) => {
+          const filteredActivitiesOfEmployee = this.allActivities?.filter(
+            (activity) => activity.employeeId === employee.id
+          );
+          if (filteredActivitiesOfEmployee) {
+            let employeeReportedHours = 0;
+            let employeeReportedMinutes = 0;
+            filteredActivitiesOfEmployee?.forEach((activity) => {
+              if (
+                activity.date ===
+                this.transformNewDateToDBString(calendarDay.date)
+              ) {
+                employeeReportedHours =
+                  employeeReportedHours +
+                  Number(activity.workedTime?.split(':')[0]);
+                employeeReportedMinutes =
+                  employeeReportedMinutes +
+                  Number(activity.workedTime?.split(':')[1]);
+              }
+            });
+            const hoursFromMinutes = this.minutesToHours(employeeReportedHours);
+            employeeReportedHours =
+              employeeReportedHours + Math.round(hoursFromMinutes);
+            const newEmployeeCommitmentCalendar = <EmployeeCommitmentCalendar>(<
+              unknown
+            >{
+              employee: employee.id,
+              employeeName: employee.name + ' ' + employee.surname,
+              reportedHours: employeeReportedHours,
+              employeeExpectedCommitment: this.getExpectedCommitmentOfEmployee(
+                employee.id!
+              ),
+            });
+            calendarDay.employeesCommitment.push(newEmployeeCommitmentCalendar);
+          }
+        });
       });
-    });
   }
 
   getTooltipText(calendarDay: CalendarDay): string {
@@ -194,12 +198,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     employeeCommitment: EmployeeCommitmentCalendar
   ): string {
     if (employeeCommitment.reportedHours === 0) {
-      return (
-        'Employee ' +
-        employeeCommitment.employeeName +
-        ' has not reported any hours for this day.' +
-        ' \n'
-      );
+      return employeeCommitment.employeeName + ' no reported hours' + '.\n';
     }
     if (
       employeeCommitment.reportedHours > 0 &&
@@ -207,10 +206,12 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
         employeeCommitment.employeeExpectedCommitment
     )
       return (
-        'Employee  ' +
         employeeCommitment.employeeName +
-        ' has not reported enough hours for this day.' +
-        ' \n'
+        ' - ' +
+        employeeCommitment.reportedHours.toString() +
+        '/' +
+        employeeCommitment.employeeExpectedCommitment.toString() +
+        '.\n'
       );
 
     if (
@@ -218,10 +219,12 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
       employeeCommitment.employeeExpectedCommitment
     )
       return (
-        'Employee  ' +
         employeeCommitment.employeeName +
-        ' has reported the expected amount of hours for this day.' +
-        ' \n'
+        ' - ' +
+        employeeCommitment.reportedHours.toString() +
+        '/' +
+        employeeCommitment.employeeExpectedCommitment.toString() +
+        '.\n'
       );
     return '';
   }
@@ -286,35 +289,14 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  dateChanges() {
-    this.calendar!.weeksInCalendar = [];
-    this.activitiesInRange = [];
-    this.calendarDays = [];
-    this.datesInSelectedRange = [];
-    this.getAllActivitiesInRange(this.allActivities!);
-    this.getDatesInRange();
-    this.generateCalendarDaysForEachDateInSelectedRange();
-    this.generateCalendarDayColors();
-    this.calendar!.numberOfWeeks = this.getNumberOfWeeksToDisplay();
-    this.addDaysToWeeksInCalendar();
-    this.addPaddingDaysToCalendarLastWeek();
-    this.addPaddingToCalendarFirstWeek();
-    this.generateTooltipMessagesForCalendarDays();
-    console.log(this.calendar);
-  }
-
   getNumberOfWeeksToDisplay(): number {
     const lastIndex = this.calendarDays!.length - 1;
     const numberOfDaysCheck = this.calendarDays!.length;
-
     let numberOfDays = this.calendarDays!.length;
-
     const firstDayNumber = this.calendarDays![0].date.getDay();
     const lastDayNumber = this.calendarDays![lastIndex].date.getDay();
-
     let numberOfWeeks = 0;
     let cursor = firstDayNumber;
-
     while (numberOfDays > 0) {
       if (cursor === 7) {
         numberOfWeeks = numberOfWeeks + 1;
@@ -356,21 +338,99 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   addPaddingToCalendarFirstWeek() {
-    if (this.calendar!.weeksInCalendar[0].weekDays!.length < 7) {
-      const remainingDays =
-        7 - this.calendar!.weeksInCalendar[0].weekDays!.length;
-      let cursor = 0;
-      while (cursor < remainingDays) {
-        this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
-          color: '#d4d4d4',
-          date: new Date(),
-          employeesCommitment: {},
-          expectedTimeCommitment: 0,
-          timeBooked: 0,
-          tooltipMessage: '',
-          opacity: 0,
-        });
-        cursor = cursor + 1;
+    if (this.calendar!.numberOfWeeks > 1) {
+      if (this.calendar!.weeksInCalendar[0].weekDays!.length < 7) {
+        const remainingDays =
+          7 - this.calendar!.weeksInCalendar[0].weekDays!.length;
+        let cursor = 0;
+        while (cursor < remainingDays) {
+          this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
+            color: '#d4d4d4',
+            date: new Date(),
+            employeesCommitment: {},
+            expectedTimeCommitment: 0,
+            timeBooked: 0,
+            tooltipMessage: '',
+            opacity: 0,
+          });
+          cursor = cursor + 1;
+        }
+      }
+    } else {
+      const firstDayOfOnlyWeek =
+        this.calendar?.weeksInCalendar![0].weekDays![0].date.getDay();
+      const lastDayOfOnlyWeekIndex =
+        this.calendar!.weeksInCalendar[0].weekDays?.length;
+      const lastDayOfOnlyWeek =
+        this.calendar?.weeksInCalendar![0].weekDays![
+          lastDayOfOnlyWeekIndex! - 1
+        ].date.getDay();
+      if (lastDayOfOnlyWeek! < 6)
+        if (firstDayOfOnlyWeek! > 0) {
+          const firstDayWeekIndex = firstDayOfOnlyWeek;
+          const lastDayWeekIndex = lastDayOfOnlyWeek;
+          let cursorUnshift = 0;
+          const remainingDaysToAddInFront = firstDayWeekIndex!;
+          while (cursorUnshift < remainingDaysToAddInFront) {
+            this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
+              color: '#d4d4d4',
+              date: new Date(),
+              employeesCommitment: {},
+              expectedTimeCommitment: 0,
+              timeBooked: 0,
+              tooltipMessage: '',
+              opacity: 0,
+            });
+            cursorUnshift = cursorUnshift + 1;
+          }
+
+          const remainingDaysToAddAfterwards = 6 - lastDayWeekIndex!;
+          let cursorPush = 0;
+          while (cursorPush < remainingDaysToAddAfterwards) {
+            this.calendar!.weeksInCalendar[0].weekDays!.push(<CalendarDay>{
+              color: '#d4d4d4',
+              date: new Date(),
+              employeesCommitment: {},
+              expectedTimeCommitment: 0,
+              timeBooked: 0,
+              tooltipMessage: '',
+              opacity: 0,
+            });
+            cursorPush = cursorPush + 1;
+          }
+        } else {
+          const lastDayWeekIndex = lastDayOfOnlyWeek;
+          const remainingDaysToAddAfterwards = 6 - lastDayWeekIndex!;
+          let cursorPush = 0;
+          while (cursorPush < remainingDaysToAddAfterwards) {
+            this.calendar!.weeksInCalendar[0].weekDays!.push(<CalendarDay>{
+              color: '#d4d4d4',
+              date: new Date(),
+              employeesCommitment: {},
+              expectedTimeCommitment: 0,
+              timeBooked: 0,
+              tooltipMessage: '',
+              opacity: 0,
+            });
+            cursorPush = cursorPush + 1;
+          }
+        }
+      else {
+        let cursorUnshift = 0;
+        const firstDayWeekIndex = firstDayOfOnlyWeek;
+        const remainingDaysToAddInFront = firstDayWeekIndex! + 1;
+        while (cursorUnshift < remainingDaysToAddInFront - 1) {
+          this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
+            color: '#d4d4d4',
+            date: new Date(),
+            employeesCommitment: {},
+            expectedTimeCommitment: 0,
+            timeBooked: 0,
+            tooltipMessage: '',
+            opacity: 0,
+          });
+          cursorUnshift = cursorUnshift + 1;
+        }
       }
     }
   }
@@ -386,9 +446,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     const lastIndex = this.calendarDays!.length - 1;
     const firstDayNumber = this.calendarDays![0].date.getDay();
     const lastDayNumber = this.calendarDays![lastIndex].date.getDay();
-
     const newEmptyDay = <CalendarDay>{};
-
     while (calendarWeeks > 0) {
       this.calendar!.weeksInCalendar.push(newEmptyWeek);
       calendarWeeks = calendarWeeks - 1;
@@ -423,6 +481,41 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  initialStateCalendar() {
+    this.calendar!.weeksInCalendar = [];
+    this.activitiesInRange = [];
+    this.calendarDays = [];
+    this.datesInSelectedRange = [];
+    const now = new Date();
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    this.firstDayOfCalendarInitial = firstDay;
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    this.lastDayOfCalendarInitial = lastDay;
+    this.getAllActivitiesInRangeParam(this.allActivities!, firstDay, lastDay);
+    this.getDatesInRangeParam(
+      this.firstDayOfCalendarInitial,
+      this.lastDayOfCalendarInitial
+    );
+    this.generateCalendarDaysForEachDateInSelectedRange();
+    this.generateCalendarDayColors();
+    this.calendar!.numberOfWeeks = this.getNumberOfWeeksToDisplay();
+    this.addDaysToWeeksInCalendar();
+    this.addPaddingToCalendarFirstWeek();
+    this.addPaddingDaysToCalendarLastWeek();
+    this.generateTooltipMessagesForCalendarDays();
+  }
+
+  getDatesInRangeParam(firstDate: Date, lastDate: Date) {
+    const date = new Date(firstDate);
+    date.setDate(date.getDate());
+    const dates = [];
+    while (date <= lastDate) {
+      dates.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    this.datesInSelectedRange = dates;
+  }
+
   getDatesInRange() {
     const date = new Date(this.start?.value);
     date.setDate(date.getDate());
@@ -439,7 +532,9 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
       .getUsers()
       .subscribe((result: User[]) => {
         this.allEmployees = result;
-        if (result) this.getEmployeeRates();
+        if (result) {
+          this.getEmployeeRates();
+        }
       });
   }
 
@@ -467,8 +562,26 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
       this.allRates = result;
       if (result) {
         this.computeEmployeesTotalCommitment();
+        this.initialStateCalendar();
       }
     });
+  }
+
+  getAllActivitiesInRangeParam(
+    activities: Activity[],
+    firstDate: Date,
+    lastDate: Date
+  ) {
+    if (activities !== undefined) {
+      activities.forEach((activity) => {
+        if (
+          this.stringToDate(activity.date) >= this.start?.value &&
+          this.stringToDate(activity.date) <= this.end?.value
+        ) {
+          this.activitiesInRange?.push(activity);
+        }
+      });
+    }
   }
 
   getAllActivitiesInRange(activities: Activity[]) {
@@ -491,13 +604,32 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     return new Date(dateStringISO);
   }
 
+  dateChanges() {
+    this.calendar!.weeksInCalendar = [];
+    this.activitiesInRange = [];
+    this.calendarDays = [];
+    this.datesInSelectedRange = [];
+    this.getAllActivitiesInRange(this.allActivities!);
+    this.getDatesInRange();
+    this.generateCalendarDaysForEachDateInSelectedRange();
+    this.generateCalendarDayColors();
+    this.calendar!.numberOfWeeks = this.getNumberOfWeeksToDisplay();
+    this.addDaysToWeeksInCalendar();
+    this.addPaddingToCalendarFirstWeek();
+    this.addPaddingDaysToCalendarLastWeek();
+    this.generateTooltipMessagesForCalendarDays();
+  }
+
   ngOnInit(): void {
+    this.calendar!.weeksInCalendar = [];
+    this.activitiesInRange = [];
+    this.calendarDays = [];
+    this.datesInSelectedRange = [];
     this.getAllActivities();
     this.getAllUsers();
     this.getAllProjects();
     this.getEmployeeRates();
     this.getDatesInRange();
-
     this.selectedItemEmployee = this.noFilterUsers;
     this.nameFilter = this.noFilterUsers;
 
