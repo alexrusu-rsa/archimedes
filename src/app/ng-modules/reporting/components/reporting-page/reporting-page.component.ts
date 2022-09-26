@@ -33,6 +33,9 @@ import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-c
 import e from 'express';
 import { Calendar } from 'src/app/models/calendar';
 import { WeekCalendarDay } from 'src/app/models/week-calendar-day';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportingHoursBookedDialogComponent } from '../reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
+import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
 
 export const MY_FORMATS = {
   parse: {
@@ -110,7 +113,8 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     private activityService: ActivityService,
     private userService: UserService,
     private projectService: ProjectService,
-    private rateService: RateService
+    private rateService: RateService,
+    public dialog: MatDialog
   ) {}
 
   findEmployee(employeeId: string) {
@@ -293,8 +297,12 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     const lastIndex = this.calendarDays!.length - 1;
     const numberOfDaysCheck = this.calendarDays!.length;
     let numberOfDays = this.calendarDays!.length;
-    const firstDayNumber = this.calendarDays![0].date.getDay();
-    const lastDayNumber = this.calendarDays![lastIndex].date.getDay();
+    const firstDayNumber = this.getDayForMondayFirstDayOfWeek(
+      this.calendarDays![0].date
+    );
+    const lastDayNumber = this.getDayForMondayFirstDayOfWeek(
+      this.calendarDays![lastIndex].date
+    );
     let numberOfWeeks = 0;
     let cursor = firstDayNumber;
     while (numberOfDays > 0) {
@@ -337,6 +345,21 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  checkEmployeesCommitment(
+    employeeCommitmentOfSelectedDay: EmployeeCommitmentCalendar[],
+    todayDate: string
+  ) {
+    const dataToSend = employeeCommitmentOfSelectedDay;
+    const dialogRef = this.dialog.open(ReportingHoursBookedDialogComponent, {
+      data: <EmployeeCommitmentDate>{
+        employeeCommitment: employeeCommitmentOfSelectedDay,
+        todayDate: todayDate,
+      },
+
+      panelClass: 'full-width-dialog',
+    });
+  }
+
   addPaddingToCalendarFirstWeek() {
     if (this.calendar!.numberOfWeeks > 1) {
       if (this.calendar!.weeksInCalendar[0].weekDays!.length < 7) {
@@ -357,14 +380,15 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
         }
       }
     } else {
-      const firstDayOfOnlyWeek =
-        this.calendar?.weeksInCalendar![0].weekDays![0].date.getDay();
+      const firstDayOfOnlyWeek = this.getDayForMondayFirstDayOfWeek(
+        this.calendar!.weeksInCalendar[0].weekDays![0].date
+      );
       const lastDayOfOnlyWeekIndex =
         this.calendar!.weeksInCalendar[0].weekDays?.length;
-      const lastDayOfOnlyWeek =
-        this.calendar?.weeksInCalendar![0].weekDays![
-          lastDayOfOnlyWeekIndex! - 1
-        ].date.getDay();
+      const lastDayOfOnlyWeek = this.getDayForMondayFirstDayOfWeek(
+        this.calendar!.weeksInCalendar[0].weekDays![lastDayOfOnlyWeekIndex! - 1]
+          .date
+      );
       if (lastDayOfOnlyWeek! < 6)
         if (firstDayOfOnlyWeek! > 0) {
           const firstDayWeekIndex = firstDayOfOnlyWeek;
@@ -444,8 +468,12 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     const calendarDaysNumber = this.calendarDays!.length;
 
     const lastIndex = this.calendarDays!.length - 1;
-    const firstDayNumber = this.calendarDays![0].date.getDay();
-    const lastDayNumber = this.calendarDays![lastIndex].date.getDay();
+    const firstDayNumber = this.getDayForMondayFirstDayOfWeek(
+      this.calendarDays![0].date
+    );
+    const lastDayNumber = this.getDayForMondayFirstDayOfWeek(
+      this.calendarDays![lastIndex].date
+    );
     const newEmptyDay = <CalendarDay>{};
     while (calendarWeeks > 0) {
       this.calendar!.weeksInCalendar.push(newEmptyWeek);
@@ -597,6 +625,10 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  getDayForMondayFirstDayOfWeek(date: Date): number {
+    if (date.getDay() === 0) return 6;
+    else return date.getDay() - 1;
+  }
   private stringToDate(dateString: string) {
     const splitDateString = dateString.split('/');
     const dateStringISO =
