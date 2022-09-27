@@ -37,6 +37,7 @@ import { NewUserDialogComponent } from './ng-modules/reporting/components/new-us
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
+import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
     DeleteConfirmationDialogComponent,
     NewUserDialogComponent,
     UserDashboardComponent,
+    ReportingHoursBookedDialogComponent,
   ],
   imports: [
     BrowserModule,

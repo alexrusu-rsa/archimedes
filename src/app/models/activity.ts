@@ -9,4 +9,5 @@ export interface Activity {
   description?: string;
   extras?: string;
   employeeId: string;
+  workedTime?: string;
 }

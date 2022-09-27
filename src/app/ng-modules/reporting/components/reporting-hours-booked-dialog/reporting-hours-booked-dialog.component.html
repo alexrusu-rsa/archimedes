@@ -1,0 +1,20 @@
+<div class="container mx-0 px-0 mt-4">
+  <div class="row col-12 mx-0 px-0">
+    <mat-card-title class="col-12 mx-0 px-0">
+      Employees commitment for {{ dateToDisplay }}
+    </mat-card-title>
+  </div>
+  <div class="row col-12 mx-0 px-0 mt-4">
+    <mat-card
+      class="col-12 mx-0 px-0 d-flex justify-content-center mt-2 employee-commitment-card"
+      *ngFor="let employeeCommitment of employeeCommitmentToDisplay"
+    >
+      <mat-card-title class="col-12 px-3">
+        {{ employeeCommitment.employeeName }} -
+        {{ employeeCommitment.reportedHours }}/{{
+          employeeCommitment.employeeExpectedCommitment
+        }}
+      </mat-card-title>
+    </mat-card>
+  </div>
+</div>
