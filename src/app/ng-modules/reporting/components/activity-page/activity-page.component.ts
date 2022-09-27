@@ -196,12 +196,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
           .subscribe((response) => {
             this.getCustomers();
-            // this.getProjects();
             this.activitiesOfTheDay = response;
-            // this.getIdsOfProjectsOfTodayActivities();
-            // this.getTotalTimeBookedToday();
-            // this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
-            // this.sortActivitiesOnEachIndividualProject();
           });
       this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
