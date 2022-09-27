@@ -647,6 +647,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.addPaddingToCalendarFirstWeek();
     this.addPaddingDaysToCalendarLastWeek();
     this.generateTooltipMessagesForCalendarDays();
+    console.log(this.calendar)
   }
 
   ngOnInit(): void {
