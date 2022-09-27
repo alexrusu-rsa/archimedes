@@ -195,11 +195,13 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         this.activitiesOfTheDaySub = this.activityService
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
           .subscribe((response) => {
+            this.getCustomers();
+            // this.getProjects();
             this.activitiesOfTheDay = response;
-            this.getIdsOfProjectsOfTodayActivities();
-            this.getTotalTimeBookedToday();
-            this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
-            this.sortActivitiesOnEachIndividualProject();
+            // this.getIdsOfProjectsOfTodayActivities();
+            // this.getTotalTimeBookedToday();
+            // this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+            // this.sortActivitiesOnEachIndividualProject();
           });
       this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
@@ -273,6 +275,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       .getCustomers()
       .subscribe((result) => {
         this.allCustomers = result;
+        this.getProjects();
       });
     this.subscriptions?.push(this.allCustomersSub);
   }
@@ -281,6 +284,10 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       .getProjectsUser(this.localStorageService.userId!)
       .subscribe((result) => {
         this.allProjects = result;
+        this.getIdsOfProjectsOfTodayActivities();
+        this.getTotalTimeBookedToday();
+        this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+        this.sortActivitiesOnEachIndividualProject();
       });
     this.subscriptions?.push(this.allProjectsSub);
   }
