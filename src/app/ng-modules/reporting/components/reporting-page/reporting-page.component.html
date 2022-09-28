@@ -8,7 +8,11 @@
 
 <div class="container mx-0 px-0 mt-4">
   <div class="row col-12 mx-0 px-0">
-    <mat-form-field appearance="fill" *ngIf="range" class="col-12 col-md-4 col-lg-3 mx-0 px-0">
+    <mat-form-field
+      appearance="fill"
+      *ngIf="range"
+      class="col-12 col-md-4 col-lg-3 mx-0 px-0"
+    >
       <mat-label>{{ "reporting.page.selectDateRange" | translate }}</mat-label>
       <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
         <input
@@ -65,6 +69,7 @@
         class="col-1 mx-0 px-0"
         *ngFor="let weekDay of week.weekDays"
         matTooltip="{{ getTooltipText(weekDay) }}"
+        [matTooltipPosition]="positionOptions[0]"
         [ngStyle]="{
           'background-color': weekDay.color,
           opacity: weekDay.opacity
@@ -76,7 +81,14 @@
           )
         "
       >
-        <mat-card-subtitle class="text-center mx-0 px-0"
+        <mat-card-subtitle
+          class="text-center mx-0 px-0"
+          (click)="
+            checkEmployeesCommitment(
+              weekDay.employeesCommitment,
+              weekDay.date.toString()
+            )
+          "
           >{{ weekDay.date.toString().split(" ")[2] }}
         </mat-card-subtitle>
       </mat-card>

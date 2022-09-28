@@ -36,6 +36,7 @@ import { WeekCalendarDay } from 'src/app/models/week-calendar-day';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportingHoursBookedDialogComponent } from '../reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 export const MY_FORMATS = {
   parse: {
@@ -99,6 +100,14 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
 
   calendarDays?: CalendarDay[] = [];
   datesInSelectedRange: Date[] = [];
+  positionOptions: TooltipPosition[] = [
+    'after',
+    'before',
+    'above',
+    'below',
+    'left',
+    'right',
+  ];
 
   employeesTotalCommitment?: number;
   calendar?: Calendar = <Calendar>{
@@ -176,7 +185,10 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
                 employee.id!
               ),
             });
-            calendarDay.employeesCommitment.push(newEmployeeCommitmentCalendar);
+            if (newEmployeeCommitmentCalendar.employeeExpectedCommitment > 0)
+              calendarDay.employeesCommitment.push(
+                newEmployeeCommitmentCalendar
+              );
           }
         });
       });
@@ -250,7 +262,9 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
           employeeTotalExpectedCommitment + rate.employeeTimeCommitement!;
       }
     });
-    return employeeTotalExpectedCommitment;
+    if (employeeTotalExpectedCommitment > 0)
+      return employeeTotalExpectedCommitment;
+    else return 0;
   }
 
   formatISOToDB(dateISO: string): string {
@@ -647,7 +661,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.addPaddingToCalendarFirstWeek();
     this.addPaddingDaysToCalendarLastWeek();
     this.generateTooltipMessagesForCalendarDays();
-    console.log(this.calendar)
+    console.log(this.calendar);
   }
 
   ngOnInit(): void {
