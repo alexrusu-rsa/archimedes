@@ -68,27 +68,21 @@
       <mat-card
         class="col-1 mx-0 px-0"
         *ngFor="let weekDay of week.weekDays"
-        matTooltip="{{ getTooltipText(weekDay) }}"
-        [matTooltipPosition]="positionOptions[0]"
+        matTooltip="{{ weekDay.tooltipMessage }}"
+        matTooltipPosition="after"
         [ngStyle]="{
           'background-color': weekDay.color,
           opacity: weekDay.opacity
         }"
         (click)="
           checkEmployeesCommitment(
+            weekDay,
             weekDay.employeesCommitment,
             weekDay.date.toString()
           )
         "
       >
-        <mat-card-subtitle
-          class="text-center mx-0 px-0"
-          (click)="
-            checkEmployeesCommitment(
-              weekDay.employeesCommitment,
-              weekDay.date.toString()
-            )
-          "
+        <mat-card-subtitle class="text-center mx-0 px-0"
           >{{ weekDay.date.toString().split(" ")[2] }}
         </mat-card-subtitle>
       </mat-card>

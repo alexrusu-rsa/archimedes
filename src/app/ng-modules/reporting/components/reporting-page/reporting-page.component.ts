@@ -357,18 +357,24 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   checkEmployeesCommitment(
+    weekDay: CalendarDay,
     employeeCommitmentOfSelectedDay: EmployeeCommitmentCalendar[],
     todayDate: string
   ) {
-    const dataToSend = employeeCommitmentOfSelectedDay;
-    const dialogRef = this.dialog.open(ReportingHoursBookedDialogComponent, {
-      data: <EmployeeCommitmentDate>{
-        employeeCommitment: employeeCommitmentOfSelectedDay,
-        todayDate: todayDate,
-      },
+    if (
+      weekDay.color === 'red' ||
+      weekDay.color === 'orange' ||
+      weekDay.color === 'green'
+    ) {
+      const dialogRef = this.dialog.open(ReportingHoursBookedDialogComponent, {
+        data: <EmployeeCommitmentDate>{
+          employeeCommitment: employeeCommitmentOfSelectedDay,
+          todayDate: todayDate,
+        },
 
-      panelClass: 'full-width-dialog',
-    });
+        panelClass: 'full-width-dialog',
+      });
+    }
   }
 
   addPaddingToCalendarFirstWeek() {
@@ -661,7 +667,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.addPaddingToCalendarFirstWeek();
     this.addPaddingDaysToCalendarLastWeek();
     this.generateTooltipMessagesForCalendarDays();
-    console.log(this.calendar);
   }
 
   ngOnInit(): void {
