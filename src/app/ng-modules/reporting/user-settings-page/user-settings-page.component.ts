@@ -5,8 +5,8 @@ import { User } from 'src/app/models/user';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserLoginService } from 'src/app/services/user-login.service';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-user-settings-page',

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { User } from 'src/app/models/user';
-import { ActivityService } from 'src/app/services/activity.service';
+import { ActivityService } from 'src/app/services/activity-service/activity.service';
 import { UserLoginService } from 'src/app/services/user-login.service';
 
 @Component({

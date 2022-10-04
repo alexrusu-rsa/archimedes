@@ -6,10 +6,10 @@ import {
 import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { RequestWrapper } from '../models/request-wrapper';
-import { User } from '../models/user';
-import { ResponseHandlingService } from './response-handling.service';
-import { NotificationService } from './notification.service';
+import { RequestWrapper } from '../../models/request-wrapper';
+import { User } from '../../models/user';
+import { ResponseHandlingService } from '../response-handling.service';
+import { NotificationService } from '../notification.service';
 
 @Injectable({
   providedIn: 'root',

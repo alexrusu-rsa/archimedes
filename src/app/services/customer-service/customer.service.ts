@@ -6,9 +6,9 @@ import {
 import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Customer } from '../models/customer';
-import { RequestWrapper } from '../models/request-wrapper';
-import { ResponseHandlingService } from './response-handling.service';
+import { Customer } from '../../models/customer';
+import { RequestWrapper } from '../../models/request-wrapper';
+import { ResponseHandlingService } from '../response-handling.service';
 
 @Injectable({
   providedIn: 'root',
