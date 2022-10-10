@@ -1,4 +1,8 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpResponse,
+} from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { HoursAndMinutes } from 'src/app/models/hours_minutes';
 import { Observable, of } from 'rxjs';
@@ -9,7 +13,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
-import { ResponseHandlingService } from '../response-handling.service';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from './customer.service';
@@ -192,6 +196,95 @@ describe('SpecFileCustomerService', () => {
     });
     req.flush(expectedReturn);
   });
+  it('should call getCustomerInvoiceXLSX and return XLSX invoice as Blob', () => {
+    const customerId = 'lskdjfhjksdf';
+    const invoiceNumber = '1123';
+    const selectedMonth = '02';
+    const selectedYear = '2022';
+    const euroExchange = 5.55;
+    const dateFormatted = 22022022;
 
-  //getCustomerInvoices NOT TESTED
+    const response = new Blob();
+
+    service
+      .getCustomerInvoiceXLSX(
+        customerId,
+        invoiceNumber,
+        selectedMonth,
+        selectedYear,
+        euroExchange,
+        dateFormatted
+      )
+      .subscribe((result) => {
+        const actualResult = result;
+        expect(actualResult.body).toEqual(response);
+      });
+
+    const url =
+      environment.serviceURL +
+      'customer/invoice/xlsx/' +
+      customerId +
+      '/' +
+      invoiceNumber +
+      '/' +
+      selectedMonth +
+      '/' +
+      selectedYear +
+      '/' +
+      euroExchange +
+      '/' +
+      dateFormatted;
+
+    const req = httpController.expectOne({
+      method: 'GET',
+      url: url,
+    });
+    req.flush(response);
+  });
+
+  it('should call getCustomerInvoicePDF and return PDF invoice as Blob', () => {
+    const customerId = 'lskdjfhjksdf';
+    const invoiceNumber = '1123';
+    const selectedMonth = '02';
+    const selectedYear = '2022';
+    const euroExchange = 5.55;
+    const dateFormatted = 22022022;
+
+    const response = new Blob();
+
+    service
+      .getCustomerInvoicePDF(
+        customerId,
+        invoiceNumber,
+        selectedMonth,
+        selectedYear,
+        euroExchange,
+        dateFormatted
+      )
+      .subscribe((result) => {
+        const actualResult = result;
+        expect(actualResult.body).toEqual(response);
+      });
+
+    const url =
+      environment.serviceURL +
+      'customer/invoice/pdf/' +
+      customerId +
+      '/' +
+      invoiceNumber +
+      '/' +
+      selectedMonth +
+      '/' +
+      selectedYear +
+      '/' +
+      euroExchange +
+      '/' +
+      dateFormatted;
+
+    const req = httpController.expectOne({
+      method: 'GET',
+      url: url,
+    });
+    req.flush(response);
+  });
 });

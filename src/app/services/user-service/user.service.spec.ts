@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
-import { ResponseHandlingService } from '../response-handling.service';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './user.service';
 import { User } from 'src/app/models/user';

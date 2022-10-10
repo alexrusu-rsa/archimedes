@@ -8,7 +8,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Customer } from '../../models/customer';
 import { RequestWrapper } from '../../models/request-wrapper';
-import { ResponseHandlingService } from '../response-handling.service';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
 @Injectable({
   providedIn: 'root',
@@ -100,7 +100,7 @@ export class CustomerService {
     selectedYear: string,
     euroExchange: number,
     dateFormatted: number
-  ) {
+  ): Observable<any> {
     return this.httpClient.get(
       this.customersUrl +
         `/invoice/pdf/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}`,
@@ -115,7 +115,7 @@ export class CustomerService {
     selectedYear: string,
     euroExchange: number,
     dateFormatted: number
-  ) {
+  ): Observable<any> {
     return this.httpClient.get(
       this.customersUrl +
         `/invoice/xlsx/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}`,

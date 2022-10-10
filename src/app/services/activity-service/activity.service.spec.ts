@@ -4,7 +4,7 @@ import { HoursAndMinutes } from 'src/app/models/hours_minutes';
 import { ActivityService } from './activity.service';
 import { Activity } from 'src/app/models/activity';
 import { Observable, of } from 'rxjs';
-import { NotificationService } from '../notification.service';
+import { NotificationService } from '../notification-service/notification.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,
@@ -15,13 +15,12 @@ import { ActivityDuplicateRange } from '../../models/activity-duplicate-range';
 import { environment } from 'src/environments/environment';
 import { EnumDeclaration, Type } from 'typescript';
 import { ActivityType } from 'src/app/models/activity-type.enum';
-import { ResponseHandlingService } from '../response-handling.service';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SpecFileActivityService', () => {
   let service: ActivityService;
   let httpController: HttpTestingController;
-  let httpClientSpy: jasmine.SpyObj<HttpClient>;
   const expectedActivities: Activity[] = [
     {
       id: '6099875c-8c37-4c88-9f2b-a933f8b91a07',

@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
-import { ResponseHandlingService } from '../response-handling.service';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RateService } from './rate.service';
 import { Rate } from 'src/app/models/rate';

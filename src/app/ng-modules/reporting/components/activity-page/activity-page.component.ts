@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
 import { User } from '../../../../models/user';
 import { ActivityService } from '../../../../services/activity-service/activity.service';
-import { UserLoginService } from '../../../../services/user-login.service';
+import { UserLoginService } from '../../../../services/user-login-service/user-login.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
@@ -19,7 +19,7 @@ import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { Rate } from '../../../../models/rate';
-import { LocalStorageService } from 'src/app/services/localstorage.service';
+import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import e from 'express';
 import { createKeywordTypeNode } from 'typescript';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';

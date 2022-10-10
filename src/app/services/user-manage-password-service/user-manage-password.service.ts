@@ -8,8 +8,8 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RequestWrapper } from '../../models/request-wrapper';
 import { User } from '../../models/user';
-import { ResponseHandlingService } from '../response-handling.service';
-import { NotificationService } from '../notification.service';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
+import { NotificationService } from '../notification-service/notification.service';
 
 @Injectable({
   providedIn: 'root',

@@ -8,7 +8,7 @@ import { User } from 'src/app/models/user';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
 import { DateFormatService } from 'src/app/services/date-format-service/date-format.service';
-import { LocalStorageService } from 'src/app/services/localstorage.service';
+import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({

@@ -21,12 +21,14 @@ describe('SpecFileDateFormatService', () => {
   });
 
   it('should return Date', () => {
-    const mockParamTime = '12:00';
+    const mockParamTime = '14:00';
     const mockValueDate = new Date();
     const milliseconds = 43200000;
-
     mockValueDate.setTime(milliseconds);
-    expect(service.getNewDateWithTime(mockParamTime)).toEqual(mockValueDate);
+    spyOn(service, 'toMilliseconds').and.returnValue(milliseconds);
+    const actualResult = service.getNewDateWithTime(mockParamTime);
+    expect(service.toMilliseconds).toHaveBeenCalled();
+    expect(actualResult).toEqual(mockValueDate);
   });
 
   it('should return number', () => {

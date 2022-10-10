@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 import { Activity } from '../../models/activity';
 import { ActivityDuplicateRange } from '../../models/activity-duplicate-range';
 import { RequestWrapper } from '../../models/request-wrapper';
-import { ResponseHandlingService } from '../response-handling.service';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
 @Injectable({
   providedIn: 'root',

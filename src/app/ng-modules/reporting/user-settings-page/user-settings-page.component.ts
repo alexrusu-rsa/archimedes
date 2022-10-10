@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { LocalStorageService } from 'src/app/services/localstorage.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { UserLoginService } from 'src/app/services/user-login.service';
+import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { NotificationService } from 'src/app/services/notification-service/notification.service';
+import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 

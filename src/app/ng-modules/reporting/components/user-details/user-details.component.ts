@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { User } from 'src/app/models/user';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
-import { UserLoginService } from 'src/app/services/user-login.service';
+import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
 
 @Component({
   selector: 'app-user-details',
