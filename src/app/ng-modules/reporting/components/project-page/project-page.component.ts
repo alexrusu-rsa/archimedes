@@ -1,11 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import e from 'express';
+import {
+  map,
+  Subscription,
+  mergeMap,
+  switchMap,
+  forkJoin,
+  concatMap,
+  exhaustMap,
+} from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ProjectService } from 'src/app/services/project.service';
-import { domainToASCII } from 'url';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 
@@ -15,10 +23,10 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog.compone
   styleUrls: ['./project-page.component.sass'],
 })
 export class ProjectPageComponent implements OnInit, OnDestroy {
-  allProjects?: Project[];
+  allProjects?: Project[] = [];
   projects?: Project[];
-  allCustomers?: Customer[];
-  subscriptionArray?: Subscription[];
+  allCustomers?: Customer[] = [];
+  subscriptionArray?: Subscription[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -27,8 +35,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getProjects();
-    this.getCustomers();
+    this.fetchData();
   }
 
   ngOnDestroy(): void {
@@ -46,23 +53,18 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  getCustomers() {
-    const getCustomersSub = this.customerService
+  fetchData() {
+    this.customerService
       .getCustomers()
-      .subscribe((result) => {
-        this.allCustomers = result;
-      });
-    this.subscriptionArray?.push(getCustomersSub);
-  }
-
-  getProjects() {
-    const getProjectsSub = this.projectService
-      .getProjects()
+      .pipe(
+        switchMap((customers) => {
+          this.allCustomers = customers;
+          return this.projectService.getProjects();
+        })
+      )
       .subscribe((result) => {
         this.allProjects = result;
-        this.projects = result;
       });
-    this.subscriptionArray?.push(getProjectsSub);
   }
 
   addProject() {
@@ -80,7 +82,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       panelClass: 'full-width-dialog',
     });
     dialogRef.afterClosed().subscribe((updatedProject: Project) => {
-      this.getProjects();
+      this.fetchData();
     });
   }
 
