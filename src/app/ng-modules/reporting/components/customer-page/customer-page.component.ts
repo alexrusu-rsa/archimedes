@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
@@ -60,9 +60,17 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   }
 
   editCustomer(customer: Customer) {
-    this.dialog.open(CustomerDialogComponent, {
+    const dialogRef = this.dialog.open(CustomerDialogComponent, {
       data: customer,
       panelClass: 'full-width-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((updatedCustomer: Customer) => {
+      this.allCustomers.forEach((customer) => {
+        if (customer.id === updatedCustomer.id) {
+          customer = updatedCustomer;
+        }
+      });
     });
   }
 
