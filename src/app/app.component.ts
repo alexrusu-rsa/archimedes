@@ -4,8 +4,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { TranslateService } from '@ngx-translate/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthService } from './services/auth.service';
-import { LocalStorageService } from './services/localstorage.service';
+import { AuthService } from './services/auth-service/auth.service';
+import { LocalStorageService } from './services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-root',
