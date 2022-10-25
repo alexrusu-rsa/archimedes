@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
-import { ActivityService } from 'src/app/services/activity.service';
+import { ActivityService } from 'src/app/services/activity-service/activity.service';
 
 @Component({
   selector: 'app-duplicate-activity-dialog',
