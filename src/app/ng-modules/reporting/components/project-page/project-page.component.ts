@@ -1,15 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import e from 'express';
-import {
-  map,
-  Subscription,
-  mergeMap,
-  switchMap,
-  forkJoin,
-  concatMap,
-  exhaustMap,
-} from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer.service';
