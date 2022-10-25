@@ -2,11 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { RequestWrapper } from '../models/request-wrapper';
-import { User } from '../models/user';
-import { ResponseHandlingService } from './response-handling.service';
-import { NotificationService } from './notification.service';
+import { RequestWrapper } from '../../models/request-wrapper';
+import { User } from '../../models/user';
+import { NotificationService } from '../notification-service/notification.service';
 import { reflectObjectLiteral } from '@angular/compiler-cli/src/ngtsc/reflection';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
 @Injectable({
   providedIn: 'root',

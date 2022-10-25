@@ -5,7 +5,7 @@ export interface User {
   role: string;
   seniority: string;
   email: string;
-  password: string;
+  password?: string;
   roles?: string;
   timePerDay: string;
 }
