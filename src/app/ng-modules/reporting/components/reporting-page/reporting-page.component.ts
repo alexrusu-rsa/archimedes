@@ -20,7 +20,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Activity } from 'src/app/models/activity';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
-import { first, last, Subscription } from 'rxjs';
+import { first, last, Subscription, switchMap } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { MatSelectChange } from '@angular/material/select';
@@ -654,6 +654,10 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   dateChanges() {
+    this.fetchDataOnDateChange();
+  }
+
+  fetchDataOnDateChange() {
     this.calendar!.weeksInCalendar = [];
     this.activitiesInRange = [];
     this.calendarDays = [];
@@ -669,16 +673,36 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.generateTooltipMessagesForCalendarDays();
   }
 
-  ngOnInit(): void {
+  fetchData() {
     this.calendar!.weeksInCalendar = [];
     this.activitiesInRange = [];
     this.calendarDays = [];
     this.datesInSelectedRange = [];
-    this.getAllActivities();
-    this.getAllUsers();
-    this.getAllProjects();
-    this.getEmployeeRates();
-    this.getDatesInRange();
+    this.activityService
+      .getActivities()
+      .pipe(
+        switchMap((activities) => {
+          this.allActivities = activities;
+          this.getAllActivitiesInRange(this.allActivities);
+          return this.userService.getUsers();
+        }),
+        switchMap((users) => {
+          this.allEmployees = users;
+          return this.rateService.getRates();
+        }),
+        switchMap((rates) => {
+          this.allRates = rates;
+          this.computeEmployeesTotalCommitment();
+          this.initialStateCalendar();
+          return this.projectService.getProjects();
+        })
+      )
+      .subscribe((projects) => {
+        this.allProjects = projects;
+      });
+  }
+  ngOnInit(): void {
+    this.fetchData();
     this.selectedItemEmployee = this.noFilterUsers;
     this.nameFilter = this.noFilterUsers;
 
