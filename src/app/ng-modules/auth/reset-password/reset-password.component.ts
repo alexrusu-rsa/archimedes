@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
+import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,7 +13,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   user!: User;
   userResetPasswordSub?: Subscription;
   resetPasswordForm?: FormGroup;
-  
+
   constructor(private userManagePasswordService: UserManagePasswordService) {}
   sendPasswordResetRequest(email: string) {
     if (this.user) {

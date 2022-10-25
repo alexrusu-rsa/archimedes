@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map, startWith, Subscription } from 'rxjs';
+import { map, startWith, Subscription, switchMap } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { Rate } from 'src/app/models/rate';
 import { User } from 'src/app/models/user';
-import { ProjectService } from 'src/app/services/project.service';
-import { RateService } from 'src/app/services/rate.service';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password.service';
-import { UserService } from 'src/app/services/user.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
+import { RateService } from 'src/app/services/rate-service/rate.service';
+import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { RateDialogComponent } from '../rate-dialog/rate-dialog.component';
@@ -19,7 +19,6 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 })
 export class UserPageComponent implements OnInit, OnDestroy {
   allUsers: User[] = [];
-  allUsersSubscrption?: Subscription;
   deleteUserSubscription?: Subscription;
   users: User[] = [];
   search = '';
@@ -28,6 +27,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   allRatesSub?: Subscription;
   deleteRateSub?: Subscription;
   projects?: Project[];
+  fetchDataSubscription?: Subscription;
 
   test: string[] = ['ABC', 'def'];
 
@@ -50,30 +50,30 @@ export class UserPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getUsers();
-    this.getRates();
-    this.getProjects();
+    this.fetchData();
   }
 
   ngOnDestroy(): void {
-    this.allUsersSubscrption?.unsubscribe();
+    this.fetchDataSubscription?.unsubscribe();
     this.deleteUserSubscription?.unsubscribe();
-    this.projectsSub?.unsubscribe();
   }
 
-  getUsers() {
-    this.allUsersSubscrption = this.userService
+  fetchData() {
+    this.fetchDataSubscription = this.userService
       .getUsers()
-      .subscribe((result) => {
-        this.allUsers = result;
-        this.users = result;
+      .pipe(
+        switchMap((users) => {
+          this.allUsers = users;
+          return this.projectService.getProjects();
+        }),
+        switchMap((projects) => {
+          this.projects = projects;
+          return this.rateService.getRates();
+        })
+      )
+      .subscribe((rates) => {
+        this.allRates = rates;
       });
-  }
-
-  getProjects() {
-    this.projectsSub = this.projectService.getProjects().subscribe((result) => {
-      this.projects = result;
-    });
   }
 
   applyFilter(event: Event) {
@@ -96,16 +96,9 @@ export class UserPageComponent implements OnInit, OnDestroy {
       .subscribe((result) => {});
   }
 
-  getRates() {
-    this.allRatesSub = this.rateService.getRates().subscribe((result) => {
-      this.allRates = result;
-    });
-  }
-
   checkSearch() {
     if (this.search === '') {
-      this.allUsersSubscrption?.unsubscribe();
-      this.getUsers();
+      this.fetchData();
     }
   }
 
@@ -126,7 +119,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((newRate: Rate) => {
-      this.getRates();
+      this.fetchData();
     });
   }
 
@@ -136,7 +129,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
       panelClass: 'full-width-dialog',
     });
     dialogRef.afterClosed().subscribe((updatedRate: Rate) => {
-      this.getRates();
+      this.fetchData();
     });
   }
 
@@ -156,7 +149,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
         this.deleteRateSub = this.rateService
           .deleteRate(rate.id!)
           .subscribe((result) => {
-            this.getRates();
+            this.fetchData();
           });
       }
     });

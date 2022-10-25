@@ -7,8 +7,8 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { RoleCheckService } from 'src/app/services/rolecheck.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { RoleCheckService } from 'src/app/services/rolecheck-service/rolecheck.service';
 
 @Injectable({
   providedIn: 'root',

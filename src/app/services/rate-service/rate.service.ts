@@ -5,12 +5,11 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { start } from 'repl';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Rate } from '../models/rate';
-import { RequestWrapper } from '../models/request-wrapper';
-import { ResponseHandlingService } from './response-handling.service';
+import { Rate } from '../../models/rate';
+import { RequestWrapper } from '../../models/request-wrapper';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
 @Injectable({
   providedIn: 'root',

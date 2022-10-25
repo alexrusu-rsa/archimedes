@@ -5,9 +5,9 @@ import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { Rate } from 'src/app/models/rate';
 import { User } from 'src/app/models/user';
-import { ProjectService } from 'src/app/services/project.service';
-import { RateService } from 'src/app/services/rate.service';
-import { UserService } from 'src/app/services/user.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
+import { RateService } from 'src/app/services/rate-service/rate.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-rate-dialog',
