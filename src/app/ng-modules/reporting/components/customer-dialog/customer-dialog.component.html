@@ -190,9 +190,19 @@
         </div>
       </div>
       <div class="row col-12 mx-0 px-0">
-        <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
-          "customer.page.internal" | translate
-        }}</mat-slide-toggle>
+        <mat-slide-toggle
+          formControlName="internal"
+          [(ngModel)]="currentCustomer.internal"
+          >{{ "customer.page.internal" | translate }}</mat-slide-toggle
+        >
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle
+          formControlName="VAT"
+          [(ngModel)]="currentCustomer.VAT"
+        >
+          Apply VAT on invoices
+        </mat-slide-toggle>
       </div>
       <div class="row col-12 mx-0 px-0 mt-1 pb-3">
         <button
@@ -379,9 +389,19 @@
         </div>
       </div>
       <div class="row col-12 mx-0 px-0">
-        <mat-slide-toggle [(ngModel)]="currentCustomer.internal">{{
-          "customer.page.internal" | translate
-        }}</mat-slide-toggle>
+        <mat-slide-toggle
+          formControlName="internal"
+          [(ngModel)]="currentCustomer.internal"
+          >{{ "customer.page.internal" | translate }}</mat-slide-toggle
+        >
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle
+          formControlName="VAT"
+          [(ngModel)]="currentCustomer.VAT"
+        >
+          Apply VAT on invoices
+        </mat-slide-toggle>
       </div>
       <div class="row col-12 mx-0 px-0 mt-1 pb-3">
         <button
