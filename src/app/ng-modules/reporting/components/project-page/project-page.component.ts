@@ -4,8 +4,9 @@ import e from 'express';
 import { Subscription, switchMap } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
-import { CustomerService } from 'src/app/services/customer.service';
-import { ProjectService } from 'src/app/services/project.service';
+import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
+import { domainToASCII } from 'url';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 

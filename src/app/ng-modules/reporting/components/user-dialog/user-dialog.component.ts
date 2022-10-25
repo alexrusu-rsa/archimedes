@@ -4,7 +4,7 @@ import { FormControl, FormControlDirective, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-user-dialog',

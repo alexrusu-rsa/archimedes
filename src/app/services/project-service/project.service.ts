@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Project } from '../models/project';
-import { RequestWrapper } from '../models/request-wrapper';
-import { ResponseHandlingService } from './response-handling.service';
+import { Project } from '../../models/project';
+import { RequestWrapper } from '../../models/request-wrapper';
+import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
 @Injectable({
   providedIn: 'root',
