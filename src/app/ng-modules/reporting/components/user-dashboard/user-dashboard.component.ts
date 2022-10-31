@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LocalStorageService } from 'src/app/services/localstorage.service';
+import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-user-dashboard',

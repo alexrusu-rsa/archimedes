@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { RequestWrapper } from 'src/app/models/request-wrapper';
-import { CustomerService } from 'src/app/services/customer.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { NotificationService } from 'src/app/services/notification-service/notification.service';
 
 @Component({
   selector: 'app-customer-dialog',
@@ -63,10 +63,10 @@ export class CustomerDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentCustomer = <Customer>{};
-    this.currentCustomer.internal = false;
     if (this.customer !== null) {
       this.currentCustomer = this.customer;
       this.currentCustomer.internal = this.customer.internal;
+      this.currentCustomer.VAT = this.customer.VAT;
     }
 
     this.addCustomerForm = new FormGroup({
@@ -94,6 +94,8 @@ export class CustomerDialogComponent implements OnInit {
       ),
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
       shortName: new FormControl(this.currentCustomer?.shortName),
+      internal: new FormControl(this.currentCustomer.internal),
+      VAT: new FormControl(this.currentCustomer.VAT),
     });
   }
 
@@ -126,5 +128,11 @@ export class CustomerDialogComponent implements OnInit {
   }
   get shortName() {
     return this.addCustomerForm?.get('shortName');
+  }
+  get internal() {
+    return this.addCustomerForm?.get('internal');
+  }
+  get VAT() {
+    return this.addCustomerForm?.get('VAT');
   }
 }

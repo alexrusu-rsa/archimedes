@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HoursAndMinutes } from '../models/hours_minutes';
+import { HoursAndMinutes } from '../../models/hours_minutes';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import { HoursAndMinutes } from '../models/hours_minutes';
 export class DateFormatService {
 
   constructor() {}
+  
   getNewDateWithTime(time: string): Date {
     const newDate = new Date();
     newDate.setTime(this.toMilliseconds(time));

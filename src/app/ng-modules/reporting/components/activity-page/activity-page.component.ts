@@ -4,22 +4,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
 import { User } from '../../../../models/user';
-import { ActivityService } from '../../../../services/activity.service';
-import { UserLoginService } from '../../../../services/user-login.service';
+import { ActivityService } from '../../../../services/activity-service/activity.service';
+import { UserLoginService } from '../../../../services/user-login-service/user-login.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { DuplicateActivityDialogComponent } from '../duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
-import { CustomerService } from 'src/app/services/customer.service';
-import { ProjectService } from 'src/app/services/project.service';
+import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 import { throws } from 'assert';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { MatSelectChange } from '@angular/material/select';
-import { RateService } from 'src/app/services/rate.service';
+import { RateService } from 'src/app/services/rate-service/rate.service';
 import { Rate } from '../../../../models/rate';
-import { LocalStorageService } from 'src/app/services/localstorage.service';
+import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import e from 'express';
 import { createKeywordTypeNode } from 'typescript';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
@@ -163,7 +163,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       });
     this.subscriptions?.push(this.currentEmployeeCommitmentSub);
   }
-  
+
   computeCurrentEmployeTotalCommitment() {
     let totalCommitment = 0;
     this.currentEmployeeRates?.forEach((rate) => {

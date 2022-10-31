@@ -4,8 +4,8 @@ import {
   HttpRequest,
   HttpHandler,
 } from '@angular/common/http';
-import { AuthService } from 'src/app/services/auth.service';
-import { RoleCheckService } from 'src/app/services/rolecheck.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { RoleCheckService } from 'src/app/services/rolecheck-service/rolecheck.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

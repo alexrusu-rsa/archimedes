@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
 import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
-import { CustomerService } from 'src/app/services/customer.service';
+import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { StringLiteral } from 'typescript';
 
 @Component({

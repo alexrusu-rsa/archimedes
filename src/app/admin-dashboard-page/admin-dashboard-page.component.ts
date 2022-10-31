@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LocalStorageService } from '../services/localstorage.service';
+import { LocalStorageService } from '../services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-admin-dashboard-page',

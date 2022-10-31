@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { Customer } from 'src/app/models/customer';
-import { ActivityService } from 'src/app/services/activity.service';
-import { CustomerService } from 'src/app/services/customer.service';
-import { ProjectService } from 'src/app/services/project.service';
+import { ActivityService } from 'src/app/services/activity-service/activity.service';
+import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 import { Project } from 'src/app/models/project';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
@@ -55,18 +55,15 @@ export const MY_FORMATS = {
 })
 export class InvoicePageComponent implements OnInit, OnDestroy {
   allCustomers?: Customer[];
-  allCustomersSub?: Subscription;
-
-  allActivitiesOfMonthYear?: Activity[];
-  allActivitiesOfMonthYearSub?: Subscription;
-
   allProjects?: Project[];
-  allProjectsSub?: Subscription;
+
+  fetchDataSub?: Subscription;
 
   selectedDate?: Date;
   selectedMonth?: string;
   selectedYear?: string;
   selectedDateToDisplay?: string;
+
   constructor(
     private customerService: CustomerService,
     private activityService: ActivityService,
@@ -94,14 +91,6 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
       ctrlValue!.toString().split(' ')[3]
     }`;
     datepicker.close();
-  }
-
-  getAllCustomers() {
-    this.allCustomersSub = this.customerService
-      .getCustomers()
-      .subscribe((result) => {
-        this.allCustomers = result;
-      });
   }
 
   async downloadInvoice(projectId: string, customerId: string) {
@@ -146,14 +135,6 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  getAllProjects() {
-    this.allProjectsSub = this.projectService
-      .getProjects()
-      .subscribe((result: Project[]) => {
-        this.allProjects = result;
-      });
-  }
-
   preselectMonthAndYear() {
     const today = new Date();
     const month = today.getMonth();
@@ -167,12 +148,24 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.preselectMonthAndYear();
-    this.getAllCustomers();
-    this.getAllProjects();
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.fetchDataSub = this.customerService
+      .getCustomers()
+      .pipe(
+        switchMap((customers) => {
+          this.allCustomers = customers;
+          return this.projectService.getProjects();
+        })
+      )
+      .subscribe((projects) => {
+        this.allProjects = projects;
+      });
   }
 
   ngOnDestroy(): void {
-    this.allCustomersSub?.unsubscribe();
-    this.allProjectsSub?.unsubscribe();
+    this.fetchDataSub?.unsubscribe();
   }
 }

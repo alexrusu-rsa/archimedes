@@ -11,4 +11,5 @@ export interface Customer {
   customerDirectorEmail: string;
   internal: boolean;
   shortName: string;
+  VAT: boolean;
 }
