@@ -30,11 +30,15 @@
       <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
         <input
           matStartDate
+          readonly
+          (click)="picker.open()"
           formControlName="start"
           placeholder="{{ 'duplicate.dialog.startDate' | translate }}"
         />
         <input
           matEndDate
+          readonly
+          (click)="picker.open()"
           formControlName="end"
           placeholder="{{ 'duplicate.dialog.endDate' | translate }}"
         />
