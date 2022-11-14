@@ -28,7 +28,8 @@
         [ngStyle]="{ 'background-color': timeBookedContainerColor }"
       >
         <mat-card-subtitle
-          >{{ "activity.page.timeBooked" | translate }} <strong>{{ totalTimeBooked }}</strong
+          >{{ "activity.page.timeBooked" | translate }}
+          <strong>{{ totalTimeBooked }}</strong
           >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
         >
       </mat-card>
@@ -209,4 +210,14 @@
       </button>
     </div>
   </mat-card>
+  <div class="row col-12 mx-0 px-0">
+    <button
+      class="entity-card col-12 content-container"
+      mat-raised-button
+      (click)="addNewActivity()"
+      *ngIf="activitiesOfTheDay.length < 1"
+    >
+      <mat-icon color="accent">add_box</mat-icon>
+    </button>
+  </div>
 </div>
