@@ -142,7 +142,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   deleteRate(rate: Rate) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'full-width-dialog',
+      panelClass: 'delete-confirmation-dialog',
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
