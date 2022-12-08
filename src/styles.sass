@@ -52,6 +52,24 @@ body, input[type="text"], button
 .cdk-overlay-pane
   min-width: 100vw !important
 
+.mat-autocomplete-panel
+  max-width: 90% !important
+  
+.cdk-overlay-connected-position-bounding-box
+  .cdk-overlay-pane
+    transform: none !important
+    overflow-x: hidden
+    box-sizing: content-box
+    padding: 4px 4px 10px 5px
+    margin-left: -5px
+    margin-top: -2px
+
+    .mat-select-panel
+      width: fit-content !important
+      min-width: 80% !important
+
+.mat-option
+  width: 100% !important
 @media (min-width: 1024px)
   .cdk-overlay-pane
     min-width: 80vw !important
