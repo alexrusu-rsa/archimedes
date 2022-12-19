@@ -205,7 +205,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
 
   deleteActivity(activityToDelete: Activity) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'full-width-dialog',
+      panelClass: 'delete-confirmation-dialog',
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
@@ -360,7 +360,7 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   duplicateActivity(activity: Activity) {
     const dialogRef = this.dialog.open(DuplicateActivityDialogComponent, {
       data: activity,
-      panelClass: 'full-width-dialog',
+      panelClass: 'delete-confirmation-dialog',
     });
     dialogRef.afterClosed().subscribe(() => {
       this.dateChanges();
