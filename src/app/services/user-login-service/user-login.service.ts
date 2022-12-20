@@ -12,8 +12,8 @@ import { ResponseHandlingService } from '../response-handling-service/response-h
   providedIn: 'root',
 })
 export class UserLoginService {
-  private usersUrl = process.env['BACKEND_URL'] + 'user';
-  private authUrl = process.env['AUTH_URL'] + 'user';
+  private usersUrl = environment.serviceURL + 'user';
+  private authUrl = environment.authServiceURL + 'user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

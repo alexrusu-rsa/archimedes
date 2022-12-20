@@ -15,7 +15,7 @@ import { ResponseHandlingService } from '../response-handling-service/response-h
   providedIn: 'root',
 })
 export class RateService {
-  private ratesUrl = process.env['BACKEND_URL'] + 'rate';
+  private ratesUrl = environment.serviceURL + 'rate';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

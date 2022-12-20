@@ -74,7 +74,7 @@ describe('SpecFileUserService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: process.env['BACKEND_URL'] + 'user',
+      url: environment.serviceURL + 'user',
     });
     req.flush(expectedRates);
   });
@@ -106,7 +106,7 @@ describe('SpecFileUserService', () => {
     });
     const req = httpController.expectOne({
       method: 'POST',
-      url: process.env['BACKEND_URL'] + 'user',
+      url: environment.serviceURL + 'user',
     });
     req.flush(expectedAddResponse);
   });
@@ -124,7 +124,7 @@ describe('SpecFileUserService', () => {
     });
     const req = httpController.expectOne({
       method: 'DELETE',
-      url: process.env['BACKEND_URL'] + 'user/' + idOfUserToDelete,
+      url: environment.serviceURL + 'user/' + idOfUserToDelete,
     });
     req.flush(expectedReturn);
   });
@@ -148,7 +148,7 @@ describe('SpecFileUserService', () => {
     });
     const req = httpController.expectOne({
       method: 'PUT',
-      url: process.env['BACKEND_URL'] + 'user/' + userToUpdate.id,
+      url: environment.serviceURL + 'user/' + userToUpdate.id,
     });
     req.flush(expectedReturn);
   });
@@ -162,7 +162,7 @@ describe('SpecFileUserService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: process.env['BACKEND_URL'] + 'user/number',
+      url: environment.serviceURL + 'user/number',
     });
     req.flush(expectedReturn);
   });

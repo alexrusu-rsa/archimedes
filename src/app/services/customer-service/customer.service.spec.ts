@@ -91,7 +91,7 @@ describe('SpecFileCustomerService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: process.env['BACKEND_URL'] + 'customer',
+      url: environment.serviceURL + 'customer',
     });
     req.flush(expectedCustomers);
   });
@@ -119,7 +119,7 @@ describe('SpecFileCustomerService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: process.env['BACKEND_URL'] + 'customer' + '/' + id,
+      url: environment.serviceURL + 'customer' + '/' + id,
     });
     req.flush(expectedCustomer);
   });
@@ -146,7 +146,7 @@ describe('SpecFileCustomerService', () => {
     });
     const req = httpController.expectOne({
       method: 'POST',
-      url: process.env['BACKEND_URL'] + 'customer',
+      url: environment.serviceURL + 'customer',
     });
     req.flush(expectedAddResponse);
   });
@@ -164,7 +164,7 @@ describe('SpecFileCustomerService', () => {
     });
     const req = httpController.expectOne({
       method: 'DELETE',
-      url: process.env['BACKEND_URL'] + 'customer/' + idOfCustomerToDelete,
+      url: environment.serviceURL + 'customer/' + idOfCustomerToDelete,
     });
     req.flush(expectedReturn);
   });
@@ -192,7 +192,7 @@ describe('SpecFileCustomerService', () => {
     });
     const req = httpController.expectOne({
       method: 'PUT',
-      url: process.env['BACKEND_URL'] + 'customer/' + customerToUpdate.id,
+      url: environment.serviceURL + 'customer/' + customerToUpdate.id,
     });
     req.flush(expectedReturn);
   });
@@ -221,7 +221,7 @@ describe('SpecFileCustomerService', () => {
       });
 
     const url =
-      process.env['BACKEND_URL'] +
+      environment.serviceURL +
       'customer/invoice/xlsx/' +
       customerId +
       '/' +
@@ -267,7 +267,7 @@ describe('SpecFileCustomerService', () => {
       });
 
     const url =
-      process.env['BACKEND_URL'] +
+      environment.serviceURL +
       'customer/invoice/pdf/' +
       customerId +
       '/' +

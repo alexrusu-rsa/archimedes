@@ -52,7 +52,7 @@ describe('SpecFileUserLoginService', () => {
       });
     const req = httpController.expectOne({
       method: 'GET',
-      url: process.env['BACKEND_URL'] + 'user/' + expectedValue.id,
+      url: environment.serviceURL + 'user/' + expectedValue.id,
     });
     req.flush(expectedValue);
   });
@@ -81,7 +81,7 @@ describe('SpecFileUserLoginService', () => {
     });
     const req = httpController.expectOne({
       method: 'POST',
-      url: process.env['BACKEND_URL'] + 'user/creds',
+      url: environment.serviceURL + 'user/creds',
     });
     req.flush(<RequestWrapper>expectedReturn);
   });

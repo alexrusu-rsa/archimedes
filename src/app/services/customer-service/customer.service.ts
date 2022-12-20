@@ -14,7 +14,7 @@ import { ResponseHandlingService } from '../response-handling-service/response-h
   providedIn: 'root',
 })
 export class CustomerService {
-  private customersUrl = process.env['BACKEND_URL'] + 'customer';
+  private customersUrl = environment.serviceURL + 'customer';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
