@@ -72,7 +72,7 @@ describe('SpecFileProjectService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: environment.serviceURL + 'project',
+      url: process.env['BACKEND_URL'] + 'project',
     });
     req.flush(expectedProjects);
   });
@@ -96,7 +96,7 @@ describe('SpecFileProjectService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: environment.serviceURL + 'project' + '/' + id,
+      url: process.env['BACKEND_URL'] + 'project' + '/' + id,
     });
     req.flush(expectedProject);
   });
@@ -125,7 +125,7 @@ describe('SpecFileProjectService', () => {
     });
     const req = httpController.expectOne({
       method: 'POST',
-      url: environment.serviceURL + 'project',
+      url: process.env['BACKEND_URL'] + 'project',
     });
     req.flush(expectedAddResponse);
   });
@@ -143,7 +143,7 @@ describe('SpecFileProjectService', () => {
     });
     const req = httpController.expectOne({
       method: 'DELETE',
-      url: environment.serviceURL + 'project/' + idOfProjectToDelete,
+      url: process.env['BACKEND_URL'] + 'project/' + idOfProjectToDelete,
     });
     req.flush(expectedReturn);
   });
@@ -166,7 +166,7 @@ describe('SpecFileProjectService', () => {
     });
     const req = httpController.expectOne({
       method: 'PUT',
-      url: environment.serviceURL + 'project/' + projectToUpdate.id,
+      url: process.env['BACKEND_URL'] + 'project/' + projectToUpdate.id,
     });
     req.flush(expectedReturn);
   });
@@ -206,7 +206,7 @@ describe('SpecFileProjectService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: environment.serviceURL + 'project/' + userId,
+      url: process.env['BACKEND_URL'] + 'project/' + userId,
     });
     req.flush(expectedReturn);
   });

@@ -88,7 +88,7 @@ describe('SpecFileActivityService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: environment.serviceURL + 'activity',
+      url: process.env['BACKEND_URL'] + 'activity',
     });
     req.flush(expectedActivities);
   });
@@ -115,7 +115,7 @@ describe('SpecFileActivityService', () => {
     });
     const req = httpController.expectOne({
       method: 'GET',
-      url: environment.serviceURL + 'activity' + '/' + id,
+      url: process.env['BACKEND_URL'] + 'activity' + '/' + id,
     });
     req.flush(expectedActivity);
   });
@@ -143,7 +143,7 @@ describe('SpecFileActivityService', () => {
     });
     const req = httpController.expectOne({
       method: 'POST',
-      url: environment.serviceURL + 'activity' + '/duplicate',
+      url: process.env['BACKEND_URL'] + 'activity' + '/duplicate',
     });
     req.flush({ data: '', userId: '' });
   });
@@ -179,7 +179,7 @@ describe('SpecFileActivityService', () => {
     });
     const req = httpController.expectOne({
       method: 'POST',
-      url: environment.serviceURL + 'activity',
+      url: process.env['BACKEND_URL'] + 'activity',
     });
     req.flush(expectedAddResponse);
   });
@@ -197,7 +197,7 @@ describe('SpecFileActivityService', () => {
     });
     const req = httpController.expectOne({
       method: 'DELETE',
-      url: environment.serviceURL + 'activity/' + idOfActivityToDelete,
+      url: process.env['BACKEND_URL'] + 'activity/' + idOfActivityToDelete,
     });
     req.flush(expectedReturn);
   });
@@ -237,7 +237,7 @@ describe('SpecFileActivityService', () => {
     });
     const req = httpController.expectOne({
       method: 'PUT',
-      url: environment.serviceURL + 'activity/' + activityToUpdate.id,
+      url: process.env['BACKEND_URL'] + 'activity/' + activityToUpdate.id,
     });
     req.flush(expectedReturn);
   });
@@ -255,7 +255,7 @@ describe('SpecFileActivityService', () => {
       });
     const req = httpController.expectOne({
       method: 'POST',
-      url: environment.serviceURL + 'activity/date',
+      url: process.env['BACKEND_URL'] + 'activity/date',
     });
     req.flush(expectedActivities);
   });
@@ -270,7 +270,7 @@ describe('SpecFileActivityService', () => {
     });
     const req = httpController.expectOne({
       method: 'POST',
-      url: environment.serviceURL + 'activity/employee',
+      url: process.env['BACKEND_URL'] + 'activity/employee',
     });
     req.flush(expectedActivities);
   });

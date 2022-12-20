@@ -85,7 +85,7 @@ describe('SpecFileUserManagePasswordService', () => {
     });
     const req = httpController.expectOne({
       method: 'PUT',
-      url: environment.serviceURL + 'user/password',
+      url: process.env['BACKEND_URL'] + 'user/password',
     });
     req.flush(expectedReturn);
   });
@@ -102,7 +102,7 @@ describe('SpecFileUserManagePasswordService', () => {
     });
     const req = httpController.expectOne({
       method: 'PUT',
-      url: environment.serviceURL + 'user/change',
+      url: process.env['BACKEND_URL'] + 'user/change',
     });
     req.flush(expectedResult);
   });

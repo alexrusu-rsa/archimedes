@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(
     httpClient,
-    environment.translationPath,
+    process.env['TRANSLATION_PATH'],
     '.json'
   );
 }

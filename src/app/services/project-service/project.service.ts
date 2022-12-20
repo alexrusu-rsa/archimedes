@@ -10,7 +10,7 @@ import { ResponseHandlingService } from '../response-handling-service/response-h
   providedIn: 'root',
 })
 export class ProjectService {
-  private projectsUrl = environment.serviceURL + 'project';
+  private projectsUrl = process.env['BACKEND_URL'] + 'project';
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),

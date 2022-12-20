@@ -15,7 +15,7 @@ import { NotificationService } from '../notification-service/notification.servic
   providedIn: 'root',
 })
 export class UserManagePasswordService {
-  private userUrl = environment.serviceURL + 'user';
+  private userUrl = process.env['BACKEND_URL'] + 'user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -60,7 +60,9 @@ export class UserManagePasswordService {
       )
       .pipe(
         map((res) => {
-          this.responseHandlingService.handleResponse('Password changed succesfully');
+          this.responseHandlingService.handleResponse(
+            'Password changed succesfully'
+          );
           return res.body as RequestWrapper;
         }),
         catchError(

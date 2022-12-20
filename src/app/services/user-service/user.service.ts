@@ -14,7 +14,7 @@ export class UserService {
     private httpClient: HttpClient,
     private responseHandlingService: ResponseHandlingService
   ) {}
-  private usersUrl = environment.serviceURL + 'user';
+  private usersUrl = process.env['BACKEND_URL'] + 'user';
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
