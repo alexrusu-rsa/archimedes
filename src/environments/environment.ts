@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  serviceURL: 'http://localhost:3000/',
-  translationPath: './assets/i18n/',
+  serviceURL: process.env['BACKEND_URL'],
+  authServiceURL: process.env['AUTH_URL'],
+  translationPath: process.env['TRANSLATION_PATH'],
 };
 
 /*
