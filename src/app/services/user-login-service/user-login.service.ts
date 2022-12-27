@@ -13,7 +13,6 @@ import { ResponseHandlingService } from '../response-handling-service/response-h
 })
 export class UserLoginService {
   private usersUrl = environment.serviceURL + 'user';
-  private authUrl = environment.authServiceURL + 'user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -32,7 +31,7 @@ export class UserLoginService {
   }
 
   logUserIn(user: User): Observable<RequestWrapper> {
-    const logInUrl = this.authUrl + '/creds';
+    const logInUrl = this.usersUrl + '/creds';
     return this.httpClient
       .post<RequestWrapper>(
         logInUrl,
