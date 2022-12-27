@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   serviceURL: '${process.env.BACKEND_URL}',
-  authServiceURL: '${process.env.AUTH_URL}',
+  authServiceURL: process.env['AUTH_URL'],
   translationPath: '{process.env.TRANSLATION_PATH}',
 };
 
