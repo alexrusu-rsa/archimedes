@@ -1,14 +1,24 @@
-<div class="dialog-container">
+<div class="dialog-container col-12">
   <mat-dialog-content>
     <mat-card-title>
       {{ "confirmation.dialog.title" | translate }}
     </mat-card-title>
     <br />
-    <button class="confirm-button" mat-raised-button (click)="confirm()">
-      {{ "confirmation.dialog.yesButton" | translate }}
-    </button>
-    <button class="cancel-button" mat-raised-button (click)="cancel()">
-      {{ "confirmation.dialog.cancel" | translate }}
-    </button>
+    <div class="col-12 d-block d-md-flex">
+      <button
+        class="confirm-button col-12 col-md-3"
+        mat-raised-button
+        (click)="confirm()"
+      >
+        {{ "confirmation.dialog.yesButton" | translate }}
+      </button>
+      <button
+        class="cancel-button col-12 col-md-3 mt-2 mt-md-0"
+        mat-raised-button
+        (click)="cancel()"
+      >
+        {{ "confirmation.dialog.cancel" | translate }}
+      </button>
+    </div>
   </mat-dialog-content>
 </div>

@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   serviceURL: 'http://localhost:3000/',
+  authServiceURL: 'http://localhost:8080/',
   translationPath: './assets/i18n/',
 };
 
