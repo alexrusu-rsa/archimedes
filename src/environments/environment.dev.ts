@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  serviceURL: '${process.env.BACKEND_URL}',
-  authServiceURL: '${process.env.AUTH_URL}',
-  translationPath: '{process.env.TRANSLATION_PATH}',
+  serviceURL: 'https://archimedes-backend-dev.herokuapp.com/',
+  authServiceURL: 'https://auth-archimedes-dev.herokuapp.com/',
+  translationPath: './assets/i18n/',
 };

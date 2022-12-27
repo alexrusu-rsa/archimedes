@@ -46,8 +46,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(process);
-
     this.userIdSub = this.localStorageService.userIdValue.subscribe(
       (nextValue) => {
         if (nextValue) this.currentUserId = nextValue;
