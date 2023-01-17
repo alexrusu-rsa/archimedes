@@ -69,7 +69,8 @@
     "page": {
       "title": "Customer Page",
       "search": "Search customer",
-      "internal": "Internal Company"
+      "internal": "Internal Company",
+      "romanianCompany": "Romanian Company"
     },
     "dialog": {
       "addTitle": "Add customer",
