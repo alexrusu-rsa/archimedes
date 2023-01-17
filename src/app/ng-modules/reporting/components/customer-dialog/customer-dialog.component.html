@@ -198,6 +198,13 @@
       </div>
       <div class="row col-12 mx-0 px-0">
         <mat-slide-toggle
+          formControlName="romanianCompany"
+          [(ngModel)]="currentCustomer.romanianCompany"
+          >{{ "customer.page.romanianCompany" | translate }}</mat-slide-toggle
+        >
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle
           formControlName="VAT"
           [(ngModel)]="currentCustomer.VAT"
         >
@@ -393,6 +400,13 @@
           formControlName="internal"
           [(ngModel)]="currentCustomer.internal"
           >{{ "customer.page.internal" | translate }}</mat-slide-toggle
+        >
+      </div>
+      <div class="row col-12 mx-0 px-0">
+        <mat-slide-toggle
+          formControlName="romanianCompany"
+          [(ngModel)]="currentCustomer.romanianCompany"
+          >{{ "customer.page.romanianCompany" | translate }}</mat-slide-toggle
         >
       </div>
       <div class="row col-12 mx-0 px-0">
