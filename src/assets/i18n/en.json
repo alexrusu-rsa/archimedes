@@ -148,7 +148,7 @@
       "employeeName": "Employee name",
       "rate": "Rate",
       "rateType": "Rate type",
-      "employeeTimeCommitmeent": "Employee Time Commitment",
+      "employeeTimeCommitment": "Employee Time Commitment",
       "updateTitle": "Update rate"
     }
   },
