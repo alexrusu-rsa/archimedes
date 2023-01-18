@@ -4,4 +4,5 @@ export interface InvoiceDataWrapper {
   year: string;
   customerName: string;
   customerShortName?: string;
+  customerRomanian: boolean;
 }

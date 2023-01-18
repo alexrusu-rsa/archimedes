@@ -105,6 +105,7 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
           year: this.selectedYear,
           customerName: currentCustomerName[0].customerName,
           customerShortName: currentCustomerName[0].shortName,
+          customerRomanian: currentCustomerName[0].romanianCompany,
         },
         panelClass: 'full-width-dialog',
       });
