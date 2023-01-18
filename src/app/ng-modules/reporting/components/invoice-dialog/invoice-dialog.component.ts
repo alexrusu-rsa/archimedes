@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import e from 'express';
 import { Subscription } from 'rxjs';
 
 import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
@@ -35,6 +36,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   getCustomerNameSub?: Subscription;
   customerShortname?: string;
   selectedDate?: Date;
+  romanianCustomer?: boolean;
 
   dateFormatted?: number;
 
@@ -61,6 +63,9 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   }
 
   downloadPDF() {
+    if (!this.romanianCustomer) {
+      this.euroExchange?.setValue('1.00');
+    }
     if (this.checkAbleToRequestInvoice())
       if (this.customerId && this.invoiceNumber && this.selectedMonthYear) {
         this.pdfSub = this.customerService
@@ -109,6 +114,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
     this.customerName = this.invoiceDataWrapper.customerName;
+    this.romanianCustomer = this.invoiceDataWrapper.customerRomanian;
 
     this.invoiceForm = new FormGroup({
       invoiceNumber: new FormControl(this.invoiceNr, [
