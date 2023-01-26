@@ -68,7 +68,7 @@
             type="text"
             aria-label="Project"
             matInput
-            [value]="currentActivity.projectId! | projectid: projects!"
+            [value]="currentActivity.projectId! | projectid : projects!"
             formControlName="projectName"
             [matAutocomplete]="auto"
           />
@@ -77,7 +77,6 @@
             #auto="matAutocomplete"
             (optionSelected)="onSelectionChange($event)"
           >
-            <!-- HERE -->
             <mat-option value="null">{{
               "activity.dialog.noProject" | translate
             }}</mat-option>
@@ -208,7 +207,7 @@
             type="text"
             aria-label="Project"
             matInput
-            [value]="currentActivity.projectId! | projectid: projects!"
+            [value]="currentActivity.projectId! | projectid : projects!"
             formControlName="projectName"
             [matAutocomplete]="auto"
           />

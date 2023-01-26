@@ -81,7 +81,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   deleteProject(projectId: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'full-width-dialog',
+      panelClass: 'delete-confirmation-dialog',
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {

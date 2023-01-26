@@ -66,6 +66,7 @@ export class CustomerDialogComponent implements OnInit {
     if (this.customer !== null) {
       this.currentCustomer = this.customer;
       this.currentCustomer.internal = this.customer.internal;
+      this.currentCustomer.romanianCompany = this.customer.romanianCompany;
       this.currentCustomer.VAT = this.customer.VAT;
     }
 
@@ -95,6 +96,7 @@ export class CustomerDialogComponent implements OnInit {
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
       shortName: new FormControl(this.currentCustomer?.shortName),
       internal: new FormControl(this.currentCustomer.internal),
+      romanianCompany: new FormControl(this.currentCustomer.romanianCompany),
       VAT: new FormControl(this.currentCustomer.VAT),
     });
   }
@@ -131,6 +133,9 @@ export class CustomerDialogComponent implements OnInit {
   }
   get internal() {
     return this.addCustomerForm?.get('internal');
+  }
+  get romanianCompany() {
+    return this.addCustomerForm?.get('romanianCompany');
   }
   get VAT() {
     return this.addCustomerForm?.get('VAT');

@@ -76,7 +76,7 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
 
   deleteCustomer(customerId: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'full-width-dialog',
+      panelClass: 'delete-confirmation-dialog',
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {

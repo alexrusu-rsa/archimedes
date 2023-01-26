@@ -35,6 +35,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   getCustomerNameSub?: Subscription;
   customerShortname?: string;
   selectedDate?: Date;
+  romanianCustomer?: boolean;
 
   dateFormatted?: number;
 
@@ -61,6 +62,9 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   }
 
   downloadPDF() {
+    if (!this.romanianCustomer) {
+      this.euroExchange?.setValue('1.00');
+    }
     if (this.checkAbleToRequestInvoice())
       if (this.customerId && this.invoiceNumber && this.selectedMonthYear) {
         this.pdfSub = this.customerService
@@ -109,6 +113,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
       this.invoiceDataWrapper.month + this.invoiceDataWrapper.year;
     this.customerId = this.invoiceDataWrapper.customerId;
     this.customerName = this.invoiceDataWrapper.customerName;
+    this.romanianCustomer = this.invoiceDataWrapper.customerRomanian;
 
     this.invoiceForm = new FormGroup({
       invoiceNumber: new FormControl(this.invoiceNr, [

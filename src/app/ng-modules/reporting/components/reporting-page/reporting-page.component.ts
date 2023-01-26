@@ -37,6 +37,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReportingHoursBookedDialogComponent } from '../reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { DatePipe } from '@angular/common';
 
 export const MY_FORMATS = {
   parse: {
@@ -123,6 +124,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private projectService: ProjectService,
     private rateService: RateService,
+    public datepipe: DatePipe,
     public dialog: MatDialog
   ) {}
 
@@ -156,13 +158,13 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
           const filteredActivitiesOfEmployee = this.allActivities?.filter(
             (activity) => activity.employeeId === employee.id
           );
+          let employeeReportedHours = 0;
+          let employeeReportedMinutes = 0;
           if (filteredActivitiesOfEmployee) {
-            let employeeReportedHours = 0;
-            let employeeReportedMinutes = 0;
             filteredActivitiesOfEmployee?.forEach((activity) => {
               if (
                 activity.date ===
-                this.transformNewDateToDBString(calendarDay.date)
+                this.transformNewDateToDBString(calendarDay!.date)
               ) {
                 employeeReportedHours =
                   employeeReportedHours +
@@ -249,9 +251,9 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     return minutes / 60;
   }
 
-  transformNewDateToDBString(date: Date): string {
-    const ISODate = date.toISOString().split('T')[0];
-    return this.formatISOToDB(ISODate);
+  transformNewDateToDBString(date: Date) {
+    const dateFormatted = this.datepipe.transform(date, 'dd/MM/yyyy');
+    return dateFormatted;
   }
 
   getExpectedCommitmentOfEmployee(employeeId: string): number {
@@ -488,6 +490,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     const firstDayNumber = this.getDayForMondayFirstDayOfWeek(
       this.calendarDays![0].date
     );
+
     const lastDayNumber = this.getDayForMondayFirstDayOfWeek(
       this.calendarDays![lastIndex].date
     );
@@ -646,11 +649,14 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     if (date.getDay() === 0) return 6;
     else return date.getDay() - 1;
   }
+
   private stringToDate(dateString: string) {
     const splitDateString = dateString.split('/');
     const dateStringISO =
       splitDateString[2] + '-' + splitDateString[1] + '-' + splitDateString[0];
-    return new Date(dateStringISO);
+    const formattedDate = new Date(dateStringISO);
+    const resultDate = formattedDate.setDate(formattedDate.getDate());
+    return new Date(resultDate);
   }
 
   dateChanges() {
