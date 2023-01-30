@@ -10,6 +10,8 @@ export interface Customer {
   customerDirectorTel: string;
   customerDirectorEmail: string;
   internal: boolean;
+  IBANRO?: string;
+  IBANEUR?: string;
   romanianCompany: boolean;
   shortName: string;
   VAT: boolean;

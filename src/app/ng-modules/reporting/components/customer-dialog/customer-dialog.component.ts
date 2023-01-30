@@ -96,6 +96,8 @@ export class CustomerDialogComponent implements OnInit {
       directorTel: new FormControl(this.currentCustomer?.customerDirectorTel),
       shortName: new FormControl(this.currentCustomer?.shortName),
       internal: new FormControl(this.currentCustomer.internal),
+      IBANRO: new FormControl(this.currentCustomer.IBANRO),
+      IBANEUR: new FormControl(this.currentCustomer.IBANEUR),
       romanianCompany: new FormControl(this.currentCustomer.romanianCompany),
       VAT: new FormControl(this.currentCustomer.VAT),
     });
@@ -133,6 +135,12 @@ export class CustomerDialogComponent implements OnInit {
   }
   get internal() {
     return this.addCustomerForm?.get('internal');
+  }
+  get IBANRO() {
+    return this.addCustomerForm?.get('IBANRO');
+  }
+  get IBANEUR() {
+    return this.addCustomerForm?.get('IBANEUR');
   }
   get romanianCompany() {
     return this.addCustomerForm?.get('romanianCompany');
