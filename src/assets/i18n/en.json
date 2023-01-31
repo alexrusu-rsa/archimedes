@@ -90,7 +90,9 @@
       "customerDirectorName": "Customer Director Name",
       "customerDirectorEmail": "Customer Director Email",
       "customerDirectorTel": "Customer Director Tel",
-      "updateTitle": "Update customer"
+      "updateTitle": "Update customer",
+      "IBANEUR": "IBAN EUR",
+      "IBAN": "IBAN"
     }
   },
   "confirmation": {
