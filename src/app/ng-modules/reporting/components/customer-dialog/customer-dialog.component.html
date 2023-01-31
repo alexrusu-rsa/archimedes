@@ -189,6 +189,30 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{ "customer.dialog.IBAN" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.IBANRO"
+              type="text"
+              formControlName="IBANRO"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{ "customer.dialog.IBANEUR" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.IBANEUR"
+              type="text"
+              formControlName="IBANEUR"
+            />
+          </mat-form-field>
+        </div>
+      </div>
       <div class="row col-12 mx-0 px-0">
         <mat-slide-toggle
           formControlName="internal"
@@ -391,6 +415,34 @@
               [(ngModel)]="currentCustomer.customerDirectorTel"
               type="text"
               formControlName="directorTel"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row col-12 d-block d-lg-flex mx-0 px-0">
+        <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.IBAN" | translate
+            }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.IBANRO"
+              type="text"
+              formControlName="IBANRO"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
+          <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
+            <mat-label>{{
+              "customer.dialog.IBANEUR" | translate
+            }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="currentCustomer.IBANEUR"
+              type="text"
+              formControlName="IBANEUR"
             />
           </mat-form-field>
         </div>
