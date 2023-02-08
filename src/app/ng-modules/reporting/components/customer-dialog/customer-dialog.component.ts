@@ -140,7 +140,7 @@ export class CustomerDialogComponent implements OnInit {
     return this.addCustomerForm?.get('IBANRO');
   }
   get IBANEUR() {
-    return this.addCustomerForm?.get('IBANEUR');
+    return this.addCustomerForm?.get('IBANEUR');  
   }
   get romanianCompany() {
     return this.addCustomerForm?.get('romanianCompany');

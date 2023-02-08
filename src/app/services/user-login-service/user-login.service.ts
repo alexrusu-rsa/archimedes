@@ -12,7 +12,7 @@ import { ResponseHandlingService } from '../response-handling-service/response-h
   providedIn: 'root',
 })
 export class UserLoginService {
-  private usersUrl = environment.serviceURL + 'user';
+
   private authUrl = environment.authServiceURL + 'user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -25,7 +25,7 @@ export class UserLoginService {
 
   getUser(userId: string): Observable<User> {
     return this.httpClient
-      .get<User>(this.usersUrl + '/' + userId)
+      .get<User>(this.authUrl + '/' + userId)
       .pipe(
         catchError(this.responseHandlingService.handleError<User>('getUser'))
       );

@@ -15,7 +15,7 @@ import { NotificationService } from '../notification-service/notification.servic
   providedIn: 'root',
 })
 export class UserManagePasswordService {
-  private userUrl = environment.serviceURL + 'user';
+  private userUrl = environment.authServiceURL + 'user';
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

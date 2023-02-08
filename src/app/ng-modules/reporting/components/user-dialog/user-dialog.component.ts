@@ -23,7 +23,7 @@ export class UserDialogComponent implements OnInit {
   addCurrentUserSub?: Subscription;
   updateUserSub?: Subscription;
   adminUserCheck?: boolean;
-
+  isChecked?: boolean;
   addUser() {
     if (this.adminUserCheck) {
       this.currentUser!.roles = 'admin';
@@ -65,12 +65,23 @@ export class UserDialogComponent implements OnInit {
     return false;
   }
 
+  setValue(e: any) {
+    if (e.checked) {
+      this.currentUser!.roles = 'admin';
+      this.adminUserCheck = true;
+    } else {
+      this.currentUser!.roles = 'user';
+      this.adminUserCheck = false;
+    }
+  }
+
   ngOnInit(): void {
     this.currentUser = <User>{};
-    this.adminUserCheck = false;
+    this.isChecked = false;
     if (this.user !== null) {
       this.currentUser = this.user;
-      this.adminUserCheck = this.user.roles?.includes('admin');
+      this.isChecked = this.user.roles?.includes('admin');
+      this.adminUserCheck = this.user.roles!.includes('admin');
     }
     this.addUserForm = new FormGroup({
       email: new FormControl(this.currentUser?.email),
@@ -78,6 +89,7 @@ export class UserDialogComponent implements OnInit {
       name: new FormControl(this.currentUser?.name),
       role: new FormControl(this.currentUser?.role),
       seniority: new FormControl(this.currentUser?.seniority),
+      roles: new FormControl(this.currentUser.roles),
       timePerDay: new FormControl(this.currentUser?.timePerDay),
     });
   }
@@ -100,6 +112,10 @@ export class UserDialogComponent implements OnInit {
 
   get role() {
     return this.addUserForm?.get('role');
+  }
+
+  get roles() {
+    return this.addUserForm?.get('roles');
   }
 
   get seniority() {
