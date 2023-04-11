@@ -1,6 +1,6 @@
 <div class="container mt-4 mx-0 px-0">
   <div class="row text-start mb-3">
-    <mat-card-title> {{ user?.name }} {{ user?.surname }} </mat-card-title>
+    <mat-card-title> {{ user?.name }} {{ user?.surname }}</mat-card-title>
   </div>
 </div>
 
@@ -209,4 +209,8 @@
       </button>
     </div>
   </mat-card>
+  <div class="col-12 d-flex flex-row-reverse">
+    <button mat-raised-button class="col-1" (click)="nextDayPage()"><mat-icon color="accent">keyboard_arrow_right</mat-icon></button>
+    <button mat-raised-button class="col-1 mx-1" (click)="prevDayPage()"><mat-icon color="accent">keyboard_arrow_left</mat-icon></button>
+  </div>
 </div>

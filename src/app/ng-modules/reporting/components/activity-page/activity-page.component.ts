@@ -23,6 +23,7 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 import e from 'express';
 import { createKeywordTypeNode } from 'typescript';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
+import { PrefixNot } from '@angular/compiler';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -182,6 +183,19 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           (entity) => entity.projectId === this.selectedFilterProjectId
         );
     }
+  }
+
+
+  nextDayPage(){
+    const nextDayDate = this.selectedDate?.setDate(this.selectedDate.getDate()+1);
+    this.selectedDate = new Date(nextDayDate!);
+    this.dateChanges();
+  }
+
+  prevDayPage(){
+    const prevDayDate = this.selectedDate?.setDate(this.selectedDate.getDate()-1);
+    this.selectedDate = new Date(prevDayDate!);
+    this.dateChanges();
   }
 
   dateChanges() {
