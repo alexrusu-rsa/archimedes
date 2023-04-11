@@ -23,7 +23,6 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 import e from 'express';
 import { createKeywordTypeNode } from 'typescript';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
-import { PrefixNot } from '@angular/compiler';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
