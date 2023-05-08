@@ -184,6 +184,19 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  nextDayPage(){
+    const nextDayDate = this.selectedDate?.setDate(this.selectedDate.getDate()+1);
+    this.selectedDate = new Date(nextDayDate!);
+    this.dateChanges();
+  }
+
+  prevDayPage(){
+    const prevDayDate = this.selectedDate?.setDate(this.selectedDate.getDate()-1);
+    this.selectedDate = new Date(prevDayDate!);
+    this.dateChanges();
+  }
+
   dateChanges() {
     const dateFormatted = this.datepipe.transform(
       this.selectedDate,
