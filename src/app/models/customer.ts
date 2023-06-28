@@ -15,4 +15,5 @@ export interface Customer {
   romanianCompany: boolean;
   shortName: string;
   VAT: boolean;
+  SWIFT?: string;
 }
