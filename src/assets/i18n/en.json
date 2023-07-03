@@ -93,7 +93,7 @@
       "updateTitle": "Update customer",
       "IBANEUR": "IBAN EUR",
       "IBAN": "IBAN",
-      "SWIFT": "SWIFT"
+      "swift": "SWIFT"
     }
   },
   "confirmation": {
