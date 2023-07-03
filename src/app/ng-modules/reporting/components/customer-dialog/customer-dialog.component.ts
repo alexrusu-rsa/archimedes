@@ -100,6 +100,7 @@ export class CustomerDialogComponent implements OnInit {
       IBANEUR: new FormControl(this.currentCustomer.IBANEUR),
       romanianCompany: new FormControl(this.currentCustomer.romanianCompany),
       VAT: new FormControl(this.currentCustomer.VAT),
+      swift: new FormControl(this.currentCustomer.swift),
     });
   }
 
@@ -147,5 +148,8 @@ export class CustomerDialogComponent implements OnInit {
   }
   get VAT() {
     return this.addCustomerForm?.get('VAT');
+  }
+  get swift() {
+    return this.addCustomerForm?.get('swift');
   }
 }
