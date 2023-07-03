@@ -104,8 +104,13 @@ body, input[type="text"], button
   position: relative
   
 .mat-drawer-container
+  height: fit-content
   position: fixed !important
-  overflow: visible !important
-
+  overflow: auto !important
+.mat-sidenav-container
+  height: 100% !important
 .mat-drawer-backdrop 
   height: 100vh 
+
+.mat-drawer-content
+  padding-bottom: 5rem
