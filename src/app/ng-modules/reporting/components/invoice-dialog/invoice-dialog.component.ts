@@ -124,6 +124,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.pattern('[0-9]{1}[.][0-9]{2,5}'),
       ]),
+      invoiceEmitDate: new FormControl(this.selectedDate)
     });
   }
   ngOnDestroy(): void {

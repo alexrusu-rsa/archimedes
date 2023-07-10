@@ -1,6 +1,6 @@
-<div class="container mx-0 px-0">
+<div class="container">
   <mat-dialog-content
-    class="container mx-0 px-0 col-12 py-3"
+    class="container mx-0 col-12 py-3"
     *ngIf="currentActivity && userDateActivity.activity === undefined"
   >
     <div class="row col-12 mx-0 px-0">
@@ -18,7 +18,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      class="mt-2 mx-0 col-12 pb-5"
       [formGroup]="addActivityForm!"
       (keyup.enter)="addActivity()"
     >
@@ -130,7 +130,7 @@
   </mat-dialog-content>
 
   <mat-dialog-content
-    class="container mx-0 px-0 col-12"
+    class="container mx-0 col-12"
     *ngIf="currentActivity && userDateActivity.activity !== undefined"
   >
     <div class="row col-12 mx-0 px-0">
@@ -148,7 +148,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      class="mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addActivityForm!"
       (keyup.enter)="editActivity()"
     >

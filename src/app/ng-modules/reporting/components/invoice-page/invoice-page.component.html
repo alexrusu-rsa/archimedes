@@ -43,13 +43,13 @@
         <mat-card-title>{{ project.projectName }}</mat-card-title>
       </div>
       <div class="">
-        <mat-chip-list>
+        <mat-chip-set>
           <div *ngFor="let customer of allCustomers">
             <mat-chip *ngIf="customer.id === project.customerId">{{
               customer.customerName
             }}</mat-chip>
           </div>
-        </mat-chip-list>
+        </mat-chip-set>
       </div>
 
       <mat-card-actions
