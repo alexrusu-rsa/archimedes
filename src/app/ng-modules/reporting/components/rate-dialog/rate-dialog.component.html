@@ -1,6 +1,6 @@
 <div class="container mx-0 px-0">
   <mat-dialog-content
-    class="container mx-0 px-0"
+    class="container mx-0"
     *ngIf="currentRate && rate === null"
   >
     <div class="row col-12 mx-0 px-0">
@@ -19,7 +19,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      class="mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addRateForm!"
       (keyup.enter)="addRate()"
     >
@@ -103,7 +103,7 @@
     </form>
   </mat-dialog-content>
   <mat-dialog-content
-    class="container mx-0 px-0"
+    class="container mx-0"
     *ngIf="currentRate && rate !== null"
   >
     <div class="row col-12 mx-0 px-0">
@@ -121,7 +121,7 @@
       </div>
     </div>
     <form
-      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      class="mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addRateForm!"
       (keyup.enter)="editRate()"
     >

@@ -1,6 +1,6 @@
 <div class="container mx-0 px-0">
   <mat-dialog-content
-    class="container mx-0 px-0 col-12"
+    class="container mx-0 col-12"
     *ngIf="currentUser && user === null"
   >
     <div class="row col-12 mx-0 px-0">
@@ -18,7 +18,7 @@
     </div>
 
     <form
-      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      class="mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addUserForm!"
       (keyup.enter)="addUser()"
     >
@@ -109,7 +109,7 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <mat-slide-toggle [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
+      <mat-slide-toggle class="mb-2" [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
       <div class="row col-12 mx-0 px-0 pb-3">
         <button
           *ngIf="this.user === null"
@@ -124,7 +124,7 @@
   </mat-dialog-content>
 
   <mat-dialog-content
-    class="container mx-0 px-0 col-12"
+    class="container mx-0 col-12"
     *ngIf="currentUser && user !== null"
   >
     <div class="row col-12 mx-0 px-0">
@@ -141,7 +141,7 @@
       </div>
     </div>
     <form
-      class="container mt-2 mx-0 px-0 col-12 pb-5"
+      class="mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addUserForm!"
       (keyup.enter)="editUser()"
     >
@@ -236,7 +236,7 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <mat-slide-toggle [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
+      <mat-slide-toggle class="mb-2" [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
       <div class="row col-12 mx-0 px-0 pb-3">
         <button
           *ngIf="user !== null"

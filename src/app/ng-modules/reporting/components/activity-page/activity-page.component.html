@@ -92,7 +92,7 @@
         >
         <mat-card-content>
           {{ activity.description }}
-          <mat-chip-list
+          <mat-chip-set
             *ngIf="activity.projectId !== null && activity.projectId !== ''"
           >
             <div>
@@ -104,14 +104,14 @@
                 {{ activity.projectId! | projectid: allProjects! }}</mat-chip
               >
             </div>
-          </mat-chip-list>
-          <mat-chip-list
+          </mat-chip-set>
+          <mat-chip-set
             *ngIf="
               activity.projectId === undefined || activity.projectId === null
             "
           >
             <mat-chip> Internal </mat-chip>
-          </mat-chip-list>
+          </mat-chip-set>
         </mat-card-content>
 
         <mat-card-actions
