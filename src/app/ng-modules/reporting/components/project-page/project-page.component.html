@@ -42,7 +42,7 @@
         </mat-card-title>
       </div>
       <div class="row">
-        <mat-chip-list
+        <mat-chip-set
           class="mt-2"
           *ngIf="project.id !== null && project.id !== ''"
         >
@@ -51,7 +51,7 @@
               project.id! | customerfromprojectid: allProjects!:allCustomers!
             }}
           </mat-chip>
-        </mat-chip-list>
+        </mat-chip-set>
       </div>
 
       <mat-card-actions
