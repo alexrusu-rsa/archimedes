@@ -86,4 +86,12 @@ export class UserService {
         catchError(this.responseHandlingService.handleError<User>('updateUser'))
       );
   }
+
+  getUserTimePerDay(userId: string): Observable<number> {
+    return this.httpClient
+      .get<number>(this.usersUrl + '/time/' + userId)
+      .pipe(
+        catchError(this.responseHandlingService.handleError<number>('getUserTime'))
+      );
+  }
 }

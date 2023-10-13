@@ -1,0 +1,19 @@
+<div class="col-12 d-flex justify-content-center">
+  <mat-calendar
+    *ngIf="
+      activitiesOfSelectedMonthCurrentUser.length > 0 && currentUserTimePerDay
+    "
+    class="col-10"
+    [dateClass]="tooltipsIterator.length < 25 ? dateClass : dateClass"
+    (selectedChange)="onSelect($event)"
+  >
+    <ng-container *ngFor="let date of tooltipsIterator">
+      <span
+        [matTooltip]="dateTooltips['date']"
+        [matTooltipPosition]="'below'"
+        [matTooltipDisabled]="true"
+      >
+      </span>
+    </ng-container>
+  </mat-calendar>
+</div>

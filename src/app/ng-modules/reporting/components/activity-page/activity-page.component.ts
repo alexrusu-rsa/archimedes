@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
@@ -59,6 +59,8 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
 
   activitiesWithNoProject?: Activity[];
 
+  @Input() startDate?: Date;
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -76,15 +78,20 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     this.groupActivitiesWithNoProject();
     this.getCustomers();
     this.getProjects();
-
     const userId = this.activeRoute.snapshot.paramMap.get('id');
+
     if (userId) {
       this.getCurrentEmployeeCommitment(userId);
       this.getUserSub = this.userService
         .getUser(userId)
         .subscribe((result: User) => {
+          const presetDate =
+            this.activeRoute.snapshot.queryParamMap.get('presetDate');
           this.user = result;
-          this.selectedDate = new Date();
+          if (!presetDate) this.selectedDate = new Date();
+          else {
+            this.selectedDate = new Date(presetDate);
+          }
           this.dateChanges();
         });
       this.subscriptions?.push(this.getUserSub);
@@ -182,15 +189,18 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  nextDayPage(){
-    const nextDayDate = this.selectedDate?.setDate(this.selectedDate.getDate()+1);
+  nextDayPage() {
+    const nextDayDate = this.selectedDate?.setDate(
+      this.selectedDate.getDate() + 1
+    );
     this.selectedDate = new Date(nextDayDate!);
     this.dateChanges();
   }
 
-  prevDayPage(){
-    const prevDayDate = this.selectedDate?.setDate(this.selectedDate.getDate()-1);
+  prevDayPage() {
+    const prevDayDate = this.selectedDate?.setDate(
+      this.selectedDate.getDate() - 1
+    );
     this.selectedDate = new Date(prevDayDate!);
     this.dateChanges();
   }

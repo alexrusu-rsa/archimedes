@@ -5,13 +5,14 @@ import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-
 import { LoginComponent } from './ng-modules/auth/login/login.component';
 import { ResetPasswordComponent } from './ng-modules/auth/reset-password/reset-password.component';
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
+import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 
 const routes: Routes = [
   {
     path: 'auth',
     children: [
       { path: '', redirectTo: 'first-user', pathMatch: 'full' },
-      { path: 'first-user', component: FirstUserPageComponent},
+      { path: 'first-user', component: FirstUserPageComponent },
       { path: 'login', component: LoginComponent },
       { path: 'resetpassword', component: ResetPasswordComponent },
     ],
