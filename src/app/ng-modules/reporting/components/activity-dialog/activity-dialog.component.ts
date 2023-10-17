@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { Project } from 'src/app/models/project';
-import { User } from 'src/app/models/user';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
 import { DateFormatService } from 'src/app/services/date-format-service/date-format.service';
@@ -103,6 +102,8 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     if (!this.checkEndStart()) return false;
     if (this.name?.pristine || this.end?.pristine || this.start?.pristine)
       return false;
+    if (!this.activityType) return false;
+    if (!this.projectName) return false;
     return true;
   }
 
