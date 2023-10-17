@@ -12,6 +12,7 @@ import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-
 import { FirstUserPageComponent } from '../auth/first-user-page/first-user-page.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
+import { RatePageComponent } from './rate-page/rate-page.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,9 @@ const routes: Routes = [
   {
     path: 'settings',
     component: UserSettingsPageComponent,
+  },
+  { path: 'rate',
+    component: RatePageComponent,
   },
   {
     path: '',
