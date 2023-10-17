@@ -1,14 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { elementAt, Subscription, take, timer } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { RequestWrapper } from '../../../models/request-wrapper';
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login-service/user-login.service';
 
