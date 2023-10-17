@@ -11,6 +11,7 @@ import { ProjectPageComponent } from './components/project-page/project-page.com
 import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-dashboard-page.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
+import { RatePageComponent } from './rate-page/rate-page.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,9 @@ const routes: Routes = [
   {
     path: 'settings',
     component: UserSettingsPageComponent,
+  },
+  { path: 'rate',
+    component: RatePageComponent,
   },
   {
     path: '',
