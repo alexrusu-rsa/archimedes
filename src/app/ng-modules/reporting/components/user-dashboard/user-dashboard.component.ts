@@ -1,5 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 
 @Component({
@@ -7,18 +13,15 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.sass'],
 })
-export class UserDashboardComponent implements OnInit, OnDestroy {
+export class UserDashboardComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   constructor(private localStorageService: LocalStorageService) {}
-  currentUserIdSub?: Subscription;
   currentUserId?: string;
   ngOnInit(): void {
-    this.currentUserIdSub = this.localStorageService.userIdValue.subscribe(
-      (result) => {
+    this.localStorageService.userIdValue
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
         if (result) this.currentUserId = result;
-      }
-    );
-  }
-  ngOnDestroy(): void {
-    this.currentUserIdSub?.unsubscribe();
+      });
   }
 }

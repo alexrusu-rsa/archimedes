@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, DestroyRef, Inject, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
@@ -14,6 +14,7 @@ import { ProjectService } from 'src/app/services/project-service/project.service
   styleUrls: ['./project-dialog.component.sass'],
 })
 export class ProjectDialogComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   constructor(
     private projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectDialogComponent>,
@@ -24,14 +25,10 @@ export class ProjectDialogComponent implements OnInit {
 
   addProjectForm?: FormGroup;
   currentProject?: Project;
-  addCurrentProjectSub?: Subscription;
-  updateProjectSub?: Subscription;
   customers?: Customer[];
   customerNameForm = '';
   selectedItem?: string;
   newProject?: Project;
-  getCustomersSub?: Subscription;
-  getCustomerOfProjectToUpdate?: Subscription;
   selectedProjectCustomer?: Customer;
   selectedDate?: Date;
   contractSignDate?: Date;
@@ -39,8 +36,9 @@ export class ProjectDialogComponent implements OnInit {
   addProject() {
     if (this.checkAbleToRequestAddProject())
       if (this.currentProject)
-        this.addCurrentProjectSub = this.projectService
+        this.projectService
           .addProject(this.currentProject)
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((newProject: Project) => {
             this.dialogRef.close(newProject);
           });
@@ -49,8 +47,9 @@ export class ProjectDialogComponent implements OnInit {
   editProject() {
     if (this.checkAbleToRequestUpdateProject())
       if (this.currentProject) {
-        this.updateProjectSub = this.projectService
+        this.projectService
           .updateProject(this.currentProject)
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((updatedProject: Project) => {
             this.dialogRef.close(updatedProject);
           });
@@ -58,26 +57,40 @@ export class ProjectDialogComponent implements OnInit {
   }
 
   getCustomers() {
-    this.getCustomersSub = this.customerService
+    this.customerService
       .getCustomers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.customers = result;
       });
   }
 
   getCustomerOfSelectedProject() {
-    this.getCustomerOfProjectToUpdate = this.customerService
+    this.customerService
       .getCustomer(this.currentProjectToUpdate.customerId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => (this.selectedProjectCustomer = result));
   }
 
   checkAbleToRequestAddProject(): boolean {
-    if (this.name?.pristine || this.customerName?.pristine) return false;
+    if (
+      this.name?.pristine ||
+      this.customerName?.pristine ||
+      this.contract?.pristine ||
+      this.selectedDate === undefined
+    )
+      return false;
     return true;
   }
 
   checkAbleToRequestUpdateProject(): boolean {
-    if (this.name?.value !== '' && this.customerName?.value !== '') return true;
+    if (
+      this.name?.value !== '' &&
+      this.customerName?.value !== '' &&
+      this.contract?.value !== '' &&
+      this.selectedDate !== undefined
+    )
+      return true;
     return false;
   }
 
@@ -150,12 +163,12 @@ export class ProjectDialogComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    this.addCurrentProjectSub?.unsubscribe();
-    this.getCustomersSub?.unsubscribe();
-    this.updateProjectSub?.unsubscribe();
-    this.getCustomerOfProjectToUpdate?.unsubscribe();
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
   }
+
   ngOnInit(): void {
     this.getCustomers();
     this.currentProject = <Project>{};
@@ -169,9 +182,15 @@ export class ProjectDialogComponent implements OnInit {
     }
 
     this.addProjectForm = new FormGroup({
-      customerName: new FormControl(this.currentProject?.customerId),
-      name: new FormControl(this.currentProject?.projectName),
-      contract: new FormControl(this.currentProject?.contract),
+      customerName: new FormControl(this.currentProject?.customerId, [
+        Validators.required,
+      ]),
+      name: new FormControl(this.currentProject?.projectName, [
+        Validators.required,
+      ]),
+      contract: new FormControl(this.currentProject?.contract, [
+        Validators.required,
+      ]),
       invoiceTerm: new FormControl(this.currentProject?.invoiceTerm),
     });
   }

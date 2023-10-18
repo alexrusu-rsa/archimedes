@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -9,7 +16,8 @@ import { UserManagePasswordService } from 'src/app/services/user-manage-password
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.sass'],
 })
-export class ResetPasswordComponent implements OnInit, OnDestroy {
+export class ResetPasswordComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   user!: User;
   userResetPasswordSub?: Subscription;
   resetPasswordForm?: FormGroup;
@@ -21,6 +29,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       this.user.password = '';
       this.userResetPasswordSub = this.userManagePasswordService
         .resetPasswordFor(this.user)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
     }
   }
@@ -37,8 +46,5 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         Validators.email,
       ]),
     });
-  }
-  ngOnDestroy(): void {
-    this.userResetPasswordSub?.unsubscribe();
   }
 }

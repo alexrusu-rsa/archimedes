@@ -38,6 +38,8 @@ import { UserDashboardComponent } from './ng-modules/reporting/components/user-d
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
+import { RatePageComponent } from './ng-modules/reporting/rate-page/rate-page.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/comp
     NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
+    RatePageComponent,
+    ShortenPipe,
   ],
   imports: [
     BrowserModule,

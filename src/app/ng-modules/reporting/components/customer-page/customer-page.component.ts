@@ -1,20 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, switchMap } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-customer-page',
   templateUrl: './customer-page.component.html',
   styleUrls: ['./customer-page.component.sass'],
 })
-export class CustomerPageComponent implements OnInit, OnDestroy {
+export class CustomerPageComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   allCustomers: Customer[] = [];
-  allCustomersSubscription?: Subscription;
-  deleteCustomerSubscription?: Subscription;
   customers: Customer[] = [];
 
   constructor(
@@ -24,11 +30,6 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getCustomers();
-  }
-
-  ngOnDestroy(): void {
-    this.allCustomersSubscription?.unsubscribe();
-    this.deleteCustomerSubscription?.unsubscribe();
   }
 
   applyFilter(event: Event) {
@@ -41,8 +42,9 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
   }
 
   getCustomers() {
-    this.allCustomersSubscription = this.customerService
+    this.customerService
       .getCustomers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.allCustomers = result;
         this.customers = result;
@@ -83,8 +85,9 @@ export class CustomerPageComponent implements OnInit, OnDestroy {
         this.allCustomers = this.allCustomers?.filter(
           (customer) => customer.id !== customerId
         );
-        this.deleteCustomerSubscription = this.customerService
+        this.customerService
           .deleteCustomer(customerId)
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe();
       }
     });

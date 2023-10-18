@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,17 +12,19 @@ import { UserService } from 'src/app/services/user-service/user.service';
   styleUrls: ['./first-user-page.component.sass'],
 })
 export class FirstUserPageComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   constructor(private router: Router, private userService: UserService) {}
   registerNewUserForm?: FormGroup;
+
   user!: User;
   checkPassword?: string;
   getUsersNumberSub?: Subscription;
-  addAdminSub?: Subscription;
   testPasswordsMatch?: boolean;
 
   ngOnInit(): void {
-    this.getUsersNumberSub = this.userService
+    this.userService
       .getUsersNumber()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         if (result > 0) this.router.navigate(['auth/login']);
       });
@@ -62,7 +65,10 @@ export class FirstUserPageComponent implements OnInit {
         this.reEnteredPassword?.value
       )
     ) {
-      this.addAdminSub = this.userService.addAdmin(this.user).subscribe();
+      this.userService
+        .addAdmin(this.user)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe();
     }
   }
 
@@ -80,10 +86,5 @@ export class FirstUserPageComponent implements OnInit {
 
   get reEnteredPassword() {
     return this.registerNewUserForm?.get('reEnteredPassword');
-  }
-
-  ngOnDestroy(): void {
-    this.addAdminSub?.unsubscribe();
-    this.getUsersNumberSub?.unsubscribe();
   }
 }

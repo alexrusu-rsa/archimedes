@@ -1,5 +1,13 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  Component,
+  DestroyRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
@@ -14,21 +22,17 @@ import { UserService } from 'src/app/services/user-service/user.service';
   templateUrl: './rate-dialog.component.html',
   styleUrls: ['./rate-dialog.component.sass'],
 })
-export class RateDialogComponent implements OnInit, OnDestroy {
+export class RateDialogComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   currentRate?: Rate;
   addRateForm?: FormGroup;
-  addRateSub?: Subscription;
-  updateRateSub?: Subscription;
   projects?: Project[];
   users?: User[];
-  usersSub?: Subscription;
-  projectsSub?: Subscription;
   filteredProjects?: Observable<Project[]>;
   filteredUsers?: Observable<User[]>;
   selectedItemProject?: string;
   selectedItemEmployee?: string;
   allRateTypes?: [string, string][];
-  getAllRateTypesSub?: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<RateDialogComponent>,
@@ -43,8 +47,9 @@ export class RateDialogComponent implements OnInit, OnDestroy {
       this.currentRate!.projectId = this.projectId?.value;
       this.currentRate!.employeeId = this.employeeId?.value;
       this.currentRate!.rateType = this.employeeRateType?.value;
-      this.addRateSub = this.rateService
+      this.rateService
         .addRate(this.currentRate!)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((newRate: Rate) => {
           this.dialogRef.close(newRate);
         });
@@ -56,8 +61,9 @@ export class RateDialogComponent implements OnInit, OnDestroy {
       this.currentRate!.projectId = this.projectId?.value;
       this.currentRate!.employeeId = this.employeeId?.value;
       this.currentRate!.rateType = this.employeeRateType?.value;
-      this.updateRateSub = this.rateService
+      this.rateService
         .updateRate(this.currentRate!)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((updatedRate: Rate) => {
           this.dialogRef.close(updatedRate);
         });
@@ -65,30 +71,37 @@ export class RateDialogComponent implements OnInit, OnDestroy {
   }
 
   async getRateTypes() {
-    this.getAllRateTypesSub = await this.rateService
+    await this.rateService
       .getAllRateTypes()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.allRateTypes = Object.entries(result);
       });
   }
 
   getProjects() {
-    this.projectsSub = this.projectService.getProjects().subscribe((result) => {
-      this.projects = result;
-      this.filteredProjects = this.projectId?.valueChanges.pipe(
-        startWith(''),
-        map((value) => this.filter(value))
-      );
-    });
+    this.projectService
+      .getProjects()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
+        this.projects = result;
+        this.filteredProjects = this.projectId?.valueChanges.pipe(
+          startWith(''),
+          map((value) => this.filter(value))
+        );
+      });
   }
   getEmployees() {
-    this.usersSub = this.userService.getUsers().subscribe((result) => {
-      this.users = result;
-      this.filteredUsers = this.employeeId?.valueChanges.pipe(
-        startWith(''),
-        map((value) => this.filterEmp(value))
-      );
-    });
+    this.userService
+      .getUsers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
+        this.users = result;
+        this.filteredUsers = this.employeeId?.valueChanges.pipe(
+          startWith(''),
+          map((value) => this.filterEmp(value))
+        );
+      });
   }
 
   private filter(value: string): Project[] {
@@ -106,13 +119,20 @@ export class RateDialogComponent implements OnInit, OnDestroy {
   }
 
   checkAbleToRequestAddRate(): boolean {
-    return true;
+    if (this.addRateForm?.valid) return true;
+    return false;
   }
 
   checkAbleToRequestUpdateRate(): boolean {
-    return true;
+    if (this.addRateForm?.valid) return true;
+    return false;
   }
 
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
   ngOnInit(): void {
     this.currentRate = <Rate>{};
     this.getEmployees();
@@ -125,23 +145,24 @@ export class RateDialogComponent implements OnInit, OnDestroy {
     }
 
     this.addRateForm = new FormGroup({
-      projectId: new FormControl(this.currentRate?.projectId),
-      employeeId: new FormControl(this.currentRate?.employeeId),
-      employeeRate: new FormControl(this.currentRate?.rate),
-      employeeRateType: new FormControl(this.currentRate?.rateType),
+      projectId: new FormControl(this.currentRate?.projectId, [
+        Validators.required,
+      ]),
+      employeeId: new FormControl(this.currentRate?.employeeId, [
+        Validators.required,
+      ]),
+      employeeRate: new FormControl(this.currentRate?.rate, [
+        Validators.required,
+      ]),
+      employeeRateType: new FormControl(this.currentRate?.rateType, [
+        Validators.required,
+      ]),
       employeeTimeCommitement: new FormControl(
-        this.currentRate?.employeeTimeCommitement
+        this.currentRate?.employeeTimeCommitement,
+        [Validators.required]
       ),
     });
     this.getRateTypes();
-  }
-
-  ngOnDestroy(): void {
-    this.getAllRateTypesSub?.unsubscribe();
-    this.addRateSub?.unsubscribe();
-    this.usersSub?.unsubscribe();
-    this.projectsSub?.unsubscribe();
-    this.updateRateSub?.unsubscribe();
   }
 
   get projectId() {

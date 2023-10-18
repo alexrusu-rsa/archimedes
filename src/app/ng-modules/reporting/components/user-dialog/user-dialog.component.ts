@@ -54,6 +54,11 @@ export class UserDialogComponent implements OnInit {
           });
       }
   }
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
 
   checkAbleToRequestAddUser(): boolean {
     if (this.email?.pristine) return false;
