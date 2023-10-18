@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { Project } from 'src/app/models/project';
@@ -9,16 +15,17 @@ import { RateService } from 'src/app/services/rate-service/rate.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { DeleteConfirmationDialogComponent } from '../components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { RateDialogComponent } from '../components/rate-dialog/rate-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-rate-page',
   templateUrl: './rate-page.component.html',
   styleUrls: ['./rate-page.component.sass'],
 })
-export class RatePageComponent implements OnInit, OnDestroy {
+export class RatePageComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   allUsers: User[] = [];
   projects: Project[] = [];
-  destroy$ = new Subject<number>();
   allRates: Rate[] = [];
   displayedColumns: string[] = [
     'projectId',
@@ -41,7 +48,7 @@ export class RatePageComponent implements OnInit, OnDestroy {
     this.userService
       .getUsers()
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntilDestroyed(this.destroyRef),
         switchMap((users) => {
           this.allUsers = users;
           return this.projectService.getProjects();
@@ -67,7 +74,7 @@ export class RatePageComponent implements OnInit, OnDestroy {
       if (result) {
         this.rateService
           .deleteRate(rate.id!)
-          .pipe(takeUntil(this.destroy$))
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
             this.fetchData();
           });
@@ -80,12 +87,9 @@ export class RatePageComponent implements OnInit, OnDestroy {
       data: rate,
       panelClass: 'full-width-dialog',
     });
-    dialogRef
-      .afterClosed()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.fetchData();
-      });
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchData();
+    });
   }
 
   addRate() {
@@ -93,16 +97,8 @@ export class RatePageComponent implements OnInit, OnDestroy {
       panelClass: 'full-width-dialog',
     });
 
-    dialogRef
-      .afterClosed()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        this.fetchData();
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(1);
-    this.destroy$.complete();
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchData();
+    });
   }
 }

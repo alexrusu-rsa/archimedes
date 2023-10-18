@@ -315,7 +315,6 @@ export class ActivityPageComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((newActivity: Activity) => {
         if (newActivity) this.activitiesOfTheDay.push(newActivity);
         this.getTotalTimeBookedToday();
@@ -342,7 +341,6 @@ export class ActivityPageComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((newActivity: Activity) => {
         if (newActivity) this.activitiesOfTheDay.push(newActivity);
         this.getTotalTimeBookedToday();
