@@ -64,6 +64,13 @@
       <a
         *ngIf="isAdmin && isAdmin !== undefined"
         mat-list-item
+        routerLink="reporting/rate"
+        (click)="sidenav.close()"
+        >{{ "sidenav.rates" | translate }}</a
+      >
+      <a
+        *ngIf="isAdmin && isAdmin !== undefined"
+        mat-list-item
         routerLink="reporting/project"
         (click)="sidenav.close()"
         >{{ "sidenav.projects" | translate }}</a
