@@ -1,31 +1,32 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { TranslateService } from '@ngx-translate/core';
-import { fromEvent, Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
+
 import { AuthService } from './services/auth-service/auth.service';
 import { LocalStorageService } from './services/localstorage-service/localstorage.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   title = 'archimedes-frontend';
-  activeRoute?: Subscription;
   urlToFormat = '';
   pageTitle?: string;
   userRole?: string;
   hasToken?: boolean;
   isAdmin?: boolean;
-  accessSub?: Subscription;
-  adminSub?: Subscription;
   currentUserId?: string;
-  userIdSub?: Subscription;
   activeToken?: string;
-  activeTokenSub?: Subscription;
 
   constructor(
     private router: Router,
@@ -46,25 +47,25 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.userIdSub = this.localStorageService.userIdValue.subscribe(
-      (nextValue) => {
+    this.localStorageService.userIdValue
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((nextValue) => {
         if (nextValue) this.currentUserId = nextValue;
-      }
-    );
-    this.accessSub = this.localStorageService.accessTokenValue.subscribe(
-      (nextValue) => {
+      });
+    this.localStorageService.accessTokenValue
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((nextValue) => {
         this.hasToken = nextValue !== '' && nextValue !== null;
-      }
-    );
+      });
 
-    this.adminSub = this.localStorageService.roleValue.subscribe(
-      (nextValue) => {
+    this.localStorageService.roleValue
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((nextValue) => {
         this.isAdmin = nextValue === 'admin' && nextValue !== null;
-      }
-    );
-
-    this.activeTokenSub = this.localStorageService.accessTokenValue.subscribe(
-      (nextValue) => {
+      });
+    this.localStorageService.accessTokenValue
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((nextValue) => {
         if (!this.tokenExpired(nextValue!)) {
           if (this.isAdmin) {
             this.router.navigate(['reporting/admin-dashboard']);
@@ -74,15 +75,16 @@ export class AppComponent implements OnInit, OnDestroy {
         } else {
           this.authService.doLogout();
         }
-      }
-    );
+      });
 
-    this.activeRoute = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.urlToFormat = event.url.substring(1, event.url.length);
-        this.pageTitle = this.urlToFormat.split('/')[1];
-      }
-    });
+    this.router.events
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.urlToFormat = event.url.substring(1, event.url.length);
+          this.pageTitle = this.urlToFormat.split('/')[1];
+        }
+      });
   }
   private tokenExpired(token: string) {
     if (token !== null) {
@@ -90,11 +92,5 @@ export class AppComponent implements OnInit, OnDestroy {
       return Math.floor(new Date().getTime() / 1000) >= expiry;
     }
     return false;
-  }
-  ngOnDestroy() {
-    this.accessSub?.unsubscribe();
-    this.adminSub?.unsubscribe();
-    this.userIdSub?.unsubscribe();
-    this.activeTokenSub?.unsubscribe();
   }
 }

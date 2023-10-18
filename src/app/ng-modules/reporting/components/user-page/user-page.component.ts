@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, switchMap } from 'rxjs';
 import { Project } from 'src/app/models/project';
@@ -9,19 +15,18 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
   styleUrls: ['./user-page.component.sass'],
 })
-export class UserPageComponent implements OnInit, OnDestroy {
+export class UserPageComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   allUsers: User[] = [];
-  deleteUserSubscription?: Subscription;
   users: User[] = [];
   search = '';
-  userResetPasswordSub?: Subscription;
   projects?: Project[];
-  fetchDataSubscription?: Subscription;
 
   test: string[] = ['ABC', 'def'];
 
@@ -37,15 +42,11 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.fetchData();
   }
 
-  ngOnDestroy(): void {
-    this.fetchDataSubscription?.unsubscribe();
-    this.deleteUserSubscription?.unsubscribe();
-  }
-
   fetchData() {
-    this.fetchDataSubscription = this.userService
+    this.userService
       .getUsers()
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((users) => {
           this.allUsers = users;
           return this.projectService.getProjects();
@@ -71,8 +72,9 @@ export class UserPageComponent implements OnInit, OnDestroy {
   }
 
   sendPasswordResetRequest(user: User) {
-    this.userResetPasswordSub = this.userManagePasswordService
+    this.userManagePasswordService
       .resetPasswordFor(user)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
   }
 
@@ -107,8 +109,9 @@ export class UserPageComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
-        this.deleteUserSubscription = this.userService
+        this.userService
           .deleteUser(userId)
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe();
       }
     });

@@ -1,19 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login-service/user-login.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   user!: User;
-  logInSub?: Subscription;
   loginForm?: FormGroup;
   logInProgress?: boolean;
 
@@ -25,8 +32,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async logUserIn(user: User) {
     this.logInProgress = true;
-    this.logInSub = this.userLoginService
+    this.userLoginService
       .logUserIn(user)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((response: any) => {
         if (response === undefined) this.logInProgress = false;
         this.localStorageService.accessToken = response.access_token;
@@ -59,10 +67,5 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   get password() {
     return this.loginForm?.get('password');
-  }
-
-  ngOnDestroy(): void {
-    this.logInSub?.unsubscribe();
-    this.logInProgress = false;
   }
 }
