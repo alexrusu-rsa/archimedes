@@ -18,13 +18,13 @@
       </div>
     </div>
 
-    <form
-      class="mt-2 mx-0 px-0 col-12 pb-5"
-      [formGroup]="addRateForm!"
-      (keyup.enter)="addRate()"
-    >
+    <form class="mt-2 mx-0 px-0 col-12 pb-5" [formGroup]="addRateForm!">
       <div class="row col-12 mx-0 px-0">
-        <mat-form-field class="mx-0 px-0" appearance="fill">
+        <mat-form-field
+          class="mx-0 px-0"
+          appearance="fill"
+          (keyup.enter)="$event.stopPropagation()"
+        >
           <mat-label>{{ "rate.dialog.projectName" | translate }}</mat-label>
           <mat-select formControlName="projectId">
             <mat-option
@@ -41,12 +41,14 @@
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "rate.dialog.employeeName" | translate }}</mat-label>
-          <mat-select formControlName="employeeId">
+          <mat-select
+            formControlName="employeeId"
+            (keyup.enter)="$event.stopPropagation()"
+          >
             <mat-option
               *ngFor="let user of users"
               [value]="user.id"
               ngDefaultControl
-              required="true"
               required="true"
             >
               {{ user.name }} {{ user.surname }}
@@ -60,6 +62,7 @@
           <input
             matInput
             [(ngModel)]="currentRate.rate"
+            (keydown)="onKeydown($event)"
             type="text"
             formControlName="employeeRate"
             required="true"
@@ -70,7 +73,10 @@
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "rate.dialog.rateType" | translate }}</mat-label>
-          <mat-select formControlName="employeeRateType">
+          <mat-select
+            formControlName="employeeRateType"
+            (keyup.enter)="$event.stopPropagation()"
+          >
             <mat-option
               *ngFor="let rateType of allRateTypes"
               [value]="rateType[1]"
@@ -89,6 +95,7 @@
           <input
             matInput
             [(ngModel)]="currentRate.employeeTimeCommitement"
+            (keydown)="onKeydown($event)"
             type="text"
             formControlName="employeeTimeCommitement"
             required="true"
@@ -120,17 +127,14 @@
         </button>
       </div>
     </div>
-    <form
-      class="mt-2 mx-0 px-0 col-12 pb-5"
-      [formGroup]="addRateForm!"
-      (keyup.enter)="editRate()"
-    >
+    <form class="mt-2 mx-0 px-0 col-12 pb-5" [formGroup]="addRateForm!">
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "rate.dialog.projectName" | translate }}</mat-label>
           <mat-select
             [(value)]="selectedItemProject"
             formControlName="projectId"
+            (keyup.enter)="$event.stopPropagation()"
           >
             <mat-option
               *ngFor="let project of projects"
@@ -148,6 +152,7 @@
           <mat-select
             [(value)]="selectedItemEmployee"
             formControlName="employeeId"
+            (keyup.enter)="$event.stopPropagation()"
           >
             <mat-option
               *ngFor="let user of users"
@@ -164,6 +169,7 @@
           <mat-label>{{ "rate.dialog.rate" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentRate.rate"
             type="text"
             formControlName="employeeRate"
@@ -174,7 +180,10 @@
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "rate.dialog.rateType" | translate }}</mat-label>
-          <mat-select formControlName="employeeRateType">
+          <mat-select
+            formControlName="employeeRateType"
+            (keyup.enter)="$event.preventDefault()"
+          >
             <mat-option
               *ngFor="let rateType of allRateTypes"
               [value]="rateType[1]"
@@ -194,6 +203,7 @@
             matInput
             [(ngModel)]="currentRate.employeeTimeCommitement"
             type="text"
+            (keydown)="onKeydown($event)"
             formControlName="employeeTimeCommitement"
             required="true"
           />
