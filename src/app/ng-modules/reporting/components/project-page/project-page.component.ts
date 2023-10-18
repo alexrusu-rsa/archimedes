@@ -1,25 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import e from 'express';
-import { Subscription, switchMap } from 'rxjs';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { switchMap } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
-import { domainToASCII } from 'url';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-project-page',
   templateUrl: './project-page.component.html',
   styleUrls: ['./project-page.component.sass'],
 })
-export class ProjectPageComponent implements OnInit, OnDestroy {
+export class ProjectPageComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   allProjects?: Project[] = [];
   projects?: Project[];
   allCustomers?: Customer[] = [];
-  subscriptionArray?: Subscription[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -29,12 +28,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchData();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptionArray?.forEach((sub) => {
-      sub.unsubscribe();
-    });
   }
 
   applyFilter(event: Event) {
@@ -50,6 +43,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
     this.customerService
       .getCustomers()
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((customers) => {
           this.allCustomers = customers;
           return this.projectService.getProjects();
@@ -87,9 +81,6 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
       if (result) {
         this.allProjects = this.allProjects?.filter(
           (project) => project.id !== projectId
-        );
-        this.subscriptionArray?.push(
-          this.projectService.deleteProject(projectId).subscribe()
         );
       }
     });

@@ -1,5 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -14,7 +22,8 @@ import { StringLiteral } from 'typescript';
   templateUrl: './invoice-dialog.component.html',
   styleUrls: ['./invoice-dialog.component.sass'],
 })
-export class InvoiceDialogComponent implements OnInit, OnDestroy {
+export class InvoiceDialogComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   constructor(
     @Inject(MAT_DIALOG_DATA) public invoiceDataWrapper: InvoiceDataWrapper,
     public dialogRef: MatDialogRef<InvoiceDialogComponent>,
@@ -28,11 +37,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   selectedMonthYear?: string;
   invoiceNr?: string;
   euroExch?: string;
-  pdfSub?: Subscription;
-  xlsxSub?: Subscription;
   invoiceForm?: FormGroup;
   customerName?: string;
-  getCustomerNameSub?: Subscription;
   customerShortname?: string;
   selectedDate?: Date;
   romanianCustomer?: boolean;
@@ -42,7 +48,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
   downloadXLSX() {
     if (this.checkAbleToRequestInvoice())
       if (this.customerId && this.invoiceNumber && this.selectedMonthYear)
-        this.xlsxSub = this.customerService
+        this.customerService
           .getCustomerInvoiceXLSX(
             this.customerId,
             this.invoiceNumber.value,
@@ -51,6 +57,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             Number(this.euroExchange?.value),
             this.dateFormatted!
           )
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((response: any) => {
             this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
@@ -67,7 +74,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
     }
     if (this.checkAbleToRequestInvoice())
       if (this.customerId && this.invoiceNumber && this.selectedMonthYear) {
-        this.pdfSub = this.customerService
+        this.customerService
           .getCustomerInvoicePDF(
             this.customerId,
             this.invoiceNumber.value,
@@ -76,6 +83,7 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
             Number(this.euroExchange?.value),
             this.dateFormatted!
           )
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((response: any) => {
             this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
@@ -124,12 +132,8 @@ export class InvoiceDialogComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.pattern('[0-9]{1}[.][0-9]{2,5}'),
       ]),
-      invoiceEmitDate: new FormControl(this.selectedDate)
+      invoiceEmitDate: new FormControl(this.selectedDate),
     });
-  }
-  ngOnDestroy(): void {
-    this.xlsxSub?.unsubscribe();
-    this.pdfSub?.unsubscribe();
   }
 
   get invoiceNumber() {

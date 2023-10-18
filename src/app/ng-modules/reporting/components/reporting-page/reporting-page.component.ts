@@ -1,9 +1,11 @@
 import {
   Component,
+  DestroyRef,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import {
   DateAdapter,
@@ -30,7 +32,6 @@ import { CalendarDay } from 'src/app/models/calendar-day';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { Rate } from 'src/app/models/rate';
 import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-calendar';
-import e from 'express';
 import { Calendar } from 'src/app/models/calendar';
 import { WeekCalendarDay } from 'src/app/models/week-calendar-day';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,6 +39,7 @@ import { ReportingHoursBookedDialogComponent } from '../reporting-hours-booked-d
 import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { DatePipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export const MY_FORMATS = {
   parse: {
@@ -66,17 +68,16 @@ const moment = _rollupMoment || _moment;
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class ReportingPageComponent implements OnInit, OnDestroy {
+export class ReportingPageComponent implements OnInit {
   date = new FormControl(moment());
+  readonly destroyRef = inject(DestroyRef);
   startDate?: Date;
   selectedMonth?: string;
   selectedYear?: string;
 
   allActivities?: Activity[];
-  allActivitiesSub?: Subscription;
 
   allEmployees?: User[];
-  allEmployeesSub?: Subscription;
 
   selectedItemEmployee?: string;
   range?: FormGroup;
@@ -85,13 +86,10 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   pickedEndDate?: string;
 
   activitiesInRange: Activity[] = [];
-  activitiesInRangeSub?: Subscription;
 
   allProjects?: Project[];
-  allProjectsSub?: Subscription;
 
   allRates?: Rate[];
-  allRatesSub?: Subscription;
 
   noFilterUsers = 'ALLUSERS';
   nameFilter?: string;
@@ -576,8 +574,9 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   getAllUsers() {
-    this.allEmployeesSub = this.userService
+    this.userService
       .getUsers()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result: User[]) => {
         this.allEmployees = result;
         if (result) {
@@ -587,16 +586,18 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   getAllProjects() {
-    this.allProjectsSub = this.projectService
+    this.projectService
       .getProjects()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.allProjects = result;
       });
   }
 
   getAllActivities() {
-    this.allActivitiesSub = this.activityService
+    this.activityService
       .getActivities()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result: Activity[]) => {
         this.allActivities = result;
         if (result) {
@@ -606,13 +607,16 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
   }
 
   getEmployeeRates() {
-    this.allRatesSub = this.rateService.getRates().subscribe((result) => {
-      this.allRates = result;
-      if (result) {
-        this.computeEmployeesTotalCommitment();
-        this.initialStateCalendar();
-      }
-    });
+    this.rateService
+      .getRates()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
+        this.allRates = result;
+        if (result) {
+          this.computeEmployeesTotalCommitment();
+          this.initialStateCalendar();
+        }
+      });
   }
 
   getAllActivitiesInRangeParam(
@@ -687,6 +691,7 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
     this.activityService
       .getActivities()
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((activities) => {
           this.allActivities = activities;
           this.getAllActivitiesInRange(this.allActivities);
@@ -730,14 +735,6 @@ export class ReportingPageComponent implements OnInit, OnDestroy {
       start: new FormControl(<Date>startDate),
       end: new FormControl(<Date>endDate),
     });
-  }
-
-  ngOnDestroy(): void {
-    this.activitiesInRangeSub?.unsubscribe();
-    this.allActivitiesSub?.unsubscribe();
-    this.allProjectsSub?.unsubscribe();
-    this.allEmployeesSub?.unsubscribe();
-    this.allRatesSub?.unsubscribe();
   }
 
   get start() {
