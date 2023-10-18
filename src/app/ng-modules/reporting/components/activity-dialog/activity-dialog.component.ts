@@ -83,6 +83,11 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.currentActivity!.projectId = selectedProjectId?.id;
   }
 
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
   findProjectNameWithId(projectId: string): string {
     const projectWithId = this.projects?.find(
       (project) => project.id === projectId
@@ -102,20 +107,14 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     if (!this.checkEndStart()) return false;
     if (this.name?.pristine || this.end?.pristine || this.start?.pristine)
       return false;
-    if (!this.activityType) return false;
-    if (!this.projectName) return false;
+    if (this.activityType?.value === null) return false;
+    if (this.projectName?.value === null) return false;
     return true;
   }
 
   checkAbleToRequestUpdateActivity(): boolean {
     if (!this.checkEndStart()) return false;
-    if (
-      this.name?.value !== '' &&
-      this.end?.value !== '' &&
-      this.start?.value !== ''
-    )
-      return true;
-    return false;
+    return true;
   }
 
   editActivity() {
@@ -170,8 +169,12 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
         Validators.required,
       ]),
       end: new FormControl(this.currentActivity?.end, [Validators.required]),
-      projectName: new FormControl(this.currentActivity?.projectId),
-      activityType: new FormControl(this.currentActivity?.activityType),
+      projectName: new FormControl(this.currentActivity?.projectId, [
+        Validators.required,
+      ]),
+      activityType: new FormControl(this.currentActivity?.activityType, [
+        Validators.required,
+      ]),
       description: new FormControl(this.currentActivity?.description),
       extras: new FormControl(this.currentActivity?.extras),
     });

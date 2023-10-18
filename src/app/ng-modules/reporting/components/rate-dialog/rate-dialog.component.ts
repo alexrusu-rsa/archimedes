@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project';
@@ -106,13 +106,20 @@ export class RateDialogComponent implements OnInit, OnDestroy {
   }
 
   checkAbleToRequestAddRate(): boolean {
-    return true;
+    if (this.addRateForm?.valid) return true;
+    return false;
   }
 
   checkAbleToRequestUpdateRate(): boolean {
-    return true;
+    if (this.addRateForm?.valid) return true;
+    return false;
   }
 
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
   ngOnInit(): void {
     this.currentRate = <Rate>{};
     this.getEmployees();
@@ -125,12 +132,21 @@ export class RateDialogComponent implements OnInit, OnDestroy {
     }
 
     this.addRateForm = new FormGroup({
-      projectId: new FormControl(this.currentRate?.projectId),
-      employeeId: new FormControl(this.currentRate?.employeeId),
-      employeeRate: new FormControl(this.currentRate?.rate),
-      employeeRateType: new FormControl(this.currentRate?.rateType),
+      projectId: new FormControl(this.currentRate?.projectId, [
+        Validators.required,
+      ]),
+      employeeId: new FormControl(this.currentRate?.employeeId, [
+        Validators.required,
+      ]),
+      employeeRate: new FormControl(this.currentRate?.rate, [
+        Validators.required,
+      ]),
+      employeeRateType: new FormControl(this.currentRate?.rateType, [
+        Validators.required,
+      ]),
       employeeTimeCommitement: new FormControl(
-        this.currentRate?.employeeTimeCommitement
+        this.currentRate?.employeeTimeCommitement,
+        [Validators.required]
       ),
     });
     this.getRateTypes();

@@ -17,11 +17,7 @@
       </div>
     </div>
 
-    <form
-      class="mt-2 mx-0 px-0 col-12 pb-5"
-      [formGroup]="addCustomerForm!"
-      (keyup.enter)="addCustomer()"
-    >
+    <form class="mt-2 mx-0 px-0 col-12 pb-5" [formGroup]="addCustomerForm!">
       <div class="row col-12 d-block d-lg-flex mx-0 px-0">
         <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
           <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
@@ -30,6 +26,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerName"
               type="text"
               formControlName="name"
@@ -47,6 +44,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerCUI"
               formControlName="cui"
               type="text"
@@ -67,6 +65,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerReg"
               formControlName="reg"
               type="text"
@@ -84,6 +83,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerAddress"
               formControlName="address"
               type="text"
@@ -105,6 +105,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerCity"
               type="text"
               formControlName="city"
@@ -121,6 +122,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.shortName"
               type="text"
               formControlName="shortName"
@@ -137,6 +139,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerCountry"
               type="text"
               formControlName="country"
@@ -154,6 +157,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerDirectorName"
               type="text"
               formControlName="directorName"
@@ -169,6 +173,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerDirectorEmail"
               type="text"
               formControlName="directorEmail"
@@ -182,6 +187,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerDirectorTel"
               type="text"
               formControlName="directorTel"
@@ -195,6 +201,7 @@
             <mat-label>{{ "customer.dialog.IBAN" | translate }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.IBANRO"
               type="text"
               formControlName="IBANRO"
@@ -206,6 +213,7 @@
             <mat-label>{{ "customer.dialog.IBANEUR" | translate }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.IBANEUR"
               type="text"
               formControlName="IBANEUR"
@@ -219,6 +227,7 @@
             <mat-label>{{ "customer.dialog.swift" | translate }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.swift"
               type="text"
               formControlName="swift"
@@ -279,11 +288,7 @@
         </button>
       </div>
     </div>
-    <form
-      class="mt-2 mx-0 px-0 col-12 pb-5"
-      [formGroup]="addCustomerForm!"
-      (keyup.enter)="editCustomer()"
-    >
+    <form class="mt-2 mx-0 px-0 col-12 pb-5" [formGroup]="addCustomerForm!">
       <div class="row col-12 d-block d-lg-flex mx-0 px-0">
         <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
           <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
@@ -292,6 +297,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerName"
               type="text"
               formControlName="name"
@@ -305,6 +311,7 @@
               "customer.dialog.customerCUI" | translate
             }}</mat-label>
             <input
+              (keydown)="onKeydown($event)"
               matInput
               [(ngModel)]="currentCustomer.customerCUI"
               formControlName="cui"
@@ -323,6 +330,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerReg"
               formControlName="reg"
               type="text"
@@ -337,6 +345,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerAddress"
               formControlName="address"
               type="text"
@@ -354,6 +363,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerCity"
               type="text"
               formControlName="city"
@@ -367,6 +377,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.shortName"
               type="text"
               formControlName="shortName"
@@ -383,6 +394,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerCountry"
               type="text"
               formControlName="country"
@@ -396,6 +408,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerDirectorName"
               type="text"
               formControlName="directorName"
@@ -412,6 +425,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerDirectorEmail"
               type="text"
               formControlName="directorEmail"
@@ -425,6 +439,7 @@
             }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.customerDirectorTel"
               type="text"
               formControlName="directorTel"
@@ -435,11 +450,10 @@
       <div class="row col-12 d-block d-lg-flex mx-0 px-0">
         <div class="col-12 col-lg-6 mx-0 px-0 pe-lg-1 pe-md-0 pe-0">
           <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
-            <mat-label>{{
-              "customer.dialog.IBAN" | translate
-            }}</mat-label>
+            <mat-label>{{ "customer.dialog.IBAN" | translate }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.IBANRO"
               type="text"
               formControlName="IBANRO"
@@ -448,11 +462,10 @@
         </div>
         <div class="col-12 col-lg-6 mx-0 px-0 ps-lg-1 ps-md-0 ps-0">
           <mat-form-field class="col-12 mx-0 px-0" appearance="fill">
-            <mat-label>{{
-              "customer.dialog.IBANEUR" | translate
-            }}</mat-label>
+            <mat-label>{{ "customer.dialog.IBANEUR" | translate }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.IBANEUR"
               type="text"
               formControlName="IBANEUR"
@@ -466,6 +479,7 @@
             <mat-label>{{ "customer.dialog.swift" | translate }}</mat-label>
             <input
               matInput
+              (keydown)="onKeydown($event)"
               [(ngModel)]="currentCustomer.swift"
               type="text"
               formControlName="swift"
