@@ -28,7 +28,8 @@
         [ngStyle]="{ 'background-color': timeBookedContainerColor }"
       >
         <mat-card-subtitle
-          >{{ "activity.page.timeBooked" | translate }} <strong>{{ totalTimeBooked }}</strong
+          >{{ "activity.page.timeBooked" | translate }}
+          <strong>{{ totalTimeBooked }}</strong
           >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
         >
       </mat-card>
@@ -78,7 +79,7 @@
   >
     <div class="row col-12 text-start mt-2 mx-0 px-0 mb-4">
       <mat-card-title class="col-12 mx-0 px-0">{{
-        project.projectId | projectid: allProjects!
+        project.projectId | projectid : allProjects!
       }}</mat-card-title>
     </div>
     <div class="row mx-0 px-0">
@@ -99,10 +100,10 @@
               <mat-chip
                 >{{
                   activity.projectId!
-                    | customerfromprojectid: allProjects!:allCustomers!
+                    | customerfromprojectid : allProjects! : allCustomers!
+                    | shorten
                 }}
-                {{ activity.projectId! | projectid: allProjects! }}</mat-chip
-              >
+              </mat-chip>
             </div>
           </mat-chip-set>
           <mat-chip-set
@@ -210,7 +211,11 @@
     </div>
   </mat-card>
   <div class="col-12 d-flex flex-row-reverse">
-    <button mat-raised-button class="col-1" (click)="nextDayPage()"><mat-icon color="accent">keyboard_arrow_right</mat-icon></button>
-    <button mat-raised-button class="col-1 mx-1" (click)="prevDayPage()"><mat-icon color="accent">keyboard_arrow_left</mat-icon></button>
+    <button mat-raised-button class="col-1" (click)="nextDayPage()">
+      <mat-icon color="accent">keyboard_arrow_right</mat-icon>
+    </button>
+    <button mat-raised-button class="col-1 mx-1" (click)="prevDayPage()">
+      <mat-icon color="accent">keyboard_arrow_left</mat-icon>
+    </button>
   </div>
 </div>
