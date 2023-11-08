@@ -1,10 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -62,19 +56,6 @@ export class AppComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((nextValue) => {
         this.isAdmin = nextValue === 'admin' && nextValue !== null;
-      });
-    this.localStorageService.accessTokenValue
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((nextValue) => {
-        if (!this.tokenExpired(nextValue!)) {
-          if (this.isAdmin) {
-            this.router.navigate(['reporting/admin-dashboard']);
-          } else {
-            this.router.navigate(['reporting/dashboard/']);
-          }
-        } else {
-          this.authService.doLogout();
-        }
       });
 
     this.router.events
