@@ -27,7 +27,7 @@
         class="col-12 text-center"
         [ngStyle]="{ 'background-color': timeBookedContainerColor }"
       >
-        <mat-card-subtitle
+        <mat-card-subtitle class="px-0 py-0"
           >{{ "activity.page.timeBooked" | translate }}
           <strong>{{ totalTimeBooked }}</strong
           >/<strong>{{ currentEmployeeCommitment }}</strong></mat-card-subtitle
@@ -37,7 +37,7 @@
   </div>
   <div class="row mx-0 px-0 mb-2 col-lg-6 ps-lg-2">
     <div class="col-12 mx-0 px-0 col-md-8 col-lg-6">
-      <mat-form-field class="col-12" appearance="fill">
+      <mat-form-field class="col-12 align-self-center" appearance="fill">
         <mat-label>Filter</mat-label>
         <mat-select
           (selectionChange)="setValueOfSelectedProject($event)"
@@ -55,8 +55,22 @@
         </mat-select></mat-form-field
       >
     </div>
-    <div class="col-12 mx-0 px-0 col-md-4 ps-md-4 col-lg-6">
-      <button class="col-12 p-2" mat-raised-button (click)="addNewActivity()">
+    <div
+      class="col-12 mx-0 px-0 col-md-4 ps-md-2 col-lg-6 d-flex gap-1 justify-content-end"
+    >
+      <button
+        class="col-6 col-sm-6 top-button"
+        color="accent"
+        mat-raised-button
+        (click)="deleteAllActivitiesOfUserDay()"
+      >
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+      <button
+        class="col-6 col-sm-6 top-button"
+        mat-raised-button
+        (click)="addNewActivity()"
+      >
         <mat-icon color="accent">add_box</mat-icon>
       </button>
     </div>

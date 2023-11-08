@@ -120,6 +120,33 @@ export class ActivityPageComponent implements OnInit {
     });
   }
 
+  deleteAllActivitiesOfUserDay() {
+    if (this.activitiesOfTheDay.length) {
+      const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+        panelClass: 'delete-confirmation-dialog',
+      });
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          if (this.user?.id && this.selectedDate)
+            this.activityService
+              .deleteAllActivitiesOfUserDay(
+                this.user?.id,
+                this.selectedDate?.toISOString().split('T')[0]
+              )
+              .pipe(takeUntilDestroyed(this.destroyRef))
+              .subscribe(() => {
+                this.activitiesOfTheDay = [];
+                this.getTotalTimeBookedToday();
+                this.getIdsOfProjectsOfTodayActivities();
+                this.projectsOfCurrentDayAndActivities = [];
+                this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+                this.sortActivitiesOnEachIndividualProject();
+              });
+        }
+      });
+    }
+  }
+
   groupActivitiesOnProjectsUsingProjecIdActivitiesModel() {
     this.groupActivitiesWithNoProject();
     if (this.projectsIdsOfCurrentDayActivities) {
@@ -313,16 +340,14 @@ export class ActivityPageComponent implements OnInit {
       panelClass: 'full-width-dialog',
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe((newActivity: Activity) => {
-        if (newActivity) this.activitiesOfTheDay.push(newActivity);
-        this.getTotalTimeBookedToday();
-        this.getIdsOfProjectsOfTodayActivities();
-        this.projectsOfCurrentDayAndActivities = [];
-        this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
-        this.sortActivitiesOnEachIndividualProject();
-      });
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
+      this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
+    });
   }
 
   addActivityOnCertainProject(projectId: string) {
@@ -339,16 +364,14 @@ export class ActivityPageComponent implements OnInit {
       panelClass: 'full-width-dialog',
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe((newActivity: Activity) => {
-        if (newActivity) this.activitiesOfTheDay.push(newActivity);
-        this.getTotalTimeBookedToday();
-        this.getIdsOfProjectsOfTodayActivities();
-        this.projectsOfCurrentDayAndActivities = [];
-        this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
-        this.sortActivitiesOnEachIndividualProject();
-      });
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
+      this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
+    });
   }
 
   editActivity(activityToEdit: Activity) {
