@@ -55,9 +55,7 @@ const routes: Routes = [
     path: 'settings',
     component: UserSettingsPageComponent,
   },
-  { path: 'rate',
-    component: RatePageComponent,
-  },
+  { path: 'rate', component: RatePageComponent },
   {
     path: '',
     redirectTo: 'admin-dashboard',

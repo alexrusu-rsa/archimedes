@@ -5,12 +5,14 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthService } from './services/auth-service/auth.service';
 import { LocalStorageService } from './services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { take } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +34,8 @@ export class AppComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private localStorageService: LocalStorageService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private activatedRoute: ActivatedRoute
   ) {
     translate.addLangs(['en', 'de', 'ro']);
     translate.setDefaultLang('en');
@@ -62,19 +65,6 @@ export class AppComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((nextValue) => {
         this.isAdmin = nextValue === 'admin' && nextValue !== null;
-      });
-    this.localStorageService.accessTokenValue
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((nextValue) => {
-        if (!this.tokenExpired(nextValue!)) {
-          if (this.isAdmin) {
-            this.router.navigate(['reporting/admin-dashboard']);
-          } else {
-            this.router.navigate(['reporting/dashboard/']);
-          }
-        } else {
-          this.authService.doLogout();
-        }
       });
 
     this.router.events
