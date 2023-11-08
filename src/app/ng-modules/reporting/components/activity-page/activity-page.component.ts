@@ -164,8 +164,8 @@ export class ActivityPageComponent implements OnInit {
     }
   }
 
-  computeTimeBookedCardColor(hours: string, minutes: string) {
-    if (parseInt(hours) === 0 && parseInt(minutes) === 0) {
+  computeTimeBookedCardColor(hours: string) {
+    if (parseInt(hours) === 0) {
       this.timeBookedContainerColor = 'red';
       return;
     }
@@ -295,17 +295,18 @@ export class ActivityPageComponent implements OnInit {
       );
     }
   }
-
+  minutesToHours(minutes: number): number {
+    return minutes / 60;
+  }
   formatMilisecondsToHoursMinutes(milliseconds: number) {
     const seconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes - hours * 60;
     this.computeTimeBookedCardColor(
-      hours.toString(),
-      remainingMinutes.toString()
+      (hours + this.minutesToHours(remainingMinutes)).toString()
     );
-    return ` ${hours}.${remainingMinutes}`;
+    return `${(hours + this.minutesToHours(remainingMinutes)).toString()}`;
   }
 
   getCustomers() {

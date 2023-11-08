@@ -172,9 +172,10 @@ export class ReportingPageComponent implements OnInit {
                   Number(activity.workedTime?.split(':')[1]);
               }
             });
-            const hoursFromMinutes = this.minutesToHours(employeeReportedHours);
-            employeeReportedHours =
-              employeeReportedHours + Math.round(hoursFromMinutes);
+            const hoursFromMinutes = this.minutesToHours(
+              employeeReportedMinutes
+            );
+            employeeReportedHours = employeeReportedHours + hoursFromMinutes;
             const newEmployeeCommitmentCalendar = <EmployeeCommitmentCalendar>(<
               unknown
             >{
