@@ -288,20 +288,24 @@ export class ReportingPageComponent implements OnInit {
   generateCalendarDayColors() {
     this.calendarDays?.forEach((calendarDay) => {
       let color = 'green';
-      let totalCommitmentOfCalendarDay = 0;
-      calendarDay.employeesCommitment.forEach((employeeCommitment) => {
-        if (employeeCommitment.reportedHours === 0) color = 'red';
-        if (
-          employeeCommitment.reportedHours > 0 &&
-          employeeCommitment.reportedHours <
-            employeeCommitment.employeeExpectedCommitment
-        )
-          color = 'orange';
-        totalCommitmentOfCalendarDay =
-          totalCommitmentOfCalendarDay + employeeCommitment.reportedHours;
-      });
-      calendarDay.timeBooked = totalCommitmentOfCalendarDay;
-      calendarDay.color = color;
+      if (calendarDay.date.getDay() === 0 || calendarDay.date.getDay() === 6) {
+        calendarDay.color = color;
+      } else {
+        let totalCommitmentOfCalendarDay = 0;
+        calendarDay.employeesCommitment.forEach((employeeCommitment) => {
+          if (employeeCommitment.reportedHours === 0) color = 'red';
+          if (
+            employeeCommitment.reportedHours > 0 &&
+            employeeCommitment.reportedHours <
+              employeeCommitment.employeeExpectedCommitment
+          )
+            color = 'orange';
+          totalCommitmentOfCalendarDay =
+            totalCommitmentOfCalendarDay + employeeCommitment.reportedHours;
+        });
+        calendarDay.timeBooked = totalCommitmentOfCalendarDay;
+        calendarDay.color = color;
+      }
     });
   }
 

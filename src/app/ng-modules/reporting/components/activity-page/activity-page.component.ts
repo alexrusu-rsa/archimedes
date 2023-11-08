@@ -165,18 +165,26 @@ export class ActivityPageComponent implements OnInit {
   }
 
   computeTimeBookedCardColor(hours: string) {
-    if (parseInt(hours) === 0) {
-      this.timeBookedContainerColor = 'red';
-      return;
-    }
-    if (parseInt(hours) < this.currentEmployeeCommitment!) {
-      this.timeBookedContainerColor = 'orange';
-      return;
-    }
-
-    if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+    if (
+      this.selectedDate?.getDay() === 0 ||
+      this.selectedDate?.getDay() === 6
+    ) {
       this.timeBookedContainerColor = 'green';
       return;
+    } else {
+      if (parseInt(hours) === 0) {
+        this.timeBookedContainerColor = 'red';
+        return;
+      }
+      if (parseInt(hours) < this.currentEmployeeCommitment!) {
+        this.timeBookedContainerColor = 'orange';
+        return;
+      }
+
+      if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+        this.timeBookedContainerColor = 'green';
+        return;
+      }
     }
   }
 
