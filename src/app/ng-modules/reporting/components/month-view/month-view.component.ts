@@ -53,11 +53,6 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
       activities: activitiesOfDate,
       reportedTime: hours + hoursFromMinutes,
     } as ActivitiesOfDate);
-    // console.log(
-    //   `On ${date} you reported ${hours + hoursFromMinutes}/${
-    //     this.currentUserTimePerDay
-    //   }`
-    // );
     this.addTooltip(
       date,
       `On ${date} you reported ${hours + hoursFromMinutes}/${
@@ -95,6 +90,7 @@ export class MonthViewComponent implements OnInit, AfterViewInit {
     if (found) cssClass = ' has-tooltip with-reported-hours';
     if (actualHours >= expectedHours)
       cssClass = 'has-tooltip fully-reported-hours';
+
     return cssClass + ' has-tooltip';
   }
 
