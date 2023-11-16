@@ -9,9 +9,9 @@ import { ReportingPageComponent } from './components/reporting-page/reporting-pa
 import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-dashboard-page.component';
-import { FirstUserPageComponent } from '../auth/first-user-page/first-user-page.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
+import { RatePageComponent } from './rate-page/rate-page.component';
 
 const routes: Routes = [
   {
@@ -52,13 +52,10 @@ const routes: Routes = [
     component: UserDashboardComponent,
   },
   {
-    path: 'first-user-page',
-    component: FirstUserPageComponent,
-  },
-  {
     path: 'settings',
     component: UserSettingsPageComponent,
   },
+  { path: 'rate', component: RatePageComponent },
   {
     path: '',
     redirectTo: 'admin-dashboard',

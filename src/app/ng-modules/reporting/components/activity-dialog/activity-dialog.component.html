@@ -17,11 +17,7 @@
       </div>
     </div>
 
-    <form
-      class="mt-2 mx-0 col-12 pb-5"
-      [formGroup]="addActivityForm!"
-      (keyup.enter)="addActivity()"
-    >
+    <form class="mt-2 mx-0 col-12 pb-5" [formGroup]="addActivityForm!">
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.name" | translate }}</mat-label>
@@ -35,6 +31,7 @@
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.startTime" | translate }}</mat-label>
           <input
+            (keydown)="onKeydown($event)"
             type="time"
             matInput
             min="00:00"
@@ -50,6 +47,7 @@
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.endTime" | translate }}</mat-label>
           <input
+            (keydown)="onKeydown($event)"
             type="time"
             matInput
             min="00:00"
@@ -66,6 +64,7 @@
           <mat-label>{{ "activity.dialog.project" | translate }}</mat-label>
           <input
             type="text"
+            (keydown)="onKeydown($event)"
             aria-label="Project"
             matInput
             [value]="currentActivity.projectId! | projectid : projects!"
@@ -92,7 +91,10 @@
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.type" | translate }}</mat-label>
-          <mat-select formControlName="activityType">
+          <mat-select
+            formControlName="activityType"
+            (keyup.enter)="$event.stopPropagation()"
+          >
             <mat-option
               ngDefaultControl
               *ngFor="let activityType of activityTypes"
@@ -106,14 +108,27 @@
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.description" | translate }}</mat-label>
-          <textarea matInput type="text" formControlName="extras"> </textarea>
+          <textarea
+            matInput
+            type="text"
+            formControlName="description"
+            [(ngModel)]="currentActivity.description"
+            (keydown)="onKeydown($event)"
+          >
+          </textarea>
         </mat-form-field>
       </div>
 
-      <div class="row col-12 mx-0 px-0">
+      <div class="row col-12 mx-0 px-0" *ngIf="currentActivity.description">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.extras" | translate }}</mat-label>
-          <textarea matInput type="text" formControlName="extras"> </textarea>
+          <textarea
+            matInput
+            type="text"
+            (keydown)="onKeydown($event)"
+            formControlName="extras"
+          >
+          </textarea>
         </mat-form-field>
       </div>
       <div class="row col-12 mx-0 px-0 mb-3">
@@ -147,15 +162,17 @@
       </div>
     </div>
 
-    <form
-      class="mt-2 mx-0 px-0 col-12 pb-5"
-      [formGroup]="addActivityForm!"
-      (keyup.enter)="editActivity()"
-    >
+    <form class="mt-2 mx-0 px-0 col-12 pb-5" [formGroup]="addActivityForm!">
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.name" | translate }}</mat-label>
-          <input matInput type="text" formControlName="name" required="true" />
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            (keydown)="onKeydown($event)"
+            required="true"
+          />
           <mat-hint *ngIf="name?.touched && !name?.dirty">
             {{ "activity.dialog.nameHint" | translate }}
           </mat-hint>
@@ -171,6 +188,7 @@
             min="00:00"
             max="24:00"
             formControlName="start"
+            (keydown)="onKeydown($event)"
           />
         </mat-form-field>
         <mat-hint
@@ -185,6 +203,7 @@
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.endTime" | translate }}</mat-label>
           <input
+            (keydown)="onKeydown($event)"
             type="time"
             matInput
             min="00:00"
@@ -207,6 +226,7 @@
             type="text"
             aria-label="Project"
             matInput
+            (keydown)="onKeydown($event)"
             [value]="currentActivity.projectId! | projectid : projects!"
             formControlName="projectName"
             [matAutocomplete]="auto"
@@ -232,7 +252,10 @@
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.type" | translate }}</mat-label>
-          <mat-select formControlName="activityType">
+          <mat-select
+            formControlName="activityType"
+            (keyup.enter)="$event.stopPropagation()"
+          >
             <mat-option
               ngDefaultControl
               *ngFor="let activityType of activityTypes"
@@ -246,15 +269,27 @@
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.description" | translate }}</mat-label>
-          <textarea matInput type="text" formControlName="description">
+          <textarea
+            matInput
+            type="text"
+            (keydown)="onKeydown($event)"
+            formControlName="description"
+            [(ngModel)]="currentActivity.description"
+          >
           </textarea>
         </mat-form-field>
       </div>
 
-      <div class="row col-12 mx-0 px-0">
+      <div class="row col-12 mx-0 px-0" *ngIf="currentActivity.description">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "activity.dialog.extras" | translate }}</mat-label>
-          <textarea matInput type="text" formControlName="extras"> </textarea>
+          <textarea
+            matInput
+            type="text"
+            (keydown)="onKeydown($event)"
+            formControlName="extras"
+          >
+          </textarea>
         </mat-form-field>
       </div>
       <div class="row col-12 mx-0 px-0 mb-3">

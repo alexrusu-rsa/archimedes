@@ -43,6 +43,12 @@ export class CustomerDialogComponent implements OnInit {
         });
     }
   }
+  
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
 
   checkAbleToRequestAddCustomer(): boolean {
     for (const [key, value] of Object.entries(this.addCustomerForm?.value)) {

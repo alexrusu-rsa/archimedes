@@ -8,7 +8,8 @@
     "reporting": "Reporting",
     "settings": "Settings",
     "invoices": "Invoices",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "rates": "Rates"
   },
   "admin-dashboard": {
     "activities": "Activities",
@@ -16,7 +17,8 @@
     "projects": "Projects",
     "customers": "Customers",
     "reporting": "Reporting",
-    "invoices": "Invoices"
+    "invoices": "Invoices",
+    "rates": "Rates"
   },
   "firstUserPage": {
     "title": "Register first account",
@@ -153,6 +155,9 @@
       "rateType": "Rate type",
       "employeeTimeCommitment": "Employee Time Commitment",
       "updateTitle": "Update rate"
+    },
+    "page": {
+      "title": "Rates"
     }
   },
   "reporting": {

@@ -1,5 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
@@ -21,17 +29,16 @@ import { Rate } from '../../../../models/rate';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import e from 'express';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
   styleUrls: ['./activity-page.component.sass'],
 })
-export class ActivityPageComponent implements OnInit, OnDestroy {
+export class ActivityPageComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
+
   user?: User;
-  userSub?: Subscription;
-  activitiesOfTheDaySub?: Subscription;
-  deleteActivitySub?: Subscription;
-  getUserSub?: Subscription;
   activitiesOfTheDay: Activity[] = [];
   daySelected?: string;
   selectedDate?: Date;
@@ -40,17 +47,12 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
   allCustomers?: Customer[];
   allProjects?: Project[];
 
-  allCustomersSub?: Subscription;
-  allProjectsSub?: Subscription;
-
   activitiesToDisplay?: Activity[];
   selectedFilterProjectId?: string;
 
   currentEmployeeCommitment?: number;
-  currentEmployeeCommitmentSub?: Subscription;
 
   timeBookedContainerColor?: string;
-  subscriptions?: Subscription[];
 
   projectsIdsOfCurrentDayActivities?: string[];
 
@@ -82,8 +84,9 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
 
     if (userId) {
       this.getCurrentEmployeeCommitment(userId);
-      this.getUserSub = this.userService
+      this.userService
         .getUser(userId)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((result: User) => {
           const presetDate =
             this.activeRoute.snapshot.queryParamMap.get('presetDate');
@@ -94,7 +97,6 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
           }
           this.dateChanges();
         });
-      this.subscriptions?.push(this.getUserSub);
     }
   }
 
@@ -126,6 +128,33 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteAllActivitiesOfUserDay() {
+    if (this.activitiesOfTheDay.length) {
+      const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+        panelClass: 'delete-confirmation-dialog',
+      });
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          if (this.user?.id && this.selectedDate)
+            this.activityService
+              .deleteAllActivitiesOfUserDay(
+                this.user?.id,
+                this.selectedDate?.toISOString().split('T')[0]
+              )
+              .pipe(takeUntilDestroyed(this.destroyRef))
+              .subscribe(() => {
+                this.activitiesOfTheDay = [];
+                this.getTotalTimeBookedToday();
+                this.getIdsOfProjectsOfTodayActivities();
+                this.projectsOfCurrentDayAndActivities = [];
+                this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+                this.sortActivitiesOnEachIndividualProject();
+              });
+        }
+      });
+    }
+  }
+
   groupActivitiesOnProjectsUsingProjecIdActivitiesModel() {
     this.groupActivitiesWithNoProject();
     if (this.projectsIdsOfCurrentDayActivities) {
@@ -143,30 +172,38 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  computeTimeBookedCardColor(hours: string, minutes: string) {
-    if (parseInt(hours) === 0 && parseInt(minutes) === 0) {
-      this.timeBookedContainerColor = 'red';
-      return;
-    }
-    if (parseInt(hours) < this.currentEmployeeCommitment!) {
-      this.timeBookedContainerColor = 'orange';
-      return;
-    }
-
-    if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+  computeTimeBookedCardColor(hours: string) {
+    if (
+      this.selectedDate?.getDay() === 0 ||
+      this.selectedDate?.getDay() === 6
+    ) {
       this.timeBookedContainerColor = 'green';
       return;
+    } else {
+      if (parseInt(hours) === 0) {
+        this.timeBookedContainerColor = 'red';
+        return;
+      }
+      if (parseInt(hours) < this.currentEmployeeCommitment!) {
+        this.timeBookedContainerColor = 'orange';
+        return;
+      }
+
+      if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+        this.timeBookedContainerColor = 'green';
+        return;
+      }
     }
   }
 
   getCurrentEmployeeCommitment(employeeId: string) {
-    this.currentEmployeeCommitmentSub = this.rateService
+    this.rateService
       .getRateForEmployeeId(employeeId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result: Rate[]) => {
         this.currentEmployeeRates = result;
         this.computeCurrentEmployeTotalCommitment();
       });
-    this.subscriptions?.push(this.currentEmployeeCommitmentSub);
   }
 
   computeCurrentEmployeTotalCommitment() {
@@ -214,13 +251,13 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     if (dateFormatted) {
       this.daySelected = dateFormatted;
       if (this.user?.id)
-        this.activitiesOfTheDaySub = this.activityService
+        this.activityService
           .getActivitiesByDateEmployeeId(this.user.id, this.daySelected)
+          .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((response) => {
             this.getCustomers();
             this.activitiesOfTheDay = response;
           });
-      this.subscriptions?.push(this.activitiesOfTheDaySub!);
     }
   }
 
@@ -231,8 +268,9 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         if (activityToDelete.id)
-          this.deleteActivitySub = this.activityService
+          this.activityService
             .deleteActivity(activityToDelete.id)
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((result) => {
               this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
                 (activity) => activity.id !== activityToDelete.id
@@ -243,7 +281,6 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
               this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
               this.sortActivitiesOnEachIndividualProject();
             });
-        this.subscriptions?.push(this.deleteActivitySub!);
       }
     });
   }
@@ -274,31 +311,30 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       );
     }
   }
-
+  minutesToHours(minutes: number): number {
+    return minutes / 60;
+  }
   formatMilisecondsToHoursMinutes(milliseconds: number) {
     const seconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes - hours * 60;
     this.computeTimeBookedCardColor(
-      hours.toString(),
-      remainingMinutes.toString()
+      (hours + this.minutesToHours(remainingMinutes)).toString()
     );
-    return ` ${hours}.${remainingMinutes}`;
+    return `${(hours + this.minutesToHours(remainingMinutes)).toString()}`;
   }
 
   getCustomers() {
-    this.allCustomersSub = this.customerService
-      .getCustomers()
-      .subscribe((result) => {
-        this.allCustomers = result;
-        this.getProjects();
-      });
-    this.subscriptions?.push(this.allCustomersSub);
+    this.customerService.getCustomers().subscribe((result) => {
+      this.allCustomers = result;
+      this.getProjects();
+    });
   }
   getProjects() {
-    this.allProjectsSub = this.projectService
+    this.projectService
       .getProjectsUser(this.localStorageService.userId!)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.allProjects = result;
         this.getIdsOfProjectsOfTodayActivities();
@@ -306,7 +342,6 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
         this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
         this.sortActivitiesOnEachIndividualProject();
       });
-    this.subscriptions?.push(this.allProjectsSub);
   }
 
   addNewActivity() {
@@ -405,11 +440,5 @@ export class ActivityPageComponent implements OnInit, OnDestroy {
       Number(hhmm.slice(0, 2)),
       Number(hhmm.slice(3, 5))
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions?.forEach((sub) => {
-      sub.unsubscribe();
-    });
   }
 }

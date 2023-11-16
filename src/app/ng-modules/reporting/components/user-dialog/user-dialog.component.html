@@ -20,13 +20,13 @@
     <form
       class="mt-2 mx-0 px-0 col-12 pb-5"
       [formGroup]="addUserForm!"
-      (keyup.enter)="addUser()"
     >
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "user.dialog.surname" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.surname"
             type="text"
             formControlName="surname"
@@ -42,6 +42,7 @@
           <mat-label>{{ "user.dialog.name" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.name"
             formControlName="name"
             type="text"
@@ -57,6 +58,7 @@
           <mat-label>{{ "user.dialog.email" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.email"
             formControlName="email"
             type="text"
@@ -72,6 +74,7 @@
           <mat-label>{{ "user.dialog.role" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.role"
             type="text"
             formControlName="role"
@@ -86,6 +89,7 @@
           <mat-label>{{ "user.dialog.seniority" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.seniority"
             type="text"
             formControlName="seniority"
@@ -100,6 +104,7 @@
           <mat-label>{{ "user.dialog.timePerDay" | translate }} </mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.timePerDay"
             type="text"
             formControlName="timePerDay"
@@ -109,7 +114,9 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <mat-slide-toggle class="mb-2" [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
+      <mat-slide-toggle class="mb-2" [(ngModel)]="adminUserCheck"
+        >Admin</mat-slide-toggle
+      >
       <div class="row col-12 mx-0 px-0 pb-3">
         <button
           *ngIf="this.user === null"
@@ -140,16 +147,13 @@
         </button>
       </div>
     </div>
-    <form
-      class="mt-2 mx-0 px-0 col-12 pb-5"
-      [formGroup]="addUserForm!"
-      (keyup.enter)="editUser()"
-    >
+    <form class="mt-2 mx-0 px-0 col-12 pb-5" [formGroup]="addUserForm!">
       <div class="row col-12 mx-0 px-0">
         <mat-form-field class="mx-0 px-0" appearance="fill">
           <mat-label>{{ "user.dialog.surname" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.surname"
             type="text"
             formControlName="surname"
@@ -166,6 +170,7 @@
           <mat-label>{{ "user.dialog.name" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.name"
             formControlName="name"
             type="text"
@@ -182,6 +187,7 @@
           <mat-label>{{ "user.dialog.email" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.email"
             formControlName="email"
             type="text"
@@ -198,6 +204,7 @@
           <mat-label>{{ "user.dialog.role" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.role"
             type="text"
             formControlName="role"
@@ -213,6 +220,7 @@
           <mat-label>{{ "user.dialog.seniority" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.seniority"
             type="text"
             formControlName="seniority"
@@ -227,6 +235,7 @@
           <mat-label>{{ "user.dialog.timePerDay" | translate }}</mat-label>
           <input
             matInput
+            (keydown)="onKeydown($event)"
             [(ngModel)]="currentUser.timePerDay"
             type="text"
             formControlName="timePerDay"
@@ -236,7 +245,9 @@
           </mat-hint>
         </mat-form-field>
       </div>
-      <mat-slide-toggle class="mb-2" [(ngModel)]="adminUserCheck">Admin</mat-slide-toggle>
+      <mat-slide-toggle class="mb-2" [(ngModel)]="adminUserCheck"
+        >Admin</mat-slide-toggle
+      >
       <div class="row col-12 mx-0 px-0 pb-3">
         <button
           *ngIf="user !== null"

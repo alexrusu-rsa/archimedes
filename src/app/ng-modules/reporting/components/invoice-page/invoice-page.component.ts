@@ -1,7 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription, switchMap, takeUntil } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { Customer } from 'src/app/models/customer';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
@@ -25,6 +31,7 @@ import {
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -52,11 +59,10 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class InvoicePageComponent implements OnInit, OnDestroy {
+export class InvoicePageComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   allCustomers?: Customer[];
   allProjects?: Project[];
-
-  fetchDataSub?: Subscription;
 
   selectedDate?: Date;
   selectedMonth?: string;
@@ -152,9 +158,10 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
   }
 
   fetchData() {
-    this.fetchDataSub = this.customerService
+    this.customerService
       .getCustomers()
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((customers) => {
           this.allCustomers = customers;
           return this.projectService.getProjects();
@@ -163,9 +170,5 @@ export class InvoicePageComponent implements OnInit, OnDestroy {
       .subscribe((projects) => {
         this.allProjects = projects;
       });
-  }
-
-  ngOnDestroy(): void {
-    this.fetchDataSub?.unsubscribe();
   }
 }

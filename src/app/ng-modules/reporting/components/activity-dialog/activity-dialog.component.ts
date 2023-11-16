@@ -1,10 +1,17 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
 import { Project } from 'src/app/models/project';
-import { User } from 'src/app/models/user';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
 import { DateFormatService } from 'src/app/services/date-format-service/date-format.service';
@@ -16,7 +23,8 @@ import { ProjectService } from 'src/app/services/project-service/project.service
   templateUrl: './activity-dialog.component.html',
   styleUrls: ['./activity-dialog.component.sass'],
 })
-export class ActivityDialogComponent implements OnInit, OnDestroy {
+export class ActivityDialogComponent implements OnInit {
+  readonly destroyRef = inject(DestroyRef);
   constructor(
     public dialogRef: MatDialogRef<ActivityDialogComponent>,
     private dateFormatService: DateFormatService,
@@ -30,17 +38,11 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
 
   currentActivity?: Activity;
   addActivityForm?: FormGroup;
-  addCurrentActivitySub?: Subscription;
-  updateEditActivitySub?: Subscription;
   projects?: Project[];
-  getProjectsSub?: Subscription;
-  projectOfActivitySub?: Subscription;
   projectOfSelectedActivity?: Project;
   selectedItem?: string;
   activityTypes?: [string, string][];
-  activityTypesSub?: Subscription;
   filteredProjects?: Observable<Project[]>;
-  findProjectIdSub?: Subscription;
 
   addActivity() {
     this.currentActivity!.name = this.name?.value;
@@ -51,8 +53,9 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.currentActivity!.extras = this.extras?.value;
 
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
-      this.addCurrentActivitySub = this.activityService
+      this.activityService
         .addActivity(this.currentActivity)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((newActivity: Activity) =>
           this.dialogRef.close(newActivity)
         );
@@ -67,8 +70,9 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
 
   getProjects() {
-    this.getProjectsSub = this.projectService
+    this.projectService
       .getProjectsUser(this.localStorageService.userId!)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.projects = result;
         this.filteredProjects = this.projectName?.valueChanges.pipe(
@@ -84,6 +88,11 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.currentActivity!.projectId = selectedProjectId?.id;
   }
 
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
   findProjectNameWithId(projectId: string): string {
     const projectWithId = this.projects?.find(
       (project) => project.id === projectId
@@ -92,8 +101,9 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     return '';
   }
   getActivityTypes() {
-    this.activityTypesSub = this.activityService
+    this.activityService
       .getAllActivityTypes()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.activityTypes = Object.entries(result);
       });
@@ -103,18 +113,14 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     if (!this.checkEndStart()) return false;
     if (this.name?.pristine || this.end?.pristine || this.start?.pristine)
       return false;
+    if (this.activityType?.value === null) return false;
+    if (this.projectName?.value === null) return false;
     return true;
   }
 
   checkAbleToRequestUpdateActivity(): boolean {
     if (!this.checkEndStart()) return false;
-    if (
-      this.name?.value !== '' &&
-      this.end?.value !== '' &&
-      this.start?.value !== ''
-    )
-      return true;
-    return false;
+    return true;
   }
 
   editActivity() {
@@ -125,8 +131,9 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
     this.currentActivity!.description = this.description?.value;
     this.currentActivity!.extras = this.extras?.value;
     if (this.currentActivity && this.checkAbleToRequestUpdateActivity()) {
-      this.updateEditActivitySub = this.activityService
+      this.activityService
         .updateActivity(this.currentActivity)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((updatedActivity: Activity) => {
           this.dialogRef.close(updatedActivity);
         });
@@ -169,8 +176,12 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
         Validators.required,
       ]),
       end: new FormControl(this.currentActivity?.end, [Validators.required]),
-      projectName: new FormControl(this.currentActivity?.projectId),
-      activityType: new FormControl(this.currentActivity?.activityType),
+      projectName: new FormControl(this.currentActivity?.projectId, [
+        Validators.required,
+      ]),
+      activityType: new FormControl(this.currentActivity?.activityType, [
+        Validators.required,
+      ]),
       description: new FormControl(this.currentActivity?.description),
       extras: new FormControl(this.currentActivity?.extras),
     });
@@ -199,13 +210,5 @@ export class ActivityDialogComponent implements OnInit, OnDestroy {
   }
   get extras() {
     return this.addActivityForm?.get('extras');
-  }
-
-  ngOnDestroy(): void {
-    this.addCurrentActivitySub?.unsubscribe();
-    this.updateEditActivitySub?.unsubscribe();
-    this.projectOfActivitySub?.unsubscribe();
-    this.getProjectsSub?.unsubscribe();
-    this.activityTypesSub?.unsubscribe();
   }
 }

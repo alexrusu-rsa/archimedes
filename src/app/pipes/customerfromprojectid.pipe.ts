@@ -12,8 +12,7 @@ export class CustomerfromprojectidPipe implements PipeTransform {
       const matchingCustomer = customers.filter(
         (customer) => customer.id === matchingProject[0].customerId!
       );
-      if (matchingCustomer[0].customerName)
-        return matchingCustomer[0].customerName;
+      if (matchingCustomer[0].shortName) return matchingCustomer[0].shortName;
       return 'NO CUSTOMER';
     }
     return 'NO CUSTOMER';
