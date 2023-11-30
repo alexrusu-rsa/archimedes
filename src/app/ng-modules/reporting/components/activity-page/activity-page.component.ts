@@ -120,6 +120,33 @@ export class ActivityPageComponent implements OnInit {
     });
   }
 
+  deleteAllActivitiesOfUserDay() {
+    if (this.activitiesOfTheDay.length) {
+      const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+        panelClass: 'delete-confirmation-dialog',
+      });
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          if (this.user?.id && this.selectedDate)
+            this.activityService
+              .deleteAllActivitiesOfUserDay(
+                this.user?.id,
+                this.selectedDate?.toISOString().split('T')[0]
+              )
+              .pipe(takeUntilDestroyed(this.destroyRef))
+              .subscribe(() => {
+                this.activitiesOfTheDay = [];
+                this.getTotalTimeBookedToday();
+                this.getIdsOfProjectsOfTodayActivities();
+                this.projectsOfCurrentDayAndActivities = [];
+                this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+                this.sortActivitiesOnEachIndividualProject();
+              });
+        }
+      });
+    }
+  }
+
   groupActivitiesOnProjectsUsingProjecIdActivitiesModel() {
     this.groupActivitiesWithNoProject();
     if (this.projectsIdsOfCurrentDayActivities) {
@@ -137,19 +164,27 @@ export class ActivityPageComponent implements OnInit {
     }
   }
 
-  computeTimeBookedCardColor(hours: string, minutes: string) {
-    if (parseInt(hours) === 0 && parseInt(minutes) === 0) {
-      this.timeBookedContainerColor = 'red';
-      return;
-    }
-    if (parseInt(hours) < this.currentEmployeeCommitment!) {
-      this.timeBookedContainerColor = 'orange';
-      return;
-    }
-
-    if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+  computeTimeBookedCardColor(hours: string) {
+    if (
+      this.selectedDate?.getDay() === 0 ||
+      this.selectedDate?.getDay() === 6
+    ) {
       this.timeBookedContainerColor = 'green';
       return;
+    } else {
+      if (parseInt(hours) === 0) {
+        this.timeBookedContainerColor = 'red';
+        return;
+      }
+      if (parseInt(hours) < this.currentEmployeeCommitment!) {
+        this.timeBookedContainerColor = 'orange';
+        return;
+      }
+
+      if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+        this.timeBookedContainerColor = 'green';
+        return;
+      }
     }
   }
 
@@ -268,17 +303,18 @@ export class ActivityPageComponent implements OnInit {
       );
     }
   }
-
+  minutesToHours(minutes: number): number {
+    return minutes / 60;
+  }
   formatMilisecondsToHoursMinutes(milliseconds: number) {
     const seconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes - hours * 60;
     this.computeTimeBookedCardColor(
-      hours.toString(),
-      remainingMinutes.toString()
+      (hours + this.minutesToHours(remainingMinutes)).toString()
     );
-    return ` ${hours}.${remainingMinutes}`;
+    return `${(hours + this.minutesToHours(remainingMinutes)).toString()}`;
   }
 
   getCustomers() {
@@ -313,16 +349,14 @@ export class ActivityPageComponent implements OnInit {
       panelClass: 'full-width-dialog',
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe((newActivity: Activity) => {
-        if (newActivity) this.activitiesOfTheDay.push(newActivity);
-        this.getTotalTimeBookedToday();
-        this.getIdsOfProjectsOfTodayActivities();
-        this.projectsOfCurrentDayAndActivities = [];
-        this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
-        this.sortActivitiesOnEachIndividualProject();
-      });
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
+      this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
+    });
   }
 
   addActivityOnCertainProject(projectId: string) {
@@ -339,16 +373,14 @@ export class ActivityPageComponent implements OnInit {
       panelClass: 'full-width-dialog',
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe((newActivity: Activity) => {
-        if (newActivity) this.activitiesOfTheDay.push(newActivity);
-        this.getTotalTimeBookedToday();
-        this.getIdsOfProjectsOfTodayActivities();
-        this.projectsOfCurrentDayAndActivities = [];
-        this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
-        this.sortActivitiesOnEachIndividualProject();
-      });
+    dialogRef.afterClosed().subscribe((newActivity: Activity) => {
+      if (newActivity) this.activitiesOfTheDay.push(newActivity);
+      this.getTotalTimeBookedToday();
+      this.getIdsOfProjectsOfTodayActivities();
+      this.projectsOfCurrentDayAndActivities = [];
+      this.groupActivitiesOnProjectsUsingProjecIdActivitiesModel();
+      this.sortActivitiesOnEachIndividualProject();
+    });
   }
 
   editActivity(activityToEdit: Activity) {

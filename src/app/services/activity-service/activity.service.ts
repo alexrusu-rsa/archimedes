@@ -93,6 +93,28 @@ export class ActivityService {
       );
   }
 
+  deleteAllActivitiesOfUserDay(
+    userId: string,
+    date: string
+  ): Observable<RequestWrapper> {
+    const deleteAllActivitiesOfUserDayUrl = `${this.activitiesUrl}/${userId}/${date}`;
+    return this.httpClient
+      .delete<RequestWrapper>(deleteAllActivitiesOfUserDayUrl, {
+        observe: 'response',
+      })
+      .pipe(
+        map((res) => {
+          this.responseHandlingService.handleResponse('Activities deleted');
+          return res.body as RequestWrapper;
+        }),
+        catchError(
+          this.responseHandlingService.handleError<RequestWrapper>(
+            'deleteAllActivitiesOfUserDay'
+          )
+        )
+      );
+  }
+
   addActivity(activity: Activity): Observable<Activity> {
     return this.httpClient
       .post<Activity>(this.activitiesUrl, activity, {

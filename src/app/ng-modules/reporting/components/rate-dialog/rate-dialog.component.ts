@@ -137,7 +137,7 @@ export class RateDialogComponent implements OnInit {
     this.currentRate = <Rate>{};
     this.getEmployees();
     this.getProjects();
-
+    const rateFormat = /^\d+[.,]\d+$/;
     if (this.rate !== null) {
       this.currentRate = this.rate;
       this.selectedItemEmployee = this.rate.employeeId;
@@ -153,6 +153,7 @@ export class RateDialogComponent implements OnInit {
       ]),
       employeeRate: new FormControl(this.currentRate?.rate, [
         Validators.required,
+        Validators.pattern(rateFormat),
       ]),
       employeeRateType: new FormControl(this.currentRate?.rateType, [
         Validators.required,
