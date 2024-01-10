@@ -102,7 +102,21 @@ export class InvoicePageComponent implements OnInit {
     const currentCustomerName = await this.allCustomers?.filter(
       (customer) => customer.id === customerId
     );
+
+    const currentProject: Project | undefined = this.allProjects!.find(
+      (project) => project.id === projectId
+    );
+
     if (currentCustomerName) {
+      const data: InvoiceDataWrapper = {
+        customerId: projectId,
+        month: this.selectedMonth!,
+        year: this.selectedYear!,
+        customerName: currentCustomerName[0].customerName,
+        customerShortName: currentCustomerName[0].shortName,
+        customerRomanian: currentCustomerName[0].romanianCompany,
+        invoiceTerm: currentProject ? currentProject.invoiceTerm : 0,
+      };
       const dialogRef = this.dialog.open(InvoiceDialogComponent, {
         data: <InvoiceDataWrapper>{
           customerId: projectId,
@@ -111,6 +125,7 @@ export class InvoicePageComponent implements OnInit {
           customerName: currentCustomerName[0].customerName,
           customerShortName: currentCustomerName[0].shortName,
           customerRomanian: currentCustomerName[0].romanianCompany,
+          invoiceTerm: currentProject ? currentProject.invoiceTerm : 0,
         },
         panelClass: 'full-width-dialog',
       });
