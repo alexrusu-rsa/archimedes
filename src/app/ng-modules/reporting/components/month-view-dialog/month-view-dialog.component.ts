@@ -28,6 +28,6 @@ export class MonthViewDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.activityReportUserDate);
+    
   }
 }

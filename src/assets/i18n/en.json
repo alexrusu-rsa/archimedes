@@ -1,4 +1,7 @@
 {
+  "dashboard": {
+    "monthOverview": "Month overview"
+  },
   "sidenav": {
     "home": "Home",
     "activities": "Activities",

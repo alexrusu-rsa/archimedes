@@ -106,8 +106,10 @@ body, input[type="text"], button
   height: fit-content
   position: fixed !important
   overflow: auto !important
+
 .mat-sidenav-container
   height: 100% !important
+
 .mat-drawer-backdrop
   height: 100vh
 
@@ -116,36 +118,54 @@ body, input[type="text"], button
 
 .weekend-date
   background-color: $rsasoft-fully-reported-day !important
-  color: yellow !important
-  border-radius: 25px !important
+  border-radius: 100px !important
 
 .without-reported-hours
   background-color: $rsasoft-without-reported-hours !important
-  color: yellow !important
-  border-radius: 25px !important
-
+  border-radius: 100px !important
+  color: #ffffff !important
+  
 .with-reported-hours
   background-color: $rsasoft-partially-reported-day !important
-  color: yellow !important
-  border-radius: 25px !important
+  border-radius: 100px !important
+  color: #ffffff !important
 
 .fully-reported-hours
   background-color: $rsasoft-fully-reported-day !important
-  color: yellow !important
-  border-radius: 25px !important
+  border-radius: 100px !important
+  color: #ffffff !important
 
 .has-tooltip::after
-  content: attr(matTooltip) !important
-  position: absolute !important
-  top: 100% !important
-  left: 50% !important
-  transform: translateX(-50%) !important
-  background-color: #3a3a3a !important
-  color: #fff !important
-  white-space: nowrap !important
-  z-index: 999 !important
-  display: none !important
-  border-radius: 5px
+  position: relative
+  // width: 175px !important
+  // height: 75px !important
+  // top: 75%!important
+  // left: 50% !important
+  // transform: translateX(-50%) !important
+  // background-color: #ffffff !important
+  // color: #00000000 !important
+  // white-space: nowrap !important
+  // z-index: 9999 !important
+  // display: none !important
+  // border-radius: 50px
 
 .has-tooltip:hover::after
-  display: block !important
+  content: attr(data-tooltip)
+  position: absolute
+  bottom: 125%
+  left: 50%
+  top: 75%
+  width: 200px
+  transform: translateX(-50%)
+  padding: 0.5rem
+  background-color: #ffffff
+  color: #000000
+  border-radius: 20px
+  white-space: nowrap
+  z-index: 1
+
+.custom-calendar-cell
+  z-index: 9999 !important
+
+
+

@@ -47,6 +47,8 @@ import { MonthViewComponent } from './ng-modules/reporting/components/month-view
 import { MonthViewDialogComponent } from './ng-modules/reporting/components/month-view-dialog/month-view-dialog.component';
 import { RatePageComponent } from './ng-modules/reporting/rate-page/rate-page.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
+import { DateTooltipDirective } from './ng-modules/reporting/components/date-tooltip/date-tooltip/date-tooltip.directive';
+import { UserReportingMonthviewComponent } from './ng-modules/reporting/components/user-reporting-monthview/user-reporting-monthview.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { ShortenPipe } from './pipes/shorten.pipe';
     MonthViewDialogComponent,
     RatePageComponent,
     ShortenPipe,
+    DateTooltipDirective,
+    UserReportingMonthviewComponent,
   ],
   imports: [
     BrowserModule,
