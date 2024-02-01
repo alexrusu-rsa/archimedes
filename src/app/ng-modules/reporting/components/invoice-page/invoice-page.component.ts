@@ -32,6 +32,7 @@ import {
 } from '@angular/material/core';
 import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog.component';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -68,6 +69,7 @@ export class InvoicePageComponent implements OnInit {
   selectedMonth?: string;
   selectedYear?: string;
   selectedDateToDisplay?: string;
+  invoiceSeries?: string;
 
   constructor(
     private customerService: CustomerService,
@@ -98,6 +100,16 @@ export class InvoicePageComponent implements OnInit {
     datepicker.close();
   }
 
+  findInternalCustomer(): string {
+    const result = this.allCustomers?.find(
+      (customer) => customer.internal === true
+    );
+    if (result) {
+      return result.shortName;
+    }
+    return 'NO_INTERNAL_SET';
+  }
+
   async downloadInvoice(projectId: string, customerId: string) {
     const currentCustomerName = await this.allCustomers?.filter(
       (customer) => customer.id === customerId
@@ -111,8 +123,9 @@ export class InvoicePageComponent implements OnInit {
           customerName: currentCustomerName[0].customerName,
           customerShortName: currentCustomerName[0].shortName,
           customerRomanian: currentCustomerName[0].romanianCompany,
+          invoiceSeries: this.invoiceSeries,
         },
-        panelClass: 'full-width-dialog',
+        panelClass: 'full-width-height-dialog',
       });
       dialogRef
         .afterClosed()
@@ -120,24 +133,37 @@ export class InvoicePageComponent implements OnInit {
           if (result) {
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(result.response.body);
-            a.href = objectUrl;
-            if (
-              result.response.body.type ===
-              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            ) {
-              if (result.customerShortName)
-                a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.xlsx`;
-              else
-                a.download = `RSA${result.invoiceNumber}-${result.customerName}.xlsx`;
-            } else {
-              if (result.customerShortName)
-                a.download = `RSA${result.invoiceNumber}-${result.customerShortName}.pdf`;
-              else
-                a.download = `RSA${result.invoiceNumber}-${result.customerName}.pdf`;
+            if (result.downloadStart) {
+              a.href = objectUrl;
+              if (
+                result.response.body.type ===
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+              ) {
+                if (result.customerShortName)
+                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerShortName}.xlsx`;
+                else
+                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerName}.xlsx`;
+              } else {
+                if (result.customerShortName)
+                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerShortName}.pdf`;
+                else
+                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerName}.pdf`;
+              }
+              a.click();
             }
-            a.click();
           }
         });
+    }
+  }
+
+  previewInvoice(projectId: string, customerId: string) {
+    const currentCustomerName = this.allCustomers?.filter(
+      (customer) => customer.id === customerId
+    );
+    if (currentCustomerName) {
+      const dialogRef = this.dialog.open(InvoicePreviewDialogComponent, {
+        panelClass: 'full-width-dialog',
+      });
     }
   }
 
@@ -164,6 +190,7 @@ export class InvoicePageComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         switchMap((customers) => {
           this.allCustomers = customers;
+          this.invoiceSeries = this.findInternalCustomer();
           return this.projectService.getProjects();
         })
       )

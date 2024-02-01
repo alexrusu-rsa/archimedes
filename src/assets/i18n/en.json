@@ -122,8 +122,17 @@
       "euroExchangeHint": "Enter a value like 4.98 or 4.92394",
       "invoiceEmittingDay": "Invoice Emitting Day",
       "downloadPDF": "Download PDF",
+      "previewPDF": "Preview PDF",
       "downloadXLSX": "Download XLSX",
-      "euroExchangePlaceholder": "Example: 4.97, 4.9283"
+      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
+      "firstStep": "Set data for invoice",
+      "secondStep": "Preview invoice",
+      "thirdStep": "Download invoice"
+    },
+    "download": "Download",
+    "dialogPreview": "Invoice",
+    "preview": {
+      "title": "Invoice Preview"
     },
     "page": {
       "title": "Invoices",

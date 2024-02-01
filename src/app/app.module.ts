@@ -45,6 +45,10 @@ import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 import { RatePageComponent } from './ng-modules/reporting/rate-page/rate-page.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
+import { InvoicePreviewDialogComponent } from './ng-modules/reporting/components/invoice-preview-dialog/invoice-preview-dialog.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -72,9 +76,13 @@ import { ShortenPipe } from './pipes/shorten.pipe';
     ReportingHoursBookedDialogComponent,
     RatePageComponent,
     ShortenPipe,
+    InvoicePreviewDialogComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,
+    NgxExtendedPdfViewerModule,
+    PdfViewerModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
