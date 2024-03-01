@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
-import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({

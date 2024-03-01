@@ -51,10 +51,6 @@ const routes: Routes = [
     path: 'dashboard',
     component: UserDashboardComponent,
   },
-  {
-    path: 'settings',
-    component: UserSettingsPageComponent,
-  },
   { path: 'rate', component: RatePageComponent },
   {
     path: '',

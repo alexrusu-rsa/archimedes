@@ -11,7 +11,6 @@ import {
 } from '@angular/common/http';
 import {
   DatePipe,
-  HashLocationStrategy,
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';

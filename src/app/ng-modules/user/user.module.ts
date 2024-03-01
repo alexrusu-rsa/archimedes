@@ -16,8 +16,8 @@ import { UserRoutingModule } from './user-routing.module';
     RouterModule,
     TranslateModule,
     ReactiveFormsModule,
-    UserRoutingModule
+    UserRoutingModule,
   ],
-  exports: [UserSettingsComponent]
+  exports: [UserSettingsComponent],
 })
-export class UserModule { }
+export class UserModule {}
