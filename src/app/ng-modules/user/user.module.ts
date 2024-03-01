@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserRoutingModule } from './user-routing.module';
+import { UserFacade } from './user.facade';
 
 @NgModule({
   declarations: [UserSettingsComponent],
@@ -19,5 +20,6 @@ import { UserRoutingModule } from './user-routing.module';
     UserRoutingModule,
   ],
   exports: [UserSettingsComponent],
+  providers: [UserFacade],
 })
 export class UserModule {}

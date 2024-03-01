@@ -31,7 +31,7 @@
       </form>
     </mat-card>
     <mat-card class="secondary-card">
-      <div *ngIf="(currentUser$ | async) as currentUser">
+      <div *ngIf="(facade.currentUser$ | async) as currentUser">
         <mat-card-subtitle>{{ currentUser.role }}</mat-card-subtitle>
         <mat-card-title>{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title>
       </div>

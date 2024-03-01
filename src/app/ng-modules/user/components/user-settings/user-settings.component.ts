@@ -1,12 +1,8 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserFacade } from './../../user.facade';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { User } from 'src/app/models/user';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-user-settings',
@@ -14,17 +10,12 @@ import { UserService } from 'src/app/services/user-service/user.service';
   styleUrls: ['./user-settings.component.sass'],
 })
 export class UserSettingsComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
-  currentUser$: Observable<User>;
-
   passwordFormGroup: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
-    private localStorageService: LocalStorageService,
-    private notificationService: NotificationService,
-    private translateService: TranslateService
+    public facade: UserFacade,
+    private notificationService: NotificationService
   ) {
     // do nothing
   }
@@ -48,27 +39,21 @@ export class UserSettingsComponent implements OnInit {
         validators: this.passwordMatchValidator,
       }
     );
-
-    const userId = this.localStorageService.userId;
-    if (userId) this.currentUser$ = this.userService.getUser(userId);
   }
 
   onSubmit() {
     if (this.passwordFormGroup.valid) {
       // Form is valid, handle submission
-      const userId = this.localStorageService.userId;
-      if (userId) {
-        this.userService
-          .changePasswordFor(this.passwordControl.value, userId)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(() => {
-            this.notificationService.openSuccesfulNotification(
-              this.translateService.instant('settings.successfullSubmit')
-            );
+      this.facade
+        .changePassword(this.passwordControl.value)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.notificationService.openSuccesfulNotification(
+            'settings.successfullSubmit'
+          );
 
-            this.passwordFormGroup.reset({ emitEvent: false });
-          });
-      }
+          this.passwordFormGroup.reset({ emitEvent: false });
+        });
     } else {
       // Form is invalid, mark fields as touched to display validation errors
       this.passwordFormGroup.markAllAsTouched();
