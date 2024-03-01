@@ -214,6 +214,9 @@
     "currentPassword": "Current password",
     "retypePassword": "Re-type your passowrd",
     "passwordsNoMatch": "Passwords do not match",
-    "changePasswordButton": "Change password"
+    "changePasswordButton": "Change password",
+    "passwordRequired": "Password required",
+    "retypePasswordRequired": "Retyping the password required",
+    "successfullSubmit": "Password successfully submitted"
   }
 }

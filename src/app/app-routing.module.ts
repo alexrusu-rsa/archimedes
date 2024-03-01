@@ -16,6 +16,14 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./ng-modules/user/user.module').then(
+        (m) => m.UserModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'reporting',
     loadChildren: () =>
       import('./ng-modules/reporting/reporting.module').then(
@@ -26,7 +34,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'user',
     pathMatch: 'full',
   },
   {

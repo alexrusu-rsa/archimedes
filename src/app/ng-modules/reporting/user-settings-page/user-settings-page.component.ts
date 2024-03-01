@@ -3,8 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-user-settings-page',
@@ -15,9 +14,8 @@ export class UserSettingsPageComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
 
   constructor(
-    private userManagePasswordService: UserManagePasswordService,
     private localStorageService: LocalStorageService,
-    private userService: UserLoginService
+    private userService: UserService
   ) {}
 
   resetPasswordForm?: FormGroup;
@@ -30,7 +28,7 @@ export class UserSettingsPageComponent implements OnInit {
   changePassword() {
     if (this.checkPasswordsMatch()) {
       this.passwordsDoNotMatch = false;
-      this.userManagePasswordService
+      this.userService
         .changePasswordFor(
           this.password?.value,
           this.localStorageService.userId!

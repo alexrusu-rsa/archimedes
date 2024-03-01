@@ -1,0 +1,40 @@
+<mat-card class="card-container">
+  <div class="flex-container">
+    <mat-card class="secondary-card">
+      <mat-card-title>{{ "settings.changePassword" | translate }}</mat-card-title>
+      <form [formGroup]="passwordFormGroup" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "settings.currentPassword" | translate }}</mat-label>
+          <input matInput formControlName="password" type="password" placeholder="Enter your email" />
+          <mat-error *ngIf="passwordControl.invalid && passwordControl.touched">
+            <span *ngIf="retypePasswordControl.hasError('required')">
+              {{ "settings.retypePasswordRequired" | translate }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "settings.retypePassword" | translate }}</mat-label>
+          <input matInput formControlName="retypePassword" type="password" placeholder="Enter your new password" />
+          <mat-error *ngIf="retypePasswordControl.invalid && retypePasswordControl.touched">
+            <span *ngIf="retypePasswordControl.hasError('required')">
+              {{ "settings.retypePasswordRequired" | translate }}
+            </span>
+            <span *ngIf="retypePasswordControl.hasError('passwordMismatch')">
+              {{ "settings.passwordsNoMatch" | translate }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" type="submit">
+          {{ "settings.changePasswordButton" | translate }}
+        </button>
+      </form>
+    </mat-card>
+    <mat-card class="secondary-card">
+      <div *ngIf="(currentUser$ | async) as currentUser">
+        <mat-card-subtitle>{{ currentUser.role }}</mat-card-subtitle>
+        <mat-card-title>{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title>
+      </div>
+    </mat-card>
+  </div>
+</mat-card>
