@@ -41,7 +41,7 @@
       <a *ngIf="isAdmin && isAdmin !== undefined" mat-list-item routerLink="reporting/user-reporting"
         (click)="sidenav.close()">{{ "sidenav.reporting" | translate }}
       </a>
-      <a mat-list-item routerLink="reporting/settings" (click)="sidenav.close()">{{ "sidenav.settings" | translate }}
+      <a mat-list-item routerLink="user/settings" (click)="sidenav.close()">{{ "sidenav.settings" | translate }}
       </a>
       <a mat-list-item *ngIf="isAdmin && isAdmin !== undefined" routerLink="reporting/invoice"
         (click)="sidenav.close()">{{ "sidenav.invoices" | translate }}

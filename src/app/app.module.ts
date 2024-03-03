@@ -11,7 +11,6 @@ import {
 } from '@angular/common/http';
 import {
   DatePipe,
-  HashLocationStrategy,
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
@@ -35,7 +34,6 @@ import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashbo
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
-import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-page/user-settings-page.component';
 import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
@@ -64,7 +62,6 @@ import { ShortenPipe } from './pipes/shorten.pipe';
     AdminDashboardPageComponent,
     RateDialogComponent,
     FirstUserPageComponent,
-    UserSettingsPageComponent,
     DuplicateActivityDialogComponent,
     DeleteConfirmationDialogComponent,
     NewUserDialogComponent,
