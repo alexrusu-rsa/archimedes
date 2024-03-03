@@ -1,0 +1,39 @@
+<div class="container m-0 p-0">
+    <mat-card class="content-container">
+        <mat-card class="entity-card row mx-0 mb-3 p-2" *ngFor="let user of (facade.users$ | async)">
+            <mat-card-title>
+                <ng-container [ngSwitch]="user.roles">
+                    <mat-icon *ngSwitchCase="userRole.admin">{{icon.supervisor_account}}</mat-icon>
+                    <mat-icon *ngSwitchDefault>{{icon.person}}</mat-icon>
+                </ng-container>
+                {{ user.name }} {{ user.surname }} </mat-card-title>
+            <mat-card-subtitle>
+                {{ user.role }}
+            </mat-card-subtitle>
+
+            <div class="row justify-content-center justify-content-md-center mx-0">
+                <mat-card-actions
+                    class="col-12 mb-0 justify-content-end d-block d-md-flex d-sm-flex d-lg-flex d-xl-flex">
+                    <button class="col-6 col-sm-2 col-md-2 col-lg-1 col-xl-1 mx-0 mb-2 px-0" mat-button color="accent">
+                        <mat-icon>{{icon.edit}}</mat-icon>
+                    </button>
+                    <button class="col-6 col-sm-2 col-md-2 col-lg-1 col-xl-1 mx-0 mb-2 px-0" mat-raised-button
+                        (click)="deleteUser(user.id)" color="accent">
+                        <mat-icon>{{icon.delete}}</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </div>
+
+            <div class="row mx-0">
+                <button class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2 px-0 mb-2" mat-raised-button color="accent">
+                    {{ "user.page.resetPassword" | translate }}
+                </button>
+            </div>
+        </mat-card>
+        <div class="row mx-0">
+            <button mat-raised-button class="add-button-card col-12" (click)="addUser()">
+                <mat-icon color="accent">{{icon.add_box}}</mat-icon>
+            </button>
+        </div>
+    </mat-card>
+</div>

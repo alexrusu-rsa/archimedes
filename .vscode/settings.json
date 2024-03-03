@@ -1,0 +1,14 @@
+{
+  "prettier.bracketSameLine": true,
+  "prettier.singleAttributePerLine": true,
+  "prettier.singleQuote": true,
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-component": {
+      "skipChangeDetectionOnPush": true
+    },
+    "angular-*": {
+      "externalTemplate": true,
+      "style": "sass"
+    }
+  }
+}

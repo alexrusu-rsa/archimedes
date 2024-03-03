@@ -1,10 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, switchMap } from 'rxjs';
 import { Project } from 'src/app/models/project';
@@ -27,8 +21,6 @@ export class UserPageComponent implements OnInit {
   users: User[] = [];
   search = '';
   projects?: Project[];
-
-  test: string[] = ['ABC', 'def'];
 
   projectsSub?: Subscription;
   constructor(

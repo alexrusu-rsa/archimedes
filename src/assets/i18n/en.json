@@ -206,6 +206,20 @@
       "thTime": "Time",
       "thEdit": "Edit",
       "thDelete": "Delete"
+    },
+    "management": {
+      "userDeleted": "User has been deleted"
+    },
+    "settings": {
+      "title": "Settings",
+      "changePassword": "Change your password",
+      "currentPassword": "Current password",
+      "retypePassword": "Re-type your passowrd",
+      "passwordsNoMatch": "Passwords do not match",
+      "changePasswordButton": "Change password",
+      "passwordRequired": "Password required",
+      "retypePasswordRequired": "Retyping the password required",
+      "successfullSubmit": "Password successfully submitted"
     }
   },
   "settings": {
