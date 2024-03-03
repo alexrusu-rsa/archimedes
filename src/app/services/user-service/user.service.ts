@@ -14,7 +14,7 @@ export class UserService {
     private httpClient: HttpClient,
     private responseHandlingService: ResponseHandlingService
   ) {}
-  private userUrl = environment.serviceURL + 'user';
+  private usersUrl = environment.serviceURL + 'user';
 
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -22,23 +22,15 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.httpClient
-      .get<User[]>(this.userUrl)
+      .get<User[]>(this.usersUrl)
       .pipe(
         catchError(this.responseHandlingService.handleError<User[]>('getUser'))
       );
   }
 
-  getUser(userId: string): Observable<User> {
-    return this.httpClient
-      .get<User>(this.userUrl + '/' + userId)
-      .pipe(
-        catchError(this.responseHandlingService.handleError<User>('getUser'))
-      );
-  }
-
   getUsersNumber(): Observable<number> {
     return this.httpClient
-      .get<number>(this.userUrl + '/number')
+      .get<number>(this.usersUrl + '/number')
       .pipe(
         catchError(this.responseHandlingService.handleError<number>('getUser'))
       );
@@ -46,7 +38,7 @@ export class UserService {
 
   addAdmin(user: User): Observable<User> {
     return this.httpClient
-      .post<User>(this.userUrl + '/first', user, { observe: 'response' })
+      .post<User>(this.usersUrl + '/first', user, { observe: 'response' })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('First user added!');
@@ -57,7 +49,7 @@ export class UserService {
   }
 
   deleteUser(id: string): Observable<RequestWrapper> {
-    const deleteUserUrl = this.userUrl + '/' + id;
+    const deleteUserUrl = this.usersUrl + '/' + id;
     return this.httpClient
       .delete<RequestWrapper>(deleteUserUrl, { observe: 'response' })
       .pipe(
@@ -73,7 +65,7 @@ export class UserService {
 
   addUser(user: User): Observable<User> {
     return this.httpClient
-      .post<User>(this.userUrl, user, { observe: 'response' })
+      .post<User>(this.usersUrl, user, { observe: 'response' })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('User added');
@@ -85,60 +77,13 @@ export class UserService {
 
   updateUser(user: User): Observable<User> {
     return this.httpClient
-      .put(this.userUrl + '/' + user.id, user, { observe: 'response' })
+      .put(this.usersUrl + '/' + user.id, user, { observe: 'response' })
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('User updated');
           return res.body as User;
         }),
         catchError(this.responseHandlingService.handleError<User>('updateUser'))
-      );
-  }
-
-  resetPasswordFor(userToUpdate: User): Observable<RequestWrapper> {
-    const resetPasswordUrl = this.userUrl + '/' + 'password';
-    return this.httpClient
-      .put<RequestWrapper>(resetPasswordUrl, userToUpdate, {
-        observe: 'response',
-      })
-      .pipe(
-        map((res) => {
-          this.responseHandlingService.handleResponse('Password reset');
-          return res.body as RequestWrapper;
-        }),
-        catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'resetpassword'
-          )
-        )
-      );
-  }
-
-  changePasswordFor(
-    newPassword: string,
-    userId: string
-  ): Observable<RequestWrapper> {
-    const changePasswordUrl = this.userUrl + '/' + 'change';
-    return this.httpClient
-      .put<RequestWrapper>(
-        changePasswordUrl,
-        { userId, newPassword },
-        {
-          observe: 'response',
-        }
-      )
-      .pipe(
-        map((res) => {
-          this.responseHandlingService.handleResponse(
-            'Password changed succesfully'
-          );
-          return res.body as RequestWrapper;
-        }),
-        catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
-            'changepassword'
-          )
-        )
       );
   }
 }

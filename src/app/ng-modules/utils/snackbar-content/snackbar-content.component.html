@@ -5,14 +5,14 @@
       <b>{{ errorCode }}</b>
     </h3>
   </div>
-  <h3 *ngIf="errorText">{{ errorText | translate}}</h3>
+  <h3>{{ errorText }}</h3>
 </div>
 
 <div class="container-all" *ngIf="this.data.successMessage">
   <div class="container-icon-code">
     <mat-icon>check</mat-icon>
-    <h3 *ngIf="successMessageToDisplay">
-      {{ successMessageToDisplay | translate}}
+    <h3>
+      {{ this.successMessageToDisplay }}
     </h3>
   </div>
 </div>
