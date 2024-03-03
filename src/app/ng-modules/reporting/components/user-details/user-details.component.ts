@@ -5,6 +5,7 @@ import { Activity } from 'src/app/models/activity';
 import { User } from 'src/app/models/user';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
 import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-user-details',
@@ -20,12 +21,12 @@ export class UserDetailsComponent implements OnInit {
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
-    private usersService: UserLoginService,
+    private userService: UserService,
     private activityService: ActivityService
   ) {}
 
   getEmployee(id: string) {
-    this.currentUserSub = this.usersService.getUser(id).subscribe((result) => {
+    this.currentUserSub = this.userService.getUser(id).subscribe((result) => {
       this.currentUser = result;
     });
   }

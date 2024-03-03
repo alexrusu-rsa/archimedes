@@ -1,15 +1,9 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { UserService } from 'src/app/services/user-service/user.service';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -22,12 +16,12 @@ export class ResetPasswordComponent implements OnInit {
   userResetPasswordSub?: Subscription;
   resetPasswordForm?: FormGroup;
 
-  constructor(private userManagePasswordService: UserManagePasswordService) {}
+  constructor(private userService: UserService) {}
   sendPasswordResetRequest(email: string) {
     if (this.user) {
       this.user.email = email;
       this.user.password = '';
-      this.userResetPasswordSub = this.userManagePasswordService
+      this.userResetPasswordSub = this.userService
         .resetPasswordFor(this.user)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
