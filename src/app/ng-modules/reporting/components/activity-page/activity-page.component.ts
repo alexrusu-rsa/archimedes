@@ -29,7 +29,6 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 import e from 'express';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UserService } from 'src/app/services/user-service/user.service';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -64,7 +63,7 @@ export class ActivityPageComponent implements OnInit {
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
-    private userService: UserService,
+    private userService: UserLoginService,
     private activityService: ActivityService,
     public datepipe: DatePipe,
     public dialog: MatDialog,

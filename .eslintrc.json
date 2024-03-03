@@ -15,14 +15,6 @@
         "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
-        "@typescript-eslint/no-unused-vars": [
-          "warn", // or "error"
-          {
-            "argsIgnorePattern": "^_",
-            "varsIgnorePattern": "^_",
-            "caughtErrorsIgnorePattern": "^_"
-          }
-        ],
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -39,9 +31,11 @@
             "style": "kebab-case"
           }
         ],
+        "no-unused-vars": "warn",
         "no-console": ["warn"],
         "no-empty": ["warn"],
         "no-empty-function": ["warn"],
+        "no-ternary": ["warn"],
         "eqeqeq": ["warn"]
       }
     },
