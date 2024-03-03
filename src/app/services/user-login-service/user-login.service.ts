@@ -22,14 +22,6 @@ export class UserLoginService {
     private responseHandlingService: ResponseHandlingService
   ) {}
 
-  getUser(userId: string): Observable<User> {
-    return this.httpClient
-      .get<User>(this.usersUrl + '/' + userId)
-      .pipe(
-        catchError(this.responseHandlingService.handleError<User>('getUser'))
-      );
-  }
-
   logUserIn(user: User): Observable<RequestWrapper> {
     const logInUrl = this.usersUrl + '/creds';
     return this.httpClient
