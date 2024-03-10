@@ -4,4 +4,5 @@ export enum IconEnum {
   person = 'person',
   supervisor_account = 'supervisor_account',
   add_box = 'add_box',
+  close = 'close',
 }

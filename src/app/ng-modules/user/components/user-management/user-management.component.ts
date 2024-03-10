@@ -9,6 +9,7 @@ import { DeleteConfirmationDialogComponent } from 'src/app/ng-modules/reporting/
 import { NewUserDialogComponent } from 'src/app/ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDialogComponent } from 'src/app/ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { filter, switchMap, take } from 'rxjs';
+import { UserModalComponent } from '../user-modal/user-modal.component';
 
 enum UserRoleEnum {
   admin = 'admin',
@@ -34,14 +35,14 @@ export class UserManagementComponent {
   }
 
   addUser() {
-    const dialogRef = this.dialog.open(UserDialogComponent, {
-      panelClass: 'full-width-dialog',
-    });
-
-    dialogRef
+    this.dialog
+      .open(UserModalComponent, {
+        panelClass: 'full-width-dialog',
+      })
       .afterClosed()
       .pipe(
         take(1),
+        filter((newUser) => !!newUser),
         switchMap((newUser: User) =>
           this.dialog
             .open(NewUserDialogComponent, { data: newUser.password })
@@ -49,7 +50,7 @@ export class UserManagementComponent {
         )
       )
       .subscribe((_) => {
-        this.facade.updateUsers();
+        this.facade.refreshUsers();
       });
   }
 
@@ -62,15 +63,15 @@ export class UserManagementComponent {
       .afterClosed()
       .pipe(take(1))
       .subscribe((_) => {
-        this.facade.updateUsers();
+        this.facade.refreshUsers();
       });
   }
 
   deleteUser(userId: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'full-width-dialog',
-    });
-    dialogRef
+    this.dialog
+      .open(DeleteConfirmationDialogComponent, {
+        panelClass: 'full-width-dialog',
+      })
       .afterClosed()
       .pipe(
         take(1),
@@ -82,7 +83,7 @@ export class UserManagementComponent {
         )
       )
       .subscribe((_) => {
-        this.facade.updateUsers();
+        this.facade.refreshUsers();
         this.notificationService.openSuccesfulNotification(
           'user.management.userDeleted'
         );

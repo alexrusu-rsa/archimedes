@@ -1,6 +1,11 @@
 import { UserFacade } from './../../user.facade';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification-service/notification.service';
 import { take } from 'rxjs';
 
@@ -60,7 +65,7 @@ export class UserSettingsComponent implements OnInit {
     }
   }
 
-  private passwordMatchValidator(group: FormGroup) {
+  private passwordMatchValidator(group: FormGroup): ValidationErrors | null {
     const password = group.get('password')?.value;
     const retypePassword = group.get('retypePassword')?.value;
     return password === retypePassword ? null : { passwordMismatch: true };

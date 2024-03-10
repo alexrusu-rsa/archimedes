@@ -19,7 +19,19 @@ export class UserFacade {
     this.users$ = this.userService.getUsers();
   }
 
-  updateUsers() {
+  create(user: User) {
+    return this.userService.addUser(user);
+  }
+
+  update(user: User) {
+    return this.userService.updateUser(user);
+  }
+
+  deleteUser(userId: string) {
+    return this.userService.deleteUser(userId);
+  }
+
+  refreshUsers() {
     this.users$ = this.userService.getUsers();
   }
 
@@ -32,9 +44,5 @@ export class UserFacade {
         else return of();
       })
     );
-  }
-
-  deleteUser(userId: string) {
-    return this.userService.deleteUser(userId);
   }
 }

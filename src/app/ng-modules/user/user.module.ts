@@ -8,9 +8,14 @@ import { UserFacade } from './user.facade';
 import { SharedModule } from '../shared/shared.module';
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { UserModalComponent } from './components/user-modal/user-modal.component';
 
 @NgModule({
-  declarations: [UserSettingsComponent, UserManagementComponent],
+  declarations: [
+    UserSettingsComponent,
+    UserManagementComponent,
+    UserModalComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -20,7 +25,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
     ReactiveFormsModule,
     UserRoutingModule,
   ],
-  exports: [UserSettingsComponent, UserManagementComponent],
+  exports: [UserSettingsComponent, UserManagementComponent, UserModalComponent],
   providers: [UserFacade],
 })
 export class UserModule {}

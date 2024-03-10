@@ -177,22 +177,22 @@
     "settings": "Settings"
   },
   "user": {
-    "dialog": {
-      "addTitle": "Add User",
-      "surname": "User Surname",
+    "modal": {
+      "addTitle": "Add user",
+      "surname": "User surname",
       "surnameHint": "User surname is required",
-      "name": "User Name",
+      "name": "User name",
       "nameHint": "User name is required",
       "email": "Email",
       "emailHint": "Email is required",
-      "role": "User Role",
+      "role": "User role",
       "roleHint": "User role is required",
       "seniority": "User seniority",
       "seniorityHint": "User seniority is required",
-      "timePerDay": "User time/day",
-      "timePerDayHint": "User time/day is required",
+      "commitment": "User time commitment",
+      "commitmentHint": "User time commitment is required",
       "adminToggleText": "Admin",
-      "updateTitle": "Update User"
+      "updateTitle": "Update user"
     },
     "page": {
       "title": "User page",
