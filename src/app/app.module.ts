@@ -21,7 +21,6 @@ import { SnackbarContentComponent } from './ng-modules/utils/snackbar-content/sn
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
-import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
@@ -52,7 +51,6 @@ import { ShortenPipe } from './pipes/shorten.pipe';
     UserDetailsComponent,
     UserDialogComponent,
     ActivityDialogComponent,
-    CustomerDialogComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,

@@ -15,6 +15,14 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'customer',
+    loadChildren: () =>
+      import('./ng-modules/customer/customer.module').then(
+        (m) => m.CustomerModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'user',
     loadChildren: () =>
       import('./ng-modules/user/user.module').then((m) => m.UserModule),
