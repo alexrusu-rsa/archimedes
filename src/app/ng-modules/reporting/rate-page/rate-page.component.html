@@ -79,10 +79,13 @@
           *matHeaderCellDef>
           {{ "user.page.thEdit" | translate }}
         </th>
-        <td mat-cell class="col-2 col-md-1 d-flex justify-content-center align-items-center p-0 data-cell"
-          *matCellDef="let rate">
-          <button mat-icon-button class="small-icon-button" color="accent" (click)="editRate(rate)">
-            <mat-icon>edit</mat-icon>
+        <td
+          mat-cell
+          class="col-2 col-md-1 d-flex justify-content-center align-items-center p-0 data-cell"
+          *matCellDef="let rate"
+        >
+          <button mat-icon-button (click)="editRate(rate)">
+            <mat-icon color="accent">edit</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -93,10 +96,17 @@
           *matHeaderCellDef>
           {{ "user.page.thDelete" | translate }}
         </th>
-        <td mat-cell class="col-2 col-md-1 d-flex justify-content-center align-items-center p-0 data-cell"
-          *matCellDef="let rate">
-          <button mat-raised-button class="small-icon-button" (click)="deleteRate(rate)" color="accent">
-            <mat-icon>delete</mat-icon>
+        <td
+          mat-cell
+          class="col-2 col-md-1 d-flex justify-content-center align-items-center p-0 data-cell"
+          *matCellDef="let rate"
+        >
+          <button
+            mat-icon-button
+            class="small-icon-button"
+            (click)="deleteRate(rate)"
+          >
+            <mat-icon color="accent">delete</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -105,8 +115,8 @@
       <tr class="row d-flex col-12 p-0 p-md-0 mx-0" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <div class="row mx-0">
-      <button class="add-button-card col-12" mat-raised-button (click)="addRate()">
+    <div class="row mx-0 d-flex justify-content-center">
+      <button class="col-12" mat-icon-button (click)="addRate()">
         <mat-icon color="accent">add_box</mat-icon>
       </button>
     </div>
