@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   Inject,
+  Input,
   OnDestroy,
   OnInit,
   inject,
@@ -29,6 +30,7 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 import e from 'express';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from 'src/app/services/user-service/user.service';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -60,10 +62,12 @@ export class ActivityPageComponent implements OnInit {
 
   activitiesWithNoProject?: Activity[];
 
+  @Input() startDate?: Date;
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
-    private userService: UserLoginService,
+    private userService: UserService,
     private activityService: ActivityService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
@@ -77,16 +81,21 @@ export class ActivityPageComponent implements OnInit {
     this.groupActivitiesWithNoProject();
     this.getCustomers();
     this.getProjects();
-
     const userId = this.activeRoute.snapshot.paramMap.get('id');
+
     if (userId) {
       this.getCurrentEmployeeCommitment(userId);
       this.userService
         .getUser(userId)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((result: User) => {
+          const presetDate =
+            this.activeRoute.snapshot.queryParamMap.get('presetDate');
           this.user = result;
-          this.selectedDate = new Date();
+          if (!presetDate) this.selectedDate = new Date();
+          else {
+            this.selectedDate = new Date(presetDate);
+          }
           this.dateChanges();
         });
     }

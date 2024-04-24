@@ -11,7 +11,6 @@ import {
 } from '@angular/common/http';
 import {
   DatePipe,
-  HashLocationStrategy,
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
@@ -26,7 +25,6 @@ import { CustomerDialogComponent } from './ng-modules/reporting/components/custo
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
-import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './pipes/employee.pipe';
@@ -35,7 +33,6 @@ import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashbo
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
-import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-page/user-settings-page.component';
 import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
@@ -43,12 +40,14 @@ import { UserDashboardComponent } from './ng-modules/reporting/components/user-d
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
+import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 import { RatePageComponent } from './ng-modules/reporting/rate-page/rate-page.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { InvoicePreviewDialogComponent } from './ng-modules/reporting/components/invoice-preview-dialog/invoice-preview-dialog.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SafePipe } from './pipes/safe.pipe';
+import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 
 @NgModule({
   declarations: [
@@ -68,12 +67,12 @@ import { SafePipe } from './pipes/safe.pipe';
     AdminDashboardPageComponent,
     RateDialogComponent,
     FirstUserPageComponent,
-    UserSettingsPageComponent,
     DuplicateActivityDialogComponent,
     DeleteConfirmationDialogComponent,
     NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
+    MonthViewComponent,
     RatePageComponent,
     ShortenPipe,
     InvoicePreviewDialogComponent,

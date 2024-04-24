@@ -11,10 +11,9 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
-import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { InvoiceDataWrapper } from '../../../../models/invoice-data-wrapper';
+import { InvoiceDialogOnCloseResult } from '../../../../models/invoice-dialog-onclose-result';
+import { CustomerService } from '../../../../services/customer-service/customer.service';
 
 @Component({
   selector: 'app-invoice-dialog',
@@ -85,7 +84,8 @@ export class InvoiceDialogComponent implements OnInit {
             this.invoiceDataWrapper.month,
             this.invoiceDataWrapper.year,
             Number(this.euroExchange?.value),
-            this.dateFormatted!
+            this.dateFormatted!,
+            this.invoiceDataWrapper.invoiceTerm!
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((response: any) => {

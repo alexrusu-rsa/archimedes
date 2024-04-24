@@ -1,10 +1,6 @@
 {
   "name": "archimedes-frontend",
   "version": "0.0.0",
-  "engines": {
-    "node": "18.10.0",
-    "npm": "8.4.1"
-  },
   "scripts": {
     "ng": "ng",
     "dev": "ng lint & ng serve",
@@ -55,10 +51,11 @@
     "@angular-eslint/builder": "^16.0.3",
     "@angular-eslint/eslint-plugin": "16.0.3",
     "@angular-eslint/eslint-plugin-template": "16.0.3",
-    "@angular-eslint/schematics": "16.0.3",
+    "@angular-eslint/schematics": "^16.3.1",
     "@angular-eslint/template-parser": "16.0.3",
     "@angular/localize": "^16.1.4",
     "@types/file-saver": "^2.0.7",
+    "@angular/localize": "~16.1.4",
     "@types/jasmine": "~4.3.5",
     "@types/jquery": "^3.5.16",
     "@types/node": "^20.4.1",

@@ -8,14 +8,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Subscription, switchMap, takeUntil } from 'rxjs';
-import { Activity } from 'src/app/models/activity';
-import { Customer } from 'src/app/models/customer';
-import { ActivityService } from 'src/app/services/activity-service/activity.service';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
-import { Project } from 'src/app/models/project';
-import { MatDialog } from '@angular/material/dialog';
-import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
+
 import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
 import { DatePipe } from '@angular/common';
 import _moment, { Moment } from 'moment';
@@ -30,9 +23,16 @@ import {
   MAT_DATE_LOCALE,
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
-import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { InvoiceDataWrapper } from '../../../../models/invoice-data-wrapper';
+import { Project } from '../../../../models/project';
+import { CustomerService } from '../../../../services/customer-service/customer.service';
+import { ActivityService } from '../../../../services/activity-service/activity.service';
+import { Customer } from '../../../../models/customer';
+import { InvoiceDialogOnCloseResult } from '../../../../models/invoice-dialog-onclose-result';
+import { ProjectService } from '../../../../services/project-service/project.service';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -114,7 +114,21 @@ export class InvoicePageComponent implements OnInit {
     const currentCustomerName = await this.allCustomers?.filter(
       (customer) => customer.id === customerId
     );
+
+    const currentProject: Project | undefined = this.allProjects!.find(
+      (project) => project.id === projectId
+    );
+
     if (currentCustomerName) {
+      const data: InvoiceDataWrapper = {
+        customerId: projectId,
+        month: this.selectedMonth!,
+        year: this.selectedYear!,
+        customerName: currentCustomerName[0].customerName,
+        customerShortName: currentCustomerName[0].shortName,
+        customerRomanian: currentCustomerName[0].romanianCompany,
+        invoiceTerm: currentProject ? currentProject.invoiceTerm : 0,
+      };
       const dialogRef = this.dialog.open(InvoiceDialogComponent, {
         data: <InvoiceDataWrapper>{
           customerId: projectId,
@@ -124,6 +138,7 @@ export class InvoicePageComponent implements OnInit {
           customerShortName: currentCustomerName[0].shortName,
           customerRomanian: currentCustomerName[0].romanianCompany,
           invoiceSeries: this.invoiceSeries,
+          invoiceTerm: currentProject ? currentProject.invoiceTerm : 0,
         },
         panelClass: 'full-width-height-dialog',
       });

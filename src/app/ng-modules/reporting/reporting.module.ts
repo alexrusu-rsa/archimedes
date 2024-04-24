@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule,
     ReportingRoutingModule,
     CustomPipeModule,
-    TranslateModule
+    TranslateModule,
   ],
 })
 export class ReportingModule {}

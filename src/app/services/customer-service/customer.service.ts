@@ -94,16 +94,17 @@ export class CustomerService {
   }
 
   getCustomerInvoicePDF(
-    customerId: string,
-    invoiceNumber: string,
-    selectedMonth: string,
-    selectedYear: string,
-    euroExchange: number,
-    dateFormatted: number
+    customerId?: string,
+    invoiceNumber?: string,
+    selectedMonth?: string,
+    selectedYear?: string,
+    euroExchange?: number,
+    dateFormatted?: number,
+    invoiceTerm?: number
   ): Observable<any> {
     return this.httpClient.get(
       this.customersUrl +
-        `/invoice/pdf/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}`,
+        `/invoice/pdf/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}/${invoiceTerm}`,
       { observe: 'response', responseType: 'blob' }
     );
   }
