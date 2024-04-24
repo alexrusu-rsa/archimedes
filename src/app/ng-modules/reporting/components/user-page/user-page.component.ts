@@ -10,7 +10,6 @@ import { Subscription, switchMap } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { User } from 'src/app/models/user';
 import { ProjectService } from 'src/app/services/project-service/project.service';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
@@ -34,7 +33,6 @@ export class UserPageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private projectService: ProjectService,
-    private userManagePasswordService: UserManagePasswordService,
     public dialog: MatDialog
   ) {}
 
@@ -72,7 +70,7 @@ export class UserPageComponent implements OnInit {
   }
 
   sendPasswordResetRequest(user: User) {
-    this.userManagePasswordService
+    this.userService
       .resetPasswordFor(user)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();

@@ -222,6 +222,10 @@
   "monthView": {
     "dialog": {
       "title": "Activity Report"
-    }
+    },
+    "changePasswordButton": "Change password",
+    "passwordRequired": "Password required",
+    "retypePasswordRequired": "Retyping the password required",
+    "successfullSubmit": "Password successfully submitted"
   }
 }
