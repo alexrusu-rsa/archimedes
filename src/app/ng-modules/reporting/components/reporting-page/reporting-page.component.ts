@@ -1,12 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import {
   DateAdapter,
   MAT_DATE_LOCALE,
@@ -19,13 +11,11 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDatepicker } from '@angular/material/datepicker';
 import { Activity } from 'src/app/models/activity';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
-import { first, last, Subscription, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { MatSelectChange } from '@angular/material/select';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { Project } from 'src/app/models/project';
 import { CalendarDay } from 'src/app/models/calendar-day';
@@ -69,6 +59,8 @@ const moment = _rollupMoment || _moment;
   ],
 })
 export class ReportingPageComponent implements OnInit {
+  @Input() currentEmployeeId?: string;
+
   date = new FormControl(moment());
   readonly destroyRef = inject(DestroyRef);
   startDate?: Date;
@@ -125,14 +117,6 @@ export class ReportingPageComponent implements OnInit {
     public datepipe: DatePipe,
     public dialog: MatDialog
   ) {}
-
-  findEmployee(employeeId: string) {
-    return this.allEmployees?.find((employee) => employee.id === employeeId);
-  }
-
-  findProject(projectId: string) {
-    return this.allProjects?.find((project) => (project.id = projectId));
-  }
 
   generateCalendarDaysForEachDateInSelectedRange() {
     this.datesInSelectedRange.forEach((date) => {
@@ -578,52 +562,6 @@ export class ReportingPageComponent implements OnInit {
     this.datesInSelectedRange = dates;
   }
 
-  getAllUsers() {
-    this.userService
-      .getUsers()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((result: User[]) => {
-        this.allEmployees = result;
-        if (result) {
-          this.getEmployeeRates();
-        }
-      });
-  }
-
-  getAllProjects() {
-    this.projectService
-      .getProjects()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((result) => {
-        this.allProjects = result;
-      });
-  }
-
-  getAllActivities() {
-    this.activityService
-      .getActivities()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((result: Activity[]) => {
-        this.allActivities = result;
-        if (result) {
-          this.getAllActivitiesInRange(result);
-        }
-      });
-  }
-
-  getEmployeeRates() {
-    this.rateService
-      .getRates()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((result) => {
-        this.allRates = result;
-        if (result) {
-          this.computeEmployeesTotalCommitment();
-          this.initialStateCalendar();
-        }
-      });
-  }
-
   getAllActivitiesInRangeParam(
     activities: Activity[],
     firstDate: Date,
@@ -635,7 +573,13 @@ export class ReportingPageComponent implements OnInit {
           this.stringToDate(activity.date) >= this.start?.value &&
           this.stringToDate(activity.date) <= this.end?.value
         ) {
-          this.activitiesInRange?.push(activity);
+          if (this.currentEmployeeId) {
+            if (activity.employeeId === this.currentEmployeeId) {
+              this.activitiesInRange?.push(activity);
+            }
+          } else {
+            this.activitiesInRange?.push(activity);
+          }
         }
       });
     }
@@ -648,7 +592,13 @@ export class ReportingPageComponent implements OnInit {
           this.stringToDate(activity.date) >= this.start?.value &&
           this.stringToDate(activity.date) <= this.end?.value
         ) {
-          this.activitiesInRange?.push(activity);
+          if (this.currentEmployeeId) {
+            if (activity.employeeId === this.currentEmployeeId) {
+              this.activitiesInRange?.push(activity);
+            }
+          } else {
+            this.activitiesInRange?.push(activity);
+          }
         }
       });
     }
@@ -698,18 +648,47 @@ export class ReportingPageComponent implements OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         switchMap((activities) => {
-          this.allActivities = activities;
-          this.getAllActivitiesInRange(this.allActivities);
+          if (this.currentEmployeeId) {
+            this.allActivities = activities.filter(
+              (activity) => activity.employeeId === this.currentEmployeeId
+            );
+            if (activities) {
+              this.getAllActivitiesInRange(activities);
+            }
+          } else {
+            this.allActivities = activities;
+            if (activities) {
+              this.getAllActivitiesInRange(activities);
+            }
+          }
           return this.userService.getUsers();
         }),
         switchMap((users) => {
-          this.allEmployees = users;
+          if (this.currentEmployeeId) {
+            this.allEmployees = users.filter(
+              (user) => user.id === this.currentEmployeeId
+            );
+          } else {
+            this.allEmployees = users;
+          }
           return this.rateService.getRates();
         }),
         switchMap((rates) => {
-          this.allRates = rates;
-          this.computeEmployeesTotalCommitment();
-          this.initialStateCalendar();
+          if (this.currentEmployeeId) {
+            this.allRates = rates.filter(
+              (rate) => rate.employeeId === this.currentEmployeeId
+            );
+            if (rates) {
+              this.computeEmployeesTotalCommitment();
+              this.initialStateCalendar();
+            }
+          } else {
+            this.allRates = rates;
+            if (rates) {
+              this.computeEmployeesTotalCommitment();
+              this.initialStateCalendar();
+            }
+          }
           return this.projectService.getProjects();
         })
       )
@@ -719,6 +698,7 @@ export class ReportingPageComponent implements OnInit {
   }
   ngOnInit(): void {
     this.fetchData();
+
     this.selectedItemEmployee = this.noFilterUsers;
     this.nameFilter = this.noFilterUsers;
 
