@@ -10,7 +10,7 @@ import { SnackbarContentComponent } from '../../ng-modules/utils/snackbar-conten
 export class NotificationService {
   dataToSend?: HttpErrorSnackbar;
   durationInSeconds = 3;
-  constructor(public snackBar: MatSnackBar) {}
+  constructor(public  snackBar: MatSnackBar) {}
   openSnackBar(errorMessage: string, status: number) {
     this.snackBar.openFromComponent(SnackbarContentComponent, {
       duration: this.durationInSeconds * 1000,

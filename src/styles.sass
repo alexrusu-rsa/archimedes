@@ -39,7 +39,7 @@ body, input[type="text"], button
 *
   font-family: Arial, Helvetica, sans-serif
 
-.full-width-dialog 
+.full-width-dialog
   max-width: 100vw !important
   height: 100vh !important
 
@@ -55,7 +55,7 @@ body, input[type="text"], button
 
 .mat-mdc-dialog-content
   max-height: 100vh !important
-  
+
 @media(max-width: 425px)
   .mat-mdc-dialog-container
     width: 100vw !important
@@ -67,19 +67,17 @@ body, input[type="text"], button
     width: 80vw !important
     height: fit-content !important
     margin: auto 0 !important
-  
+
 .delete-confirmation-dialog
   max-width: 100vw !important
   height: fit-content
-
-
 
 .cdk-overlay-container
   z-index: 1040 !important
 
 .mat-autocomplete-panel
   max-width: 90% !important
-  
+
 .cdk-overlay-connected-position-bounding-box
   .cdk-overlay-pane
     transform: none !important
@@ -98,7 +96,7 @@ body, input[type="text"], button
 
 .mat-mdc-raised-button
   min-width: 52px !important
-  
+
 .no-padding-form-field
   .mat-form-field-wrapper
     border: 0px
@@ -108,13 +106,68 @@ body, input[type="text"], button
   height: fit-content
   position: fixed !important
   overflow: auto !important
+
 .mat-sidenav-container
   height: 100% !important
-.mat-drawer-backdrop 
-  height: 100vh 
+
+.mat-drawer-backdrop
+  height: 100vh
 
 .mat-drawer-content
   padding-bottom: 5rem
 
 .mat-icon-button 
   border-radius: 0 !important
+.weekend-date
+  background-color: $rsasoft-fully-reported-day !important
+  border-radius: 100px !important
+
+.without-reported-hours
+  background-color: $rsasoft-without-reported-hours !important
+  border-radius: 100px !important
+  color: #ffffff !important
+  
+.with-reported-hours
+  background-color: $rsasoft-partially-reported-day !important
+  border-radius: 100px !important
+  color: #ffffff !important
+
+.fully-reported-hours
+  background-color: $rsasoft-fully-reported-day !important
+  border-radius: 100px !important
+  color: #ffffff !important
+
+.has-tooltip::after
+  position: relative
+  // width: 175px !important
+  // height: 75px !important
+  // top: 75%!important
+  // left: 50% !important
+  // transform: translateX(-50%) !important
+  // background-color: #ffffff !important
+  // color: #00000000 !important
+  // white-space: nowrap !important
+  // z-index: 9999 !important
+  // display: none !important
+  // border-radius: 50px
+
+.has-tooltip:hover::after
+  content: attr(data-tooltip)
+  position: absolute
+  bottom: 125%
+  left: 50%
+  top: 75%
+  width: 200px
+  transform: translateX(-50%)
+  padding: 0.5rem
+  background-color: #ffffff
+  color: #000000
+  border-radius: 20px
+  white-space: nowrap
+  z-index: 1
+
+.custom-calendar-cell
+  z-index: 9999 !important
+
+
+

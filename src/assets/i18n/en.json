@@ -1,4 +1,7 @@
 {
+  "dashboard": {
+    "monthOverview": "Month overview"
+  },
   "sidenav": {
     "home": "Home",
     "activities": "Activities",
@@ -215,5 +218,14 @@
     "retypePassword": "Re-type your passowrd",
     "passwordsNoMatch": "Passwords do not match",
     "changePasswordButton": "Change password"
+  },
+  "monthView": {
+    "dialog": {
+      "title": "Activity Report"
+    },
+    "changePasswordButton": "Change password",
+    "passwordRequired": "Password required",
+    "retypePasswordRequired": "Retyping the password required",
+    "successfullSubmit": "Password successfully submitted"
   }
 }
