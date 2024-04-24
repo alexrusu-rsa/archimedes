@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   Inject,
+  Input,
   OnDestroy,
   OnInit,
   inject,
@@ -61,6 +62,8 @@ export class ActivityPageComponent implements OnInit {
 
   activitiesWithNoProject?: Activity[];
 
+  @Input() startDate?: Date;
+
   constructor(
     @Inject(ActivatedRoute)
     private activeRoute: ActivatedRoute,
@@ -78,16 +81,21 @@ export class ActivityPageComponent implements OnInit {
     this.groupActivitiesWithNoProject();
     this.getCustomers();
     this.getProjects();
-
     const userId = this.activeRoute.snapshot.paramMap.get('id');
+
     if (userId) {
       this.getCurrentEmployeeCommitment(userId);
       this.userService
         .getUser(userId)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((result: User) => {
+          const presetDate =
+            this.activeRoute.snapshot.queryParamMap.get('presetDate');
           this.user = result;
-          this.selectedDate = new Date();
+          if (!presetDate) this.selectedDate = new Date();
+          else {
+            this.selectedDate = new Date(presetDate);
+          }
           this.dateChanges();
         });
     }

@@ -41,6 +41,7 @@ import { UserDashboardComponent } from './ng-modules/reporting/components/user-d
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
+import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 import { RatePageComponent } from './ng-modules/reporting/rate-page/rate-page.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 
@@ -67,6 +68,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
     NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
+    MonthViewComponent,
     RatePageComponent,
     ShortenPipe,
   ],

@@ -4,6 +4,7 @@ import { AuthGuard } from './ng-modules/auth/auth.guard';
 import { LoginComponent } from './ng-modules/auth/login/login.component';
 import { ResetPasswordComponent } from './ng-modules/auth/reset-password/reset-password.component';
 import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
+import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 
 const routes: Routes = [
   {

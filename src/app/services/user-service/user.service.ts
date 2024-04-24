@@ -95,6 +95,15 @@ export class UserService {
       );
   }
 
+  getUserTimePerDay(userId: string): Observable<number> {
+    return this.httpClient
+      .get<number>(this.userUrl + '/time/' + userId)
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<number>('getUserTime')
+        )
+      );
+  }
   resetPasswordFor(userToUpdate: User): Observable<RequestWrapper> {
     const resetPasswordUrl = this.userUrl + '/' + 'password';
     return this.httpClient
