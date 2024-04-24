@@ -94,13 +94,13 @@ export class CustomerService {
   }
 
   getCustomerInvoicePDF(
-    customerId: string,
-    invoiceNumber: string,
-    selectedMonth: string,
-    selectedYear: string,
-    euroExchange: number,
-    dateFormatted: number,
-    invoiceTerm: number
+    customerId?: string,
+    invoiceNumber?: string,
+    selectedMonth?: string,
+    selectedYear?: string,
+    euroExchange?: number,
+    dateFormatted?: number,
+    invoiceTerm?: number
   ): Observable<any> {
     return this.httpClient.get(
       this.customersUrl +
