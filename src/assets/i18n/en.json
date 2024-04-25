@@ -1,7 +1,4 @@
 {
-  "dashboard": {
-    "monthOverview": "Month overview"
-  },
   "sidenav": {
     "home": "Home",
     "activities": "Activities",
@@ -125,17 +122,8 @@
       "euroExchangeHint": "Enter a value like 4.98 or 4.92394",
       "invoiceEmittingDay": "Invoice Emitting Day",
       "downloadPDF": "Download PDF",
-      "previewPDF": "Preview PDF",
       "downloadXLSX": "Download XLSX",
-      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
-      "firstStep": "Set data for invoice",
-      "secondStep": "Preview invoice",
-      "thirdStep": "Download invoice"
-    },
-    "download": "Download",
-    "dialogPreview": "Invoice",
-    "preview": {
-      "title": "Invoice Preview"
+      "euroExchangePlaceholder": "Example: 4.97, 4.9283"
     },
     "page": {
       "title": "Invoices",
@@ -227,14 +215,5 @@
     "retypePassword": "Re-type your passowrd",
     "passwordsNoMatch": "Passwords do not match",
     "changePasswordButton": "Change password"
-  },
-  "monthView": {
-    "dialog": {
-      "title": "Activity Report"
-    },
-    "changePasswordButton": "Change password",
-    "passwordRequired": "Password required",
-    "retypePasswordRequired": "Retyping the password required",
-    "successfullSubmit": "Password successfully submitted"
   }
 }

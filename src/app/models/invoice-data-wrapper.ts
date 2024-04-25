@@ -5,6 +5,4 @@ export interface InvoiceDataWrapper {
   customerName: string;
   customerShortName?: string;
   customerRomanian: boolean;
-  invoiceSeries?: string;
-  invoiceTerm?: number;
 }

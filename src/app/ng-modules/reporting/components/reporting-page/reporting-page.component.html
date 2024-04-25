@@ -1,15 +1,8 @@
 <div class="container mt-4 mx-0 px-0">
   <div class="row col-12 mx-0 px-0">
-    <mat-card-title
-      class="page-title col-12 text-start mx-0 px-0"
-      *ngIf="!currentEmployeeId"
-      >{{ "reporting.page.title" | translate }}</mat-card-title
-    >
-    <mat-card-title
-      class="page-title col-12 text-start mx-0 px-0"
-      *ngIf="currentEmployeeId"
-      >{{ "dashboard.monthOverview" | translate }}</mat-card-title
-    >
+    <mat-card-title class="page-title col-12 text-start mx-0 px-0">{{
+      "reporting.page.title" | translate
+    }}</mat-card-title>
   </div>
 </div>
 
@@ -18,7 +11,7 @@
     <mat-form-field
       appearance="fill"
       *ngIf="range"
-      class="col-12 col-md-4 col-lg-5 mx-0 px-0"
+      class="col-12 col-md-4 col-lg-3 mx-0 px-0"
     >
       <mat-label>{{ "reporting.page.selectDateRange" | translate }}</mat-label>
       <mat-date-range-input [formGroup]="range" [rangePicker]="picker">

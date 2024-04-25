@@ -3,5 +3,4 @@ export interface InvoiceDialogOnCloseResult {
   customerName?: string;
   invoiceNumber?: number;
   customerShortName?: string;
-  downloadStart: boolean;
 }

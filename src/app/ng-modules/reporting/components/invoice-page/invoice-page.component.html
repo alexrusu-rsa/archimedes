@@ -53,16 +53,18 @@
       </div>
 
       <mat-card-actions
-        class="col-12 col-sm-12 col-md-12 d-flex d-sm-flex d-md-flex mx-0 mx-sm-0 gap-1 mx-md-0 px-2 px-md-0 mt-4 mt-sm-4 mt-md-0 mb-1"
+        class="col-12 col-sm-12 col-md-12 d-flex d-sm-flex d-md-flex justify-content-center justify-content-sm-center justify-content-md-end mx-0 mx-sm-0 mx-md-0 px-2 px-md-0 mt-4 mt-sm-4 mt-md-0 mb-1"
       >
         <button
-          class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2"
+          class="col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2"
           *ngIf="project.id"
           mat-raised-button
           color="accent"
           (click)="downloadInvoice(project.id, project.customerId)"
         >
-          Download <mat-icon>vertical_align_bottom</mat-icon>
+          <mat-icon>table_chart</mat-icon>
+          <mat-icon>picture_as_pdf</mat-icon>
+          <mat-icon>vertical_align_bottom</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>

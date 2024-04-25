@@ -63,12 +63,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "1mb",
-                  "maximumError": "3mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "1mb",
-                  "maximumError": "3mb"
+                  "maximumError": "2mb"
                 }
               ],
               "fileReplacements": [
@@ -84,12 +84,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "1mb",
-                  "maximumError": "3mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "1mb",
-                  "maximumError": "3mb"
+                  "maximumError": "2mb"
                 }
               ],
               "fileReplacements": [

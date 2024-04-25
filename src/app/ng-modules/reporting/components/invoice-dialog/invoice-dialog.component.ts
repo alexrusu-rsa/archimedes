@@ -5,21 +5,22 @@ import {
   Inject,
   OnDestroy,
   OnInit,
-  ViewEncapsulation,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { InvoiceDataWrapper } from '../../../../models/invoice-data-wrapper';
-import { InvoiceDialogOnCloseResult } from '../../../../models/invoice-dialog-onclose-result';
-import { CustomerService } from '../../../../services/customer-service/customer.service';
+import { Subscription } from 'rxjs';
+
+import { InvoiceDataWrapper } from 'src/app/models/invoice-data-wrapper';
+import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
+import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { StringLiteral } from 'typescript';
 
 @Component({
   selector: 'app-invoice-dialog',
   templateUrl: './invoice-dialog.component.html',
   styleUrls: ['./invoice-dialog.component.sass'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class InvoiceDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
@@ -41,10 +42,6 @@ export class InvoiceDialogComponent implements OnInit {
   customerShortname?: string;
   selectedDate?: Date;
   romanianCustomer?: boolean;
-  pdfUrl?: string;
-  isEditable = false;
-
-  invoiceTitle?: string;
 
   dateFormatted?: number;
 
@@ -84,37 +81,6 @@ export class InvoiceDialogComponent implements OnInit {
             this.invoiceDataWrapper.month,
             this.invoiceDataWrapper.year,
             Number(this.euroExchange?.value),
-            this.dateFormatted!,
-            this.invoiceDataWrapper.invoiceTerm!
-          )
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((response: any) => {
-            this.pdfUrl = URL.createObjectURL(response.body);
-            if (this.invoiceNumber && this.customerShortname) {
-              this.invoiceTitle =
-                this.invoiceDataWrapper.invoiceSeries +
-                this.invoiceNumber.value +
-                '-' +
-                this.customerShortname +
-                '.pdf';
-            }
-          });
-      }
-  }
-
-  downloadInvoice() {
-    if (!this.romanianCustomer) {
-      this.euroExchange?.setValue('1.00');
-    }
-    if (this.checkAbleToRequestInvoice())
-      if (this.customerId && this.invoiceNumber && this.selectedMonthYear) {
-        this.customerService
-          .getCustomerInvoicePDF(
-            this.customerId,
-            this.invoiceNumber.value,
-            this.invoiceDataWrapper.month,
-            this.invoiceDataWrapper.year,
-            Number(this.euroExchange?.value),
             this.dateFormatted!
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
@@ -124,11 +90,11 @@ export class InvoiceDialogComponent implements OnInit {
               customerName: this.customerName,
               invoiceNumber: this.invoiceNumber?.value,
               customerShortName: this.customerShortname,
-              downloadStart: true,
             });
           });
       }
   }
+
   checkAbleToRequestInvoice(): boolean {
     if (
       this.invoiceDataWrapper.month === null ||

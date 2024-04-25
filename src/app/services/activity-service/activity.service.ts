@@ -212,26 +212,4 @@ export class ActivityService {
         )
       );
   }
-
-  getActivitiesOfMonthYearForUser(
-    month: string,
-    year: string,
-    userId: string
-  ): Observable<Activity[]> {
-    const requestBody = {
-      month: month,
-      year: year,
-      userId: userId,
-    };
-    const activitiesOfMonthYearUserUrl = this.activitiesUrl + '/monthYear';
-    return this.httpClient
-      .post<Activity[]>(activitiesOfMonthYearUserUrl, requestBody)
-      .pipe(
-        catchError(
-          this.responseHandlingService.handleError<Activity[]>(
-            `getActivitiesOfMonthYearForUser`
-          )
-        )
-      );
-  }
 }
