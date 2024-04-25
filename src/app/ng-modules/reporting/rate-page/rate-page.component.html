@@ -4,79 +4,111 @@
   </div>
 </div>
 <div class="container mt-4 mb-4 mx-0 px-0">
-  <mat-card *ngIf="allRates" class="container mt-2 content-container text-center">
+  <mat-card
+    *ngIf="allRates"
+    class="container mt-2 content-container text-center"
+  >
     <div class="row text-start mt-2">
       <mat-card-title>{{
         "user.page.employeeRates" | translate
-        }}</mat-card-title>
+      }}</mat-card-title>
     </div>
 
     <table mat-table [dataSource]="allRates" class="row">
       <ng-container matColumnDef="projectId">
-        <th mat-header-cell
+        <th
+          mat-header-cell
           class="col-3 col-md-2 d-flex justify-content-start align-items-center p-0 p-md-0 p-0 header-cell"
-          *matHeaderCellDef>
+          *matHeaderCellDef
+        >
           {{ "user.page.thProject" | translate }}
         </th>
-        <td mat-cell
+        <td
+          mat-cell
           class="col-3 col-md-2 d-flex justify-content-start align-items-center p-0 p-md-0 data-cell text-start"
-          *matCellDef="let rate">
+          *matCellDef="let rate"
+        >
           {{ rate.projectId | projectid : projects! }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="employeeId">
-        <th mat-header-cell
+        <th
+          mat-header-cell
           class="col-3 col-md-2 p-0 d-flex justify-content-start align-items-center p-md-0 header-cell text-start"
-          *matHeaderCellDef>
+          *matHeaderCellDef
+        >
           {{ "user.page.thEmployee" | translate }}
         </th>
-        <td mat-cell
+        <td
+          mat-cell
           class="col-3 col-md-2 p-0 d-flex justify-content-start align-items-center p-md-0 text-start data-cell"
-          *matCellDef="let rate">
+          *matCellDef="let rate"
+        >
           {{ rate.employeeId | employeeid : allUsers! }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="rate">
-        <th mat-header-cell class="col-2 d-flex justify-content-center align-items-center p-0 header-cell text-start"
-          *matHeaderCellDef>
+        <th
+          mat-header-cell
+          class="col-2 d-flex justify-content-center align-items-center p-0 header-cell text-start"
+          *matHeaderCellDef
+        >
           {{ "user.page.thRate" | translate }}
         </th>
-        <td mat-cell class="col-2 p-0 d-flex justify-content-center align-items-center data-cell text-start"
-          *matCellDef="let rate">
+        <td
+          mat-cell
+          class="col-2 p-0 d-flex justify-content-center align-items-center data-cell text-start"
+          *matCellDef="let rate"
+        >
           {{ rate.rate }} &euro;
         </td>
       </ng-container>
 
       <ng-container class="d-none d-md-block" matColumnDef="rateType">
-        <th mat-header-cell
+        <th
+          mat-header-cell
           class="d-none d-md-flex justify-content-md-center align-items-md-center col-md-2 p-0 header-cell"
-          *matHeaderCellDef>
+          *matHeaderCellDef
+        >
           Type
         </th>
-        <td mat-cell class="d-none col-md-2 d-md-flex justify-content-md-center align-items-md-center p-0 data-cell"
-          *matCellDef="let rate">
+        <td
+          mat-cell
+          class="d-none col-md-2 d-md-flex justify-content-md-center align-items-md-center p-0 data-cell"
+          *matCellDef="let rate"
+        >
           {{ rate.rateType }}
         </td>
       </ng-container>
 
-      <ng-container class="d-none d-md-block" matColumnDef="employeeTimeCommitement">
-        <th mat-header-cell
+      <ng-container
+        class="d-none d-md-block"
+        matColumnDef="employeeTimeCommitement"
+      >
+        <th
+          mat-header-cell
           class="d-none col-md-2 d-md-flex justify-content-md-center align-items-md-center p-0 header-cell"
-          *matHeaderCellDef>
+          *matHeaderCellDef
+        >
           {{ "user.page.thTime" | translate }}
         </th>
-        <td mat-cell class="p-0 d-none col-md-2 justify-content-md-center align-items-md-center d-md-flex data-cell"
-          *matCellDef="let rate">
+        <td
+          mat-cell
+          class="p-0 d-none col-md-2 justify-content-md-center align-items-md-center d-md-flex data-cell"
+          *matCellDef="let rate"
+        >
           {{ rate.employeeTimeCommitement }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="editButton">
-        <th mat-header-cell
+        <th
+          mat-header-cell
           class="col-2 col-md-1 p-0 header-cell text-start d-flex justify-content-center align-items-center"
-          *matHeaderCellDef>
+          *matHeaderCellDef
+        >
           {{ "user.page.thEdit" | translate }}
         </th>
         <td
@@ -91,9 +123,11 @@
       </ng-container>
 
       <ng-container matColumnDef="deleteButton">
-        <th mat-header-cell
+        <th
+          mat-header-cell
           class="col-2 col-md-1 p-0 header-cell text-start d-flex justify-content-center align-items-center"
-          *matHeaderCellDef>
+          *matHeaderCellDef
+        >
           {{ "user.page.thDelete" | translate }}
         </th>
         <td
@@ -111,8 +145,16 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="row p-0 p-md-0 col-12 mx-0"></tr>
-      <tr class="row d-flex col-12 p-0 p-md-0 mx-0" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+        class="row p-0 p-md-0 col-12 mx-0"
+      ></tr>
+      <tr
+        class="row d-flex col-12 p-0 p-md-0 mx-0"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
     </table>
 
     <div class="row mx-0 d-flex justify-content-center">
