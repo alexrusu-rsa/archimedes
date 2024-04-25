@@ -14,8 +14,6 @@
     "build:ro": "ng build --configuration=ro",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-prebuild": "rm -rf node_modules && npm install --force",
-    "postinstall": "npm rebuild node-sass",
     "heroku-postbuild": "ng build --configuration ${environment}",
     "lint": "ng lint"
   },
