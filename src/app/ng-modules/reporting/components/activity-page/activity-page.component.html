@@ -56,23 +56,23 @@
       >
     </div>
     <div
-      class="col-12 mx-0 px-0 col-md-4 ps-md-2 col-lg-6 d-flex gap-1 justify-content-end"
+      class="col-12 mx-0 px-0 col-md-4 ps-md-2 col-lg-6 d-flex gap-1 justify-content-center"
     >
-      <button
-        class="col-6 col-sm-6 top-button"
-        color="accent"
-        mat-raised-button
+      <div
+        class="top-button content-container col-6 col-sm-6 d-flex justify-content-center"
         (click)="deleteAllActivitiesOfUserDay()"
       >
-        <mat-icon>delete_forever</mat-icon>
-      </button>
-      <button
-        class="col-6 col-sm-6 top-button"
-        mat-raised-button
+        <mat-icon class="align-self-center" color="accent"
+          >delete_forever</mat-icon
+        >
+      </div>
+
+      <div
+        class="top-button content-container col-6 col-sm-6 d-flex justify-content-center"
         (click)="addNewActivity()"
       >
-        <mat-icon color="accent">add_box</mat-icon>
-      </button>
+        <mat-icon class="align-self-center" color="accent">add_box</mat-icon>
+      </div>
     </div>
   </div>
 </div>
@@ -133,37 +133,37 @@
           class="row mx-0 mt-0 mb-0 pt-0 pb-0 px-0 col-12 justify-content-end d-flex"
         >
           <button
-            mat-button
+            mat-icon-button
             class="col-2 col-lg-1 mx-0 px-0"
             color="accent"
             (click)="editActivity(activity)"
           >
-            <mat-icon>edit</mat-icon>
+            <mat-icon color="accent">edit</mat-icon>
           </button>
 
           <button
-            mat-button
+            mat-icon-button
             color="accent"
             class="col-2 col-lg-1 mx-0 px-0"
             (click)="duplicateActivity(activity)"
           >
-            <mat-icon>control_point_duplicate</mat-icon>
+            <mat-icon color="accent">control_point_duplicate</mat-icon>
           </button>
           <button
-            mat-raised-button
+            mat-icon-button
             class="col-2 col-lg-1 mx-0 px-0"
             color="accent"
             (click)="deleteActivity(activity)"
           >
-            <mat-icon>delete</mat-icon>
+            <mat-icon color="accent">delete</mat-icon>
           </button>
         </mat-card-actions>
       </mat-card>
     </div>
-    <div class="row col-12 mx-0 px-0">
+    <div class="row col-12 mx-0 px-0 d-flex justify-content-center">
       <button
-        class="entity-card col-12"
-        mat-raised-button
+        class="col-12"
+        mat-icon-button
         (click)="addActivityOnCertainProject(project.projectId)"
       >
         <mat-icon color="accent">add_box</mat-icon>
@@ -175,10 +175,7 @@
   <mat-card *ngIf="activitiesWithNoProject?.length !== 0">
     <div class="row col-12 text-start mx-0 px-0"></div>
     <mat-card-title class="col-12 mx-0 px-0 mb-3 mt-2"> Other </mat-card-title>
-    <mat-card
-      class="entity-card mb-2"
-      *ngFor="let activity of activitiesWithNoProject"
-    >
+    <mat-card class="mb-2" *ngFor="let activity of activitiesWithNoProject">
       <mat-card-title>{{ activity.name }}</mat-card-title>
       <mat-card-subtitle>
         {{ activity.start }} - {{ activity.end }}</mat-card-subtitle
@@ -188,7 +185,7 @@
         class="row mx-0 mt-0 mb-0 pt-0 pb-0 px-0 col-12 justify-content-end d-flex"
       >
         <button
-          mat-button
+          mat-icon-button
           class="col-2 col-lg-1 mx-0 px-0"
           color="accent"
           (click)="editActivity(activity)"
@@ -197,7 +194,7 @@
         </button>
 
         <button
-          mat-button
+          mat-icon-button
           color="accent"
           class="col-2 col-lg-1 mx-0 px-0"
           (click)="duplicateActivity(activity)"
@@ -205,7 +202,7 @@
           <mat-icon>control_point_duplicate</mat-icon>
         </button>
         <button
-          mat-raised-button
+          mat-icon-button
           class="col-2 col-lg-1 mx-0 px-0"
           color="accent"
           (click)="deleteActivity(activity)"
@@ -214,10 +211,10 @@
         </button>
       </mat-card-actions>
     </mat-card>
-    <div class="row col-12 mx-0 px-0">
+    <div class="row mx-0 d-flex justify-content-center">
       <button
-        class="entity-card col-12"
-        mat-raised-button
+        class="col-12 add-button-card"
+        mat-icon-button
         (click)="addNewActivity()"
       >
         <mat-icon color="accent">add_box</mat-icon>
@@ -225,10 +222,10 @@
     </div>
   </mat-card>
   <div class="col-12 d-flex flex-row-reverse">
-    <button mat-raised-button class="col-1" (click)="nextDayPage()">
+    <button mat-icon-button class="col-1 mx-1" (click)="nextDayPage()">
       <mat-icon color="accent">keyboard_arrow_right</mat-icon>
     </button>
-    <button mat-raised-button class="col-1 mx-1" (click)="prevDayPage()">
+    <button mat-icon-button class="col-1 mx-1" (click)="prevDayPage()">
       <mat-icon color="accent">keyboard_arrow_left</mat-icon>
     </button>
   </div>
