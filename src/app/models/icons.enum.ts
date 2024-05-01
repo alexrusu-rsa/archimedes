@@ -7,4 +7,5 @@ export enum Icons {
   assignment_turned_in = 'assignment_turned_in',
   timelapse = 'timelapse',
   money = 'money',
+  menu = 'menu',
 }
