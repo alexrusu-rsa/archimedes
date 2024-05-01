@@ -15,4 +15,5 @@ export enum Icons {
   edit = 'edit',
   delete = 'delete',
   add_box = 'add_box',
+  close = 'close'
 }
