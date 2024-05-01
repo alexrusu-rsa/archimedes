@@ -10,4 +10,6 @@ export enum Icons {
   menu = 'menu',
   error = 'error',
   check = 'check',
+  visibility = 'visibility',
+  visibility_off = 'visibility_off'
 }
