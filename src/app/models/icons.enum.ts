@@ -8,4 +8,6 @@ export enum Icons {
   timelapse = 'timelapse',
   money = 'money',
   menu = 'menu',
+  error = 'error',
+  check = 'check',
 }

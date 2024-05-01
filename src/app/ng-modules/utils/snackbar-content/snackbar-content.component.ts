@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { HttpErrorSnackbar } from 'src/app/models/http-error-snackbar';
+import { Icons } from 'src/app/models/icons.enum';
 
 @Component({
   selector: 'app-snackbar-content',
@@ -9,10 +10,12 @@ import { HttpErrorSnackbar } from 'src/app/models/http-error-snackbar';
   styleUrls: ['./snackbar-content.component.sass'],
 })
 export class SnackbarContentComponent implements OnInit {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: HttpErrorSnackbar) {}
   errorCode?: number;
   errorText?: string;
   successMessageToDisplay?: string;
+  icons = Icons;
+
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: HttpErrorSnackbar) {}
   ngOnInit(): void {
     if (this.data.errorMessage !== undefined) {
       this.errorCode = this.data.status;
