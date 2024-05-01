@@ -2,32 +2,33 @@
   <mat-card class="col-4 d-flex justify-content-between">
     <div class="col-12 d-flex justify-content-start flex-column">
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary"
-        routerLink="../../reporting/activity/{{ this.currentUserId }}">
+        *ngIf="(localStorageService.userIdValue | async) as userIdValue"
+        routerLink="../../reporting/activity/{{ userIdValue }}">
         {{ "admin-dashboard.activities" | translate }}
-        <mat-icon>event_note</mat-icon>
+        <mat-icon>{{icons.event_note}}</mat-icon>
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user">
         {{ "admin-dashboard.users" | translate }}
-        <mat-icon>person</mat-icon>
+        <mat-icon>{{icons.person}}</mat-icon>
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/customer">
-        <mat-icon>people</mat-icon>
+        <mat-icon>{{icons.people}}</mat-icon>
         {{ "admin-dashboard.customers" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/project">
-        <mat-icon>list_alt</mat-icon>
+        <mat-icon>{{icons.list_alt}}</mat-icon>
         {{ "admin-dashboard.projects" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/invoice">
-        <mat-icon>assignment_turned_in</mat-icon>
+        <mat-icon>{{icons.assignment_turned_in}}</mat-icon>
         {{ "admin-dashboard.invoices" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user-reporting">
-        <mat-icon>timelapse</mat-icon>
+        <mat-icon>{{icons.timelapse}}</mat-icon>
         {{ "admin-dashboard.reporting" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/rate">
-        <mat-icon>money</mat-icon>
+        <mat-icon>{{icons.money}}</mat-icon>
         {{ "admin-dashboard.rates" | translate }}
       </button>
     </div>
