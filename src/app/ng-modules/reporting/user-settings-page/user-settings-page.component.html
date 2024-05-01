@@ -1,38 +1,28 @@
 <mat-card-title class="page-title">{{
   "settings.title" | translate
-}}</mat-card-title>
+  }}</mat-card-title>
 <mat-card class="card-container">
   <div class="flex-container">
     <mat-card class="secondary-card">
       <mat-card-title>{{
         "settings.changePassword" | translate
-      }}</mat-card-title>
-      <form [formGroup]="resetPasswordForm!">
-        <mat-form-field appearance="fill">
+        }}</mat-card-title>
+      <form [formGroup]="resetPasswordForm!" class="d-flex row mt-2">
+        <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
           <mat-label>{{ "settings.currentPassword" | translate }}</mat-label>
-          <input
-            matInput
-            [(ngModel)]="passwordValue"
-            [type]="hide ? 'password' : 'text'"
-            formControlName="password"
-            required="true"
-          />
+          <input matInput [(ngModel)]="passwordValue" [type]="hide ? 'password' : 'text'" formControlName="password"
+            required="true" />
           <mat-icon matSuffix (click)="hide = !hide">{{
             hide ? "visibility_off" : "visibility"
-          }}</mat-icon>
+            }}</mat-icon>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
           <mat-label>{{ "settings.retypePassword" | translate }}</mat-label>
-          <input
-            type="password"
-            matInput
-            [type]="hideCheck ? 'password' : 'text'"
-            formControlName="checkPassword"
-            [(ngModel)]="checkPasswordValue"
-          />
+          <input type="password" matInput [type]="hideCheck ? 'password' : 'text'" formControlName="checkPassword"
+            [(ngModel)]="checkPasswordValue" />
           <mat-icon matSuffix (click)="hideCheck = !hideCheck">{{
             hideCheck ? "visibility_off" : "visibility"
-          }}</mat-icon>
+            }}</mat-icon>
         </mat-form-field>
         <mat-hint *ngIf="passwordsDoNotMatch" color="red">
           {{ "settings.passwordsNoMatch" | translate }}
@@ -46,9 +36,7 @@
     <mat-card class="secondary-card">
       <div *ngIf="currentUser">
         <mat-card-subtitle>{{ currentUser.role }}</mat-card-subtitle>
-        <mat-card-title
-          >{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title
-        >
+        <mat-card-title>{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title>
       </div>
     </mat-card>
   </div>
