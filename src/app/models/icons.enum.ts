@@ -15,5 +15,9 @@ export enum Icons {
   edit = 'edit',
   delete = 'delete',
   add_box = 'add_box',
-  close = 'close'
+  close = 'close',
+  delete_forever = 'delete_forever',
+  control_point_duplicate = 'control_point_duplicate',
+  keyboard_arrow_right = 'keyboard_arrow_right',
+  keyboard_arrow_left = 'keyboard_arrow_left',
 }
