@@ -1,17 +1,11 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription, switchMap } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Icons } from 'src/app/models/icons.enum';
 
 @Component({
   selector: 'app-customer-page',
@@ -20,6 +14,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class CustomerPageComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
+  icons = Icons;
   allCustomers: Customer[] = [];
   customers: Customer[] = [];
 
