@@ -11,5 +11,8 @@ export enum Icons {
   error = 'error',
   check = 'check',
   visibility = 'visibility',
-  visibility_off = 'visibility_off'
+  visibility_off = 'visibility_off',
+  edit = 'edit',
+  delete = 'delete',
+  add_box = 'add_box',
 }
