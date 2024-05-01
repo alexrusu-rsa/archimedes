@@ -3,36 +3,36 @@
     <div class="col-12 d-flex justify-content-start flex-column">
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary"
         routerLink="../../reporting/activity/{{ this.currentUserId }}">
-        {{ "admin-dashboard.activities" | translate }}
+        {{ "adminDashboard.activities" | translate }}
         <mat-icon>event_note</mat-icon>
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user">
-        {{ "admin-dashboard.users" | translate }}
+        {{ "adminDashboard.users" | translate }}
         <mat-icon>person</mat-icon>
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/customer">
         <mat-icon>people</mat-icon>
-        {{ "admin-dashboard.customers" | translate }}
+        {{ "adminDashboard.customers" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/project">
         <mat-icon>list_alt</mat-icon>
-        {{ "admin-dashboard.projects" | translate }}
+        {{ "adminDashboard.projects" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/invoice">
         <mat-icon>assignment_turned_in</mat-icon>
-        {{ "admin-dashboard.invoices" | translate }}
+        {{ "adminDashboard.invoices" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user-reporting">
         <mat-icon>timelapse</mat-icon>
-        {{ "admin-dashboard.reporting" | translate }}
+        {{ "adminDashboard.reporting" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/rate">
         <mat-icon>money</mat-icon>
-        {{ "admin-dashboard.rates" | translate }}
+        {{ "adminDashboard.rates" | translate }}
       </button>
     </div>
     <div class="col-12">
-      <button class="col-12" color="accent" mat-raised-button>Log Out</button>
+      <button class="col-12" color="accent" mat-raised-button>{{ 'adminDashboard.logOut' | translate }}</button>
     </div>
   </mat-card>
   <mat-card class="col-8">

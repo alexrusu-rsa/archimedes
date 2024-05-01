@@ -39,7 +39,7 @@
 <div class="container mx-0 px-0">
   <mat-card class="content-container" *ngIf="activitiesOfTheDay.length < 1">
     <mat-card class="entity-card">
-      <mat-card-title>You have not reported any activities for this day yet.</mat-card-title>
+      <mat-card-title>{{ 'activityPage.noActivities' | translate }}</mat-card-title>
     </mat-card>
   </mat-card>
 </div>
