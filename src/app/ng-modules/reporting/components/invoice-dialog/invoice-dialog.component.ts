@@ -1,9 +1,9 @@
+import { Icons } from 'src/app/models/icons.enum';
 import { DatePipe } from '@angular/common';
 import {
   Component,
   DestroyRef,
   Inject,
-  OnDestroy,
   OnInit,
   ViewEncapsulation,
   inject,
@@ -23,13 +23,7 @@ import { CustomerService } from '../../../../services/customer-service/customer.
 })
 export class InvoiceDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public invoiceDataWrapper: InvoiceDataWrapper,
-    public dialogRef: MatDialogRef<InvoiceDialogComponent>,
-    private customerService: CustomerService,
-    public datepipe: DatePipe
-  ) {}
-
+  icons = Icons;
   customerId?: string;
   selectedMonth?: string;
   selectedYear?: string;
@@ -43,10 +37,15 @@ export class InvoiceDialogComponent implements OnInit {
   romanianCustomer?: boolean;
   pdfUrl?: string;
   isEditable = false;
-
   invoiceTitle?: string;
-
   dateFormatted?: number;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public invoiceDataWrapper: InvoiceDataWrapper,
+    public dialogRef: MatDialogRef<InvoiceDialogComponent>,
+    private customerService: CustomerService,
+    public datepipe: DatePipe
+  ) {}
 
   downloadXLSX() {
     if (this.checkAbleToRequestInvoice())

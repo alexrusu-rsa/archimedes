@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './services/auth-service/auth.service';
 import { LocalStorageService } from './services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Icons } from './models/icons.enum';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   isAdmin?: boolean;
   currentUserId?: string;
   activeToken?: string;
+  icons = Icons;
 
   constructor(
     private router: Router,

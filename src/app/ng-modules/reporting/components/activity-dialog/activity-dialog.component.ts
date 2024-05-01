@@ -1,16 +1,10 @@
-import {
-  Component,
-  DestroyRef,
-  Inject,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, Inject, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { map, Observable, startWith, Subscription } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
+import { Icons } from 'src/app/models/icons.enum';
 import { Project } from 'src/app/models/project';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
@@ -25,6 +19,8 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 })
 export class ActivityDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
+  icons = Icons;
+
   constructor(
     public dialogRef: MatDialogRef<ActivityDialogComponent>,
     private dateFormatService: DateFormatService,

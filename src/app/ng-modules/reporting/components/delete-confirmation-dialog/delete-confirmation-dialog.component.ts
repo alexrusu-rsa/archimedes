@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Icons } from 'src/app/models/icons.enum';
 
 @Component({
   selector: 'app-delete-confirmation-dialog',
   templateUrl: './delete-confirmation-dialog.component.html',
   styleUrls: ['./delete-confirmation-dialog.component.sass'],
 })
-export class DeleteConfirmationDialogComponent implements OnInit {
+export class DeleteConfirmationDialogComponent {
+  icons = Icons;
   constructor(
     public dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>
   ) {}
@@ -18,6 +20,4 @@ export class DeleteConfirmationDialogComponent implements OnInit {
   cancel() {
     this.dialogRef.close(false);
   }
-
-  ngOnInit(): void {}
 }

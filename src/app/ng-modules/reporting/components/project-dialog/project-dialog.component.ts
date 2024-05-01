@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Customer } from 'src/app/models/customer';
+import { Icons } from 'src/app/models/icons.enum';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
@@ -15,14 +16,8 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 })
 export class ProjectDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  constructor(
-    private projectService: ProjectService,
-    public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    private customerService: CustomerService,
-    public datepipe: DatePipe,
-    @Inject(MAT_DIALOG_DATA) public currentProjectToUpdate: Project
-  ) {}
 
+  icons = Icons;
   addProjectForm?: FormGroup;
   currentProject?: Project;
   customers?: Customer[];
@@ -32,6 +27,14 @@ export class ProjectDialogComponent implements OnInit {
   selectedProjectCustomer?: Customer;
   selectedDate?: Date;
   contractSignDate?: Date;
+
+  constructor(
+    private projectService: ProjectService,
+    public dialogRef: MatDialogRef<ProjectDialogComponent>,
+    private customerService: CustomerService,
+    public datepipe: DatePipe,
+    @Inject(MAT_DIALOG_DATA) public currentProjectToUpdate: Project
+  ) {}
 
   addProject() {
     if (this.checkAbleToRequestAddProject())

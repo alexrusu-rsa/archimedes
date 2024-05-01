@@ -1,12 +1,6 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { Rate } from 'src/app/models/rate';
 import { User } from 'src/app/models/user';
@@ -16,6 +10,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { DeleteConfirmationDialogComponent } from '../components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { RateDialogComponent } from '../components/rate-dialog/rate-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Icons } from 'src/app/models/icons.enum';
 
 @Component({
   selector: 'app-rate-page',
@@ -36,6 +31,7 @@ export class RatePageComponent implements OnInit {
     'editButton',
     'deleteButton',
   ];
+  icons = Icons;
 
   constructor(
     private projectService: ProjectService,

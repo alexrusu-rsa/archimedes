@@ -10,7 +10,7 @@
           <input matInput [(ngModel)]="passwordValue" [type]="hide ? 'password' : 'text'" formControlName="password"
             required="true" />
           <mat-icon matSuffix (click)="hide = !hide">{{
-            hide ? "visibility_off" : "visibility"
+            hide ? icons.visibility_off : icons.visibility
             }}</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
@@ -18,7 +18,7 @@
           <input type="password" matInput [type]="hideCheck ? 'password' : 'text'" formControlName="checkPassword"
             [(ngModel)]="checkPasswordValue" />
           <mat-icon matSuffix (click)="hideCheck = !hideCheck">{{
-            hideCheck ? "visibility_off" : "visibility"
+            hideCheck ? icons.visibility_off : icons.visibility
             }}</mat-icon>
         </mat-form-field>
         <mat-hint *ngIf="passwordsDoNotMatch" color="red">

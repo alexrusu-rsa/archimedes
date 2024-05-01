@@ -2,33 +2,34 @@
   <mat-card class="col-4 d-flex justify-content-between">
     <div class="col-12 d-flex justify-content-start flex-column">
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary"
-        routerLink="../../reporting/activity/{{ this.currentUserId }}">
-        {{ "adminDashboard.activities" | translate }}
-        <mat-icon>event_note</mat-icon>
+        *ngIf="(localStorageService.userIdValue | async) as userIdValue"
+        routerLink="../../reporting/activity/{{ userIdValue }}">
+        {{ "admin-dashboard.activities" | translate }}
+        <mat-icon>{{icons.event_note}}</mat-icon>
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user">
-        {{ "adminDashboard.users" | translate }}
-        <mat-icon>person</mat-icon>
+        {{ "admin-dashboard.users" | translate }}
+        <mat-icon>{{icons.person}}</mat-icon>
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/customer">
-        <mat-icon>people</mat-icon>
-        {{ "adminDashboard.customers" | translate }}
+        <mat-icon>{{icons.people}}</mat-icon>
+        {{ "admin-dashboard.customers" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/project">
-        <mat-icon>list_alt</mat-icon>
-        {{ "adminDashboard.projects" | translate }}
+        <mat-icon>{{icons.list_alt}}</mat-icon>
+        {{ "admin-dashboard.projects" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/invoice">
-        <mat-icon>assignment_turned_in</mat-icon>
-        {{ "adminDashboard.invoices" | translate }}
+        <mat-icon>{{icons.assignment_turned_in}}</mat-icon>
+        {{ "admin-dashboard.invoices" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user-reporting">
-        <mat-icon>timelapse</mat-icon>
-        {{ "adminDashboard.reporting" | translate }}
+        <mat-icon>{{icons.timelapse}}</mat-icon>
+        {{ "admin-dashboard.reporting" | translate }}
       </button>
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/rate">
-        <mat-icon>money</mat-icon>
-        {{ "adminDashboard.rates" | translate }}
+        <mat-icon>{{icons.money}}</mat-icon>
+        {{ "admin-dashboard.rates" | translate }}
       </button>
     </div>
     <div class="col-12">
