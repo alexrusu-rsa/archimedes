@@ -1,10 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, switchMap } from 'rxjs';
 import { Project } from 'src/app/models/project';
@@ -16,12 +10,14 @@ import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Icons } from 'src/app/models/icons.enum';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
   styleUrls: ['./user-page.component.sass'],
 })
 export class UserPageComponent implements OnInit {
+  icons = Icons;
   readonly destroyRef = inject(DestroyRef);
   allUsers: User[] = [];
   users: User[] = [];

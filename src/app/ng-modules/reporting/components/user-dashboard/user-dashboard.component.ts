@@ -1,11 +1,6 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Icons } from 'src/app/models/icons.enum';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 
 @Component({
@@ -15,8 +10,10 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 })
 export class UserDashboardComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  constructor(private localStorageService: LocalStorageService) {}
+  icons = Icons;
   currentUserId?: string;
+
+  constructor(private localStorageService: LocalStorageService) {}
   ngOnInit(): void {
     this.localStorageService.userIdValue
       .pipe(takeUntilDestroyed(this.destroyRef))

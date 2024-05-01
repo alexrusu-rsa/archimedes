@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
+import { Icons } from 'src/app/models/icons.enum';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { ActivityService } from 'src/app/services/activity-service/activity.serv
   styleUrls: ['./duplicate-activity-dialog.component.sass'],
 })
 export class DuplicateActivityDialogComponent implements OnInit {
+  icons = Icons;
   constructor(
     public datepipe: DatePipe,
     public dialogRef: MatDialogRef<DuplicateActivityDialogComponent>,

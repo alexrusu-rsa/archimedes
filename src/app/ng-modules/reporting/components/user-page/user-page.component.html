@@ -9,7 +9,7 @@
     <div class="col d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end">
       <div class="top-button content-container col-lg-3 col-sm-6 d-flex justify-content-center align-self-center"
         (click)="addUser()">
-        <mat-icon class="align-self-center" color="accent">add_box</mat-icon>
+        <mat-icon class="align-self-center" color="accent">{{icons.add_box}}</mat-icon>
       </div>
     </div>
   </div>
@@ -17,7 +17,6 @@
 
 <div class="container m-0 p-0">
   <mat-card class="content-container">
-    <a href=""></a>
     <mat-card class="entity-card row mx-0 mb-3 p-2" *ngFor="let user of allUsers">
       <mat-card-subtitle class="mt-2">{{ user.roles }}</mat-card-subtitle>
       <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>
@@ -29,11 +28,11 @@
         <mat-card-actions class="col-12 mb-0 justify-content-end d-block d-md-flex d-sm-flex d-lg-flex d-xl-flex">
           <button class="col-6 col-sm-2 col-md-2 col-lg-1 col-xl-1 mx-0 mb-2 px-0" mat-icon-button
             (click)="editUser(user)">
-            <mat-icon color="accent">edit</mat-icon>
+            <mat-icon color="accent">{{icons.edit}}</mat-icon>
           </button>
           <button class="col-6 col-sm-2 col-md-2 col-lg-1 col-xl-1 mx-0 mb-2 px-0" mat-icon-button
             (click)="deleteUser(user.id!)">
-            <mat-icon color="accent">delete</mat-icon>
+            <mat-icon color="accent">{{icons.delete}}</mat-icon>
           </button>
         </mat-card-actions>
       </div>
@@ -47,7 +46,7 @@
     </mat-card>
     <div class="row mx-0 d-flex justify-content-center">
       <button mat-icon-button class="add-button-card col-12" (click)="addUser()">
-        <mat-icon color="accent">add_box</mat-icon>
+        <mat-icon color="accent">{{icons.add_box}}</mat-icon>
       </button>
     </div>
   </mat-card>

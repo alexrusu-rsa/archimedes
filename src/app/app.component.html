@@ -1,7 +1,7 @@
 <div class="row position-sticky fixed-top top-0 w-100">
   <mat-toolbar color="primary">
     <button *ngIf="hasToken === true && hasToken !== undefined" mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
+      <mat-icon>{{ icons.menu }}</mat-icon>
     </button>
     <h3>{{ pageTitle | titlecase }}</h3>
   </mat-toolbar>

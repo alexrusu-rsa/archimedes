@@ -4,12 +4,10 @@ import {
   DestroyRef,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
 import { Activity } from '../../../../models/activity';
 import { User } from '../../../../models/user';
 import { ActivityService } from '../../../../services/activity-service/activity.service';
@@ -27,9 +25,9 @@ import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { Rate } from '../../../../models/rate';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import e from 'express';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Icons } from 'src/app/models/icons.enum';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -37,7 +35,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ActivityPageComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-
+  icons = Icons;
   user?: User;
   activitiesOfTheDay: Activity[] = [];
   daySelected?: string;

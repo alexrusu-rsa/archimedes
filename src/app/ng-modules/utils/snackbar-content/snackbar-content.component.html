@@ -1,6 +1,6 @@
 <div class="container-all" *ngIf="this.data.errorMessage !== undefined">
   <div class="container-icon-code">
-    <mat-icon>error</mat-icon>
+    <mat-icon>{{icons.error}}</mat-icon>
     <h3>
       <b>{{ errorCode }}</b>
     </h3>
@@ -10,7 +10,7 @@
 
 <div class="container-all" *ngIf="this.data.successMessage">
   <div class="container-icon-code">
-    <mat-icon>check</mat-icon>
+    <mat-icon>{{icons.check}}</mat-icon>
     <h3>
       {{ this.successMessageToDisplay }}
     </h3>
