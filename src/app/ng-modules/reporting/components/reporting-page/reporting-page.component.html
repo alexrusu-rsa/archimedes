@@ -1,39 +1,12 @@
-<div class="container mt-4 mx-0 px-0">
+<div class="container mx-0 px-0 mt-5">
   <div class="row col-12 mx-0 px-0">
-    <mat-card-title
-      class="page-title col-12 text-start mx-0 px-0"
-      *ngIf="!currentEmployeeId"
-      >{{ "reporting.page.title" | translate }}</mat-card-title
-    >
-    <mat-card-title
-      class="page-title col-12 text-start mx-0 px-0"
-      *ngIf="currentEmployeeId"
-      >{{ "dashboard.monthOverview" | translate }}</mat-card-title
-    >
-  </div>
-</div>
-
-<div class="container mx-0 px-0 mt-4">
-  <div class="row col-12 mx-0 px-0">
-    <mat-form-field
-      appearance="fill"
-      *ngIf="range"
-      class="col-12 col-md-4 col-lg-5 mx-0 px-0"
-    >
+    <mat-form-field appearance="fill" *ngIf="range" class="col-12 col-md-4 col-lg-5 mx-0 px-0">
       <mat-label>{{ "reporting.page.selectDateRange" | translate }}</mat-label>
       <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-        <input
-          matStartDate
-          formControlName="start"
-          (dateChange)="dateChanges()"
-          placeholder="{{ 'reporting.page.startDate' | translate }}  "
-        />
-        <input
-          matEndDate
-          formControlName="end"
-          (dateChange)="dateChanges()"
-          placeholder="{{ 'reporting.page.endDate' | translate }}  "
-        />
+        <input matStartDate formControlName="start" (dateChange)="dateChanges()"
+          placeholder="{{ 'reporting.page.startDate' | translate }}  " />
+        <input matEndDate formControlName="end" (dateChange)="dateChanges()"
+          placeholder="{{ 'reporting.page.endDate' | translate }}  " />
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
@@ -42,9 +15,7 @@
 </div>
 
 <div class="container justify-content-center align-items-center mx-0 px-0">
-  <div
-    class="row col-12 d-block mx-0 px-0 d-flex flex-column justify-content-center align-items-center"
-  >
+  <div class="row col-12 d-block mx-0 px-0 d-flex flex-column justify-content-center align-items-center">
     <div class="row mx-0 px-0 seven-cols d-flex justify-content-between mb-3">
       <mat-card class="col-1 mx-0 px-0">
         <mat-card-subtitle class="text-center mx-0 px-0">Mo</mat-card-subtitle>
@@ -68,29 +39,20 @@
         <mat-card-subtitle class="text-center mx-0 px-0">Su</mat-card-subtitle>
       </mat-card>
     </div>
-    <div
-      class="row seven-cols d-flex justify-content-between mb-3 mx-0 px-0"
-      *ngFor="let week of calendar?.weeksInCalendar"
-    >
-      <mat-card
-        class="col-1 mx-0 px-0"
-        *ngFor="let weekDay of week.weekDays"
-        matTooltip="{{ weekDay.tooltipMessage }}"
-        matTooltipPosition="below"
-        [ngStyle]="{
+    <div class="row seven-cols d-flex justify-content-between mb-3 mx-0 px-0"
+      *ngFor="let week of calendar?.weeksInCalendar">
+      <mat-card class="col-1 mx-0 px-0" *ngFor="let weekDay of week.weekDays" matTooltip="{{ weekDay.tooltipMessage }}"
+        matTooltipPosition="below" [ngStyle]="{
           'background-color': weekDay.color,
           opacity: weekDay.opacity
-        }"
-        (click)="
+        }" (click)="
           checkEmployeesCommitment(
             weekDay,
             weekDay.employeesCommitment,
             weekDay.date.toString()
           )
-        "
-      >
-        <mat-card-subtitle class="text-center mx-0 px-0"
-          >{{ weekDay.date.toString().split(" ")[2] }}
+        ">
+        <mat-card-subtitle class="text-center mx-0 px-0">{{ weekDay.date.toString().split(" ")[2] }}
         </mat-card-subtitle>
       </mat-card>
     </div>

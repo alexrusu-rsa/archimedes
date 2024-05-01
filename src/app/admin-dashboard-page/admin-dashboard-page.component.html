@@ -1,71 +1,32 @@
-<div class="container mx-0 px-0 mt-4">
-  <div class="row col-12 mx-0 px-0 mb-2">
-    <mat-card-title class="col-12 mx-0 px-0">Admin Dashboard</mat-card-title>
-  </div>
-</div>
-<div class="col-12 d-flex gap-2">
+<div class="container mt-5 col-12 d-flex gap-2">
   <mat-card class="col-4 d-flex justify-content-between">
     <div class="col-12 d-flex justify-content-start flex-column">
-      <button
-        mat-raised-button
-        class="col-12 mt-2 py-4"
-        color="primary"
-        routerLink="../../reporting/activity/{{ this.currentUserId }}"
-      >
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary"
+        routerLink="../../reporting/activity/{{ this.currentUserId }}">
         {{ "admin-dashboard.activities" | translate }}
         <mat-icon>event_note</mat-icon>
       </button>
-      <button
-        mat-raised-button
-        class="col-12 mt-2 py-4"
-        color="primary"
-        routerLink="../../reporting/user"
-      >
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user">
         {{ "admin-dashboard.users" | translate }}
         <mat-icon>person</mat-icon>
       </button>
-      <button
-        mat-raised-button
-        class="col-12 mt-2 py-4"
-        color="primary"
-        routerLink="../../reporting/customer"
-      >
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/customer">
         <mat-icon>people</mat-icon>
         {{ "admin-dashboard.customers" | translate }}
       </button>
-      <button
-        mat-raised-button
-        class="col-12 mt-2 py-4"
-        color="primary"
-        routerLink="../../reporting/project"
-      >
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/project">
         <mat-icon>list_alt</mat-icon>
         {{ "admin-dashboard.projects" | translate }}
       </button>
-      <button
-        mat-raised-button
-        class="col-12 mt-2 py-4"
-        color="primary"
-        routerLink="../../reporting/invoice"
-      >
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/invoice">
         <mat-icon>assignment_turned_in</mat-icon>
         {{ "admin-dashboard.invoices" | translate }}
       </button>
-      <button
-        mat-raised-button
-        class="col-12 mt-2 py-4"
-        color="primary"
-        routerLink="../../reporting/user-reporting"
-      >
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/user-reporting">
         <mat-icon>timelapse</mat-icon>
         {{ "admin-dashboard.reporting" | translate }}
       </button>
-      <button
-        mat-raised-button
-        class="col-12 mt-2 py-4"
-        color="primary"
-        routerLink="../../reporting/rate"
-      >
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="../../reporting/rate">
         <mat-icon>money</mat-icon>
         {{ "admin-dashboard.rates" | translate }}
       </button>
