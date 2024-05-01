@@ -4,8 +4,8 @@
       <mat-card-title>{{
         "settings.changePassword" | translate
         }}</mat-card-title>
-      <form [formGroup]="resetPasswordForm!">
-        <mat-form-field appearance="fill">
+      <form [formGroup]="resetPasswordForm!" class="d-flex row mt-2">
+        <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
           <mat-label>{{ "settings.currentPassword" | translate }}</mat-label>
           <input matInput [(ngModel)]="passwordValue" [type]="hide ? 'password' : 'text'" formControlName="password"
             required="true" />
@@ -13,7 +13,7 @@
             hide ? "visibility_off" : "visibility"
             }}</mat-icon>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
           <mat-label>{{ "settings.retypePassword" | translate }}</mat-label>
           <input type="password" matInput [type]="hideCheck ? 'password' : 'text'" formControlName="checkPassword"
             [(ngModel)]="checkPasswordValue" />
