@@ -12,7 +12,8 @@
     "settings": "Settings",
     "invoices": "Invoices",
     "logOut": "Log out",
-    "rates": "Rates"
+    "rates": "Rates",
+    "account": "ACCOUNT"
   },
   "admin-dashboard": {
     "activities": "Activities",

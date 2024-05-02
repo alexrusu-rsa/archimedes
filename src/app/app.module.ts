@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MaterialModule } from './ng-modules/material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,7 +10,6 @@ import {
 } from '@angular/common/http';
 import {
   DatePipe,
-  HashLocationStrategy,
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
@@ -50,6 +48,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SafePipe } from './pipes/safe.pipe';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
+import { SharedModule } from './ng-modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -83,10 +82,10 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     NgxExtendedPdfViewerModule,
     PdfViewerModule,
     AppRoutingModule,
-    MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,

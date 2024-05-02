@@ -1,17 +1,11 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login-service/user-login.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LoginResponse } from '../../shared/models/loginResponse.model';
 
 @Component({
   selector: 'app-login',
@@ -20,31 +14,26 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class LoginComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  user!: User;
+  user: User;
   loginForm?: FormGroup;
   logInProgress?: boolean;
 
   constructor(
     private userLoginService: UserLoginService,
-    private router: Router,
     private localStorageService: LocalStorageService
   ) {}
 
-  async logUserIn(user: User) {
+  logUserIn(user: User) {
     this.logInProgress = true;
     this.userLoginService
       .logUserIn(user)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response: any) => {
-        if (response === undefined) this.logInProgress = false;
-        this.localStorageService.accessToken = response.access_token;
-        this.localStorageService.role = response.role;
-        this.localStorageService.userId = response.userId;
-        const userId = response.userId;
-        if (response.role === 'admin') {
-          this.router.navigate(['reporting/admin-dashboard/']);
+      .subscribe((response: LoginResponse) => {
+        if (response == undefined || response == null) {
+          this.logInProgress = false;
+          return;
         } else {
-          this.router.navigate(['reporting/dashboard/']);
+          this.localStorageService.loginResponse = response;
         }
       });
   }

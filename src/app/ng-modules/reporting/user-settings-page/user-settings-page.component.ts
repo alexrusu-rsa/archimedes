@@ -35,7 +35,7 @@ export class UserSettingsPageComponent implements OnInit {
       this.userManagePasswordService
         .changePasswordFor(
           this.password?.value,
-          this.localStorageService.userId!
+          this.localStorageService.loginResponse.userId!
         )
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
@@ -56,7 +56,7 @@ export class UserSettingsPageComponent implements OnInit {
   }
 
   getCurrentUser() {
-    const currentUserId = this.localStorageService.userId;
+    const currentUserId = this.localStorageService.loginResponse.userId;
     if (currentUserId)
       this.userService
         .getUser(currentUserId)

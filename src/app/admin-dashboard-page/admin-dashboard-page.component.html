@@ -2,8 +2,8 @@
   <mat-card class="col-4 d-flex justify-content-between">
     <div class="col-12 d-flex justify-content-start flex-column">
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary"
-        *ngIf="(localStorageService.userIdValue | async) as userIdValue"
-        routerLink="../../reporting/activity/{{ userIdValue }}">
+        *ngIf="(localStorageService.loginResponseValue$ | async) as loginResponseValue"
+        routerLink="../../reporting/activity/{{ loginResponseValue?.userId }}">
         {{ "admin-dashboard.activities" | translate }}
         <mat-icon>{{icons.event_note}}</mat-icon>
       </button>
@@ -31,9 +31,6 @@
         <mat-icon>{{icons.money}}</mat-icon>
         {{ "admin-dashboard.rates" | translate }}
       </button>
-    </div>
-    <div class="col-12">
-      <button class="col-12" color="accent" mat-raised-button>Log Out</button>
     </div>
   </mat-card>
   <mat-card class="col-8">

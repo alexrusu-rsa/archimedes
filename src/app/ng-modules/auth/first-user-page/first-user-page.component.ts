@@ -57,7 +57,7 @@ export class FirstUserPageComponent implements OnInit {
     this.user.seniority = seniority;
     this.user.timePerDay = timePerDay;
     this.user.password = password;
-    this.testPasswordsMatch = this.password === this.checkPassword;
+    // this.testPasswordsMatch = this.password === this.checkPassword;
 
     if (
       this.checkPasswordsMatch(

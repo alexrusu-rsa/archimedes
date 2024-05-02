@@ -21,4 +21,5 @@ export enum Icons {
   keyboard_arrow_right = 'keyboard_arrow_right',
   keyboard_arrow_left = 'keyboard_arrow_left',
   settings = 'settings',
+  lens = 'lens',
 }

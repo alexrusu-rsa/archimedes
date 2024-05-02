@@ -31,6 +31,10 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: '**',
+    redirectTo: 'reporting',
+  },
+  {
     path: 'employee/:id',
     component: UserDetailsComponent,
   },

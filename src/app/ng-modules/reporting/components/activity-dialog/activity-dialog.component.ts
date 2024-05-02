@@ -67,7 +67,7 @@ export class ActivityDialogComponent implements OnInit {
 
   getProjects() {
     this.projectService
-      .getProjectsUser(this.localStorageService.userId!)
+      .getProjectsUser(this.localStorageService.loginResponse.userId!)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.projects = result;

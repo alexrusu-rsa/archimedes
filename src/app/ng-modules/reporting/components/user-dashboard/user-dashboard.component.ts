@@ -15,10 +15,10 @@ export class UserDashboardComponent implements OnInit {
 
   constructor(private localStorageService: LocalStorageService) {}
   ngOnInit(): void {
-    this.localStorageService.userIdValue
+    this.localStorageService.loginResponseValue$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
-        if (result) this.currentUserId = result;
+        if (result) this.currentUserId = result?.userId;
       });
   }
 }

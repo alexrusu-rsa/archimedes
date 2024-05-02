@@ -7,6 +7,7 @@ import { User } from '../../models/user';
 import { NotificationService } from '../notification-service/notification.service';
 import { reflectObjectLiteral } from '@angular/compiler-cli/src/ngtsc/reflection';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
+import { LoginResponse } from 'src/app/ng-modules/shared/models/loginResponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class UserLoginService {
       );
   }
 
-  logUserIn(user: User): Observable<RequestWrapper> {
+  logUserIn(user: User): Observable<LoginResponse> {
     const logInUrl = this.usersUrl + '/creds';
     return this.httpClient
       .post<RequestWrapper>(
@@ -44,10 +45,10 @@ export class UserLoginService {
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Logged in succesfully');
-          return res.body as RequestWrapper;
+          return res.body as LoginResponse;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
+          this.responseHandlingService.handleError<LoginResponse>(
             'userLoggedIn'
           )
         )
