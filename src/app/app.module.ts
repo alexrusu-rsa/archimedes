@@ -23,7 +23,6 @@ import { UserDialogComponent } from './ng-modules/reporting/components/user-dial
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
-import { UserDetailsComponent } from './ng-modules/reporting/components/user-details/user-details.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -55,7 +54,6 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
     AppComponent,
     ActivityPageComponent,
     SnackbarContentComponent,
-    UserDetailsComponent,
     UserDialogComponent,
     ActivityDialogComponent,
     CustomerDialogComponent,
