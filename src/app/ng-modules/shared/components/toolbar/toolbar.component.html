@@ -5,6 +5,12 @@
         </button>
         <h3 *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
         <span class="flex-grow-1"></span>
-        <h3 *ngIf="currentUserId">{{currentUser?.name}}</h3>
+        <app-initials-icon [matMenuTriggerFor]="menu" *ngIf="currentUser" [matMenuTriggerData]="{user: currentUser}"
+            class="border rounded-circle" [user]="currentUser"></app-initials-icon>
+        <mat-menu #menu="matMenu" class="px-2 pt-3 pb-0">
+            <ng-template matMenuContent let-user="user">
+                <app-user-navigation *ngIf="user" [user]="user"></app-user-navigation>
+            </ng-template>
+        </mat-menu>
     </mat-toolbar>
 </div>
