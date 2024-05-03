@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LocalStorageService } from '../services/localstorage-service/localstorage.service';
-import { Icons } from '../models/icons.enum';
+import { LocalStorageService } from '../../../../services/localstorage-service/localstorage.service';
+import { Icons } from '../../../../models/icons.enum';
 
 @Component({
   selector: 'app-admin-dashboard-page',

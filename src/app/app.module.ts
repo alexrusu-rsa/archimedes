@@ -11,7 +11,6 @@ import {
 } from '@angular/common/http';
 import {
   DatePipe,
-  HashLocationStrategy,
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
@@ -30,11 +29,11 @@ import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoic
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './pipes/employee.pipe';
 import { DateRangePipe } from './pipes/date-range.pipe';
-import { AdminDashboardPageComponent } from './admin-dashboard-page/admin-dashboard-page.component';
+import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { CustomPipeModule } from './custom-pipe/custom-pipe.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
-import { UserSettingsPageComponent } from './ng-modules/reporting/user-settings-page/user-settings-page.component';
+import { UserSettingsPageComponent } from './ng-modules/reporting/components/user-settings-page/user-settings-page.component';
 import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
@@ -43,7 +42,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './ng-modules/utils/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
-import { RatePageComponent } from './ng-modules/reporting/rate-page/rate-page.component';
+import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { InvoicePreviewDialogComponent } from './ng-modules/reporting/components/invoice-preview-dialog/invoice-preview-dialog.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';

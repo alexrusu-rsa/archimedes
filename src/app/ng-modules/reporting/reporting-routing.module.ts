@@ -8,10 +8,10 @@ import { CustomerPageComponent } from './components/customer-page/customer-page.
 import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
 import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
-import { AdminDashboardPageComponent } from 'src/app/admin-dashboard-page/admin-dashboard-page.component';
+import { AdminDashboardPageComponent } from 'src/app/ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
-import { UserSettingsPageComponent } from './user-settings-page/user-settings-page.component';
-import { RatePageComponent } from './rate-page/rate-page.component';
+import { UserSettingsPageComponent } from './components/user-settings-page/user-settings-page.component';
+import { RatePageComponent } from './components/rate-page/rate-page.component';
 
 const routes: Routes = [
   {
