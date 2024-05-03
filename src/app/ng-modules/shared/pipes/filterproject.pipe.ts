@@ -1,7 +1,7 @@
 import { ClassPropertyMapping } from '@angular/compiler-cli/src/ngtsc/metadata';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Activity } from '../models/activity';
-import { Project } from '../models/project';
+import { Activity } from '../../../models/activity';
+import { Project } from '../../../models/project';
 
 @Pipe({
   name: 'filterproject',

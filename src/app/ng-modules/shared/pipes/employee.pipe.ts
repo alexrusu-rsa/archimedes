@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Activity } from '../models/activity';
+import { Activity } from '../../../models/activity';
 
 @Pipe({
   name: 'employee',
