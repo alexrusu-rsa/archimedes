@@ -13,10 +13,7 @@ import { Icons } from './models/icons.enum';
 })
 export class AppComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  title = 'archimedes-frontend';
-  urlToFormat = '';
   pageTitle?: string;
-  userRole?: string;
   hasToken = false;
   isAdmin = false;
   currentUserId?: string;
@@ -25,7 +22,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private localStorageService: LocalStorageService,
     public translate: TranslateService
   ) {
@@ -35,10 +32,6 @@ export class AppComponent implements OnInit {
     const browserLang = translate.getBrowserLang();
     if (browserLang?.match(/en|de|ro/)) translate.use(browserLang);
     else translate.use('en');
-  }
-
-  logOut() {
-    this.authService.doLogout();
   }
 
   ngOnInit() {
@@ -63,16 +56,9 @@ export class AppComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
-          this.urlToFormat = event.url.substring(1, event.url.length);
-          this.pageTitle = this.urlToFormat.split('/')[1];
+          const urlToFormat = event.url.substring(1, event.url.length);
+          this.pageTitle = urlToFormat.split('/')[1];
         }
       });
-  }
-  private tokenExpired(token: string) {
-    if (token !== null) {
-      const expiry = JSON.parse(atob(token.split('.')[1])).exp;
-      return Math.floor(new Date().getTime() / 1000) >= expiry;
-    }
-    return false;
   }
 }

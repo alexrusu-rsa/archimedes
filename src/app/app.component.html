@@ -3,26 +3,18 @@
     <button *ngIf="hasToken" mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>{{ icons.menu }}</mat-icon>
     </button>
-    <h3>{{ pageTitle | titlecase }}</h3>
+    <h3 *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
   </mat-toolbar>
 </div>
-
 <mat-sidenav-container class="d-inline h-100 w-100">
   <mat-sidenav #sidenav class="vh-100">
     <mat-nav-list>
-      <a mat-list-item *ngIf="hasToken && !isAdmin" routerLink="reporting/dashboard" (click)="sidenav.close()">{{
+      <a mat-list-item *ngIf="hasToken && !isAdmin" routerLink="reporting" (click)="sidenav.close()">{{
         "sidenav.home" | translate }}</a>
-
-      <a mat-list-item *ngIf="isAdmin" routerLink="reporting/admin-dashboard" (click)="sidenav.close()">{{
+      <a mat-list-item *ngIf="isAdmin" routerLink="reporting" (click)="sidenav.close()">{{
         "sidenav.home" | translate }}</a>
-
-      <a mat-list-item *ngIf="isAdmin" routerLink="reporting/activity/{{ this.currentUserId }}"
-        (click)="sidenav.close()">{{ "sidenav.activities" | translate }}</a>
-
-      <a mat-list-item *ngIf="hasToken && !isAdmin" routerLink="reporting/activity/{{ this.currentUserId }}"
-        (click)="sidenav.close()">{{ "sidenav.activities" |
-        translate }}</a>
-
+      <a mat-list-item routerLink="reporting/activity/{{ this.currentUserId }}" (click)="sidenav.close()">{{
+        "sidenav.activities" | translate }}</a>
       <a *ngIf="isAdmin" mat-list-item routerLink="reporting/user" (click)="sidenav.close()">{{
         "sidenav.users" | translate }}</a>
       <a *ngIf="isAdmin" mat-list-item routerLink="reporting/rate" (click)="sidenav.close()">{{
@@ -39,8 +31,7 @@
       <a mat-list-item *ngIf="isAdmin" routerLink="reporting/invoice" (click)="sidenav.close()">{{ "sidenav.invoices" |
         translate }}
       </a>
-      <a mat-list-item routerLink="" (click)="sidenav.close(); logOut()">{{
-        "sidenav.logOut" | translate
+      <a mat-list-item routerLink="" (click)="sidenav.close();authService.doLogout()">{{ "sidenav.logOut" | translate
         }}</a>
     </mat-nav-list>
   </mat-sidenav>
