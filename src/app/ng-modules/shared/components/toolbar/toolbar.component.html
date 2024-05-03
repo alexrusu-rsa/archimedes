@@ -4,5 +4,7 @@
             <mat-icon>{{ icons.menu }}</mat-icon>
         </button>
         <h3 *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
+        <span class="flex-grow-1"></span>
+        <h3 *ngIf="currentUserId">{{currentUser?.name}}</h3>
     </mat-toolbar>
 </div>
