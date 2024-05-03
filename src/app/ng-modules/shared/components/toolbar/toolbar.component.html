@@ -1,0 +1,8 @@
+<div class="row position-sticky fixed-top top-0 w-100">
+    <mat-toolbar color="primary">
+        <button *ngIf="currentUserId" mat-icon-button (click)="toggleSidenav.emit()">
+            <mat-icon>{{ icons.menu }}</mat-icon>
+        </button>
+        <h3 *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
+    </mat-toolbar>
+</div>
