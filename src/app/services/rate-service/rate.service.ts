@@ -1,11 +1,6 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Rate } from '../../models/rate';
 import { RequestWrapper } from '../../models/request-wrapper';

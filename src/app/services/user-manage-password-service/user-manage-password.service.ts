@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -22,7 +18,6 @@ export class UserManagePasswordService {
   constructor(
     private httpClient: HttpClient,
     @Inject(NotificationService)
-    private notificationService: NotificationService,
     private responseHandlingService: ResponseHandlingService
   ) {}
 
@@ -60,7 +55,9 @@ export class UserManagePasswordService {
       )
       .pipe(
         map((res) => {
-          this.responseHandlingService.handleResponse('Password changed succesfully');
+          this.responseHandlingService.handleResponse(
+            'Password changed succesfully'
+          );
           return res.body as RequestWrapper;
         }),
         catchError(
