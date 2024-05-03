@@ -259,7 +259,6 @@
     "retypePasswordRequired": "Retyping the password required",
     "successfullSubmit": "Password successfully submitted"
   },
-  "Log in": "loginPage.logIn",
   "activityPage": {
     "noActivities": "You have not reported any activities for this day yet."
   },
