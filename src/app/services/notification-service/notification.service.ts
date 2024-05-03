@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorSnackbar } from '../../models/http-error-snackbar';
 
-import { SnackbarContentComponent } from '../../ng-modules/utils/snackbar-content/snackbar-content.component';
+import { SnackbarContentComponent } from '../../ng-modules/shared/components/snackbar-content/snackbar-content.component';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { SnackbarContentComponent } from '../../ng-modules/utils/snackbar-conten
 export class NotificationService {
   dataToSend?: HttpErrorSnackbar;
   durationInSeconds = 3;
-  constructor(public  snackBar: MatSnackBar) {}
+  constructor(public snackBar: MatSnackBar) {}
   openSnackBar(errorMessage: string, status: number) {
     this.snackBar.openFromComponent(SnackbarContentComponent, {
       duration: this.durationInSeconds * 1000,
