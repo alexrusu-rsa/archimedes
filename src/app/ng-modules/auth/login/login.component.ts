@@ -9,7 +9,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent {
   readonly destroyRef = inject(DestroyRef);
@@ -36,9 +35,7 @@ export class LoginComponent {
     } as User;
 
     if (loginUser?.email && loginUser?.password)
-
-
-      // TODO: clean up login process 
+      // TODO: clean up login process
       this.userLoginService
         .logUserIn(loginUser)
         .pipe(takeUntilDestroyed(this.destroyRef))
