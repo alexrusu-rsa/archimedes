@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Customer } from '../models/customer';
-import { Project } from '../models/project';
+import { Customer } from '../../../models/customer';
+import { Project } from '../../../models/project';
 
 @Pipe({
   name: 'customerfromprojectid',

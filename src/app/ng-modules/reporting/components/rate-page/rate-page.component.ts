@@ -7,8 +7,8 @@ import { User } from 'src/app/models/user';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { DeleteConfirmationDialogComponent } from '../components/delete-confirmation-dialog/delete-confirmation-dialog.component';
-import { RateDialogComponent } from '../components/rate-dialog/rate-dialog.component';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { RateDialogComponent } from '../rate-dialog/rate-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Icons } from 'src/app/models/icons.enum';
 

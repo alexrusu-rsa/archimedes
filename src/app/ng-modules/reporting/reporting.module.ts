@@ -7,7 +7,7 @@ import { ReportingRoutingModule } from './reporting-routing.module';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { CustomerPageComponent } from './components/customer-page/customer-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
-import { CustomPipeModule } from 'src/app/custom-pipe/custom-pipe.module';
+import { SharedModule } from 'src/app/ng-modules/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -22,8 +22,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     RouterModule,
     ReportingRoutingModule,
-    CustomPipeModule,
-    TranslateModule
+    SharedModule,
+    TranslateModule,
   ],
 })
 export class ReportingModule {}
