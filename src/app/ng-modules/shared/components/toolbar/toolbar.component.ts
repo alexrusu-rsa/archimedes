@@ -10,7 +10,6 @@ import { Icons } from 'src/app/models/icons.enum';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent {
