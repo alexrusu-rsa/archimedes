@@ -17,7 +17,6 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
 import { AuthModule } from './ng-modules/auth/auth.module';
-import { SnackbarContentComponent } from './ng-modules/shared/components/snackbar-content/snackbar-content.component';
 import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
@@ -53,7 +52,6 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
   declarations: [
     AppComponent,
     ActivityPageComponent,
-    SnackbarContentComponent,
     UserDialogComponent,
     ActivityDialogComponent,
     CustomerDialogComponent,
