@@ -2,63 +2,39 @@
   <mat-card class="mt-5 col-12 col-sm-10 col-md-8 col-lg-4 col-xl-4">
     <mat-card-title class="row col-12 text-center mt-2 mx-0 mb-5">{{
       "loginPage.title" | translate
-    }}</mat-card-title>
+      }}</mat-card-title>
     <mat-card-content class="p-0 m-0">
       <form [formGroup]="loginForm!" (keyup.enter)="logUserIn(user)" class="px-3">
         <mat-form-field class="col-12">
           <mat-label>{{ "loginPage.email" | translate }}</mat-label>
-          <input
-            #userEmail
-            matInput
-            id="email"
-            type="email"
-            formControlName="email"
-            [(ngModel)]="user.email"
-            class="col-12"
-          />
+          <input #userEmail matInput id="email" type="email" formControlName="email" [(ngModel)]="user.email"
+            class="col-12" />
           <mat-hint *ngIf="email?.invalid && email?.touched">
             {{ "loginPage.emailHint" | translate }}
           </mat-hint>
         </mat-form-field>
-  
+
         <mat-form-field class="col-12">
           <mat-label>{{ "loginPage.password" | translate }}</mat-label>
-          <input
-            #userPassword
-            matInput
-            id="password"
-            type="password"
-            formControlName="password"
-            [(ngModel)]="user.password"
-            required
-          />
-  
+          <input #userPassword matInput id="password" type="password" formControlName="password"
+            [(ngModel)]="user.password" required />
+
           <mat-hint *ngIf="password?.touched && password?.pristine">
             {{ "loginPage.passwordHint" | translate }}
           </mat-hint>
         </mat-form-field>
       </form>
     </mat-card-content>
-  
+
     <mat-card-actions class="col-12 d-flex flex-column justify-content-center">
       <div class="col-12 py-2">
-        <a
-          class="text-white"
-          [routerLink]="['/auth/resetpassword']"
-          routerLinkActive="router-link-active"
-          >{{ "loginPage.forgottenPassword" | translate }}</a
-        >
+        <a class="text-white" [routerLink]="['/auth/resetpassword']" routerLinkActive="router-link-active">{{
+          "loginPage.forgottenPassword" | translate }}</a>
       </div>
-      <button mat-raised-button color="accent" class="col-12" (click)="logUserIn(user)">
-        Log in
+      <button mat-raised-button color="accent" class="col-12" (click)="logUserIn(user)">{{'loginPage.logIn'|translate}}
       </button>
     </mat-card-actions>
-  
-    <mat-progress-bar
-      *ngIf="logInProgress"
-      color="accent"
-      mode="indeterminate"
-    ></mat-progress-bar>
+
+    <mat-progress-bar *ngIf="logInProgress" color="accent" mode="indeterminate"></mat-progress-bar>
   </mat-card>
 </div>
-
