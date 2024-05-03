@@ -1,16 +1,16 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login-service/user-login.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LoginResponse } from '../../shared/models/loginResponse.model';
+import { filter } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   logInProgress?: boolean;
 
   constructor(
+    private router: Router,
     private userLoginService: UserLoginService,
     private localStorageService: LocalStorageService
   ) {}
@@ -27,14 +28,14 @@ export class LoginComponent implements OnInit {
     this.logInProgress = true;
     this.userLoginService
       .logUserIn(user)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response: LoginResponse) => {
-        if (response == undefined || response == null) {
-          this.logInProgress = false;
-          return;
-        } else {
-          this.localStorageService.loginResponse = response;
-        }
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((loginResponse) => loginResponse != null)
+      )
+      .subscribe((loginResponse: LoginResponse) => {
+        this.localStorageService.loginResponse = loginResponse;
+
+        this.router.navigate(['reporting/admin-dashboard']);
       });
   }
 

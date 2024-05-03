@@ -35,6 +35,7 @@ export class MonthViewComponent implements OnInit {
   @ViewChildren('dateElement') dateElements?: QueryList<ElementRef>;
   constructor(private localStorageService: LocalStorageService) {}
   ngOnInit(): void {
-    this.currentUserId = this.localStorageService.loginResponse.userId!;
+    this.currentUserId =
+      this.localStorageService?.loginResponse?.currentUser?.id;
   }
 }

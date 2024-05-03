@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  Router,
-} from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 
@@ -14,7 +11,7 @@ export class UserAccessGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn === true) {
-      this.router.navigate(['reporting']);
+      this.router.navigate(['reporting/admin-dashboard']);
     }
     return true;
   }

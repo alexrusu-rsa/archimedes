@@ -4,7 +4,7 @@ import {
   MAT_DATE_LOCALE,
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
-import _moment, { Moment } from 'moment';
+import _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import {
   MomentDateAdapter,

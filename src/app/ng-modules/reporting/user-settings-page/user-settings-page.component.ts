@@ -2,9 +2,7 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Icons } from 'src/app/models/icons.enum';
-import { User } from 'src/app/models/user';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 
 @Component({
@@ -19,14 +17,12 @@ export class UserSettingsPageComponent implements OnInit {
   passwordValue?: string;
   checkPasswordValue?: string;
   passwordsDoNotMatch?: boolean;
-  currentUser?: User;
   hide = true;
   hideCheck = true;
 
   constructor(
     private userManagePasswordService: UserManagePasswordService,
-    private localStorageService: LocalStorageService,
-    private userService: UserLoginService
+    public localStorageService: LocalStorageService
   ) {}
 
   changePassword() {
@@ -35,7 +31,7 @@ export class UserSettingsPageComponent implements OnInit {
       this.userManagePasswordService
         .changePasswordFor(
           this.password?.value,
-          this.localStorageService.loginResponse.userId!
+          this.localStorageService?.loginResponse?.currentUser?.id
         )
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
@@ -55,17 +51,7 @@ export class UserSettingsPageComponent implements OnInit {
     return false;
   }
 
-  getCurrentUser() {
-    const currentUserId = this.localStorageService.loginResponse.userId;
-    if (currentUserId)
-      this.userService
-        .getUser(currentUserId)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((result) => (this.currentUser = result));
-  }
-
   ngOnInit(): void {
-    this.getCurrentUser();
     this.passwordsDoNotMatch = false;
     this.resetPasswordForm = new FormGroup({
       password: new FormControl(this.passwordValue),

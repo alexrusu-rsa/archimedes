@@ -31,7 +31,7 @@
       </button>
     </mat-card>
     <mat-card class="secondary-card">
-      <div *ngIf="currentUser">
+      <div *ngIf="(localStorageService.loginResponseValue$|async).currentUser as currentUser">
         <mat-card-subtitle>{{ currentUser.role }}</mat-card-subtitle>
         <mat-card-title>{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title>
       </div>

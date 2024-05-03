@@ -1,11 +1,10 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from './services/auth-service/auth.service';
 import { LocalStorageService } from './services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router } from '@angular/router';
-import { filter, of, switchMap } from 'rxjs';
 import { User } from './models/user';
+import { LoginResponse } from './ng-modules/shared/models/loginResponse.model';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +13,10 @@ import { User } from './models/user';
 })
 export class AppComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  isAdmin?: boolean;
-  hasToken = false;
   pageTitle: string;
   currentUser: User;
 
   constructor(
-    private authService: AuthService,
     private router: Router,
     private localStorageService: LocalStorageService,
     public translate: TranslateService
@@ -46,22 +42,10 @@ export class AppComponent implements OnInit {
       });
 
     this.localStorageService.loginResponseValue$
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        switchMap((loginResponseValue) => {
-          this.hasToken =
-            loginResponseValue.access_token !== '' &&
-            loginResponseValue.access_token !== null;
-          if (this.hasToken) return this.authService.getCurrentUser();
-          return of(null);
-        })
-      )
-      .subscribe((user: User) => {
-        if (user != null) {
-          this.currentUser = user;
-          this.isAdmin = user?.roles === 'admin' && user?.roles !== null;
-
-          this.router.navigate(['reporting/admin-dashboard/']);
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((loginResponse: LoginResponse) => {
+        if (loginResponse?.currentUser) {
+          this.currentUser = loginResponse?.currentUser;
         }
       });
   }

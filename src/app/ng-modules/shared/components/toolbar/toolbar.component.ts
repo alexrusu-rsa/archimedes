@@ -22,8 +22,6 @@ export class ToolbarComponent {
   pageTitle: string;
   @Input()
   currentUser: User;
-  @Input()
-  hasToken: boolean;
 
   @Output()
   toggleSidenav: EventEmitter<void> = new EventEmitter<void>();

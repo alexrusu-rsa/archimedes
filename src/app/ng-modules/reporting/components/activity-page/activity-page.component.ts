@@ -331,7 +331,7 @@ export class ActivityPageComponent implements OnInit {
   }
   getProjects() {
     this.projectService
-      .getProjectsUser(this.localStorageService.loginResponse.userId!)
+      .getProjectsUser(this.localStorageService?.loginResponse?.currentUser?.id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.allProjects = result;

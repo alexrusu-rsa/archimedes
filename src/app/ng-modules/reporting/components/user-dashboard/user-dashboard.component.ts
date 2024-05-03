@@ -1,6 +1,8 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs';
 import { Icons } from 'src/app/models/icons.enum';
+import { LoginResponse } from 'src/app/ng-modules/shared/models/loginResponse.model';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 
 @Component({
@@ -16,9 +18,12 @@ export class UserDashboardComponent implements OnInit {
   constructor(private localStorageService: LocalStorageService) {}
   ngOnInit(): void {
     this.localStorageService.loginResponseValue$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((result) => {
-        if (result) this.currentUserId = result?.userId;
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((loginResponse) => loginResponse != null)
+      )
+      .subscribe((loginResponse: LoginResponse) => {
+        this.currentUserId = loginResponse?.currentUser?.id;
       });
   }
 }

@@ -3,7 +3,7 @@
     <div class="col-12 d-flex justify-content-start flex-column">
       <button mat-raised-button class="col-12 mt-2 py-4" color="primary"
         *ngIf="(localStorageService.loginResponseValue$ | async) as loginResponseValue"
-        routerLink="../../reporting/activity/{{ loginResponseValue?.userId }}">
+        routerLink="../../reporting/activity/{{ loginResponseValue?.currentUser?.id }}">
         {{ "admin-dashboard.activities" | translate }}
         <mat-icon>{{icons.event_note}}</mat-icon>
       </button>
