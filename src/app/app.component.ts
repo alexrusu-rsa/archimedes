@@ -17,8 +17,8 @@ export class AppComponent implements OnInit {
   urlToFormat = '';
   pageTitle?: string;
   userRole?: string;
-  hasToken?: boolean;
-  isAdmin?: boolean;
+  hasToken = false;
+  isAdmin = false;
   currentUserId?: string;
   activeToken?: string;
   icons = Icons;
