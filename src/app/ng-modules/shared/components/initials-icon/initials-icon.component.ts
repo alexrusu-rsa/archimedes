@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  type OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -12,9 +7,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./initials-icon.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InitialsIconComponent implements OnInit {
+export class InitialsIconComponent {
   @Input()
   user?: User;
-
-  ngOnInit(): void {}
 }
