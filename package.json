@@ -10,7 +10,7 @@
     "dev": "ng lint & ng serve",
     "start": "node server.js",
     "start:ro": "ng lint & ng serve --configuration=ro",
-    "build": "ng build",
+    "build": "ng build --configuration ${environment}",
     "build:ro": "ng build --configuration=ro",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
