@@ -12,16 +12,18 @@
     "settings": "Settings",
     "invoices": "Invoices",
     "logOut": "Log out",
-    "rates": "Rates"
+    "rates": "Rates",
+    "account": "ACCOUNT"
   },
-  "admin-dashboard": {
+  "adminDashboard": {
     "activities": "Activities",
     "users": "Users",
     "projects": "Projects",
     "customers": "Customers",
     "reporting": "Reporting",
     "invoices": "Invoices",
-    "rates": "Rates"
+    "rates": "Rates",
+    "logOut": "Log Out"
   },
   "firstUserPage": {
     "title": "Register first account",
@@ -75,7 +77,9 @@
       "title": "Customer Page",
       "search": "Search customer",
       "internal": "Internal Company",
-      "romanianCompany": "Romanian Company"
+      "romanianCompany": "Romanian Company",
+      "applyVat": "Apply VAT on invoices",
+      "vat19": "VAT 19%"
     },
     "dialog": {
       "addTitle": "Add customer",
@@ -118,6 +122,7 @@
   },
   "invoice": {
     "dialog": {
+      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
       "title": "Set data for invoice",
       "invoiceNumber": "Invoice number",
       "invoiceNumberHint": "You must enter a invoice number",
@@ -127,10 +132,13 @@
       "downloadPDF": "Download PDF",
       "previewPDF": "Preview PDF",
       "downloadXLSX": "Download XLSX",
-      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
       "firstStep": "Set data for invoice",
       "secondStep": "Preview invoice",
-      "thirdStep": "Download invoice"
+      "thirdStep": "Download invoice",
+      "invoiceNumberPlaceholder": "Example: 1234",
+      "next": "Next",
+      "back": "Back",
+      "download": "Download"
     },
     "download": "Download",
     "dialogPreview": "Invoice",
@@ -180,7 +188,17 @@
       "description": "DESCRIPTION",
       "noActivitiesTitle": "No entries to be displayed yet.",
       "startDate": "Start date",
-      "endDate": "End date"
+      "endDate": "End date",
+      "monday": "Mo",
+      "tuesday": "Tu",
+      "wednesday": "We",
+      "thursday": "Th",
+      "friday": "Fr",
+      "saturday": "Sa",
+      "sunday": "Su"
+    },
+    "hoursBookedDialog": {
+      "employeeCommitment": "Employees commitment for"
     }
   },
   "userDashboard": {
@@ -204,7 +222,8 @@
       "timePerDay": "User time/day",
       "timePerDayHint": "User time/day is required",
       "adminToggleText": "Admin",
-      "updateTitle": "Update User"
+      "updateTitle": "Update User",
+      "admin": "Admin"
     },
     "page": {
       "title": "User page",
@@ -217,7 +236,11 @@
       "thRateType": "Type",
       "thTime": "Time",
       "thEdit": "Edit",
-      "thDelete": "Delete"
+      "thDelete": "Delete",
+      "rateType": "Type"
+    },
+    "newDialog": {
+      "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"
     }
   },
   "settings": {
@@ -236,5 +259,13 @@
     "passwordRequired": "Password required",
     "retypePasswordRequired": "Retyping the password required",
     "successfullSubmit": "Password successfully submitted"
+  },
+  "activityPage": {
+    "noActivities": "You have not reported any activities for this day yet."
+  },
+  "custommer": {
+    "page": {
+      "applyVat": "Apply VAT on invoices"
+    }
   }
 }

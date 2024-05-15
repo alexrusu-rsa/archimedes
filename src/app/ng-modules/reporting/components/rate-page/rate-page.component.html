@@ -1,0 +1,103 @@
+<div class="container mt-5 mx-0 px-0">
+  <mat-card *ngIf="allRates" class="container mt-2 content-container text-center">
+    <table mat-table [dataSource]="allRates" class="row">
+      <ng-container matColumnDef="projectId">
+        <th mat-header-cell
+          class="col-3 col-md-2 d-flex justify-content-start align-items-center p-0 p-md-0 p-0 header-cell"
+          *matHeaderCellDef>
+          {{ "user.page.thProject" | translate }}
+        </th>
+        <td mat-cell
+          class="col-3 col-md-2 d-flex justify-content-start align-items-center p-0 p-md-0 data-cell text-start"
+          *matCellDef="let rate">
+          {{ rate.projectId | projectid : projects! }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="employeeId">
+        <th mat-header-cell
+          class="col-3 col-md-2 p-0 d-flex justify-content-start align-items-center p-md-0 header-cell text-start"
+          *matHeaderCellDef>
+          {{ "user.page.thEmployee" | translate }}
+        </th>
+        <td mat-cell
+          class="col-3 col-md-2 p-0 d-flex justify-content-start align-items-center p-md-0 text-start data-cell"
+          *matCellDef="let rate">
+          {{ rate.employeeId | employeeid : allUsers! }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rate">
+        <th mat-header-cell class="col-2 d-flex justify-content-center align-items-center p-0 header-cell text-start"
+          *matHeaderCellDef>
+          {{ "user.page.thRate" | translate }}
+        </th>
+        <td mat-cell class="col-2 p-0 d-flex justify-content-center align-items-center data-cell text-start"
+          *matCellDef="let rate">
+          {{ rate.rate }} &euro;
+        </td>
+      </ng-container>
+
+      <ng-container class="d-none d-md-block" matColumnDef="rateType">
+        <th mat-header-cell
+          class="d-none d-md-flex justify-content-md-center align-items-md-center col-md-2 p-0 header-cell"
+          *matHeaderCellDef>
+          {{ 'user.page.rateType' | translate }}
+        </th>
+        <td mat-cell class="d-none col-md-2 d-md-flex justify-content-md-center align-items-md-center p-0 data-cell"
+          *matCellDef="let rate">
+          {{ rate.rateType }}
+        </td>
+      </ng-container>
+
+      <ng-container class="d-none d-md-block" matColumnDef="employeeTimeCommitement">
+        <th mat-header-cell
+          class="d-none col-md-2 d-md-flex justify-content-md-center align-items-md-center p-0 header-cell"
+          *matHeaderCellDef>
+          {{ "user.page.thTime" | translate }}
+        </th>
+        <td mat-cell class="p-0 d-none col-md-2 justify-content-md-center align-items-md-center d-md-flex data-cell"
+          *matCellDef="let rate">
+          {{ rate.employeeTimeCommitement }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editButton">
+        <th mat-header-cell
+          class="col-2 col-md-1 p-0 header-cell text-start d-flex justify-content-center align-items-center"
+          *matHeaderCellDef>
+          {{ "user.page.thEdit" | translate }}
+        </th>
+        <td mat-cell class="col-2 col-md-1 d-flex justify-content-center align-items-center p-0 data-cell"
+          *matCellDef="let rate">
+          <button mat-icon-button (click)="editRate(rate)">
+            <mat-icon color="accent">{{icons.edit}}</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deleteButton">
+        <th mat-header-cell
+          class="col-2 col-md-1 p-0 header-cell text-start d-flex justify-content-center align-items-center"
+          *matHeaderCellDef>
+          {{ "user.page.thDelete" | translate }}
+        </th>
+        <td mat-cell class="col-2 col-md-1 d-flex justify-content-center align-items-center p-0 data-cell"
+          *matCellDef="let rate">
+          <button mat-icon-button class="small-icon-button" (click)="deleteRate(rate)">
+            <mat-icon color="accent">{{icons.delete}}</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="row p-0 p-md-0 col-12 mx-0"></tr>
+      <tr class="row d-flex col-12 p-0 p-md-0 mx-0" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div class="row mx-0 d-flex justify-content-center">
+      <button class="col-12" mat-icon-button (click)="addRate()">
+        <mat-icon color="accent">{{icons.add_box}}</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

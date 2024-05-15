@@ -1,13 +1,6 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login-service/user-login.service';
@@ -16,49 +9,51 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   readonly destroyRef = inject(DestroyRef);
-  user!: User;
-  loginForm?: FormGroup;
-  logInProgress?: boolean;
+  loginForm: FormGroup;
+  logInProgress = false;
 
   constructor(
     private userLoginService: UserLoginService,
     private router: Router,
     private localStorageService: LocalStorageService
-  ) {}
-
-  async logUserIn(user: User) {
-    this.logInProgress = true;
-    this.userLoginService
-      .logUserIn(user)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((response: any) => {
-        if (response === undefined) this.logInProgress = false;
-        this.localStorageService.accessToken = response.access_token;
-        this.localStorageService.role = response.role;
-        this.localStorageService.userId = response.userId;
-        const userId = response.userId;
-        if (response.role === 'admin') {
-          this.router.navigate(['reporting/admin-dashboard/']);
-        } else {
-          this.router.navigate(['reporting/dashboard/']);
-        }
-      });
+  ) {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+    });
   }
 
-  ngOnInit(): void {
-    this.user = <User>{};
-    this.logInProgress = false;
-    this.loginForm = new FormGroup({
-      email: new FormControl(this.user.email, [
-        Validators.required,
-        Validators.email,
-      ]),
-      password: new FormControl(this.user.password, [Validators.required]),
-    });
+  logUserIn() {
+    this.logInProgress = true;
+
+    const loginUser: User = {
+      email: this.email?.value,
+      password: this.password?.value,
+    } as User;
+
+    if (loginUser?.email && loginUser?.password)
+      // TODO: clean up login process
+      this.userLoginService
+        .logUserIn(loginUser)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((response: any) => {
+          if (response === undefined) this.logInProgress = false;
+          this.localStorageService.accessToken = response.access_token;
+          this.localStorageService.role = response.role;
+          this.localStorageService.userId = response.userId;
+          const userId = response.userId;
+          if (response.role === 'admin') {
+            this.router.navigate(['reporting/admin-dashboard/']);
+          } else {
+            this.router.navigate(['reporting/dashboard/']);
+          }
+        });
+    else {
+      this.loginForm?.markAsDirty();
+    }
   }
 
   get email() {

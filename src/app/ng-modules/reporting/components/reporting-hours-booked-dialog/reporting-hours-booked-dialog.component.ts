@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EmptyError } from 'rxjs';
 import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-calendar';
 import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
+import { Icons } from 'src/app/models/icons.enum';
 
 @Component({
   selector: 'app-reporting-hours-booked-dialog',
@@ -11,14 +11,15 @@ import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date'
   styleUrls: ['./reporting-hours-booked-dialog.component.sass'],
 })
 export class ReportingHoursBookedDialogComponent implements OnInit {
+  employeeCommitmentToDisplay!: EmployeeCommitmentCalendar[];
+  dateToDisplay!: string;
+  icons = Icons;
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public employeeCommitmentOfSelectedDay: EmployeeCommitmentDate,
     public datepipe: DatePipe
   ) {}
-
-  employeeCommitmentToDisplay!: EmployeeCommitmentCalendar[];
-  dateToDisplay!: string;
 
   ngOnInit(): void {
     this.employeeCommitmentToDisplay =

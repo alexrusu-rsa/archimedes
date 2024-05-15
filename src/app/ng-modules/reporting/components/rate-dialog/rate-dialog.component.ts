@@ -1,15 +1,9 @@
-import {
-  Component,
-  DestroyRef,
-  Inject,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, Inject, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { map, Observable, startWith, Subscription } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
+import { Icons } from 'src/app/models/icons.enum';
 import { Project } from 'src/app/models/project';
 import { Rate } from 'src/app/models/rate';
 import { User } from 'src/app/models/user';
@@ -24,6 +18,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 })
 export class RateDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
+  icons = Icons;
   currentRate?: Rate;
   addRateForm?: FormGroup;
   projects?: Project[];

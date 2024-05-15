@@ -1,23 +1,14 @@
-import {
-  Component,
-  DestroyRef,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { Subscription, switchMap, takeUntil } from 'rxjs';
-
+import { switchMap } from 'rxjs';
 import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
-import { DatePipe } from '@angular/common';
 import _moment, { Moment } from 'moment';
 import { default as _rollupMoment } from 'moment';
 import {
   MomentDateAdapter,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
-
 import {
   DateAdapter,
   MAT_DATE_LOCALE,
@@ -29,10 +20,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { InvoiceDataWrapper } from '../../../../models/invoice-data-wrapper';
 import { Project } from '../../../../models/project';
 import { CustomerService } from '../../../../services/customer-service/customer.service';
-import { ActivityService } from '../../../../services/activity-service/activity.service';
 import { Customer } from '../../../../models/customer';
 import { InvoiceDialogOnCloseResult } from '../../../../models/invoice-dialog-onclose-result';
 import { ProjectService } from '../../../../services/project-service/project.service';
+import { Icons } from 'src/app/models/icons.enum';
+
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -64,19 +56,16 @@ export class InvoicePageComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
   allCustomers?: Customer[];
   allProjects?: Project[];
-
-  selectedDate?: Date;
   selectedMonth?: string;
   selectedYear?: string;
   selectedDateToDisplay?: string;
-  invoiceSeries?: string;
+  icons = Icons;
+  private invoiceSeries?: string;
 
   constructor(
     private customerService: CustomerService,
-    private activityService: ActivityService,
     private projectService: ProjectService,
-    public dialog: MatDialog,
-    public datepipe: DatePipe
+    public dialog: MatDialog
   ) {}
 
   date = new FormControl(moment());

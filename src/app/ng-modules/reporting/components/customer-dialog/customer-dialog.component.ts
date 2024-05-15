@@ -3,9 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
-import { RequestWrapper } from 'src/app/models/request-wrapper';
+import { Icons } from 'src/app/models/icons.enum';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
-import { NotificationService } from 'src/app/services/notification-service/notification.service';
 
 @Component({
   selector: 'app-customer-dialog',
@@ -13,6 +12,7 @@ import { NotificationService } from 'src/app/services/notification-service/notif
   styleUrls: ['./customer-dialog.component.sass'],
 })
 export class CustomerDialogComponent implements OnInit {
+  icons = Icons;
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<CustomerDialogComponent>,
@@ -43,7 +43,7 @@ export class CustomerDialogComponent implements OnInit {
         });
     }
   }
-  
+
   onKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       event.preventDefault();
