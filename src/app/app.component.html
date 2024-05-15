@@ -1,15 +1,8 @@
-<div class="row position-sticky fixed-top top-0 w-100">
-  <mat-toolbar color="primary">
-    <button *ngIf="hasToken" mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>{{ icons.menu }}</mat-icon>
-    </button>
-    <h3 *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
-  </mat-toolbar>
-</div>
+<app-toolbar [pageTitle]="pageTitle" (toggleSidenav)="sidenav.toggle()"></app-toolbar>
 <mat-sidenav-container class="d-inline h-100 w-100">
   <mat-sidenav #sidenav class="vh-100">
     <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
-      (logOut)="sidenav.close();authService.doLogout()"></app-navigation>
+      (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
   <mat-sidenav-content class="container col-12 col-lg-10 h-auto overflow-auto">
     <router-outlet></router-outlet>

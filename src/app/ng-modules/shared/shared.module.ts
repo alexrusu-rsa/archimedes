@@ -9,11 +9,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SnackbarContentComponent } from './components/snackbar-content/snackbar-content.component';
 import { RouterModule } from '@angular/router';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { InitialsIconComponent } from './components/initials-icon/initials-icon.component';
+import { UserNavigationComponent } from './components/user-navigation/user-navigation.component';
 
 @NgModule({
   declarations: [
     NavigationComponent,
     SnackbarContentComponent,
+    ToolbarComponent,
+    InitialsIconComponent,
+    UserNavigationComponent,
+
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,
@@ -23,6 +30,9 @@ import { RouterModule } from '@angular/router';
   exports: [
     NavigationComponent,
     SnackbarContentComponent,
+    UserNavigationComponent,
+    ToolbarComponent,
+    InitialsIconComponent,
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,

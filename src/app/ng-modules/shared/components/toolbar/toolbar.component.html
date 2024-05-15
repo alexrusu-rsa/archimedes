@@ -1,0 +1,16 @@
+<div class="row position-sticky fixed-top top-0 w-100">
+    <mat-toolbar color="primary">
+        <button *ngIf="currentUserId" mat-icon-button (click)="toggleSidenav.emit()">
+            <mat-icon>{{ icons.menu }}</mat-icon>
+        </button>
+        <h3 *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
+        <span class="flex-grow-1"></span>
+        <app-initials-icon [matMenuTriggerFor]="menu" *ngIf="currentUser" [matMenuTriggerData]="{user: currentUser}"
+            class="border rounded-circle" [user]="currentUser"></app-initials-icon>
+        <mat-menu #menu="matMenu" class="px-2 pt-3 pb-0">
+            <ng-template matMenuContent let-user="user">
+                <app-user-navigation *ngIf="user" [user]="user"></app-user-navigation>
+            </ng-template>
+        </mat-menu>
+    </mat-toolbar>
+</div>

@@ -2,15 +2,15 @@
   "translationFiles": [
     {
       "lang": "ro",
-      "uri": "dist/archimedes-frontend/assets/i18n/ro.json"
+      "uri": "src/assets/i18n/ro.json"
     },
     {
       "lang": "de",
-      "uri": "dist/archimedes-frontend/assets/i18n/de.json"
+      "uri": "src/assets/i18n/de.json"
     },
     {
       "lang": "en",
-      "uri": "dist/archimedes-frontend/assets/i18n/en.json"
+      "uri": "src/assets/i18n/en.json"
     }
   ]
 }

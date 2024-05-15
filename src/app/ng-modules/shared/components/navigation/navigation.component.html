@@ -17,11 +17,7 @@
     <a *ngIf="isAdmin" mat-list-item routerLink="reporting/user-reporting" (click)="closeSidenav.emit()">{{
         "sidenav.reporting" | translate }}
     </a>
-    <a mat-list-item routerLink="reporting/settings" (click)="closeSidenav.emit()">{{ "sidenav.settings" | translate }}
-    </a>
     <a mat-list-item *ngIf="isAdmin" routerLink="reporting/invoice" (click)="closeSidenav.emit()">{{ "sidenav.invoices"
         | translate }}
     </a>
-    <a mat-list-item (click)="logOut.emit()">{{ "sidenav.logOut" | translate
-        }}</a>
 </mat-nav-list>
