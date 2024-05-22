@@ -12,6 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { of, switchMap } from 'rxjs';
 import { Icons } from 'src/app/models/icons.enum';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private service: UserLoginService,
+    public authService: AuthService,
     private localStorageService: LocalStorageService
   ) {}
 
