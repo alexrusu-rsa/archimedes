@@ -3,8 +3,8 @@
 <div class="opacity-70 d-flex flex-row gap-2 mx-3 my-2 text-white" *ngIf="user">
     <app-initials-icon class="rounded-circle" [user]="user"></app-initials-icon>
     <div class="d-flex flex-column mb-3 ml-4 white">
-        <span>{{user?.name}} {{user?.surname}}</span>
-        <sub>{{user?.email}}</sub>
+        <span>{{user.name}} {{user.surname}}</span>
+        <sub>{{user.email}}</sub>
     </div>
 </div>
 <mat-divider></mat-divider>
@@ -12,6 +12,6 @@
     {{'sidenav.settings' | translate}}
 </a>
 <mat-divider></mat-divider>
-<button mat-menu-item class="opacity-70" (click)="service.doLogout();">
+<button mat-menu-item class="opacity-70" (click)="logOut.emit()">
     <span>{{'sidenav.logOut' | translate}}</span>
 </button>

@@ -1,12 +1,5 @@
 import { DatePipe } from '@angular/common';
-import {
-  Component,
-  DestroyRef,
-  Inject,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, Inject, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Activity } from '../../../../models/activity';
 import { User } from '../../../../models/user';
@@ -28,6 +21,7 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Icons } from 'src/app/models/icons.enum';
+import { of, switchMap } from 'rxjs';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -45,7 +39,6 @@ export class ActivityPageComponent implements OnInit {
   allCustomers?: Customer[];
   allProjects?: Project[];
 
-  activitiesToDisplay?: Activity[];
   selectedFilterProjectId?: string;
 
   currentEmployeeCommitment?: number;
@@ -58,8 +51,6 @@ export class ActivityPageComponent implements OnInit {
   currentEmployeeRates?: Rate[];
 
   activitiesWithNoProject?: Activity[];
-
-  @Input() startDate?: Date;
 
   constructor(
     @Inject(ActivatedRoute)
@@ -78,24 +69,31 @@ export class ActivityPageComponent implements OnInit {
     this.groupActivitiesWithNoProject();
     this.getCustomers();
     this.getProjects();
-    const userId = this.activeRoute.snapshot.paramMap.get('id');
 
-    if (userId) {
-      this.getCurrentEmployeeCommitment(userId);
-      this.userService
-        .getUser(userId)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((result: User) => {
-          const presetDate =
-            this.activeRoute.snapshot.queryParamMap.get('presetDate');
-          this.user = result;
-          if (!presetDate) this.selectedDate = new Date();
-          else {
-            this.selectedDate = new Date(presetDate);
-          }
-          this.dateChanges();
-        });
-    }
+    this.localStorageService.userIdValue
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap((currentUserId) => {
+          if (currentUserId) return this.userService.getUser(currentUserId);
+          else return of(null);
+        })
+      )
+      .subscribe((currentUser: User | null) => {
+        if (currentUser?.id) {
+          this.user = currentUser;
+          this.rateService
+            .getRateForEmployeeId(currentUser.id)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((result: Rate[]) => {
+              this.currentEmployeeRates = result;
+              this.computeCurrentEmployeTotalCommitment();
+
+              //set current date
+              this.selectedDate = new Date();
+              this.dateChanges();
+            });
+        }
+      });
   }
 
   groupActivitiesWithNoProject() {
@@ -192,16 +190,6 @@ export class ActivityPageComponent implements OnInit {
         return;
       }
     }
-  }
-
-  getCurrentEmployeeCommitment(employeeId: string) {
-    this.rateService
-      .getRateForEmployeeId(employeeId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((result: Rate[]) => {
-        this.currentEmployeeRates = result;
-        this.computeCurrentEmployeTotalCommitment();
-      });
   }
 
   computeCurrentEmployeTotalCommitment() {

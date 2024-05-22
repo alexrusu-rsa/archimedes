@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../auth/auth.guard';
 import { ActivityPageComponent } from './components/activity-page/activity-page.component';
 import { RoleGuard } from '../auth/role.guard';
 import { UserPageComponent } from './components/user-page/user-page.component';
@@ -15,7 +14,7 @@ import { RatePageComponent } from './components/rate-page/rate-page.component';
 
 const routes: Routes = [
   {
-    path: 'activity/:id',
+    path: 'activity',
     component: ActivityPageComponent,
   },
   {
