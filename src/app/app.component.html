@@ -4,7 +4,7 @@
     <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
       (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
-  <mat-sidenav-content class="container col-12 col-lg-10">
+  <mat-sidenav-content class="container pt-3 col-12 col-lg-10">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

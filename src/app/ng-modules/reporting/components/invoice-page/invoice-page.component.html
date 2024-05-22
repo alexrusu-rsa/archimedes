@@ -1,15 +1,13 @@
-<div class="container mt-5 px-0 mx-0">
-  <div class="row">
-    <div class="col col-sm-4 col-md-6 col-lg-3 col-xl-3">
-      <mat-form-field appearance="fill" class="w-100">
-        <mat-label>{{ "invoice.page.monthAndYear" | translate }}</mat-label>
-        <input matInput [matDatepicker]="datepicker" [formControl]="date" />
-        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-        <mat-datepicker #datepicker startView="multi-year" (monthSelected)="setMonthAndYear($event, datepicker)"
-          panelClass="header-month-picker">
-        </mat-datepicker>
-      </mat-form-field>
-    </div>
+<div class="row">
+  <div class="col col-sm-4 col-md-6 col-lg-3 col-xl-3">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>{{ "invoice.page.monthAndYear" | translate }}</mat-label>
+      <input matInput [matDatepicker]="datepicker" [formControl]="date" />
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker startView="multi-year" (monthSelected)="setMonthAndYear($event, datepicker)"
+        panelClass="header-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
   </div>
 </div>
 

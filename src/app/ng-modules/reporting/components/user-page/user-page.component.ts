@@ -24,8 +24,6 @@ export class UserPageComponent implements OnInit {
   search = '';
   projects?: Project[];
 
-  test: string[] = ['ABC', 'def'];
-
   projectsSub?: Subscription;
   constructor(
     private userService: UserService,
@@ -45,6 +43,7 @@ export class UserPageComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         switchMap((users) => {
           this.allUsers = users;
+          this.users = users;
           return this.projectService.getProjects();
         })
       )
@@ -98,18 +97,20 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  deleteUser(userId: string) {
+  deleteUser(userId: string | undefined) {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       panelClass: 'full-width-dialog',
     });
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
-        this.userService
-          .deleteUser(userId)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe();
-      }
-    });
+
+    if (userId)
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
+          this.userService
+            .deleteUser(userId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe();
+        }
+      });
   }
 }

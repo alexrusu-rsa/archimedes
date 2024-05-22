@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { InitialsIconComponent } from './components/initials-icon/initials-icon.component';
 import { UserNavigationComponent } from './components/user-navigation/user-navigation.component';
+import { EntityPageHeaderComponent } from './components/entity-page-header/entity-page-header.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,11 @@ import { UserNavigationComponent } from './components/user-navigation/user-navig
     ToolbarComponent,
     InitialsIconComponent,
     UserNavigationComponent,
-
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,
     FilterprojectPipe,
+    EntityPageHeaderComponent,
   ],
   imports: [CommonModule, MaterialModule, TranslateModule, RouterModule],
   exports: [
@@ -37,6 +38,7 @@ import { UserNavigationComponent } from './components/user-navigation/user-navig
     EmployeeidPipe,
     CustomerfromprojectidPipe,
     FilterprojectPipe,
+    EntityPageHeaderComponent,
   ],
 })
 export class SharedModule {}

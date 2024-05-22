@@ -51,6 +51,7 @@ export class ProjectPageComponent implements OnInit {
       )
       .subscribe((result) => {
         this.allProjects = result;
+        this.projects = result;
       });
   }
 
