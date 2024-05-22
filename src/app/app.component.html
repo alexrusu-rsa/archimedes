@@ -1,15 +1,15 @@
 <app-toolbar [pageTitle]="pageTitle"></app-toolbar>
 
-<div class="d-none d-xl-flex col-xl-6 pt-3 mx-auto gap-4">
+<div class="d-xl-flex d-lg-flex d-md-flex d-none col-xxl-8 col-xl-10 col-lg-10 col-md-12 col-12 pt-3 mx-auto gap-4">
   <section class="col-2 d-flex flex-column gap-4" #left>
     <mat-card>
-      <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" class="mx-2"></app-navigation>
+      <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId"></app-navigation>
     </mat-card>
   </section>
   <section class="col-8" #main>
     <router-outlet></router-outlet>
   </section>
-  <section #right></section>
+  <section class="col-2 d-flex flex-column gap-4" #right></section>
 </div>
 <!-- 
 <mat-sidenav-container class="d-flex d-lg-none col-12">
