@@ -3,7 +3,7 @@
         "sidenav.home" | translate }}</a>
     <a mat-list-item *ngIf="isAdmin" routerLink="/reporting" (click)="closeSidenav.emit()">{{
         "sidenav.home" | translate }}</a>
-    <a mat-list-item routerLink="reporting/activity/{{ this.currentUserId }}" (click)="closeSidenav.emit()">{{
+    <a mat-list-item routerLink="reporting/activity" (click)="closeSidenav.emit()">{{
         "sidenav.activities" | translate }}</a>
     <a *ngIf="isAdmin" mat-list-item routerLink="reporting/user" (click)="closeSidenav.emit()">{{
         "sidenav.users" | translate }}</a>

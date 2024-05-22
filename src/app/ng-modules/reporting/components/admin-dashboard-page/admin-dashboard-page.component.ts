@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LocalStorageService } from '../../../../services/localstorage-service/localstorage.service';
 import { Icons } from '../../../../models/icons.enum';
 
 @Component({
@@ -9,5 +8,4 @@ import { Icons } from '../../../../models/icons.enum';
 })
 export class AdminDashboardPageComponent {
   public icons = Icons;
-  constructor(public localStorageService: LocalStorageService) {}
 }
