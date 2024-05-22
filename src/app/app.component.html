@@ -1,10 +1,22 @@
-<app-toolbar [pageTitle]="pageTitle" (toggleSidenav)="sidenav.toggle()"></app-toolbar>
-<mat-sidenav-container class="d-flex col-12">
-  <mat-sidenav #sidenav>
+<app-toolbar [pageTitle]="pageTitle"></app-toolbar>
+
+<div class="d-none d-xl-flex col-xl-6 pt-3 mx-auto gap-4">
+  <div class="col-2 d-flex flex-column gap-4" #leftSection>
+    <mat-card>
+      <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" class="mx-2"></app-navigation>
+    </mat-card>
+  </div>
+  <div class="col-8">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<!-- 
+<mat-sidenav-container class="d-flex d-lg-none col-12">
+  <mat-sidenav #sidenav class="col-2">
     <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
       (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
-  <mat-sidenav-content class="container pt-3 col-12 col-lg-10">
+  <mat-sidenav-content class="container pt-3 col-12">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
