@@ -1,10 +1,10 @@
 <app-toolbar [pageTitle]="pageTitle" (toggleSidenav)="sidenav.toggle()"></app-toolbar>
-<mat-sidenav-container class="d-inline h-100 w-100">
-  <mat-sidenav #sidenav class="vh-100">
+<mat-sidenav-container class="d-flex col-12">
+  <mat-sidenav #sidenav>
     <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
       (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
-  <mat-sidenav-content class="container col-12 col-lg-10 h-auto overflow-auto">
+  <mat-sidenav-content class="container col-12 col-lg-10">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
