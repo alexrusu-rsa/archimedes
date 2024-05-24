@@ -57,23 +57,15 @@ export class FirstUserPageComponent implements OnInit {
     this.user.seniority = seniority;
     this.user.timePerDay = timePerDay;
     this.user.password = password;
-    this.testPasswordsMatch = this.password === this.checkPassword;
+    this.testPasswordsMatch =
+      this.password.toString() === this.checkPassword.toString();
 
-    if (
-      this.checkPasswordsMatch(
-        this.password?.value,
-        this.reEnteredPassword?.value
-      )
-    ) {
+    if (this.testPasswordsMatch) {
       this.userService
         .addAdmin(this.user)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
     }
-  }
-
-  checkPasswordsMatch(password: string, checkPassword: string): boolean {
-    return password === checkPassword;
   }
 
   get email() {

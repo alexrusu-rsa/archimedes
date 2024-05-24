@@ -5,7 +5,6 @@ import { DateFormatService } from './date-format.service';
 describe('SpecFileDateFormatService', () => {
   let service: DateFormatService;
 
-  const mockHoursMinutesMilisecondsSeconds = 10;
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(DateFormatService);

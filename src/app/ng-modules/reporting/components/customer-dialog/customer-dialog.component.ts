@@ -51,14 +51,14 @@ export class CustomerDialogComponent implements OnInit {
   }
 
   checkAbleToRequestAddCustomer(): boolean {
-    for (const [key, value] of Object.entries(this.addCustomerForm?.value)) {
+    for (const [_, value] of Object.entries(this.addCustomerForm?.value)) {
       if (value === undefined || value === '') return false;
     }
     return true;
   }
 
   checkAbleToRequestUpdateCustomer(): boolean {
-    for (const [key, value] of Object.entries(this.addCustomerForm?.value)) {
+    for (const [_, value] of Object.entries(this.addCustomerForm?.value)) {
       if (value === undefined || value === '') return false;
     }
     return true;

@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserLoginService } from './user-login.service';
 import { User } from 'src/app/models/user';
-import { of } from 'rxjs';
 import { RequestWrapper } from 'src/app/models/request-wrapper';
 
 describe('SpecFileUserLoginService', () => {

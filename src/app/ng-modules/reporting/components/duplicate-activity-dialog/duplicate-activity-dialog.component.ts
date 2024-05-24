@@ -28,7 +28,6 @@ export class DuplicateActivityDialogComponent implements OnInit {
   ngOnInit(): void {
     this.currentActivity = this.activityToDuplicate;
 
-    const currentDate = new Date();
     const startDate = new Date();
     const endDate = new Date();
     this.range = new FormGroup({

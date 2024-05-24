@@ -1,20 +1,15 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { Observable, of, subscribeOn } from 'rxjs';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 
-import { environment } from 'src/environments/environment';
-import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoleCheckService } from './rolecheck.service';
 
 describe('SpecFileRoleCheckService', () => {
   let service: RoleCheckService;
-  let httpController: HttpTestingController;
+  let _httpController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,7 +17,7 @@ describe('SpecFileRoleCheckService', () => {
       providers: [RoleCheckService],
     });
     service = TestBed.inject(RoleCheckService);
-    httpController = TestBed.inject(HttpTestingController);
+    _httpController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {

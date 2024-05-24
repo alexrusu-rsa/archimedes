@@ -77,9 +77,11 @@ export class ActivityDialogComponent implements OnInit {
         );
       });
   }
-  onSelectionChange(event: any) {
+  onSelectionChange(event: unknown) {
+    const eventOption = event['option'];
+    const eventOptionValue = eventOption['value'];
     const selectedProjectId = this.projects?.find(
-      (project) => project.projectName === event.option.value
+      (project) => project.projectName === eventOptionValue
     );
     this.currentActivity!.projectId = selectedProjectId?.id;
   }

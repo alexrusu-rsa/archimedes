@@ -1,5 +1,5 @@
 export interface InvoiceDialogOnCloseResult {
-  response: any;
+  response: unknown;
   customerName?: string;
   invoiceNumber?: number;
   customerShortName?: string;
