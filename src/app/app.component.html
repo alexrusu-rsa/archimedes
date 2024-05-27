@@ -1,4 +1,4 @@
-<app-toolbar [pageTitle]="pageTitle"></app-toolbar>
+<app-toolbar [pageTitle]="pageTitle" (toggleSidenav)="sidenav.toggle()"></app-toolbar>
 
 <div class="d-xl-flex d-lg-flex d-md-flex d-none col-xxl-8 col-xl-10 col-lg-10 col-md-12 col-12 pt-3 mx-auto gap-4">
   <section class="col-2 d-flex flex-column gap-4" #left>
@@ -11,13 +11,13 @@
   </section>
   <section class="col-2 d-flex flex-column gap-4" #right></section>
 </div>
-<!-- 
+
 <mat-sidenav-container class="d-flex d-lg-none col-12">
-  <mat-sidenav #sidenav class="col-2">
+  <mat-sidenav #sidenav class="col-12">
     <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
       (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
   <mat-sidenav-content class="container pt-3 col-12">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-</mat-sidenav-container> -->
+</mat-sidenav-container>

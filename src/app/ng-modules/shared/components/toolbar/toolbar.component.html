@@ -1,18 +1,25 @@
 <div class="position-sticky fixed-top">
   <mat-toolbar color="primary" class="d-flex justify-content-center">
     <div class="d-flex flex-row col-xxl-8 col-xl-10 col-lg-10 col-md-12 col-12">
+
       <button *ngIf="currentUserId" mat-icon-button (click)="toggleSidenav.emit()" class="d-md-none d-flex">
         <mat-icon>{{ icons.menu }}</mat-icon>
       </button>
-      <h3 *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
+
+      <h3 class="my-auto" *ngIf="pageTitle">{{ pageTitle | titlecase }}</h3>
+
       <span class="flex-grow-1"></span>
+
       <app-initials-icon [matMenuTriggerFor]="menu" *ngIf="currentUser" [matMenuTriggerData]="{ user: currentUser }"
-        class="border rounded-circle pointer-cursor" [user]="currentUser"></app-initials-icon>
-      <mat-menu #menu="matMenu" class="px-2 pt-3 pb-0" xPosition="before">
-        <ng-template matMenuContent let-user="user">
-          <app-user-navigation *ngIf="user" [user]="user" (logOut)="authService.doLogout()"></app-user-navigation>
-        </ng-template>
-      </mat-menu>
+        class="my-auto border rounded-circle pointer-cursor" [user]="currentUser"></app-initials-icon>
+
+
     </div>
+
+    <mat-menu #menu="matMenu" class="px-2 pt-3 pb-0" xPosition="before">
+      <ng-template matMenuContent let-user="user">
+        <app-user-navigation *ngIf="user" [user]="user" (logOut)="authService.doLogout()"></app-user-navigation>
+      </ng-template>
+    </mat-menu>
   </mat-toolbar>
 </div>
