@@ -2,7 +2,7 @@
   <mat-toolbar color="primary" class="d-flex justify-content-center">
     <div class="d-flex flex-row col-xxl-8 col-xl-10 col-lg-10 col-md-12 col-12">
 
-      <button *ngIf="currentUserId" mat-icon-button (click)="toggleSidenav.emit()" class="d-md-none d-flex">
+      <button *ngIf="currentUserId" mat-icon-button (click)="toggleSidenav.emit()" class="d-md-flex d-sm-flex d-flex">
         <mat-icon>{{ icons.menu }}</mat-icon>
       </button>
 
