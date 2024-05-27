@@ -69,7 +69,7 @@ export class ProjectPageComponent implements OnInit {
       data: project,
       panelClass: 'full-width-dialog',
     });
-    dialogRef.afterClosed().subscribe((updatedProject: Project) => {
+    dialogRef.afterClosed().subscribe(() => {
       this.fetchData();
     });
   }

@@ -1,7 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { HoursAndMinutes } from 'src/app/models/hours_minutes';
-import { Observable, of } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,
@@ -65,9 +62,7 @@ describe('SpecFileProjectService', () => {
   });
 
   it('should call getProjects and return Project[]', () => {
-    let actualProjects: Project[] | undefined;
     service.getProjects().subscribe((result) => {
-      actualProjects = result;
       expect(result).toEqual(expectedProjects);
     });
     const req = httpController.expectOne({
@@ -78,7 +73,6 @@ describe('SpecFileProjectService', () => {
   });
 
   it('should call getProject(id) and return the project with id taken as parameter', () => {
-    let actualProject: Project | undefined;
     const expectedProject: Project = {
       id: 'ee0b5a3a-5a55-4b08-9964-d4eba93c82c3',
       projectName: 'Archimedes',
@@ -91,7 +85,6 @@ describe('SpecFileProjectService', () => {
 
     const id = '1';
     service.getProject(id).subscribe((result) => {
-      actualProject = result;
       expect(result).toEqual(expectedProject);
     });
     const req = httpController.expectOne({

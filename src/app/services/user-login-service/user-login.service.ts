@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { RequestWrapper } from '../../models/request-wrapper';
 import { User } from '../../models/user';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
+import { LoginResponse } from 'src/app/models/login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +28,10 @@ export class UserLoginService {
       );
   }
 
-  logUserIn(user: User): Observable<RequestWrapper> {
+  logUserIn(user: User): Observable<LoginResponse> {
     const logInUrl = this.usersUrl + '/creds';
     return this.httpClient
-      .post<RequestWrapper>(
+      .post<LoginResponse>(
         logInUrl,
         {
           username: user.email,
@@ -42,10 +42,10 @@ export class UserLoginService {
       .pipe(
         map((res) => {
           this.responseHandlingService.handleResponse('Logged in succesfully');
-          return res.body as RequestWrapper;
+          return res.body as LoginResponse;
         }),
         catchError(
-          this.responseHandlingService.handleError<RequestWrapper>(
+          this.responseHandlingService.handleError<LoginResponse>(
             'userLoggedIn'
           )
         )

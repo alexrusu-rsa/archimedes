@@ -9,13 +9,11 @@ import { RoleCheckService } from 'src/app/services/rolecheck-service/rolecheck.s
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  bodyOfRequest: any;
-  finalBodyOfRequest: any;
   constructor(
     private authService: AuthService,
     private roleCheckService: RoleCheckService
   ) {}
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler) {
     const authToken = this.authService.getToken();
     const userId = this.roleCheckService.getId();
 

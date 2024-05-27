@@ -1,7 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { HoursAndMinutes } from 'src/app/models/hours_minutes';
-import { Observable, of } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,
@@ -62,9 +59,7 @@ describe('SpecFileRateService', () => {
   });
 
   it('should call getRates and return Rate[]', () => {
-    let actualRates: Rate[] | undefined;
     service.getRates().subscribe((result) => {
-      actualRates = result;
       expect(result).toEqual(expectedRates);
     });
     const req = httpController.expectOne({
@@ -75,7 +70,6 @@ describe('SpecFileRateService', () => {
   });
 
   it('should call getRate(id) and return the rate with id taken as parameter', () => {
-    let actualRate: Rate | undefined;
     const expectedRate: Rate = {
       id: 'fad87c2d-5502-46f2-b839-284e5a1d1cc1',
       projectId: '8783d1cd-eed3-4714-9771-ac30c8bedf2c',
@@ -87,7 +81,6 @@ describe('SpecFileRateService', () => {
 
     const id = 'fad87c2d-5502-46f2-b839-284e5a1d1cc1';
     service.getRate(id).subscribe((result) => {
-      actualRate = result;
       expect(result).toEqual(expectedRate);
     });
     const req = httpController.expectOne({

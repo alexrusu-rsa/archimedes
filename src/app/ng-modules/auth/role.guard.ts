@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  UrlTree,
   CanActivate,
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { RoleCheckService } from 'src/app/services/rolecheck-service/rolecheck.service';
 
 @Injectable({
@@ -19,8 +17,8 @@ export class RoleGuard implements CanActivate {
     public router: Router
   ) {}
   canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    _next: ActivatedRouteSnapshot,
+    _state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.roleCheckService.isAdmin !== true) {
       this.router.navigate(['auth/login']);

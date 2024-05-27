@@ -60,7 +60,7 @@ export class InvoiceDialogComponent implements OnInit {
             this.dateFormatted!
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((response: any) => {
+          .subscribe((response: unknown) => {
             this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
               customerName: this.customerName,
@@ -87,8 +87,8 @@ export class InvoiceDialogComponent implements OnInit {
             this.invoiceDataWrapper.invoiceTerm!
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((response: any) => {
-            this.pdfUrl = URL.createObjectURL(response.body);
+          .subscribe((response: unknown) => {
+            this.pdfUrl = URL.createObjectURL(response['body']);
             if (this.invoiceNumber && this.customerShortname) {
               this.invoiceTitle =
                 this.invoiceDataWrapper.invoiceSeries +
@@ -117,7 +117,7 @@ export class InvoiceDialogComponent implements OnInit {
             this.dateFormatted!
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((response: any) => {
+          .subscribe((response: unknown) => {
             this.dialogRef.close(<InvoiceDialogOnCloseResult>{
               response: response,
               customerName: this.customerName,
@@ -139,9 +139,9 @@ export class InvoiceDialogComponent implements OnInit {
     return true;
   }
 
-  OnDateChange(event?: any) {
-    this.selectedDate = event;
-    this.dateFormatted = event.getTime();
+  OnDateChange(event?: unknown) {
+    this.selectedDate = event as Date;
+    this.dateFormatted = (event as Date).getTime();
   }
 
   ngOnInit(): void {
