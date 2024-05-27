@@ -4,7 +4,7 @@ import {
   MAT_DATE_LOCALE,
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
-import _moment, { Moment } from 'moment';
+import _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import {
   MomentDateAdapter,
@@ -294,15 +294,12 @@ export class ReportingPageComponent implements OnInit {
   }
 
   getNumberOfWeeksToDisplay(): number {
-    const lastIndex = this.calendarDays!.length - 1;
     const numberOfDaysCheck = this.calendarDays!.length;
     let numberOfDays = this.calendarDays!.length;
     const firstDayNumber = this.getDayForMondayFirstDayOfWeek(
       this.calendarDays![0].date
     );
-    const lastDayNumber = this.getDayForMondayFirstDayOfWeek(
-      this.calendarDays![lastIndex].date
-    );
+
     let numberOfWeeks = 0;
     let cursor = firstDayNumber;
     while (numberOfDays > 0) {
@@ -355,7 +352,7 @@ export class ReportingPageComponent implements OnInit {
       weekDay.color === 'orange' ||
       weekDay.color === 'green'
     ) {
-      const dialogRef = this.dialog.open(ReportingHoursBookedDialogComponent, {
+      this.dialog.open(ReportingHoursBookedDialogComponent, {
         data: <EmployeeCommitmentDate>{
           employeeCommitment: employeeCommitmentOfSelectedDay,
           todayDate: todayDate,
@@ -472,16 +469,10 @@ export class ReportingPageComponent implements OnInit {
 
     let calendarWeeks = this.calendar!.numberOfWeeks;
     const calendarDaysNumber = this.calendarDays!.length;
-
-    const lastIndex = this.calendarDays!.length - 1;
     const firstDayNumber = this.getDayForMondayFirstDayOfWeek(
       this.calendarDays![0].date
     );
 
-    const lastDayNumber = this.getDayForMondayFirstDayOfWeek(
-      this.calendarDays![lastIndex].date
-    );
-    const newEmptyDay = <CalendarDay>{};
     while (calendarWeeks > 0) {
       this.calendar!.weeksInCalendar.push(newEmptyWeek);
       calendarWeeks = calendarWeeks - 1;
@@ -526,7 +517,7 @@ export class ReportingPageComponent implements OnInit {
     this.firstDayOfCalendarInitial = firstDay;
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     this.lastDayOfCalendarInitial = lastDay;
-    this.getAllActivitiesInRangeParam(this.allActivities!, firstDay, lastDay);
+    this.getAllActivitiesInRangeParam(this.allActivities!);
     this.getDatesInRangeParam(
       this.firstDayOfCalendarInitial,
       this.lastDayOfCalendarInitial
@@ -562,11 +553,7 @@ export class ReportingPageComponent implements OnInit {
     this.datesInSelectedRange = dates;
   }
 
-  getAllActivitiesInRangeParam(
-    activities: Activity[],
-    firstDate: Date,
-    lastDate: Date
-  ) {
+  getAllActivitiesInRangeParam(activities: Activity[]) {
     if (activities !== undefined) {
       activities.forEach((activity) => {
         if (

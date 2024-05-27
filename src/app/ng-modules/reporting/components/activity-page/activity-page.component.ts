@@ -257,7 +257,7 @@ export class ActivityPageComponent implements OnInit {
           this.activityService
             .deleteActivity(activityToDelete.id)
             .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe((result) => {
+            .subscribe(() => {
               this.activitiesOfTheDay = this.activitiesOfTheDay.filter(
                 (activity) => activity.id !== activityToDelete.id
               );

@@ -1,12 +1,8 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { Observable, of, subscribeOn } from 'rxjs';
 import {
   HttpClientTestingModule,
-  HttpTestingController,
 } from '@angular/common/http/testing';
 
-import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResponseHandlingService } from './response-handling.service';
 import { NotificationService } from '../notification-service/notification.service';

@@ -1,10 +1,6 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { HoursAndMinutes } from 'src/app/models/hours_minutes';
 import { ActivityService } from './activity.service';
 import { Activity } from 'src/app/models/activity';
-import { Observable, of } from 'rxjs';
-import { NotificationService } from '../notification-service/notification.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,
@@ -13,8 +9,6 @@ import {
 import { ActivityDuplicateRange } from '../../models/activity-duplicate-range';
 
 import { environment } from 'src/environments/environment';
-import { EnumDeclaration, Type } from 'typescript';
-import { ActivityType } from 'src/app/models/activity-type.enum';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -81,9 +75,7 @@ describe('SpecFileActivityService', () => {
   });
 
   it('should call getActivities and return Activity[]', () => {
-    let actualActivities: Activity[] | undefined;
     service.getActivities().subscribe((result) => {
-      actualActivities = result;
       expect(result).toEqual(expectedActivities);
     });
     const req = httpController.expectOne({
@@ -94,7 +86,6 @@ describe('SpecFileActivityService', () => {
   });
 
   it('should call getActivity(id) and return the activity with id taken as parameter', () => {
-    let actualActivity: Activity | undefined;
     const expectedActivity: Activity = {
       id: '6099875c-8c37-4c88-9f2b-a933f8b91a07',
       name: 'asdasd',
@@ -110,7 +101,6 @@ describe('SpecFileActivityService', () => {
     };
     const id = '1';
     service.getActivity(id).subscribe((result) => {
-      actualActivity = result;
       expect(result).toEqual(expectedActivity);
     });
     const req = httpController.expectOne({
@@ -230,7 +220,6 @@ describe('SpecFileActivityService', () => {
       workedTime: '2:40',
     });
     let actualReturn = {};
-    const idOfActivityToDelete = 'b9c2fd13-963c-4b7b-b5b6-dc5990d4a32b';
     service.updateActivity(activityToUpdate).subscribe((result) => {
       actualReturn = result;
       expect(actualReturn).toEqual(expectedReturn);

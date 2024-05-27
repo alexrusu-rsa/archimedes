@@ -1,6 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { Observable, of, subscribeOn } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,
@@ -67,9 +65,7 @@ describe('SpecFileUserService', () => {
   });
 
   it('should call getUsers and return User[]', () => {
-    let actualUsers: User[] | undefined;
     service.getUsers().subscribe((result) => {
-      actualUsers = result;
       expect(result).toEqual(expectedRates);
     });
     const req = httpController.expectOne({

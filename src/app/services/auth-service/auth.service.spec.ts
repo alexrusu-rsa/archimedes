@@ -1,18 +1,15 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { Observable, of, subscribeOn } from 'rxjs';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 
-import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './auth.service';
 
 describe('SpecFileAuthService', () => {
   let service: AuthService;
-  let httpController: HttpTestingController;
+  let _httpController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,7 +17,7 @@ describe('SpecFileAuthService', () => {
       providers: [AuthService],
     });
     service = TestBed.inject(AuthService);
-    httpController = TestBed.inject(HttpTestingController);
+    _httpController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {

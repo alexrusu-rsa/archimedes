@@ -5,6 +5,7 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 import { User } from '../../../models/user';
 import { UserLoginService } from '../../../services/user-login-service/user-login.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LoginResponse } from 'src/app/models/login.model';
 
 @Component({
   selector: 'app-login',
@@ -35,16 +36,14 @@ export class LoginComponent {
     } as User;
 
     if (loginUser?.email && loginUser?.password)
-      // TODO: clean up login process
       this.userLoginService
         .logUserIn(loginUser)
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((response: any) => {
+        .subscribe((response: LoginResponse) => {
           if (response === undefined) this.logInProgress = false;
           this.localStorageService.accessToken = response.access_token;
           this.localStorageService.role = response.role;
           this.localStorageService.userId = response.userId;
-          const userId = response.userId;
           if (response.role === 'admin') {
             this.router.navigate(['reporting/admin-dashboard/']);
           } else {

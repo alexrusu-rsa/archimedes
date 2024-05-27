@@ -1,11 +1,9 @@
 import {
-  AfterViewInit,
   Component,
   DestroyRef,
   ElementRef,
   OnInit,
   QueryList,
-  Renderer2,
   ViewChildren,
   inject,
 } from '@angular/core';

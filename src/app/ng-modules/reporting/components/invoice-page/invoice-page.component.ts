@@ -109,15 +109,6 @@ export class InvoicePageComponent implements OnInit {
     );
 
     if (currentCustomerName) {
-      const data: InvoiceDataWrapper = {
-        customerId: projectId,
-        month: this.selectedMonth!,
-        year: this.selectedYear!,
-        customerName: currentCustomerName[0].customerName,
-        customerShortName: currentCustomerName[0].shortName,
-        customerRomanian: currentCustomerName[0].romanianCompany,
-        invoiceTerm: currentProject ? currentProject.invoiceTerm : 0,
-      };
       const dialogRef = this.dialog.open(InvoiceDialogComponent, {
         data: <InvoiceDataWrapper>{
           customerId: projectId,
@@ -136,11 +127,11 @@ export class InvoicePageComponent implements OnInit {
         .subscribe((result: InvoiceDialogOnCloseResult) => {
           if (result) {
             const a = document.createElement('a');
-            const objectUrl = URL.createObjectURL(result.response.body);
+            const objectUrl = URL.createObjectURL(result.response['body']);
             if (result.downloadStart) {
               a.href = objectUrl;
               if (
-                result.response.body.type ===
+                result.response['body'].type ===
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
               ) {
                 if (result.customerShortName)
@@ -165,7 +156,7 @@ export class InvoicePageComponent implements OnInit {
       (customer) => customer.id === customerId
     );
     if (currentCustomerName) {
-      const dialogRef = this.dialog.open(InvoicePreviewDialogComponent, {
+      this.dialog.open(InvoicePreviewDialogComponent, {
         panelClass: 'full-width-dialog',
       });
     }

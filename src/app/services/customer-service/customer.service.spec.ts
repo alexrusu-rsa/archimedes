@@ -1,11 +1,4 @@
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpResponse,
-} from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { HoursAndMinutes } from 'src/app/models/hours_minutes';
-import { Observable, of } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,
@@ -34,12 +27,16 @@ describe('SpecFileCustomerService', () => {
       customerDirectorTel: '',
       customerDirectorEmail: '',
       internal: false,
+      romanianCompany: true,
+      VAT: true,
       shortName: 'null',
     },
     {
       id: 'ba545783-bbd6-4505-bdcf-39a968dc3077',
       customerName: 'Alighieri',
       customerCUI: 'fs.dkjmfl',
+      romanianCompany: true,
+      VAT: true,
       customerReg: 'lfksdjkfllk',
       customerAddress: 'kjsdalfklsl',
       customerCity: 'ksdfjdslfsjfdl',
@@ -55,6 +52,8 @@ describe('SpecFileCustomerService', () => {
       customerName: 'Alighieri',
       customerCUI: 'fs.dkjmfl',
       customerReg: 'lfksdjkfllk',
+      romanianCompany: true,
+      VAT: true,
       customerAddress: 'kjsdalfklsl',
       customerCity: 'ksdfjdslfsjfdl',
       customerCountry: 'safasfsss',
@@ -84,9 +83,7 @@ describe('SpecFileCustomerService', () => {
   });
 
   it('should call getCustomers and return Customer[]', () => {
-    let actualCustomers: Customer[] | undefined;
     service.getCustomers().subscribe((result) => {
-      actualCustomers = result;
       expect(result).toEqual(expectedCustomers);
     });
     const req = httpController.expectOne({
@@ -97,7 +94,6 @@ describe('SpecFileCustomerService', () => {
   });
 
   it('should call getCustomer(id) and return the customer with id taken as parameter', () => {
-    let actualCustomer: Customer | undefined;
     const expectedCustomer: Customer = {
       customerName: 'Alighieri',
       customerCUI: 'fs.dkjmfl',
@@ -107,6 +103,8 @@ describe('SpecFileCustomerService', () => {
       customerCountry: 'safasfsss',
       customerDirectorName: '',
       customerDirectorTel: '',
+      romanianCompany: true,
+      VAT: true,
       customerDirectorEmail: '',
       internal: false,
       shortName: 'null',
@@ -114,7 +112,6 @@ describe('SpecFileCustomerService', () => {
 
     const id = '1';
     service.getCustomer(id).subscribe((result) => {
-      actualCustomer = result;
       expect(result).toEqual(expectedCustomer);
     });
     const req = httpController.expectOne({
@@ -137,6 +134,8 @@ describe('SpecFileCustomerService', () => {
       customerDirectorTel: '',
       customerDirectorEmail: '',
       internal: false,
+      romanianCompany: true,
+      VAT: true,
       shortName: 'null',
     };
     const expectedAddResponse = {};
@@ -215,9 +214,8 @@ describe('SpecFileCustomerService', () => {
         euroExchange,
         dateFormatted
       )
-      .subscribe((result) => {
-        const actualResult = result;
-        expect(actualResult.body).toEqual(response);
+      .subscribe((result: unknown) => {
+        expect(result['body']).toEqual(response);
       });
 
     const url =
@@ -262,8 +260,7 @@ describe('SpecFileCustomerService', () => {
         dateFormatted
       )
       .subscribe((result) => {
-        const actualResult = result;
-        expect(actualResult.body).toEqual(response);
+        expect(result['body']).toEqual(response);
       });
 
     const url =

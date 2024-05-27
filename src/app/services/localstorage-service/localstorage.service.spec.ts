@@ -1,19 +1,11 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject, Observable, of, subscribeOn } from 'rxjs';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalStorageService } from './localstorage.service';
 
 describe('SpecFileLocalStorageService', () => {
   let service: LocalStorageService;
-  let localStore: { [x: string]: string; setItem?: any };
   const expectedToken = 'aabbbd223111afffdbbeee';
   const expectedRole = 'Role';
   const expectedUserId = 'AABBCCDDEEFF';
@@ -63,7 +55,7 @@ describe('SpecFileLocalStorageService', () => {
   it('should set userId value in localStorage', () => {
     service.userId = expectedUserId;
     const actualUserId = localStorage.getItem('userId');
-    expect(actualUserId).toEqual(expectedUserId); 
+    expect(actualUserId).toEqual(expectedUserId);
   });
 
   it('should make everything in localstorage be null', () => {
