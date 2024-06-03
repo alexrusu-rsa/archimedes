@@ -2,7 +2,7 @@
   [placeholder]="'user.page.searchPlaceholder' | translate" (addEntity)="addUser()"
   (keyUp)="applyFilter($event)"></app-entity-page-header>
 
-<mat-card class="content-container">
+<mat-card>
   <mat-card class="entity-card row mx-0 mb-3 p-2" *ngFor="let user of allUsers">
     <mat-card-subtitle class="mt-2">{{ user.roles }}</mat-card-subtitle>
     <mat-card-title> {{ user.name }} {{ user.surname }} </mat-card-title>

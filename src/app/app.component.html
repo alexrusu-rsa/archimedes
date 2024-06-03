@@ -8,17 +8,18 @@
 
   <mat-sidenav-content
     class="container d-flex flex-row justify-content-center gap-4 mt-xxl-4 mt-xl-4 mt-lg-4 mt-md-4 mt-sm-2 mt-2">
-    <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column" #left *ngIf="currentUserId">
+    <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column col-2" #left *ngIf="currentUserId">
       <mat-card>
         <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId"></app-navigation>
       </mat-card>
     </section>
 
-    <section class="d-flex flex-column justify-items-center flex-grow-1" #main>
+    <section class="d-flex flex-column justify-items-center flex-grow-1 col" #main>
       <router-outlet></router-outlet>
     </section>
 
-    <section class="d-xl-flex d-lg-flex d-md-none d-sm-none d-none" #right *ngIf="currentUserId">
+    <section class="d-xl-flex d-lg-flex d-md-none d-sm-none d-none col-2" #right *ngIf="currentUserId">
+      &nbsp;
     </section>
   </mat-sidenav-content>
 </mat-sidenav-container>

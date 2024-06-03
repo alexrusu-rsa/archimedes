@@ -1,40 +1,38 @@
-<mat-card>
-  <div class="flex-container">
-    <mat-card class="secondary-card">
-      <mat-card-title>{{
-        "settings.changePassword" | translate
-        }}</mat-card-title>
-      <form [formGroup]="resetPasswordForm!" class="d-flex row mt-2">
-        <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
-          <mat-label>{{ "settings.currentPassword" | translate }}</mat-label>
-          <input matInput [(ngModel)]="passwordValue" [type]="hide ? 'password' : 'text'" formControlName="password"
-            required="true" />
-          <mat-icon matSuffix (click)="hide = !hide">{{
-            hide ? icons.visibility_off : icons.visibility
-            }}</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
-          <mat-label>{{ "settings.retypePassword" | translate }}</mat-label>
-          <input type="password" matInput [type]="hideCheck ? 'password' : 'text'" formControlName="checkPassword"
-            [(ngModel)]="checkPasswordValue" />
-          <mat-icon matSuffix (click)="hideCheck = !hideCheck">{{
-            hideCheck ? icons.visibility_off : icons.visibility
-            }}</mat-icon>
-        </mat-form-field>
-        <mat-hint *ngIf="passwordsDoNotMatch" color="red">
-          {{ "settings.passwordsNoMatch" | translate }}
-        </mat-hint>
-      </form>
+<mat-card class="d-flex flex-row gap-2">
+  <mat-card class="secondary-card">
+    <mat-card-title>{{
+      "settings.changePassword" | translate
+      }}</mat-card-title>
+    <form [formGroup]="resetPasswordForm!" class="d-flex row mt-2">
+      <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
+        <mat-label>{{ "settings.currentPassword" | translate }}</mat-label>
+        <input matInput [(ngModel)]="passwordValue" [type]="hide ? 'password' : 'text'" formControlName="password"
+          required="true" />
+        <mat-icon matSuffix (click)="hide = !hide">{{
+          hide ? icons.visibility_off : icons.visibility
+          }}</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="col-md-12 col-lg-6">
+        <mat-label>{{ "settings.retypePassword" | translate }}</mat-label>
+        <input type="password" matInput [type]="hideCheck ? 'password' : 'text'" formControlName="checkPassword"
+          [(ngModel)]="checkPasswordValue" />
+        <mat-icon matSuffix (click)="hideCheck = !hideCheck">{{
+          hideCheck ? icons.visibility_off : icons.visibility
+          }}</mat-icon>
+      </mat-form-field>
+      <mat-hint *ngIf="passwordsDoNotMatch" color="red">
+        {{ "settings.passwordsNoMatch" | translate }}
+      </mat-hint>
+    </form>
 
-      <button mat-raised-button color="accent" (click)="changePassword()">
-        {{ "settings.changePasswordButton" | translate }}
-      </button>
-    </mat-card>
-    <mat-card class="secondary-card">
-      <div *ngIf="currentUser">
-        <mat-card-subtitle>{{ currentUser.role }}</mat-card-subtitle>
-        <mat-card-title>{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title>
-      </div>
-    </mat-card>
-  </div>
+    <button mat-raised-button color="accent" (click)="changePassword()">
+      {{ "settings.changePasswordButton" | translate }}
+    </button>
+  </mat-card>
+  <mat-card class="secondary-card">
+    <div *ngIf="currentUser">
+      <mat-card-subtitle>{{ currentUser.role }}</mat-card-subtitle>
+      <mat-card-title>{{ currentUser.name }} {{ currentUser.surname }}</mat-card-title>
+    </div>
+  </mat-card>
 </mat-card>
