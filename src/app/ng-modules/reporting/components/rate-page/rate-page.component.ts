@@ -69,7 +69,7 @@ export class RatePageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.rateService
-          .deleteRate(rate.id!)
+          .deleteRate(rate.id)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(() => {
             this.fetchData();

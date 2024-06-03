@@ -43,8 +43,7 @@
         ],
         "no-console": ["warn"],
         "no-empty": ["warn"],
-        // "@typescript-eslint/no-non-null-assertion": ["warn"]
-        "@typescript-eslint/no-non-null-assertion": ["off"]
+        "@typescript-eslint/no-non-null-assertion": ["warn"]
       }
     },
     {

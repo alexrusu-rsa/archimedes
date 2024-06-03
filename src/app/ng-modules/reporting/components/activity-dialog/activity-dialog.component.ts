@@ -41,12 +41,12 @@ export class ActivityDialogComponent implements OnInit {
   filteredProjects?: Observable<Project[]>;
 
   addActivity() {
-    this.currentActivity!.name = this.name?.value;
-    this.currentActivity!.activityType = this.activityType?.value;
-    this.currentActivity!.start = this.start?.value;
-    this.currentActivity!.end = this.end?.value;
-    this.currentActivity!.description = this.description?.value;
-    this.currentActivity!.extras = this.extras?.value;
+    this.currentActivity.name = this.name?.value;
+    this.currentActivity.activityType = this.activityType?.value;
+    this.currentActivity.start = this.start?.value;
+    this.currentActivity.end = this.end?.value;
+    this.currentActivity.description = this.description?.value;
+    this.currentActivity.extras = this.extras?.value;
 
     if (this.currentActivity && this.checkAbleToRequestAddActivity()) {
       this.activityService
@@ -60,14 +60,14 @@ export class ActivityDialogComponent implements OnInit {
 
   private filter(value: string): Project[] {
     const filterValue = value.toLowerCase();
-    return this.projects!.filter((project) =>
+    return this.projects.filter((project) =>
       project.projectName.toLowerCase().includes(filterValue)
     );
   }
 
   getProjects() {
     this.projectService
-      .getProjectsUser(this.localStorageService.userId!)
+      .getProjectsUser(this.localStorageService.userId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.projects = result;
@@ -83,7 +83,7 @@ export class ActivityDialogComponent implements OnInit {
     const selectedProjectId = this.projects?.find(
       (project) => project.projectName === eventOptionValue
     );
-    this.currentActivity!.projectId = selectedProjectId?.id;
+    this.currentActivity.projectId = selectedProjectId?.id;
   }
 
   onKeydown(event: KeyboardEvent) {
@@ -122,12 +122,12 @@ export class ActivityDialogComponent implements OnInit {
   }
 
   editActivity() {
-    this.currentActivity!.name = this.name?.value;
-    this.currentActivity!.activityType = this.activityType?.value;
-    this.currentActivity!.start = this.start?.value;
-    this.currentActivity!.end = this.end?.value;
-    this.currentActivity!.description = this.description?.value;
-    this.currentActivity!.extras = this.extras?.value;
+    this.currentActivity.name = this.name?.value;
+    this.currentActivity.activityType = this.activityType?.value;
+    this.currentActivity.start = this.start?.value;
+    this.currentActivity.end = this.end?.value;
+    this.currentActivity.description = this.description?.value;
+    this.currentActivity.extras = this.extras?.value;
     if (this.currentActivity && this.checkAbleToRequestUpdateActivity()) {
       this.activityService
         .updateActivity(this.currentActivity)
