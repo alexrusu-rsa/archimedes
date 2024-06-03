@@ -44,8 +44,8 @@
     "rxjs": "~7.8.1",
     "terser": "5.18.2",
     "tslib": "^2.6.0",
-    "typescript": "~5.1.6",
-    "zone.js": "~0.13.1"
+    "typescript": "~5.4.5",
+    "zone.js": "~0.14.6"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.1.4",
