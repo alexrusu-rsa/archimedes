@@ -13,7 +13,7 @@ import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
-import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { DeleteConfirmationDialogComponent } from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { Rate } from '../../../../models/rate';

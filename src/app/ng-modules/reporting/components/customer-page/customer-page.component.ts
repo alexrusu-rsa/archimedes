@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
-import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { DeleteConfirmationDialogComponent } from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Icons } from 'src/app/models/icons.enum';
 

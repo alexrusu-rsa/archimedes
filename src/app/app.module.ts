@@ -33,7 +33,6 @@ import { SharedModule } from './ng-modules/shared/shared.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
 import { UserSettingsPageComponent } from './ng-modules/reporting/components/user-settings-page/user-settings-page.component';
 import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
-import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -64,7 +63,6 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
     FirstUserPageComponent,
     UserSettingsPageComponent,
     DuplicateActivityDialogComponent,
-    DeleteConfirmationDialogComponent,
     NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
