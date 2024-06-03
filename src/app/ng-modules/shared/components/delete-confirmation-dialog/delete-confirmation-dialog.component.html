@@ -1,13 +1,19 @@
-<h2 mat-dialog-title>
-  {{ "confirmation.dialog.title" | translate }} <button mat-icon-button (mat-dialog-close)="dialogRef.close(false)">
+<!-- dialog header with x button -->
+<div class="d-flex flex-row-reverse">
+  <button class="text-white" mat-icon-button (mat-dialog-close)="dialogRef.close(false)">
     <mat-icon>{{icons.close}}</mat-icon>
   </button>
-</h2>
-<mat-dialog-actions align="center">
-  <button mat-raised-button mat-dialog-close (click)="dialogRef.close(true)">
+</div>
+
+<!-- dialog title -->
+<h2 mat-dialog-title align="center" class="p-5">{{ "confirmation.dialog.title" | translate }} </h2>
+
+<!-- dialog action buttons -->
+<mat-dialog-actions align="center" class="mt-auto gap-2 p-5">
+  <button mat-raised-button mat-dialog-close (click)="dialogRef.close(true)" color="accent">
     {{ "confirmation.dialog.yesButton" | translate }}
   </button>
-  <button mat-raised-button (mat-dialog-close)="dialogRef.close(false)">
+  <button mat-raised-button mat-dialog-close>
     {{ "confirmation.dialog.cancel" | translate }}
   </button>
 </mat-dialog-actions>

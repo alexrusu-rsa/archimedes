@@ -72,7 +72,20 @@ export class CustomerPageComponent implements OnInit {
   }
 
   deleteCustomer(customerId: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent);
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      maxHeight: '50%',
+      minHeight: '350px',
+      panelClass: [
+        'justify-content-center',
+        'col-12',
+        'col-xs-12',
+        'col-sm-12',
+        'col-md-12',
+        'col-lg-4',
+        'col-xl-4',
+        'col-xxl-3',
+      ],
+    });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.allCustomers = this.allCustomers?.filter(
