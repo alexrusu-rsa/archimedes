@@ -115,16 +115,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "archimedes-frontend:build:production"
+              "buildTarget": "archimedes-frontend:build:production"
             },
             "dev": {
-              "browserTarget": "archimedes-frontend:build:dev"
+              "buildTarget": "archimedes-frontend:build:dev"
             },
             "staging": {
-              "browserTarget": "archimedes-frontend:build:staging"
+              "buildTarget": "archimedes-frontend:build:staging"
             },
             "development": {
-              "browserTarget": "archimedes-frontend:build:development"
+              "buildTarget": "archimedes-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
