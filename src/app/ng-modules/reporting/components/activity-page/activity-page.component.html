@@ -36,14 +36,12 @@
   </div>
 </div>
 
-<div class="mx-0 px-0">
+<div class="h-100">
   <mat-card class="content-container" *ngIf="activitiesOfTheDay.length < 1">
     <mat-card class="entity-card">
       <mat-card-title>{{ 'activityPage.noActivities' | translate }}</mat-card-title>
     </mat-card>
   </mat-card>
-</div>
-<div class="mx-0 px-0 mb-2">
   <mat-card class="content-container mb-2" *ngFor="let project of projectsOfCurrentDayAndActivities">
     <div class="row col-12 text-start mt-2 mx-0 px-0 mb-4">
       <mat-card-title class="col-12 mx-0 px-0">{{
@@ -94,8 +92,7 @@
       </button>
     </div>
   </mat-card>
-</div>
-<div class="mx-0 px-0">
+
   <mat-card *ngIf="activitiesWithNoProject?.length !== 0">
     <div class="row col-12 text-start mx-0 px-0"></div>
     <mat-card-title class="col-12 mx-0 px-0 mb-3 mt-2"> Other </mat-card-title>

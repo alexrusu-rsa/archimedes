@@ -2,7 +2,7 @@
   [placeholder]="'project.page.searchPlaceholder' | translate" (addEntity)="addProject()"
   (keyUp)="applyFilter($event)"></app-entity-page-header>
 
-<mat-card class="content-container">
+<mat-card class="content-container h-100">
   <mat-card class="entity-card row mb-3 px-0 mx-0" *ngFor="let project of allProjects">
     <div class="row mx-0">
       <mat-card-title class="mt-2 col-12">
