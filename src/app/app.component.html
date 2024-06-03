@@ -6,7 +6,7 @@
       (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
 
-  <mat-sidenav-content class="container d-flex flex-row justify-content-center gap-4">
+  <mat-sidenav-content class="container d-flex flex-row justify-content-center gap-4 mt-2">
     <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column" #left *ngIf="currentUserId">
       <mat-card>
         <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId"></app-navigation>
