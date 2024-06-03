@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Icons } from 'src/app/models/icons.enum';
 
@@ -9,15 +9,5 @@ import { Icons } from 'src/app/models/icons.enum';
 })
 export class DeleteConfirmationDialogComponent {
   icons = Icons;
-  constructor(
-    public dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>
-  ) {}
-
-  confirm() {
-    this.dialogRef.close(true);
-  }
-
-  cancel() {
-    this.dialogRef.close(false);
-  }
+  dialogRef = inject(MatDialogRef<DeleteConfirmationDialogComponent>);
 }

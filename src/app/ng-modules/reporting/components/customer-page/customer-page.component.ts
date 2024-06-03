@@ -72,9 +72,7 @@ export class CustomerPageComponent implements OnInit {
   }
 
   deleteCustomer(customerId: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'delete-confirmation-dialog',
-    });
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent);
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.allCustomers = this.allCustomers?.filter(
