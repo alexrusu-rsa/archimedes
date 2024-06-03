@@ -6,7 +6,10 @@ import { User } from 'src/app/models/user';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { DeleteConfirmationDialogComponent } from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {
+  DeleteConfirmationDialogComponent,
+  deleteConfirmationDialogPreset,
+} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -98,9 +101,10 @@ export class UserPageComponent implements OnInit {
   }
 
   deleteUser(userId: string | undefined) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'full-width-dialog',
-    });
+    const dialogRef = this.dialog.open(
+      DeleteConfirmationDialogComponent,
+      deleteConfirmationDialogPreset
+    );
 
     if (userId)
       dialogRef.afterClosed().subscribe((result: boolean) => {

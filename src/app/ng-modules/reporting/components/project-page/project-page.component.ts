@@ -5,7 +5,10 @@ import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
-import { DeleteConfirmationDialogComponent } from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {
+  DeleteConfirmationDialogComponent,
+  deleteConfirmationDialogPreset,
+} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -75,9 +78,10 @@ export class ProjectPageComponent implements OnInit {
   }
 
   deleteProject(projectId: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'delete-confirmation-dialog',
-    });
+    const dialogRef = this.dialog.open(
+      DeleteConfirmationDialogComponent,
+      deleteConfirmationDialogPreset
+    );
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.allProjects = this.allProjects?.filter(
