@@ -7,7 +7,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="container d-inline-flex gap-4">
-    <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column" #left>
+    <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column" #left *ngIf="currentUserId">
       <mat-card>
         <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId"></app-navigation>
       </mat-card>
@@ -17,7 +17,7 @@
       <router-outlet></router-outlet>
     </section>
 
-    <section class="d-xl-flex d-lg-flex d-md-none d-sm-none d-none" #right>
+    <section class="d-xl-flex d-lg-flex d-md-none d-sm-none d-none" #right *ngIf="currentUserId">
     </section>
   </mat-sidenav-content>
 </mat-sidenav-container>
