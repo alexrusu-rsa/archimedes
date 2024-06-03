@@ -27,9 +27,9 @@ export class UserDialogComponent implements OnInit {
 
   addUser() {
     if (this.adminUserCheck) {
-      this.currentUser!.roles = 'admin';
+      this.currentUser.roles = 'admin';
     } else {
-      this.currentUser!.roles = 'user';
+      this.currentUser.roles = 'user';
     }
     if (this.checkAbleToRequestAddUser())
       if (this.currentUser)
@@ -42,9 +42,9 @@ export class UserDialogComponent implements OnInit {
 
   editUser() {
     if (this.adminUserCheck) {
-      this.currentUser!.roles = 'admin';
+      this.currentUser.roles = 'admin';
     } else {
-      this.currentUser!.roles = 'user';
+      this.currentUser.roles = 'user';
     }
     if (this.checkAbleToRequestUpdateUser())
       if (this.currentUser) {

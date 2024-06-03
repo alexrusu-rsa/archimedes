@@ -11,8 +11,8 @@ import { Icons } from 'src/app/models/icons.enum';
   styleUrls: ['./reporting-hours-booked-dialog.component.sass'],
 })
 export class ReportingHoursBookedDialogComponent implements OnInit {
-  employeeCommitmentToDisplay!: EmployeeCommitmentCalendar[];
-  dateToDisplay!: string;
+  employeeCommitmentToDisplay: EmployeeCommitmentCalendar[];
+  dateToDisplay: string;
   icons = Icons;
 
   constructor(
@@ -23,9 +23,9 @@ export class ReportingHoursBookedDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeCommitmentToDisplay =
-      this.employeeCommitmentOfSelectedDay.employeeCommitment!;
-    const todayDate = this.employeeCommitmentOfSelectedDay.todayDate!;
+      this.employeeCommitmentOfSelectedDay.employeeCommitment;
+    const todayDate = this.employeeCommitmentOfSelectedDay.todayDate;
     const dateToDisplay = this.datepipe.transform(todayDate, 'dd/MM/yyyy');
-    this.dateToDisplay = dateToDisplay!;
+    this.dateToDisplay = dateToDisplay;
   }
 }

@@ -39,11 +39,11 @@ export class RateDialogComponent implements OnInit {
 
   addRate() {
     if (this.checkAbleToRequestAddRate()) {
-      this.currentRate!.projectId = this.projectId?.value;
-      this.currentRate!.employeeId = this.employeeId?.value;
-      this.currentRate!.rateType = this.employeeRateType?.value;
+      this.currentRate.projectId = this.projectId?.value;
+      this.currentRate.employeeId = this.employeeId?.value;
+      this.currentRate.rateType = this.employeeRateType?.value;
       this.rateService
-        .addRate(this.currentRate!)
+        .addRate(this.currentRate)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((newRate: Rate) => {
           this.dialogRef.close(newRate);
@@ -53,11 +53,11 @@ export class RateDialogComponent implements OnInit {
 
   editRate() {
     if (this.checkAbleToRequestUpdateRate()) {
-      this.currentRate!.projectId = this.projectId?.value;
-      this.currentRate!.employeeId = this.employeeId?.value;
-      this.currentRate!.rateType = this.employeeRateType?.value;
+      this.currentRate.projectId = this.projectId?.value;
+      this.currentRate.employeeId = this.employeeId?.value;
+      this.currentRate.rateType = this.employeeRateType?.value;
       this.rateService
-        .updateRate(this.currentRate!)
+        .updateRate(this.currentRate)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((updatedRate: Rate) => {
           this.dialogRef.close(updatedRate);
@@ -101,14 +101,14 @@ export class RateDialogComponent implements OnInit {
 
   private filter(value: string): Project[] {
     const filterValue = value.toLowerCase();
-    return this.projects!.filter((project) =>
+    return this.projects.filter((project) =>
       project.projectName.toLowerCase().includes(filterValue)
     );
   }
 
   private filterEmp(value: string): User[] {
     const filterValue = value.toLowerCase();
-    return this.users!.filter((user) =>
+    return this.users.filter((user) =>
       user.name.toLowerCase().includes(filterValue)
     );
   }

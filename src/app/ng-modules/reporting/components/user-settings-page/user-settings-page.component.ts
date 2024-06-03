@@ -35,7 +35,7 @@ export class UserSettingsPageComponent implements OnInit {
       this.userManagePasswordService
         .changePasswordFor(
           this.password?.value,
-          this.localStorageService.userId!
+          this.localStorageService.userId
         )
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();

@@ -43,8 +43,6 @@ import { MonthViewComponent } from './ng-modules/reporting/components/month-view
 import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
 import { ShortenPipe } from './ng-modules/shared/pipes/shorten.pipe';
 import { InvoicePreviewDialogComponent } from './ng-modules/reporting/components/invoice-preview-dialog/invoice-preview-dialog.component';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SafePipe } from './ng-modules/shared/pipes/safe.pipe';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 
@@ -78,8 +76,6 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
   ],
   imports: [
     BrowserModule,
-    NgxExtendedPdfViewerModule,
-    PdfViewerModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,

@@ -146,7 +146,7 @@ export class ReportingPageComponent implements OnInit {
             filteredActivitiesOfEmployee?.forEach((activity) => {
               if (
                 activity.date ===
-                this.transformNewDateToDBString(calendarDay!.date)
+                this.transformNewDateToDBString(calendarDay.date)
               ) {
                 employeeReportedHours =
                   employeeReportedHours +
@@ -167,7 +167,7 @@ export class ReportingPageComponent implements OnInit {
               employeeName: employee.name + ' ' + employee.surname,
               reportedHours: employeeReportedHours,
               employeeExpectedCommitment: this.getExpectedCommitmentOfEmployee(
-                employee.id!
+                employee.id
               ),
             });
             if (newEmployeeCommitmentCalendar.employeeExpectedCommitment > 0)
@@ -244,7 +244,7 @@ export class ReportingPageComponent implements OnInit {
     this.allRates?.forEach((rate) => {
       if (rate.employeeId === employeeId) {
         employeeTotalExpectedCommitment =
-          employeeTotalExpectedCommitment + rate.employeeTimeCommitement!;
+          employeeTotalExpectedCommitment + rate.employeeTimeCommitement;
       }
     });
     if (employeeTotalExpectedCommitment > 0)
@@ -264,7 +264,7 @@ export class ReportingPageComponent implements OnInit {
   computeEmployeesTotalCommitment() {
     let totalCommitment = 0;
     this.allRates?.forEach((rate) => {
-      totalCommitment = totalCommitment + rate.employeeTimeCommitement!;
+      totalCommitment = totalCommitment + rate.employeeTimeCommitement;
     });
     this.employeesTotalCommitment = totalCommitment;
   }
@@ -294,10 +294,10 @@ export class ReportingPageComponent implements OnInit {
   }
 
   getNumberOfWeeksToDisplay(): number {
-    const numberOfDaysCheck = this.calendarDays!.length;
-    let numberOfDays = this.calendarDays!.length;
+    const numberOfDaysCheck = this.calendarDays.length;
+    let numberOfDays = this.calendarDays.length;
     const firstDayNumber = this.getDayForMondayFirstDayOfWeek(
-      this.calendarDays![0].date
+      this.calendarDays[0].date
     );
 
     let numberOfWeeks = 0;
@@ -320,13 +320,13 @@ export class ReportingPageComponent implements OnInit {
   }
 
   addPaddingDaysToCalendarLastWeek() {
-    const lastWeekIndex = this.calendar!.weeksInCalendar.length - 1;
-    if (this.calendar!.weeksInCalendar[lastWeekIndex].weekDays!.length < 7) {
+    const lastWeekIndex = this.calendar.weeksInCalendar.length - 1;
+    if (this.calendar.weeksInCalendar[lastWeekIndex].weekDays.length < 7) {
       const remainingDays =
-        7 - this.calendar!.weeksInCalendar[lastWeekIndex].weekDays!.length;
+        7 - this.calendar.weeksInCalendar[lastWeekIndex].weekDays.length;
       let cursor = 0;
       while (cursor < remainingDays) {
-        this.calendar!.weeksInCalendar[lastWeekIndex].weekDays!.push(<
+        this.calendar.weeksInCalendar[lastWeekIndex].weekDays.push(<
           CalendarDay
         >{
           color: '#d4d4d4',
@@ -364,13 +364,13 @@ export class ReportingPageComponent implements OnInit {
   }
 
   addPaddingToCalendarFirstWeek() {
-    if (this.calendar!.numberOfWeeks > 1) {
-      if (this.calendar!.weeksInCalendar[0].weekDays!.length < 7) {
+    if (this.calendar.numberOfWeeks > 1) {
+      if (this.calendar.weeksInCalendar[0].weekDays.length < 7) {
         const remainingDays =
-          7 - this.calendar!.weeksInCalendar[0].weekDays!.length;
+          7 - this.calendar.weeksInCalendar[0].weekDays.length;
         let cursor = 0;
         while (cursor < remainingDays) {
-          this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
+          this.calendar.weeksInCalendar[0].weekDays.unshift(<CalendarDay>{
             color: '#d4d4d4',
             date: new Date(),
             employeesCommitment: {},
@@ -384,22 +384,22 @@ export class ReportingPageComponent implements OnInit {
       }
     } else {
       const firstDayOfOnlyWeek = this.getDayForMondayFirstDayOfWeek(
-        this.calendar!.weeksInCalendar[0].weekDays![0].date
+        this.calendar.weeksInCalendar[0].weekDays[0].date
       );
       const lastDayOfOnlyWeekIndex =
-        this.calendar!.weeksInCalendar[0].weekDays?.length;
+        this.calendar.weeksInCalendar[0].weekDays?.length;
       const lastDayOfOnlyWeek = this.getDayForMondayFirstDayOfWeek(
-        this.calendar!.weeksInCalendar[0].weekDays![lastDayOfOnlyWeekIndex! - 1]
+        this.calendar.weeksInCalendar[0].weekDays[lastDayOfOnlyWeekIndex - 1]
           .date
       );
-      if (lastDayOfOnlyWeek! < 6)
-        if (firstDayOfOnlyWeek! > 0) {
+      if (lastDayOfOnlyWeek < 6)
+        if (firstDayOfOnlyWeek > 0) {
           const firstDayWeekIndex = firstDayOfOnlyWeek;
           const lastDayWeekIndex = lastDayOfOnlyWeek;
           let cursorUnshift = 0;
-          const remainingDaysToAddInFront = firstDayWeekIndex!;
+          const remainingDaysToAddInFront = firstDayWeekIndex;
           while (cursorUnshift < remainingDaysToAddInFront) {
-            this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
+            this.calendar.weeksInCalendar[0].weekDays.unshift(<CalendarDay>{
               color: '#d4d4d4',
               date: new Date(),
               employeesCommitment: {},
@@ -411,10 +411,10 @@ export class ReportingPageComponent implements OnInit {
             cursorUnshift = cursorUnshift + 1;
           }
 
-          const remainingDaysToAddAfterwards = 6 - lastDayWeekIndex!;
+          const remainingDaysToAddAfterwards = 6 - lastDayWeekIndex;
           let cursorPush = 0;
           while (cursorPush < remainingDaysToAddAfterwards) {
-            this.calendar!.weeksInCalendar[0].weekDays!.push(<CalendarDay>{
+            this.calendar.weeksInCalendar[0].weekDays.push(<CalendarDay>{
               color: '#d4d4d4',
               date: new Date(),
               employeesCommitment: {},
@@ -427,10 +427,10 @@ export class ReportingPageComponent implements OnInit {
           }
         } else {
           const lastDayWeekIndex = lastDayOfOnlyWeek;
-          const remainingDaysToAddAfterwards = 6 - lastDayWeekIndex!;
+          const remainingDaysToAddAfterwards = 6 - lastDayWeekIndex;
           let cursorPush = 0;
           while (cursorPush < remainingDaysToAddAfterwards) {
-            this.calendar!.weeksInCalendar[0].weekDays!.push(<CalendarDay>{
+            this.calendar.weeksInCalendar[0].weekDays.push(<CalendarDay>{
               color: '#d4d4d4',
               date: new Date(),
               employeesCommitment: {},
@@ -445,9 +445,9 @@ export class ReportingPageComponent implements OnInit {
       else {
         let cursorUnshift = 0;
         const firstDayWeekIndex = firstDayOfOnlyWeek;
-        const remainingDaysToAddInFront = firstDayWeekIndex! + 1;
+        const remainingDaysToAddInFront = firstDayWeekIndex + 1;
         while (cursorUnshift < remainingDaysToAddInFront - 1) {
-          this.calendar!.weeksInCalendar[0].weekDays!.unshift(<CalendarDay>{
+          this.calendar.weeksInCalendar[0].weekDays.unshift(<CalendarDay>{
             color: '#d4d4d4',
             date: new Date(),
             employeesCommitment: {},
@@ -467,14 +467,14 @@ export class ReportingPageComponent implements OnInit {
       weekDays: [],
     };
 
-    let calendarWeeks = this.calendar!.numberOfWeeks;
-    const calendarDaysNumber = this.calendarDays!.length;
+    let calendarWeeks = this.calendar.numberOfWeeks;
+    const calendarDaysNumber = this.calendarDays.length;
     const firstDayNumber = this.getDayForMondayFirstDayOfWeek(
-      this.calendarDays![0].date
+      this.calendarDays[0].date
     );
 
     while (calendarWeeks > 0) {
-      this.calendar!.weeksInCalendar.push(newEmptyWeek);
+      this.calendar.weeksInCalendar.push(newEmptyWeek);
       calendarWeeks = calendarWeeks - 1;
     }
     let weekCursor = 0;
@@ -486,7 +486,7 @@ export class ReportingPageComponent implements OnInit {
 
     while (cursor < calendarDaysNumber) {
       if (weekDayCursor === 7) {
-        this.calendar!.weeksInCalendar[weekCursor] = newWeek;
+        this.calendar.weeksInCalendar[weekCursor] = newWeek;
         newWeek = {};
         newWeek = <WeekCalendarDay>{
           weekDays: [],
@@ -494,21 +494,21 @@ export class ReportingPageComponent implements OnInit {
         weekCursor = weekCursor + 1;
         weekDayCursor = 0;
       }
-      newWeek.weekDays!.push(this.calendarDays![cursor]);
+      newWeek.weekDays.push(this.calendarDays[cursor]);
       weekDayCursor = weekDayCursor + 1;
       cursor = cursor + 1;
     }
     let checkAllDaysAdded = 0;
     this.calendar?.weeksInCalendar.forEach((week) => {
-      checkAllDaysAdded = checkAllDaysAdded + week.weekDays!.length;
+      checkAllDaysAdded = checkAllDaysAdded + week.weekDays.length;
     });
     if (checkAllDaysAdded < calendarDaysNumber) {
-      this.calendar!.weeksInCalendar[weekCursor] = newWeek;
+      this.calendar.weeksInCalendar[weekCursor] = newWeek;
     }
   }
 
   initialStateCalendar() {
-    this.calendar!.weeksInCalendar = [];
+    this.calendar.weeksInCalendar = [];
     this.activitiesInRange = [];
     this.calendarDays = [];
     this.datesInSelectedRange = [];
@@ -517,14 +517,14 @@ export class ReportingPageComponent implements OnInit {
     this.firstDayOfCalendarInitial = firstDay;
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     this.lastDayOfCalendarInitial = lastDay;
-    this.getAllActivitiesInRangeParam(this.allActivities!);
+    this.getAllActivitiesInRangeParam(this.allActivities);
     this.getDatesInRangeParam(
       this.firstDayOfCalendarInitial,
       this.lastDayOfCalendarInitial
     );
     this.generateCalendarDaysForEachDateInSelectedRange();
     this.generateCalendarDayColors();
-    this.calendar!.numberOfWeeks = this.getNumberOfWeeksToDisplay();
+    this.calendar.numberOfWeeks = this.getNumberOfWeeksToDisplay();
     this.addDaysToWeeksInCalendar();
     this.addPaddingToCalendarFirstWeek();
     this.addPaddingDaysToCalendarLastWeek();
@@ -610,15 +610,15 @@ export class ReportingPageComponent implements OnInit {
   }
 
   fetchDataOnDateChange() {
-    this.calendar!.weeksInCalendar = [];
+    this.calendar.weeksInCalendar = [];
     this.activitiesInRange = [];
     this.calendarDays = [];
     this.datesInSelectedRange = [];
-    this.getAllActivitiesInRange(this.allActivities!);
+    this.getAllActivitiesInRange(this.allActivities);
     this.getDatesInRange();
     this.generateCalendarDaysForEachDateInSelectedRange();
     this.generateCalendarDayColors();
-    this.calendar!.numberOfWeeks = this.getNumberOfWeeksToDisplay();
+    this.calendar.numberOfWeeks = this.getNumberOfWeeksToDisplay();
     this.addDaysToWeeksInCalendar();
     this.addPaddingToCalendarFirstWeek();
     this.addPaddingDaysToCalendarLastWeek();
@@ -626,7 +626,7 @@ export class ReportingPageComponent implements OnInit {
   }
 
   fetchData() {
-    this.calendar!.weeksInCalendar = [];
+    this.calendar.weeksInCalendar = [];
     this.activitiesInRange = [];
     this.calendarDays = [];
     this.datesInSelectedRange = [];

@@ -10,7 +10,7 @@ export class ProjectidPipe implements PipeTransform {
       if (projects) {
         const matchingProject = projects.filter((project) => project.id === id);
         if (matchingProject[0].projectName)
-          return matchingProject[0].projectName!;
+          return matchingProject[0].projectName;
         return id;
       }
     return id;
