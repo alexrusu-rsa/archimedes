@@ -57,7 +57,7 @@ export class InvoiceDialogComponent implements OnInit {
             this.invoiceDataWrapper.month,
             this.invoiceDataWrapper.year,
             Number(this.euroExchange?.value),
-            this.dateFormatted!
+            this.dateFormatted
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((response: unknown) => {
@@ -83,8 +83,8 @@ export class InvoiceDialogComponent implements OnInit {
             this.invoiceDataWrapper.month,
             this.invoiceDataWrapper.year,
             Number(this.euroExchange?.value),
-            this.dateFormatted!,
-            this.invoiceDataWrapper.invoiceTerm!
+            this.dateFormatted,
+            this.invoiceDataWrapper.invoiceTerm
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((response: unknown) => {
@@ -114,7 +114,7 @@ export class InvoiceDialogComponent implements OnInit {
             this.invoiceDataWrapper.month,
             this.invoiceDataWrapper.year,
             Number(this.euroExchange?.value),
-            this.dateFormatted!
+            this.dateFormatted
           )
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe((response: unknown) => {

@@ -76,15 +76,15 @@ export class InvoicePageComponent implements OnInit {
   ) {
     const ctrlValue = this.date.value;
 
-    ctrlValue!.month(normalizedMonthAndYear.month());
-    ctrlValue!.year(normalizedMonthAndYear.year());
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
 
     this.selectedMonth = (normalizedMonthAndYear.month() + 1).toString();
     this.selectedYear = normalizedMonthAndYear.year().toString();
     this.date.setValue(ctrlValue);
     this.selectedDateToDisplay = `
-      ${ctrlValue!.toString().split(' ')[1]} ${
-      ctrlValue!.toString().split(' ')[3]
+      ${ctrlValue.toString().split(' ')[1]} ${
+      ctrlValue.toString().split(' ')[3]
     }`;
     datepicker.close();
   }
@@ -104,7 +104,7 @@ export class InvoicePageComponent implements OnInit {
       (customer) => customer.id === customerId
     );
 
-    const currentProject: Project | undefined = this.allProjects!.find(
+    const currentProject: Project | undefined = this.allProjects.find(
       (project) => project.id === projectId
     );
 

@@ -111,14 +111,14 @@ export class ProjectDialogComponent implements OnInit {
       'dd/MM/yyyy'
     );
     if (dateToString && contractSignDateToString) {
-      this.newProject!.dueDate = dateToString;
-      this.newProject!.contractSignDate = contractSignDateToString;
+      this.newProject.dueDate = dateToString;
+      this.newProject.contractSignDate = contractSignDateToString;
     }
 
-    this.newProject!.customerId = this.customerName?.value;
-    this.newProject!.projectName = this.name?.value;
-    this.newProject!.contract = this.contract?.value;
-    this.newProject!.invoiceTerm = this.invoiceTerm?.value;
+    this.newProject.customerId = this.customerName?.value;
+    this.newProject.projectName = this.name?.value;
+    this.newProject.contract = this.contract?.value;
+    this.newProject.invoiceTerm = this.invoiceTerm?.value;
     this.currentProject = this.newProject;
     this.addProject();
   }
@@ -132,16 +132,16 @@ export class ProjectDialogComponent implements OnInit {
       this.contractSignDate,
       'dd/MM/yyyy'
     );
-    this.newProject!.id = this.currentProject?.id;
-    this.newProject!.customerId = this.customerName?.value;
-    this.newProject!.projectName = this.name?.value;
-    this.newProject!.contract = this.contract?.value;
+    this.newProject.id = this.currentProject?.id;
+    this.newProject.customerId = this.customerName?.value;
+    this.newProject.projectName = this.name?.value;
+    this.newProject.contract = this.contract?.value;
     if (dateToString && contractSignDateToString) {
-      this.newProject!.dueDate = dateToString;
-      this.newProject!.contractSignDate = contractSignDateToString;
+      this.newProject.dueDate = dateToString;
+      this.newProject.contractSignDate = contractSignDateToString;
     }
-    this.newProject!.invoiceTerm = this.invoiceTerm?.value;
-    if (dateToString) this.newProject!.dueDate = dateToString;
+    this.newProject.invoiceTerm = this.invoiceTerm?.value;
+    if (dateToString) this.newProject.dueDate = dateToString;
     this.currentProject = this.newProject;
     this.editProject();
   }

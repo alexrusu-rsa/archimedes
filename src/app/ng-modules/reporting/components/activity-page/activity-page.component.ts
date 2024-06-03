@@ -180,12 +180,12 @@ export class ActivityPageComponent implements OnInit {
         this.timeBookedContainerColor = 'red';
         return;
       }
-      if (parseInt(hours) < this.currentEmployeeCommitment!) {
+      if (parseInt(hours) < this.currentEmployeeCommitment) {
         this.timeBookedContainerColor = 'orange';
         return;
       }
 
-      if (parseInt(hours) >= this.currentEmployeeCommitment!) {
+      if (parseInt(hours) >= this.currentEmployeeCommitment) {
         this.timeBookedContainerColor = 'green';
         return;
       }
@@ -195,7 +195,7 @@ export class ActivityPageComponent implements OnInit {
   computeCurrentEmployeTotalCommitment() {
     let totalCommitment = 0;
     this.currentEmployeeRates?.forEach((rate) => {
-      totalCommitment = totalCommitment + rate.employeeTimeCommitement!;
+      totalCommitment = totalCommitment + rate.employeeTimeCommitement;
     });
     this.currentEmployeeCommitment = totalCommitment;
   }
@@ -216,7 +216,7 @@ export class ActivityPageComponent implements OnInit {
     const nextDayDate = this.selectedDate?.setDate(
       this.selectedDate.getDate() + 1
     );
-    this.selectedDate = new Date(nextDayDate!);
+    this.selectedDate = new Date(nextDayDate);
     this.dateChanges();
   }
 
@@ -224,7 +224,7 @@ export class ActivityPageComponent implements OnInit {
     const prevDayDate = this.selectedDate?.setDate(
       this.selectedDate.getDate() - 1
     );
-    this.selectedDate = new Date(prevDayDate!);
+    this.selectedDate = new Date(prevDayDate);
     this.dateChanges();
   }
 
@@ -319,7 +319,7 @@ export class ActivityPageComponent implements OnInit {
   }
   getProjects() {
     this.projectService
-      .getProjectsUser(this.localStorageService.userId!)
+      .getProjectsUser(this.localStorageService.userId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((result) => {
         this.allProjects = result;
@@ -412,8 +412,8 @@ export class ActivityPageComponent implements OnInit {
   sortActivitiesByStart(activities: Activity[]) {
     const sortedActivities = activities.sort(
       (activityA, activityB) =>
-        this.getTimeInDateFormat(activityA.start!).getTime() -
-        this.getTimeInDateFormat(activityB.start!).getTime()
+        this.getTimeInDateFormat(activityA.start).getTime() -
+        this.getTimeInDateFormat(activityB.start).getTime()
     );
     return sortedActivities;
   }
