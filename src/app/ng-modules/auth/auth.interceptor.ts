@@ -33,18 +33,15 @@ export class AuthInterceptor implements HttpInterceptor {
     });
 
     return next.handle(req).pipe(
-      tap(
-        () => {},
-        (err: any) => {
-          if (err instanceof HttpErrorResponse) {
-            if (err.status !== 401) {
-              return;
-            }
-            this.localStorageService.localStorageLogout();
-            this.router.navigate(['auth/login']);
+      tap((err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status !== 401) {
+            return;
           }
+          this.localStorageService.localStorageLogout();
+          this.router.navigate(['auth/login']);
         }
-      )
+      })
     );
   }
 }
