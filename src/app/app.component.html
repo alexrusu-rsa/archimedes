@@ -1,19 +1,19 @@
 <app-toolbar [pageTitle]="pageTitle" (toggleSidenav)="sidenav.toggle()"></app-toolbar>
 
-<mat-sidenav-container class="d-flex flex-column w-100 h-100 py-3">
+<mat-sidenav-container class="d-flex flex-column w-100 h-100">
   <mat-sidenav #sidenav class="col-12">
     <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
       (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
 
-  <mat-sidenav-content class="container d-inline-flex gap-4">
+  <mat-sidenav-content class="container d-flex flex-row justify-content-center gap-4">
     <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column" #left *ngIf="currentUserId">
       <mat-card>
         <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId"></app-navigation>
       </mat-card>
     </section>
 
-    <section class="d-flex flex-column justify-items-center" #main>
+    <section class="d-flex flex-column justify-items-center flex-grow-1" #main>
       <router-outlet></router-outlet>
     </section>
 

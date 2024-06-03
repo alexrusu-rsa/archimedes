@@ -9,6 +9,15 @@ import { LoginResponse } from 'src/app/models/login.model';
 
 @Component({
   selector: 'app-login',
+  styles: [
+    `
+    :host
+      display: flex
+      flex-direction: column
+      justify-content: center
+      height: 100%
+    `,
+  ],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
