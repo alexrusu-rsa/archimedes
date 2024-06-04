@@ -7,7 +7,7 @@ import {
   WritableSignal,
   signal,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import {
@@ -57,7 +57,6 @@ import { Icons } from 'src/app/models/icons.enum';
     MatDatepickerToggle,
     MatDateRangePicker,
     MatSuffix,
-    ReactiveFormsModule,
     FormsModule,
   ],
   templateUrl: './duplicate-activity-modal.component.html',
