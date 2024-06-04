@@ -6,7 +6,10 @@ import { User } from 'src/app/models/user';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {
+  DeleteConfirmationDialogComponent,
+  deleteConfirmationDialogPreset,
+} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -23,8 +26,6 @@ export class UserPageComponent implements OnInit {
   users: User[] = [];
   search = '';
   projects?: Project[];
-
-  test: string[] = ['ABC', 'def'];
 
   projectsSub?: Subscription;
   constructor(
@@ -45,6 +46,7 @@ export class UserPageComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         switchMap((users) => {
           this.allUsers = users;
+          this.users = users;
           return this.projectService.getProjects();
         })
       )
@@ -98,18 +100,21 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  deleteUser(userId: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'full-width-dialog',
-    });
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
-        this.userService
-          .deleteUser(userId)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe();
-      }
-    });
+  deleteUser(userId: string | undefined) {
+    const dialogRef = this.dialog.open(
+      DeleteConfirmationDialogComponent,
+      deleteConfirmationDialogPreset
+    );
+
+    if (userId)
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          this.allUsers = this.allUsers?.filter((user) => user.id !== userId);
+          this.userService
+            .deleteUser(userId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe();
+        }
+      });
   }
 }

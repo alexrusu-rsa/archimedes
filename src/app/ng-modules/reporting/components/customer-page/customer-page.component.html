@@ -1,56 +1,41 @@
-<div class="container mt-5 px-0">
-  <div class="row">
-    <div class="col d-flex justify-content-start">
-      <mat-form-field appearance="fill" class="col-12 col-md-8 col-sm-8 col-lg-6 col-xl-5 pt-3">
-        <mat-label>{{ "customer.page.search" | translate }}</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex: RSA SOFT" #input />
-      </mat-form-field>
+<app-entity-page-header [label]="'customer.page.search' | translate"
+  [placeholder]="'customer.page.searchPlaceholder' | translate" (addEntity)="addCustomer()"
+  (keyUp)="applyFilter($event)"></app-entity-page-header>
+
+<mat-card class="content-container h-100">
+  <mat-card *ngFor="let customer of allCustomers" class="entity-card row mx-0 px-0 mb-3">
+    <div class="row d-flex col-12">
+      <mat-card-title class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mx-2 mt-2">
+        {{ customer.customerName }}
+      </mat-card-title>
+      <mat-chip-set class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 justify-content-end mt-2"><mat-chip class="mx-2"
+          *ngIf="customer.internal">{{
+          "customer.page.internal" | translate
+          }}</mat-chip>
+        <mat-chip class="mx-2" *ngIf="customer.romanianCompany">{{
+          "customer.page.romanianCompany" | translate
+          }}</mat-chip></mat-chip-set>
     </div>
-    <div class="col justify-content-end d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
-      <div class="top-button content-container col-lg-3 col-sm-6 d-flex justify-content-center align-self-center"
-        (click)="addCustomer()">
-        <mat-icon class="align-self-center" color="accent">{{icons.add_box}}</mat-icon>
-      </div>
+
+    <div class="row d-flex col-12">
+      <mat-chip-set class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 justify-content-end mt-2"><mat-chip class="mx-2"
+          *ngIf="customer.VAT === true">{{ 'customer.page.vat19' | translate }}</mat-chip></mat-chip-set>
     </div>
-  </div>
-</div>
 
-<div class="container mx-0 px-0 m-0 p-0">
-  <mat-card class="content-container">
-    <mat-card *ngFor="let customer of allCustomers" class="entity-card row mx-0 px-0 mb-3">
-      <div class="row d-flex col-12">
-        <mat-card-title class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mx-2 mt-2">
-          {{ customer.customerName }}
-        </mat-card-title>
-        <mat-chip-set class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 justify-content-end mt-2"><mat-chip class="mx-2"
-            *ngIf="customer.internal">{{
-            "customer.page.internal" | translate
-            }}</mat-chip>
-          <mat-chip class="mx-2" *ngIf="customer.romanianCompany">{{
-            "customer.page.romanianCompany" | translate
-            }}</mat-chip></mat-chip-set>
-      </div>
-
-      <div class="row d-flex col-12">
-        <mat-chip-set class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 justify-content-end mt-2"><mat-chip class="mx-2"
-            *ngIf="customer.VAT === true">{{ 'customer.page.vat19' | translate }}</mat-chip></mat-chip-set>
-      </div>
-
-      <mat-card-actions
-        class="col-12 col-sm-12 col-md-12 d-flex d-sm-flex d-md-flex justify-content-end justify-content-sm-end justify-content-md-end mx-0 mx-sm-9 mx-md-0 px-2 px-md-2 mt-4 mt-sm-4 mt-md-0 mb-1">
-        <button mat-button color="accent" (click)="editCustomer(customer)">
-          <mat-icon>{{icons.edit}}</mat-icon>
-        </button>
-
-        <button mat-icon-button (click)="deleteCustomer(customer.id!)">
-          <mat-icon color="accent">{{icons.delete}}</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-    <div class="row mx-0 d-flex justify-content-center">
-      <button class="col-12 add-button-card" mat-icon-button (click)="addCustomer()">
-        <mat-icon color="accent">{{icons.add_box}}</mat-icon>
+    <mat-card-actions
+      class="col-12 col-sm-12 col-md-12 d-flex d-sm-flex d-md-flex justify-content-end justify-content-sm-end justify-content-md-end mx-0 mx-sm-9 mx-md-0 px-2 px-md-2 mt-4 mt-sm-4 mt-md-0 mb-1">
+      <button mat-button color="accent" (click)="editCustomer(customer)">
+        <mat-icon>{{icons.edit}}</mat-icon>
       </button>
-    </div>
+
+      <button mat-icon-button (click)="deleteCustomer(customer.id!)">
+        <mat-icon color="accent">{{icons.delete}}</mat-icon>
+      </button>
+    </mat-card-actions>
   </mat-card>
-</div>
+  <div class="row mx-0 d-flex justify-content-center">
+    <button class="col-12 add-button-card" mat-icon-button (click)="addCustomer()">
+      <mat-icon color="accent">{{icons.add_box}}</mat-icon>
+    </button>
+  </div>
+</mat-card>

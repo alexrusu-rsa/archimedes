@@ -79,7 +79,8 @@
       "internal": "Internal Company",
       "romanianCompany": "Romanian Company",
       "applyVat": "Apply VAT on invoices",
-      "vat19": "VAT 19%"
+      "vat19": "VAT 19%",
+      "searchPlaceholder": "Ex Google..."
     },
     "dialog": {
       "addTitle": "Add customer",
@@ -163,7 +164,8 @@
     },
     "page": {
       "title": "Project page",
-      "search": "Search project"
+      "search": "Search project",
+      "searchPlaceholder": "Ex: Archimedes'"
     }
   },
   "rate": {
@@ -237,7 +239,8 @@
       "thTime": "Time",
       "thEdit": "Edit",
       "thDelete": "Delete",
-      "rateType": "Type"
+      "rateType": "Type",
+      "searchPlaceholder": "Ex: Popescu..."
     },
     "newDialog": {
       "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"

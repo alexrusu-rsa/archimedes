@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col d-flex justify-content-start">
+        <mat-form-field appearance="fill" class="col-12 col-md-8 col-sm-8 col-lg-6 col-xl-5">
+            <mat-label *ngIf="label">{{ label }}</mat-label>
+            <input *ngIf="placeholder" matInput (keyup)="keyUp.emit($event)" placeholder="{{ placeholder }}" #input />
+        </mat-form-field>
+    </div>
+    <div class="col justify-content-end d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
+        <mat-card class="top-button content-container" (click)="addEntity.emit()">
+            <mat-icon class="align-self-center" color="accent">{{icons.add_box}}</mat-icon>
+        </mat-card>
+    </div>
+</div>

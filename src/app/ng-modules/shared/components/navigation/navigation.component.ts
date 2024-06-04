@@ -9,6 +9,12 @@ import {
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
+  styles: [
+    `
+  .active 
+    background-color: #c45d17
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent {

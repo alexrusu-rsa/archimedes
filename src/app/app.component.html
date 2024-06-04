@@ -1,10 +1,25 @@
 <app-toolbar [pageTitle]="pageTitle" (toggleSidenav)="sidenav.toggle()"></app-toolbar>
-<mat-sidenav-container class="d-inline h-100 w-100">
-  <mat-sidenav #sidenav class="vh-100">
+
+<mat-sidenav-container class="d-flex flex-column w-100 h-100">
+  <mat-sidenav #sidenav class="col-12">
     <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
       (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
   </mat-sidenav>
-  <mat-sidenav-content class="container col-12 col-lg-10 h-auto overflow-auto">
-    <router-outlet></router-outlet>
+
+  <mat-sidenav-content
+    class="container d-flex flex-row justify-content-center gap-4 mt-xxl-4 mt-xl-4 mt-lg-4 mt-md-4 mt-sm-2 mt-2">
+    <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column col-2" #left *ngIf="currentUserId">
+      <mat-card>
+        <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId"></app-navigation>
+      </mat-card>
+    </section>
+
+    <section class="d-flex flex-column justify-items-center flex-grow-1 col h-100" #main>
+      <router-outlet></router-outlet>
+    </section>
+
+    <section class="d-xl-flex d-lg-flex d-md-none d-sm-none d-none col-2" #right *ngIf="currentUserId">
+      &nbsp;
+    </section>
   </mat-sidenav-content>
 </mat-sidenav-container>

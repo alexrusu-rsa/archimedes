@@ -3,7 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
-import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {
+  DeleteConfirmationDialogComponent,
+  deleteConfirmationDialogPreset,
+} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Icons } from 'src/app/models/icons.enum';
 
@@ -72,9 +75,10 @@ export class CustomerPageComponent implements OnInit {
   }
 
   deleteCustomer(customerId: string) {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      panelClass: 'delete-confirmation-dialog',
-    });
+    const dialogRef = this.dialog.open(
+      DeleteConfirmationDialogComponent,
+      deleteConfirmationDialogPreset
+    );
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.allCustomers = this.allCustomers?.filter(
