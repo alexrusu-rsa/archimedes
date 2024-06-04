@@ -13,10 +13,6 @@ import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
-import {
-  DeleteConfirmationDialogComponent,
-  deleteConfirmationDialogPreset,
-} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { Rate } from '../../../../models/rate';
@@ -25,6 +21,10 @@ import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Icons } from 'src/app/models/icons.enum';
 import { of, switchMap } from 'rxjs';
+import {
+  DeleteConfirmationModalComponent,
+  deleteConfirmationModalPreset,
+} from 'src/app/ng-modules/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -130,8 +130,8 @@ export class ActivityPageComponent implements OnInit {
   deleteAllActivitiesOfUserDay() {
     if (this.activitiesOfTheDay.length) {
       const dialogRef = this.dialog.open(
-        DeleteConfirmationDialogComponent,
-        deleteConfirmationDialogPreset
+        DeleteConfirmationModalComponent,
+        deleteConfirmationModalPreset
       );
       dialogRef.afterClosed().subscribe((result: boolean) => {
         if (result) {
@@ -253,8 +253,8 @@ export class ActivityPageComponent implements OnInit {
 
   deleteActivity(activityToDelete: Activity) {
     const dialogRef = this.dialog.open(
-      DeleteConfirmationDialogComponent,
-      deleteConfirmationDialogPreset
+      DeleteConfirmationModalComponent,
+      deleteConfirmationModalPreset
     );
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {

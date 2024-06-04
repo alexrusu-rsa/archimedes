@@ -13,7 +13,6 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { InitialsIconComponent } from './components/initials-icon/initials-icon.component';
 import { UserNavigationComponent } from './components/user-navigation/user-navigation.component';
 import { EntityPageHeaderComponent } from './components/entity-page-header/entity-page-header.component';
-import { DeleteConfirmationDialogComponent } from './components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { DeleteConfirmationDialogComponent } from './components/delete-confirmat
     CustomerfromprojectidPipe,
     FilterprojectPipe,
     EntityPageHeaderComponent,
-    DeleteConfirmationDialogComponent,
   ],
   imports: [CommonModule, MaterialModule, TranslateModule, RouterModule],
   exports: [
@@ -41,7 +39,6 @@ import { DeleteConfirmationDialogComponent } from './components/delete-confirmat
     CustomerfromprojectidPipe,
     FilterprojectPipe,
     EntityPageHeaderComponent,
-    DeleteConfirmationDialogComponent,
   ],
 })
 export class SharedModule {}

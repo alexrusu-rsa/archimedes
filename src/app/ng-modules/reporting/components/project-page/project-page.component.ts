@@ -5,12 +5,12 @@ import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
-import {
-  DeleteConfirmationDialogComponent,
-  deleteConfirmationDialogPreset,
-} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  DeleteConfirmationModalComponent,
+  deleteConfirmationModalPreset,
+} from 'src/app/ng-modules/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-project-page',
@@ -79,8 +79,8 @@ export class ProjectPageComponent implements OnInit {
 
   deleteProject(projectId: string) {
     const dialogRef = this.dialog.open(
-      DeleteConfirmationDialogComponent,
-      deleteConfirmationDialogPreset
+      DeleteConfirmationModalComponent,
+      deleteConfirmationModalPreset
     );
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
