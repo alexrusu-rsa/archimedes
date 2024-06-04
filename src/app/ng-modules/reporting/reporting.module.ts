@@ -9,6 +9,7 @@ import { CustomerPageComponent } from './components/customer-page/customer-page.
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { SharedModule } from 'src/app/ng-modules/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { DuplicateActivityModalComponent } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ReportingRoutingModule,
     SharedModule,
     TranslateModule,
+    DuplicateActivityModalComponent
   ],
 })
 export class ReportingModule {}

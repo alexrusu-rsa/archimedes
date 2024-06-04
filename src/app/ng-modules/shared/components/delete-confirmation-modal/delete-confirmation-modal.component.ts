@@ -36,6 +36,9 @@ export const deleteConfirmationModalPreset = {
   maxHeight: '50%',
   minHeight: '350px',
   panelClass: [
+    'translate-middle-y',
+    'top-50',
+    'start-50',
     'justify-content-center',
     'col-12',
     'col-xs-12',

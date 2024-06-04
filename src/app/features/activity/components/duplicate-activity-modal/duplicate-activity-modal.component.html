@@ -1,0 +1,52 @@
+<!-- dialog header with x button -->
+<div class="d-flex flex-row-reverse">
+    <button class="text-white" mat-icon-button mat-dialog-close>
+        <mat-icon>{{icons.close}}</mat-icon>
+    </button>
+</div>
+
+<!-- dialog title -->
+<h2 mat-dialog-title align="center" class="p-0">{{ "duplicate.dialog.title" | translate }} </h2>
+
+
+<mat-dialog-content>
+    <!-- activity card -->
+    @if(activity) {
+    <!-- TODO extract this to component -->
+    <mat-card class="secondary-card mb-3">
+        <mat-card-title>{{ activity?.name }}</mat-card-title>
+        <mat-card-subtitle>
+            {{ activity?.start }} -
+            {{ activity?.end }}
+        </mat-card-subtitle>
+        <p>{{ activity?.description }}</p>
+        <p>{{ activity?.extras }}</p>
+    </mat-card>
+    }
+
+    <mat-form-field appearance="fill" class="col-12">
+        <mat-label>
+            {{
+            "duplicate.dialog.selectDateRange" | translate
+            }}
+        </mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+            <input name="startDate" #startDateInput [ngModel]="start()" (ngModelChange)="start.set($event)" matStartDate
+                placeholder="{{ 'duplicate.dialog.startDate' | translate }}" />
+            <input name="endDate" #endDateInput [ngModel]="end()" (ngModelChange)="end.set($event)" matEndDate
+                placeholder="{{ 'duplicate.dialog.endDate' | translate }}" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="center" class="gap-2 pb-4">
+    <button mat-raised-button color="accent" type="submit" [mat-dialog-close]="{start: start(), end: end(), activity}">
+        {{ "duplicate.dialog.title" | translate }}
+    </button>
+    <button mat-raised-button mat-dialog-close>
+        {{ "confirmation.dialog.cancel" | translate }}
+    </button>
+</mat-dialog-actions>

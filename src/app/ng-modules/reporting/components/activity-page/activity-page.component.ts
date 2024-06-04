@@ -1,14 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, DestroyRef, Inject, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Activity } from '../../../../models/activity';
 import { User } from '../../../../models/user';
 import { ActivityService } from '../../../../services/activity-service/activity.service';
 import { UserLoginService } from '../../../../services/user-login-service/user-login.service';
-import { ActivatedRoute } from '@angular/router';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
-import { DuplicateActivityDialogComponent } from '../duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { Customer } from 'src/app/models/customer';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
@@ -20,11 +18,16 @@ import { LocalStorageService } from 'src/app/services/localstorage-service/local
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Icons } from 'src/app/models/icons.enum';
-import { of, switchMap } from 'rxjs';
+import { filter, of, switchMap, take } from 'rxjs';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/ng-modules/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import {
+  DuplicateActivityModalComponent,
+  duplicateActivityModalPreset,
+} from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
+import { NotificationService } from 'src/app/services/notification-service/notification.service';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -56,8 +59,6 @@ export class ActivityPageComponent implements OnInit {
   activitiesWithNoProject?: Activity[];
 
   constructor(
-    @Inject(ActivatedRoute)
-    private activeRoute: ActivatedRoute,
     private userService: UserLoginService,
     private activityService: ActivityService,
     public datepipe: DatePipe,
@@ -65,7 +66,8 @@ export class ActivityPageComponent implements OnInit {
     private customerService: CustomerService,
     private projectService: ProjectService,
     private rateService: RateService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -405,13 +407,20 @@ export class ActivityPageComponent implements OnInit {
   }
 
   duplicateActivity(activity: Activity) {
-    const dialogRef = this.dialog.open(DuplicateActivityDialogComponent, {
-      data: activity,
-      panelClass: 'delete-confirmation-dialog',
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.dateChanges();
-    });
+    this.dialog
+      .open(DuplicateActivityModalComponent, {
+        ...duplicateActivityModalPreset,
+        data: activity,
+      })
+      .afterClosed()
+      .pipe(
+        filter((activityDuplication) => !!activityDuplication),
+        switchMap((activityDuplication) =>
+          this.activityService.addDuplicates(activityDuplication)
+        ),
+        take(1)
+      )
+      .subscribe(() => this.dateChanges());
   }
 
   sortActivitiesByStart(activities: Activity[]) {
