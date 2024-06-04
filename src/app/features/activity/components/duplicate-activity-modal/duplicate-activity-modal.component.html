@@ -8,9 +8,8 @@
 <!-- dialog title -->
 <h2 mat-dialog-title align="center" class="p-0">{{ "duplicate.dialog.title" | translate }} </h2>
 
-
+<!-- activity card -->
 <mat-dialog-content>
-    <!-- activity card -->
     @if(activity) {
     <!-- TODO extract this to component -->
     <mat-card class="secondary-card mb-3">
@@ -23,7 +22,6 @@
         <p>{{ activity?.extras }}</p>
     </mat-card>
     }
-
     <mat-form-field appearance="fill" class="col-12">
         <mat-label>
             {{
@@ -40,7 +38,6 @@
         <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
 </mat-dialog-content>
-
 
 <mat-dialog-actions align="center" class="gap-2 pb-4">
     <button mat-raised-button color="accent" type="submit" [mat-dialog-close]="{start: start(), end: end(), activity}">
