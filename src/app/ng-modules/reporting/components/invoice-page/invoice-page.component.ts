@@ -15,7 +15,6 @@ import {
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceDataWrapper } from '../../../../models/invoice-data-wrapper';
 import { Project } from '../../../../models/project';
@@ -148,17 +147,6 @@ export class InvoicePageComponent implements OnInit {
             }
           }
         });
-    }
-  }
-
-  previewInvoice(projectId: string, customerId: string) {
-    const currentCustomerName = this.allCustomers?.filter(
-      (customer) => customer.id === customerId
-    );
-    if (currentCustomerName) {
-      this.dialog.open(InvoicePreviewDialogComponent, {
-        panelClass: 'full-width-dialog',
-      });
     }
   }
 
