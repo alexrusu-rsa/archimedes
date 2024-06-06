@@ -23,7 +23,7 @@ export class EntityPageHeaderComponent {
   placeholder?: string;
 
   @Output()
-  keyUp = new EventEmitter<any>();
+  keyUp = new EventEmitter<Event>();
 
   @Output()
   addEntity = new EventEmitter<void>();

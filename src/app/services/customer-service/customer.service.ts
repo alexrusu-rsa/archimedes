@@ -97,7 +97,7 @@ export class CustomerService {
     euroExchange?: number,
     dateFormatted?: number,
     invoiceTerm?: number
-  ): Observable<unknown> {
+  ): Observable<{ body }> {
     return this.httpClient.get(
       this.customersUrl +
         `/invoice/pdf/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}/${invoiceTerm}`,
