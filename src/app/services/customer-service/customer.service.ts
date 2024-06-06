@@ -104,19 +104,4 @@ export class CustomerService {
       { observe: 'response', responseType: 'blob' }
     );
   }
-
-  getCustomerInvoiceXLSX(
-    customerId: string,
-    invoiceNumber: string,
-    selectedMonth: string,
-    selectedYear: string,
-    euroExchange: number,
-    dateFormatted: number
-  ): Observable<unknown> {
-    return this.httpClient.get(
-      this.customersUrl +
-        `/invoice/xlsx/${customerId}/${invoiceNumber}/${selectedMonth}/${selectedYear}/${euroExchange}/${dateFormatted}`,
-      { observe: 'response', responseType: 'blob' }
-    );
-  }
 }

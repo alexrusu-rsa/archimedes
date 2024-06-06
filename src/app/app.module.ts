@@ -23,7 +23,6 @@ import { ActivityDialogComponent } from './ng-modules/reporting/components/activ
 import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
-import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './ng-modules/shared/pipes/employee.pipe';
 import { DateRangePipe } from './ng-modules/shared/pipes/date-range.pipe';
@@ -40,7 +39,6 @@ import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/comp
 import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
 import { ShortenPipe } from './ng-modules/shared/pipes/shorten.pipe';
-import { SafePipe } from './ng-modules/shared/pipes/safe.pipe';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 
 @NgModule({
@@ -53,7 +51,6 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,
-    InvoiceDialogComponent,
     DateRangePipe,
     EmployeePipe,
     AdminDashboardPageComponent,
@@ -66,7 +63,6 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
     MonthViewComponent,
     RatePageComponent,
     ShortenPipe,
-    SafePipe,
   ],
   imports: [
     BrowserModule,

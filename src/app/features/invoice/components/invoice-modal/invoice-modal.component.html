@@ -1,1 +1,72 @@
-<p>invoice-modal works!</p>,
+<!-- TODO standardize modals with header and actions -->
+<!-- dialog header with x button -->
+<div class="d-flex flex-row-reverse">
+    <button class="text-white" mat-icon-button mat-dialog-close>
+        <mat-icon>{{icons.close}}</mat-icon>
+    </button>
+</div>
+
+<!-- dialog title -->
+<h2 mat-dialog-title align="center" class="p-0">{{ "invoice.dialog.title" | translate }}</h2>
+
+<mat-dialog-content>
+    <mat-stepper linear #stepper class="stepper" color="accent" [formGroup]="invoiceForm">
+        <mat-step [stepControl]="invoiceForm">
+            <ng-template matStepLabel>{{ "invoice.dialog.firstStep" | translate }}</ng-template>
+            <form class="d-flex flex-column" [formGroup]="invoiceForm" (ngSubmit)="onSubmit(stepper)">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ "invoice.dialog.invoiceNumber" | translate }}</mat-label>
+                    <input matInput type="text" [value]="invoiceForm.controls.number.value"
+                        [formControl]="invoiceForm.controls.number"
+                        placeholder="{{ 'invoice.dialog.invoiceNumberPlaceholder' | translate}}" />
+                    <mat-hint>{{ "invoice.dialog.invoiceNumberHint" | translate }}</mat-hint>
+                </mat-form-field>
+
+
+                @if (invoice.customer.romanianCompany) {
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ "invoice.dialog.euroExchange" | translate }}</mat-label>
+                    <input matInput [formControl]="invoiceForm.controls.exchangeRate"
+                        placeholder="{{ 'invoice.dialog.euroExchangePlaceholder' | translate }}" type="number" />
+                    <mat-hint>{{ "invoice.dialog.euroExchangeHint" | translate }}</mat-hint>
+                </mat-form-field>
+                }
+
+
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ "invoice.dialog.invoiceEmittingDay" | translate }}</mat-label>
+                    <input matInput [formControl]="invoiceForm.controls.invoiceEmittingDay" required
+                        [matDatepicker]="datePicker" />
+                    <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datePicker touchUi></mat-datepicker>
+                </mat-form-field>
+
+                <div class="d-flex col-12 justify-content-end">
+                    <button mat-raised-button color="accent" type="submit">
+                        {{ 'invoice.dialog.next' | translate }}
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [optional]="false" class="h-100">
+            <ng-template matStepLabel>{{
+                "invoice.dialog.secondStep" | translate
+                }}</ng-template>
+            <ng-template matStepContent class="p-0">
+                @if (pdfUrl()) {
+                <ng-container class="pdf-viewer col-12">
+                    <iframe class="iframe-container w-100" [src]="pdfUrl() | safe" frameborder="0"
+                        zoom="10%"></iframe></ng-container>
+                } @else {Something went wrong when downloading the PDF}
+                <div class="d-flex col-12 justify-content-between">
+                    <button mat-raised-button color="accent" matStepperPrevious>
+                        {{ 'invoice.dialog.back' | translate }}
+                    </button>
+                    <button mat-raised-button color="accent" (click)="onDownload()"> {{ 'invoice.dialog.download' |
+                        translate }}
+                    </button>
+                </div>
+            </ng-template>
+        </mat-step>
+    </mat-stepper>
+</mat-dialog-content>
