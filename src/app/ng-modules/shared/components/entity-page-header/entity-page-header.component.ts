@@ -1,26 +1,35 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
+  input,
 } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
 import { Icons } from 'src/app/models/icons.enum';
 
 @Component({
   selector: 'app-entity-page-header',
   templateUrl: './entity-page-header.component.html',
-  styleUrls: ['./entity-page-header.component.sass'],
+  imports: [CommonModule, MatFormField, MatLabel, MatButton, MatIcon, MatInput],
+  standalone: true,
+  styles: [
+    `
+    .top-button
+      height: 58px
+      cursor: pointer
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EntityPageHeaderComponent {
-  icons = Icons;
-
-  @Input()
-  label?: string;
-
-  @Input()
-  placeholder?: string;
+  protected icons = Icons;
+  label = input<string>();
+  placeholder = input<string>();
 
   @Output()
   keyUp = new EventEmitter<Event>();

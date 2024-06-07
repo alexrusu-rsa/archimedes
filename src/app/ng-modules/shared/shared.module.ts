@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { InitialsIconComponent } from './components/initials-icon/initials-icon.component';
 import { UserNavigationComponent } from './components/user-navigation/user-navigation.component';
-import { EntityPageHeaderComponent } from './components/entity-page-header/entity-page-header.component';
 import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { SafePipe } from './pipes/safe.pipe';
     EmployeeidPipe,
     CustomerfromprojectidPipe,
     FilterprojectPipe,
-    EntityPageHeaderComponent,
     SafePipe,
   ],
   imports: [CommonModule, MaterialModule, TranslateModule, RouterModule],
@@ -40,7 +38,6 @@ import { SafePipe } from './pipes/safe.pipe';
     EmployeeidPipe,
     CustomerfromprojectidPipe,
     FilterprojectPipe,
-    EntityPageHeaderComponent,
     SafePipe,
   ],
 })
