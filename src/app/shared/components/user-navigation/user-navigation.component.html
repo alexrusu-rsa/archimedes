@@ -1,12 +1,14 @@
-<sub class="opacity-70 d-flex mx-3 mb-4 text-white" *ngIf="user">{{ 'sidenav.account' | translate
+@if(user){
+<sub class="opacity-70 d-flex mx-3 mb-4 text-white">{{ 'sidenav.account' | translate
     }}</sub>
-<div class="opacity-70 d-flex flex-row gap-2 mx-3 my-2 text-white" *ngIf="user">
-    <app-initials-icon class="rounded-circle" [user]="user"></app-initials-icon>
+<div class="opacity-70 d-flex flex-row gap-2 mx-3 my-2 text-white">
+    <app-initials-icon class="rounded-circle" [user]="user()"></app-initials-icon>
     <div class="d-flex flex-column mb-3 ml-4 white">
-        <span>{{user.name}} {{user.surname}}</span>
-        <sub>{{user.email}}</sub>
+        <span>{{user().name}} {{user().surname}}</span>
+        <sub>{{user().email}}</sub>
     </div>
 </div>
+}
 <mat-divider></mat-divider>
 <a mat-menu-item class="opacity-70" routerLink="/reporting/settings">
     {{'sidenav.settings' | translate}}

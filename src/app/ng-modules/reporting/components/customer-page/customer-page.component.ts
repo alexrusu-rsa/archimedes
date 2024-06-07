@@ -8,7 +8,7 @@ import { Icons } from 'src/app/models/icons.enum';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
-} from 'src/app/ng-modules/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+} from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-customer-page',

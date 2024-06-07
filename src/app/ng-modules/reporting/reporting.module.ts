@@ -11,7 +11,7 @@ import { SharedModule } from 'src/app/ng-modules/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { DuplicateActivityModalComponent } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
 import { InvoiceModalComponent } from 'src/app/features/invoice/components/invoice-modal/invoice-modal.component';
-import { EntityPageHeaderComponent } from '../shared/components/entity-page-header/entity-page-header.component';
+import { EntityPageHeaderComponent } from '../../shared/components/entity-page-header/entity-page-header.component';
 
 @NgModule({
   declarations: [

@@ -10,7 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
-} from 'src/app/ng-modules/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+} from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-project-page',
