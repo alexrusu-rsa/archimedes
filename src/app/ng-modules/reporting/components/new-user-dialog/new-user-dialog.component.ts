@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
+import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 
 @Component({
   selector: 'app-new-user-dialog',
@@ -10,7 +10,7 @@ import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.compone
 export class NewUserDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public newUserPasswordToDisplay: string,
-    public dialogRef: MatDialogRef<InvoiceDialogComponent>
+    public dialogRef: MatDialogRef<UserDialogComponent>
   ) {}
   newUserPassword?: string;
   ngOnInit(): void {

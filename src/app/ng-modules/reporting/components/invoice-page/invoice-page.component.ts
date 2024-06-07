@@ -2,7 +2,6 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { switchMap } from 'rxjs';
-import { InvoiceDialogComponent } from '../invoice-dialog/invoice-dialog.component';
 import _moment, { Moment } from 'moment';
 import { default as _rollupMoment } from 'moment';
 import {
@@ -15,15 +14,15 @@ import {
   MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { InvoicePreviewDialogComponent } from '../invoice-preview-dialog/invoice-preview-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { InvoiceDataWrapper } from '../../../../models/invoice-data-wrapper';
 import { Project } from '../../../../models/project';
 import { CustomerService } from '../../../../services/customer-service/customer.service';
 import { Customer } from '../../../../models/customer';
 import { InvoiceDialogOnCloseResult } from '../../../../models/invoice-dialog-onclose-result';
 import { ProjectService } from '../../../../services/project-service/project.service';
 import { Icons } from 'src/app/models/icons.enum';
+import { InvoiceModalComponent } from 'src/app/features/invoice/components/invoice-modal/invoice-modal.component';
+import { Invoice } from 'src/app/features/invoice/models/invoice.model';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -99,67 +98,35 @@ export class InvoicePageComponent implements OnInit {
     return 'NO_INTERNAL_SET';
   }
 
-  async downloadInvoice(projectId: string, customerId: string) {
-    const currentCustomerName = await this.allCustomers?.filter(
-      (customer) => customer.id === customerId
+  openInvoiceModal(projectId: string, customerId: string) {
+    const customer = this.allCustomers?.find(
+      (customer) => customer?.id === customerId
     );
 
-    const currentProject: Project | undefined = this.allProjects.find(
-      (project) => project.id === projectId
+    const project = this.allProjects?.find(
+      (project) => project?.id === projectId
     );
 
-    if (currentCustomerName) {
-      const dialogRef = this.dialog.open(InvoiceDialogComponent, {
-        data: <InvoiceDataWrapper>{
-          customerId: projectId,
-          month: this.selectedMonth,
-          year: this.selectedYear,
-          customerName: currentCustomerName[0].customerName,
-          customerShortName: currentCustomerName[0].shortName,
-          customerRomanian: currentCustomerName[0].romanianCompany,
-          invoiceSeries: this.invoiceSeries,
-          invoiceTerm: currentProject ? currentProject.invoiceTerm : 0,
-        },
-        panelClass: 'full-width-height-dialog',
+    const invoice: Invoice = {
+      customer: customer,
+      project: project,
+      month: this.selectedMonth,
+      year: this.selectedYear,
+      series: this.invoiceSeries,
+    };
+
+    this.dialog
+      .open(InvoiceModalComponent, {
+        data: invoice,
+      })
+      .afterClosed()
+      .pipe()
+      .subscribe((invoiceDialogClosed: InvoiceDialogOnCloseResult) => {
+        const a = document.createElement('a');
+        a.href = invoiceDialogClosed?.blobUrl;
+        a.download = invoiceDialogClosed.invoiceName;
+        a.click();
       });
-      dialogRef
-        .afterClosed()
-        .subscribe((result: InvoiceDialogOnCloseResult) => {
-          if (result) {
-            const a = document.createElement('a');
-            const objectUrl = URL.createObjectURL(result.response['body']);
-            if (result.downloadStart) {
-              a.href = objectUrl;
-              if (
-                result.response['body'].type ===
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-              ) {
-                if (result.customerShortName)
-                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerShortName}.xlsx`;
-                else
-                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerName}.xlsx`;
-              } else {
-                if (result.customerShortName)
-                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerShortName}.pdf`;
-                else
-                  a.download = `${this.invoiceSeries}${result.invoiceNumber}-${result.customerName}.pdf`;
-              }
-              a.click();
-            }
-          }
-        });
-    }
-  }
-
-  previewInvoice(projectId: string, customerId: string) {
-    const currentCustomerName = this.allCustomers?.filter(
-      (customer) => customer.id === customerId
-    );
-    if (currentCustomerName) {
-      this.dialog.open(InvoicePreviewDialogComponent, {
-        panelClass: 'full-width-dialog',
-      });
-    }
   }
 
   preselectMonthAndYear() {

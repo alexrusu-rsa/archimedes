@@ -1,181 +1,179 @@
 {
-  "dashboard": {
-    "monthOverview": "Month overview"
-  },
-  "sidenav": {
-    "home": "Home",
-    "activities": "Activities",
-    "users": "Users",
-    "projects": "Projects",
-    "customers": "Customers",
-    "reporting": "Reporting",
-    "settings": "Settings",
-    "invoices": "Invoices",
-    "logOut": "Log out",
-    "rates": "Rates",
-    "account": "ACCOUNT"
-  },
-  "adminDashboard": {
-    "activities": "Activities",
-    "users": "Users",
-    "projects": "Projects",
-    "customers": "Customers",
-    "reporting": "Reporting",
-    "invoices": "Invoices",
-    "rates": "Rates",
-    "logOut": "Log Out"
-  },
-  "firstUserPage": {
-    "title": "Register first account",
-    "email": "Email",
-    "emailHint": "Email is required",
-    "password": "Password",
-    "passwordHint": "Password is required",
-    "retypePassword": "Re-enter desired password",
-    "retypePasswordHint": "Passwords do not match.",
-    "registerAccount": "Register account"
-  },
-  "loginPage": {
-    "title": "Login",
-    "email": "Email",
-    "emailHint": "Email is required",
-    "password": "Password",
-    "passwordHint": "Password is required",
-    "forgottenPassword": "Forgotten Password",
-    "logIn": "Log in"
-  },
-  "resetPasswordPage": {
-    "title": "Reset your password",
-    "email": "Email",
-    "emailHint": "Email is required",
-    "resetPassword": "Reset Password"
-  },
   "activity": {
     "dialog": {
       "addTitle": "Add activity",
-      "name": "Activity name",
-      "nameHint": "Activity name is required",
-      "startTime": "Start time",
-      "startTimeHint": "Make sure you enter a valid combination of start/end time.",
+      "description": "Activity description",
       "endTime": "End time",
       "endTimeHint": "Make sure you enter a valid combination of start/end time.",
-      "project": "Project",
-      "noProject": "No project",
-      "type": "Activity type",
-      "description": "Activity description",
       "extras": "Activity extras",
+      "name": "Activity name",
+      "nameHint": "Activity name is required",
+      "noProject": "No project",
+      "project": "Project",
+      "startTime": "Start time",
+      "startTimeHint": "Make sure you enter a valid combination of start/end time.",
       "submitAdd": "Add activity",
-      "updateTitle": "Update activity",
-      "submitUpdate": "Update activity"
+      "submitUpdate": "Update activity",
+      "type": "Activity type",
+      "updateTitle": "Update activity"
     },
     "page": {
       "timeBooked": "Time booked: "
     }
   },
-  "customer": {
-    "page": {
-      "title": "Customer Page",
-      "search": "Search customer",
-      "internal": "Internal Company",
-      "romanianCompany": "Romanian Company",
-      "applyVat": "Apply VAT on invoices",
-      "vat19": "VAT 19%",
-      "searchPlaceholder": "Ex Google..."
-    },
-    "dialog": {
-      "addTitle": "Add customer",
-      "customerName": "Customer Name",
-      "customerNameHint": "You must enter a customer name",
-      "customerCUI": "Customer CUI",
-      "customerCUIHint": "You must enter a customer CUI",
-      "customerReg": "Customer Reg",
-      "customerRegHint": "You must enter a customer Reg",
-      "customerAddress": "Customer Address",
-      "customerAddressHint": "You must enter the customer's address",
-      "customerCity": "Customer City",
-      "customerCityHint": "You must enter the customer's city",
-      "customerShortName": "Customer Short Name",
-      "customerCountry": "Customer Country",
-      "customerCountryHint": "You must enter customer's country",
-      "customerDirectorName": "Customer Director Name",
-      "customerDirectorEmail": "Customer Director Email",
-      "customerDirectorTel": "Customer Director Tel",
-      "updateTitle": "Update customer",
-      "IBANEUR": "IBAN EUR",
-      "IBAN": "IBAN",
-      "swift": "SWIFT"
-    }
+  "activityPage": {
+    "noActivities": "You have not reported any activities for this day yet."
+  },
+  "adminDashboard": {
+    "activities": "Activities",
+    "customers": "Customers",
+    "invoices": "Invoices",
+    "logOut": "Log Out",
+    "projects": "Projects",
+    "rates": "Rates",
+    "reporting": "Reporting",
+    "users": "Users"
   },
   "confirmation": {
     "dialog": {
+      "cancel": "Cancel",
       "title": "Are you sure you want to delete this item?",
-      "yesButton": "Yes, delete",
-      "cancel": "Cancel"
+      "yesButton": "Yes, delete"
     }
+  },
+  "customer": {
+    "dialog": {
+      "IBAN": "IBAN",
+      "IBANEUR": "IBAN EUR",
+      "addTitle": "Add customer",
+      "customerAddress": "Customer Address",
+      "customerAddressHint": "You must enter the customer's address",
+      "customerCUI": "Customer CUI",
+      "customerCUIHint": "You must enter a customer CUI",
+      "customerCity": "Customer City",
+      "customerCityHint": "You must enter the customer's city",
+      "customerCountry": "Customer Country",
+      "customerCountryHint": "You must enter customer's country",
+      "customerDirectorEmail": "Customer Director Email",
+      "customerDirectorName": "Customer Director Name",
+      "customerDirectorTel": "Customer Director Tel",
+      "customerName": "Customer Name",
+      "customerNameHint": "You must enter a customer name",
+      "customerReg": "Customer Reg",
+      "customerRegHint": "You must enter a customer Reg",
+      "customerShortName": "Customer Short Name",
+      "swift": "SWIFT",
+      "updateTitle": "Update customer"
+    },
+    "page": {
+      "applyVat": "Apply VAT on invoices",
+      "internal": "Internal Company",
+      "romanianCompany": "Romanian Company",
+      "search": "Search customer",
+      "searchPlaceholder": "Ex Google...",
+      "title": "Customer Page",
+      "vat19": "VAT 19%"
+    }
+  },
+  "custommer": {
+    "page": {
+      "applyVat": "Apply VAT on invoices"
+    }
+  },
+  "dashboard": {
+    "monthOverview": "Month overview"
   },
   "duplicate": {
     "dialog": {
-      "title": "Duplicate activity",
+      "endDate": "End date",
       "selectDateRange": "Select date range",
       "startDate": "Start date",
-      "endDate": "End date"
+      "title": "Duplicate activity"
     }
+  },
+  "firstUserPage": {
+    "email": "Email",
+    "emailHint": "Email is required",
+    "password": "Password",
+    "passwordHint": "Password is required",
+    "registerAccount": "Register account",
+    "retypePassword": "Re-enter desired password",
+    "retypePasswordHint": "Passwords do not match.",
+    "title": "Register first account"
   },
   "invoice": {
     "dialog": {
-      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
-      "title": "Set data for invoice",
-      "invoiceNumber": "Invoice number",
-      "invoiceNumberHint": "You must enter a invoice number",
+      "back": "Back",
+      "download": "Download",
+      "downloadPDF": "Download PDF",
+      "downloadXLSX": "Download XLSX",
       "euroExchange": "Euro Exchange",
       "euroExchangeHint": "Enter a value like 4.98 or 4.92394",
-      "invoiceEmittingDay": "Invoice Emitting Day",
-      "downloadPDF": "Download PDF",
-      "previewPDF": "Preview PDF",
-      "downloadXLSX": "Download XLSX",
+      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
       "firstStep": "Set data for invoice",
-      "secondStep": "Preview invoice",
-      "thirdStep": "Download invoice",
+      "invoiceEmittingDay": "Invoice Emitting Day",
+      "invoiceNumber": "Invoice number",
+      "invoiceNumberHint": "You must enter a invoice number",
       "invoiceNumberPlaceholder": "Example: 1234",
       "next": "Next",
-      "back": "Back",
-      "download": "Download"
+      "previewPDF": "Preview PDF",
+      "secondStep": "Preview invoice",
+      "thirdStep": "Download invoice",
+      "title": "Invoice preview"
     },
-    "download": "Download",
     "dialogPreview": "Invoice",
+    "download": "Download",
+    "page": {
+      "monthAndYear": "Month and Year",
+      "title": "Invoices"
+    },
     "preview": {
       "title": "Invoice Preview"
-    },
-    "page": {
-      "title": "Invoices",
-      "monthAndYear": "Month and Year"
     }
+  },
+  "loginPage": {
+    "email": "Email",
+    "emailHint": "Email is required",
+    "forgottenPassword": "Forgotten Password",
+    "logIn": "Log in",
+    "password": "Password",
+    "passwordHint": "Password is required",
+    "title": "Login"
+  },
+  "monthView": {
+    "changePasswordButton": "Change password",
+    "dialog": {
+      "title": "Activity Report"
+    },
+    "passwordRequired": "Password required",
+    "retypePasswordRequired": "Retyping the password required",
+    "successfullSubmit": "Password successfully submitted"
   },
   "project": {
     "dialog": {
-      "titleAdd": "Add Project",
-      "name": "Project Name",
-      "customerName": "Customer Name",
       "contract": "Project Contract",
-      "dueDate": "Project Due Date",
       "contractSignDate": "Contract Sign Date",
+      "customerName": "Customer Name",
+      "dueDate": "Project Due Date",
       "invoiceTerm": "Project Invoice Term",
+      "name": "Project Name",
+      "titleAdd": "Add Project",
       "titleUpdate": "Update Project"
     },
     "page": {
-      "title": "Project page",
       "search": "Search project",
-      "searchPlaceholder": "Ex: Archimedes'"
+      "searchPlaceholder": "Ex: Archimedes'",
+      "title": "Project page"
     }
   },
   "rate": {
     "dialog": {
       "addTitle": "Add Rate",
-      "projectName": "Project name",
       "employeeName": "Employee name",
+      "employeeTimeCommitment": "Employee Time Commitment",
+      "projectName": "Project name",
       "rate": "Rate",
       "rateType": "Rate type",
-      "employeeTimeCommitment": "Employee Time Commitment",
       "updateTitle": "Update rate"
     },
     "page": {
@@ -183,92 +181,94 @@
     }
   },
   "reporting": {
-    "page": {
-      "title": "Reporting Page",
-      "selectDateRange": "Select date range",
-      "employeeName": "Employee Name",
-      "description": "DESCRIPTION",
-      "noActivitiesTitle": "No entries to be displayed yet.",
-      "startDate": "Start date",
-      "endDate": "End date",
-      "monday": "Mo",
-      "tuesday": "Tu",
-      "wednesday": "We",
-      "thursday": "Th",
-      "friday": "Fr",
-      "saturday": "Sa",
-      "sunday": "Su"
-    },
     "hoursBookedDialog": {
       "employeeCommitment": "Employees commitment for"
+    },
+    "page": {
+      "description": "DESCRIPTION",
+      "employeeName": "Employee Name",
+      "endDate": "End date",
+      "friday": "Fr",
+      "monday": "Mo",
+      "noActivitiesTitle": "No entries to be displayed yet.",
+      "saturday": "Sa",
+      "selectDateRange": "Select date range",
+      "startDate": "Start date",
+      "sunday": "Su",
+      "thursday": "Th",
+      "title": "Reporting Page",
+      "tuesday": "Tu",
+      "wednesday": "We"
     }
   },
-  "userDashboard": {
-    "title": "User Dashboard",
+  "resetPasswordPage": {
+    "email": "Email",
+    "emailHint": "Email is required",
+    "resetPassword": "Reset Password",
+    "title": "Reset your password"
+  },
+  "settings": {
+    "changePassword": "Change your password",
+    "changePasswordButton": "Change password",
+    "currentPassword": "Current password",
+    "passwordsNoMatch": "Passwords do not match",
+    "retypePassword": "Re-type your passowrd",
+    "title": "Settings"
+  },
+  "sidenav": {
+    "account": "ACCOUNT",
     "activities": "Activities",
-    "settings": "Settings"
+    "customers": "Customers",
+    "home": "Home",
+    "invoices": "Invoices",
+    "logOut": "Log out",
+    "projects": "Projects",
+    "rates": "Rates",
+    "reporting": "Reporting",
+    "settings": "Settings",
+    "users": "Users"
   },
   "user": {
     "dialog": {
       "addTitle": "Add User",
-      "surname": "User Surname",
-      "surnameHint": "User surname is required",
-      "name": "User Name",
-      "nameHint": "User name is required",
+      "admin": "Admin",
+      "adminToggleText": "Admin",
       "email": "Email",
       "emailHint": "Email is required",
+      "name": "User Name",
+      "nameHint": "User name is required",
       "role": "User Role",
       "roleHint": "User role is required",
       "seniority": "User seniority",
       "seniorityHint": "User seniority is required",
+      "surname": "User Surname",
+      "surnameHint": "User surname is required",
       "timePerDay": "User time/day",
       "timePerDayHint": "User time/day is required",
-      "adminToggleText": "Admin",
-      "updateTitle": "Update User",
-      "admin": "Admin"
-    },
-    "page": {
-      "title": "User page",
-      "search": "Search user",
-      "resetPassword": "Reset Password",
-      "employeeRates": "Employee Rates",
-      "thProject": "Project",
-      "thEmployee": "Employee",
-      "thRate": "Rate",
-      "thRateType": "Type",
-      "thTime": "Time",
-      "thEdit": "Edit",
-      "thDelete": "Delete",
-      "rateType": "Type",
-      "searchPlaceholder": "Ex: Popescu..."
+      "updateTitle": "Update User"
     },
     "newDialog": {
       "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"
-    }
-  },
-  "settings": {
-    "title": "Settings",
-    "changePassword": "Change your password",
-    "currentPassword": "Current password",
-    "retypePassword": "Re-type your passowrd",
-    "passwordsNoMatch": "Passwords do not match",
-    "changePasswordButton": "Change password"
-  },
-  "monthView": {
-    "dialog": {
-      "title": "Activity Report"
     },
-    "changePasswordButton": "Change password",
-    "passwordRequired": "Password required",
-    "retypePasswordRequired": "Retyping the password required",
-    "successfullSubmit": "Password successfully submitted"
-  },
-  "activityPage": {
-    "noActivities": "You have not reported any activities for this day yet."
-  },
-  "custommer": {
     "page": {
-      "applyVat": "Apply VAT on invoices"
+      "employeeRates": "Employee Rates",
+      "rateType": "Type",
+      "resetPassword": "Reset Password",
+      "search": "Search user",
+      "searchPlaceholder": "Ex: Popescu...",
+      "thDelete": "Delete",
+      "thEdit": "Edit",
+      "thEmployee": "Employee",
+      "thProject": "Project",
+      "thRate": "Rate",
+      "thRateType": "Type",
+      "thTime": "Time",
+      "title": "User page"
     }
+  },
+  "userDashboard": {
+    "activities": "Activities",
+    "settings": "Settings",
+    "title": "User Dashboard"
   }
 }

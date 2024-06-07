@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Activity } from '../../models/activity';
-import { ActivityDuplicateRange } from '../../models/activity-duplicate-range';
+import { ActivityDuplication } from '../../features/activity/models/activity-duplication.model';
 import { RequestWrapper } from '../../models/request-wrapper';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
@@ -52,7 +52,7 @@ export class ActivityService {
   }
 
   addDuplicates(
-    activityDuplicateRange: ActivityDuplicateRange
+    activityDuplicateRange: ActivityDuplication
   ): Observable<RequestWrapper> {
     return this.httpClient
       .post(this.activitiesUrl + '/duplicate', activityDuplicateRange, {

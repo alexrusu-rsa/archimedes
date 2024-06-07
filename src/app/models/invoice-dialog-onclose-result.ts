@@ -1,7 +1,5 @@
 export interface InvoiceDialogOnCloseResult {
-  response: unknown;
-  customerName?: string;
-  invoiceNumber?: number;
-  customerShortName?: string;
+  blobUrl: string;
+  invoiceName: string;
   downloadStart: boolean;
 }

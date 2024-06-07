@@ -6,7 +6,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { ActivityDuplicateRange } from '../../models/activity-duplicate-range';
+import { ActivityDuplication } from '../../features/activity/models/activity-duplication.model';
 
 import { environment } from 'src/environments/environment';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
@@ -111,7 +111,7 @@ describe('SpecFileActivityService', () => {
   });
 
   it('should call duplicateActivity(mockParameter) and return nothing', () => {
-    const mockParameter: ActivityDuplicateRange | undefined = {
+    const mockParameter: ActivityDuplication | undefined = {
       activity: {
         name: 'asdasd',
         employeeId: '588eb7d4-7966-458b-82ed-f47fcf8e6b0f',

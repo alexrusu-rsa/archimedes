@@ -23,7 +23,6 @@ import { ActivityDialogComponent } from './ng-modules/reporting/components/activ
 import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
-import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EmployeePipe } from './ng-modules/shared/pipes/employee.pipe';
 import { DateRangePipe } from './ng-modules/shared/pipes/date-range.pipe';
@@ -32,7 +31,6 @@ import { RateDialogComponent } from './ng-modules/reporting/components/rate-dial
 import { SharedModule } from './ng-modules/shared/shared.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
 import { UserSettingsPageComponent } from './ng-modules/reporting/components/user-settings-page/user-settings-page.component';
-import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -41,8 +39,6 @@ import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/comp
 import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
 import { ShortenPipe } from './ng-modules/shared/pipes/shorten.pipe';
-import { InvoicePreviewDialogComponent } from './ng-modules/reporting/components/invoice-preview-dialog/invoice-preview-dialog.component';
-import { SafePipe } from './ng-modules/shared/pipes/safe.pipe';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 
 @NgModule({
@@ -55,22 +51,18 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,
-    InvoiceDialogComponent,
     DateRangePipe,
     EmployeePipe,
     AdminDashboardPageComponent,
     RateDialogComponent,
     FirstUserPageComponent,
     UserSettingsPageComponent,
-    DuplicateActivityDialogComponent,
     NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
     RatePageComponent,
     ShortenPipe,
-    InvoicePreviewDialogComponent,
-    SafePipe,
   ],
   imports: [
     BrowserModule,
