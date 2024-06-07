@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
   input,
+  output,
 } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatMenuItem } from '@angular/material/menu';
@@ -34,8 +33,6 @@ import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/i
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserNavigationComponent {
-  user = input<User>(null);
-
-  @Output()
-  logOut = new EventEmitter<void>();
+  user = input<User>();
+  logOut = output<void>();
 }

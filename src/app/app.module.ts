@@ -41,6 +41,7 @@ import { RatePageComponent } from './ng-modules/reporting/components/rate-page/r
 import { ShortenPipe } from './ng-modules/shared/pipes/shorten.pipe';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
+import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { NavigationComponent } from './shared/components/navigation/navigation.c
     MatAutocompleteModule,
     SharedModule,
     NavigationComponent,
+    ToolbarComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

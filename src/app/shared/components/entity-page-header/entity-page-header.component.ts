@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
   input,
+  output,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -30,10 +29,6 @@ export class EntityPageHeaderComponent {
   protected icons = Icons;
   label = input<string>();
   placeholder = input<string>();
-
-  @Output()
-  keyUp = new EventEmitter<Event>();
-
-  @Output()
-  addEntity = new EventEmitter<void>();
+  keyUp = output<Event>();
+  addEntity = output<void>();
 }

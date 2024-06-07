@@ -9,7 +9,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NavigationComponent } from '../../shared/components/navigation/navigation.component';
 import { SnackbarContentComponent } from './components/snackbar-content/snackbar-content.component';
 import { RouterModule } from '@angular/router';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { UserNavigationComponent } from '../../shared/components/user-navigation/user-navigation.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { InitialsIconComponent } from '../../shared/components/initials-icon/initials-icon.component';
@@ -17,7 +16,6 @@ import { InitialsIconComponent } from '../../shared/components/initials-icon/ini
 @NgModule({
   declarations: [
     SnackbarContentComponent,
-    ToolbarComponent,
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,
@@ -35,7 +33,6 @@ import { InitialsIconComponent } from '../../shared/components/initials-icon/ini
   ],
   exports: [
     SnackbarContentComponent,
-    ToolbarComponent,
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,
