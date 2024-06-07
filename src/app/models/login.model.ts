@@ -1,5 +1,6 @@
+import { User } from './user';
+
 export interface LoginResponse {
-  access_token: string;
-  role: string;
-  userId: string;
+  accessToken: string;
+  currentUser: User;
 }
