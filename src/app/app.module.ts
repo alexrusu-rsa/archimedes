@@ -40,6 +40,7 @@ import { MonthViewComponent } from './ng-modules/reporting/components/month-view
 import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
 import { ShortenPipe } from './ng-modules/shared/pipes/shorten.pipe';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
+import { NavigationComponent } from './ng-modules/shared/components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
     ReactiveFormsModule,
     MatAutocompleteModule,
     SharedModule,
+    NavigationComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

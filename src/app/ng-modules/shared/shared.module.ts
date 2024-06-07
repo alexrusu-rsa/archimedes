@@ -16,7 +16,6 @@ import { InitialsIconComponent } from './components/initials-icon/initials-icon.
 
 @NgModule({
   declarations: [
-    NavigationComponent,
     SnackbarContentComponent,
     ToolbarComponent,
     UserNavigationComponent,
@@ -32,9 +31,9 @@ import { InitialsIconComponent } from './components/initials-icon/initials-icon.
     TranslateModule,
     RouterModule,
     InitialsIconComponent,
+    NavigationComponent,
   ],
   exports: [
-    NavigationComponent,
     SnackbarContentComponent,
     UserNavigationComponent,
     ToolbarComponent,

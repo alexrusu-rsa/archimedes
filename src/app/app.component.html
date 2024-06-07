@@ -2,15 +2,15 @@
 
 <mat-sidenav-container class="d-flex flex-column w-100 h-100">
   <mat-sidenav #sidenav class="col-12">
-    <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId" (closeSidenav)="sidenav.close()"
-      (logOut)="sidenav.close();authService.doLogout();currentUserId=undefined;"></app-navigation>
+    <app-navigation [isAdmin]="isAdmin" (closeSidenav)="sidenav.close()"
+      (logOut)="sidenav.close();authService.doLogout();"></app-navigation>
   </mat-sidenav>
 
   <mat-sidenav-content
     class="container d-flex flex-row justify-content-center gap-4 mt-xxl-4 mt-xl-4 mt-lg-4 mt-md-4 mt-sm-2 mt-2">
     <section class="d-xl-flex d-lg-flex d-md-flex d-sm-none d-none flex-column col-2" #left *ngIf="currentUserId">
       <mat-card>
-        <app-navigation [isAdmin]="isAdmin" [currentUserId]="currentUserId"></app-navigation>
+        <app-navigation [isAdmin]="isAdmin"></app-navigation>
       </mat-card>
     </section>
 
