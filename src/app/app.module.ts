@@ -24,24 +24,24 @@ import { CustomerDialogComponent } from './ng-modules/reporting/components/custo
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { EmployeePipe } from './ng-modules/shared/pipes/employee.pipe';
-import { DateRangePipe } from './ng-modules/shared/pipes/date-range.pipe';
 import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
-import { SharedModule } from './ng-modules/shared/shared.module';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
 import { UserSettingsPageComponent } from './ng-modules/reporting/components/user-settings-page/user-settings-page.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from './ng-modules/shared/http-loader-factory';
+import { HttpLoaderFactory } from './core/translation/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
-import { ShortenPipe } from './ng-modules/shared/pipes/shorten.pipe';
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
+import { ShortenPipe } from './features/activity/pipes/shorten/shorten.pipe';
+import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
+import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
+import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 
 @NgModule({
   declarations: [
@@ -53,8 +53,6 @@ import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.compo
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,
-    DateRangePipe,
-    EmployeePipe,
     AdminDashboardPageComponent,
     RateDialogComponent,
     FirstUserPageComponent,
@@ -64,7 +62,6 @@ import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.compo
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
     RatePageComponent,
-    ShortenPipe,
   ],
   imports: [
     BrowserModule,
@@ -76,9 +73,12 @@ import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.compo
     AuthModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    SharedModule,
     NavigationComponent,
     ToolbarComponent,
+    ShortenPipe,
+    ProjectidPipe,
+    EmployeeidPipe,
+    CustomerfromprojectidPipe,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -97,6 +97,6 @@ import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.compo
     },
   ],
   bootstrap: [AppComponent],
-  exports: [SharedModule],
+  exports: [],
 })
 export class AppModule {}

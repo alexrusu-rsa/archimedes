@@ -27,7 +27,6 @@ import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
-import { NotificationService } from 'src/app/services/notification-service/notification.service';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -66,8 +65,7 @@ export class ActivityPageComponent implements OnInit {
     private customerService: CustomerService,
     private projectService: ProjectService,
     private rateService: RateService,
-    private localStorageService: LocalStorageService,
-    private notificationService: NotificationService
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {

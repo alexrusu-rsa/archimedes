@@ -38,9 +38,9 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SharedModule } from 'src/app/ng-modules/shared/shared.module';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
+import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
 
 @Component({
   selector: 'app-invoice-modal',
@@ -68,7 +68,7 @@ import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclos
     MatDatepickerModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule,
+    SafePipe,
   ],
   templateUrl: './invoice-modal.component.html',
   styleUrl: './invoice-modal.component.sass',

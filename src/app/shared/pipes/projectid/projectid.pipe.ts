@@ -3,6 +3,7 @@ import { Project } from '../../../models/project';
 
 @Pipe({
   name: 'projectid',
+  standalone: true,
 })
 export class ProjectidPipe implements PipeTransform {
   transform(id: string, projects: Project[]): string {
