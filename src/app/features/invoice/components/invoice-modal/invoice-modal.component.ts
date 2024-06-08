@@ -18,7 +18,6 @@ import {
 } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { Icons } from 'src/app/models/icons.enum';
 import {
   MatStep,
   MatStepContent,
@@ -41,6 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
 import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-invoice-modal',
@@ -75,7 +75,7 @@ import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceModalComponent {
-  icons = Icons;
+  protected icons = Icons;
   invoiceForm = new FormGroup({
     number: new FormControl('', [
       Validators.required,

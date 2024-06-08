@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
-import { Icons } from 'src/app/models/icons.enum';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-customer-dialog',
@@ -12,7 +12,7 @@ import { CustomerService } from 'src/app/services/customer-service/customer.serv
   styleUrls: ['./customer-dialog.component.sass'],
 })
 export class CustomerDialogComponent implements OnInit {
-  icons = Icons;
+  protected icons = Icons;
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<CustomerDialogComponent>,

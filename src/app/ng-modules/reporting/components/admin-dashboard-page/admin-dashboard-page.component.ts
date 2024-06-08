@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Icons } from '../../../../models/icons.enum';
+import { Icons } from '../../../../shared/models/icons.enum';
 
 @Component({
   selector: 'app-admin-dashboard-page',

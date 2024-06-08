@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './services/auth-service/auth.service';
 import { LocalStorageService } from './services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { Icons } from './models/icons.enum';
+import { Icons } from './shared/models/icons.enum';
 import { of, switchMap } from 'rxjs';
 import { UserLoginService } from './services/user-login-service/user-login.service';
 import { User } from './models/user';

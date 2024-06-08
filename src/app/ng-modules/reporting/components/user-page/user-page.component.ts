@@ -9,11 +9,11 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Icons } from 'src/app/models/icons.enum';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { Icons } from 'src/app/shared/models/icons.enum';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',

@@ -9,7 +9,7 @@ import { MatButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { Icons } from 'src/app/models/icons.enum';
+import { Icons } from '../../models/icons.enum';
 
 @Component({
   selector: 'app-entity-page-header',

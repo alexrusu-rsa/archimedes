@@ -3,13 +3,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
-import { Icons } from 'src/app/models/icons.enum';
 import { Project } from 'src/app/models/project';
 import { Rate } from 'src/app/models/rate';
 import { User } from 'src/app/models/user';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-rate-dialog',
@@ -18,7 +18,7 @@ import { UserService } from 'src/app/services/user-service/user.service';
 })
 export class RateDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  icons = Icons;
+  protected icons = Icons;
   currentRate?: Rate;
   addRateForm?: FormGroup;
   projects?: Project[];

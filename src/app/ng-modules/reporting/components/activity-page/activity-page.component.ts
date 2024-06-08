@@ -17,7 +17,6 @@ import { Rate } from '../../../../models/rate';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Icons } from 'src/app/models/icons.enum';
 import { filter, of, switchMap, take } from 'rxjs';
 import {
   DeleteConfirmationModalComponent,
@@ -27,6 +26,7 @@ import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
+import { Icons } from 'src/app/shared/models/icons.enum';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -34,7 +34,7 @@ import {
 })
 export class ActivityPageComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  icons = Icons;
+  protected icons = Icons;
   user?: User;
   activitiesOfTheDay: Activity[] = [];
   daySelected?: string;

@@ -9,7 +9,7 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { Icons } from 'src/app/models/icons.enum';
+import { Icons } from '../../models/icons.enum';
 
 @Component({
   selector: 'app-delete-confirmation-modal',

@@ -31,7 +31,7 @@ import {
 } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { Icons } from 'src/app/models/icons.enum';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-duplicate-activity-modal',

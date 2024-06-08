@@ -1,11 +1,11 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Icons } from 'src/app/models/icons.enum';
 import { User } from 'src/app/models/user';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { UserLoginService } from 'src/app/services/user-login-service/user-login.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-user-settings-page',

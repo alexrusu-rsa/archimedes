@@ -9,11 +9,11 @@ import { RateService } from 'src/app/services/rate-service/rate.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { RateDialogComponent } from '../rate-dialog/rate-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Icons } from 'src/app/models/icons.enum';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-rate-page',
@@ -34,7 +34,7 @@ export class RatePageComponent implements OnInit {
     'editButton',
     'deleteButton',
   ];
-  icons = Icons;
+  protected icons = Icons;
 
   constructor(
     private projectService: ProjectService,

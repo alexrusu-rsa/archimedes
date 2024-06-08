@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-calendar';
 import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
-import { Icons } from 'src/app/models/icons.enum';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-reporting-hours-booked-dialog',
@@ -13,7 +13,7 @@ import { Icons } from 'src/app/models/icons.enum';
 export class ReportingHoursBookedDialogComponent implements OnInit {
   employeeCommitmentToDisplay: EmployeeCommitmentCalendar[];
   dateToDisplay: string;
-  icons = Icons;
+  protected icons = Icons;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)

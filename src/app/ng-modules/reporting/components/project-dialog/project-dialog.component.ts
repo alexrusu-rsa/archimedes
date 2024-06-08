@@ -4,10 +4,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Customer } from 'src/app/models/customer';
-import { Icons } from 'src/app/models/icons.enum';
 import { Project } from 'src/app/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-project-dialog',
@@ -17,7 +17,7 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 export class ProjectDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
 
-  icons = Icons;
+  protected icons = Icons;
   addProjectForm?: FormGroup;
   currentProject?: Project;
   customers?: Customer[];

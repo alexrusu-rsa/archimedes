@@ -4,13 +4,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
-import { Icons } from 'src/app/models/icons.enum';
 import { Project } from 'src/app/models/project';
 import { UserDateActivity } from 'src/app/models/userDataActivity';
 import { ActivityService } from 'src/app/services/activity-service/activity.service';
 import { DateFormatService } from 'src/app/services/date-format-service/date-format.service';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-activity-dialog',
@@ -19,7 +19,7 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 })
 export class ActivityDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  icons = Icons;
+  protected icons = Icons;
 
   constructor(
     public dialogRef: MatDialogRef<ActivityDialogComponent>,
