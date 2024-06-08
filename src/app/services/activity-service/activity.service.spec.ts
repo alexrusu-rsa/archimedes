@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivityService } from './activity.service';
-import { Activity } from 'src/app/models/activity';
+import { Activity } from 'src/app/shared/models/activity';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   HttpClientTestingModule,

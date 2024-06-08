@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-user-dialog',

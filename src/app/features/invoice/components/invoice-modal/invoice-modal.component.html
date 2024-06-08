@@ -23,7 +23,7 @@
                 </mat-form-field>
 
 
-                @if (invoice.customer.romanianCompany) {
+                @if (invoice?.customer?.romanianCompany) {
                 <mat-form-field appearance="fill">
                     <mat-label>{{ "invoice.dialog.euroExchange" | translate }}</mat-label>
                     <input matInput [formControl]="invoiceForm.controls.exchangeRate"

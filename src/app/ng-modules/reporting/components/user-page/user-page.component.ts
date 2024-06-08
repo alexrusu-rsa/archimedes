@@ -1,8 +1,7 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, switchMap } from 'rxjs';
-import { Project } from 'src/app/models/project';
-import { User } from 'src/app/models/user';
+import { Project } from 'src/app/shared/models/project';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
 import { UserService } from 'src/app/services/user-service/user.service';
@@ -14,6 +13,7 @@ import {
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { User } from 'src/app/shared/models/user';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',

@@ -1,5 +1,5 @@
-import { Customer } from 'src/app/models/customer';
-import { Project } from 'src/app/models/project';
+import { Project } from 'src/app/shared/models/project';
+import { Customer } from 'src/app/shared/models/customer';
 
 export interface Invoice {
   customer: Customer;

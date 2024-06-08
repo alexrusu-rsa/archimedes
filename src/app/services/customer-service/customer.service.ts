@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Customer } from '../../models/customer';
-import { RequestWrapper } from '../../models/request-wrapper';
+import { Customer } from '../../shared/models/customer';
+import { RequestWrapper } from '../../shared/models/request-wrapper';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
 @Injectable({

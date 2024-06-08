@@ -3,8 +3,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-first-user-page',

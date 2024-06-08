@@ -1,4 +1,8 @@
-import { EmployeeCommitmentCalendar } from './employee-commitment-calendar';
+import { EmployeeCommitmentCalendar } from 'src/app/shared/models/employee-commitment-calendar';
+
+export interface WeekCalendarDay {
+  weekDays?: CalendarDay[];
+}
 
 export interface CalendarDay {
   color: string;

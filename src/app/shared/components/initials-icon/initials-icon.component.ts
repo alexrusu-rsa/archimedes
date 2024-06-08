@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { User } from 'src/app/models/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-initials-icon',

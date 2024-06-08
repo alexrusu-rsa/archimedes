@@ -15,10 +15,10 @@ import {
 } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { Project } from '../../../../models/project';
+import { Project } from '../../../../shared/models/project';
 import { CustomerService } from '../../../../services/customer-service/customer.service';
-import { Customer } from '../../../../models/customer';
-import { InvoiceDialogOnCloseResult } from '../../../../models/invoice-dialog-onclose-result';
+import { Customer } from '../../../../shared/models/customer';
+import { InvoiceDialogOnCloseResult } from '../../../../features/invoice/models/invoice-dialog-onclose-result';
 import { ProjectService } from '../../../../services/project-service/project.service';
 import { InvoiceModalComponent } from 'src/app/features/invoice/components/invoice-modal/invoice-modal.component';
 import { Invoice } from 'src/app/features/invoice/models/invoice.model';

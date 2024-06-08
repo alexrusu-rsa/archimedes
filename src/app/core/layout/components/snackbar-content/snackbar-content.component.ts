@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { HttpErrorSnackbar } from 'src/app/models/http-error-snackbar';
+import { HttpErrorSnackbar } from 'src/app/core/models/http-error-snackbar';
 import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({

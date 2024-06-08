@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HoursAndMinutes } from '../../models/hours_minutes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DateFormatService {
-
   getNewDateWithTime(time: string): Date {
     const newDate = new Date();
     newDate.setTime(this.toMilliseconds(time));
@@ -13,15 +11,15 @@ export class DateFormatService {
   }
 
   toMilliseconds(time: string): number {
-    if(time){
+    if (time) {
       const hoursAndMinutes = time.split(':');
-      if( hoursAndMinutes ){
+      if (hoursAndMinutes) {
         const hours = Number(hoursAndMinutes[0]);
         const minutes = Number(hoursAndMinutes[1]);
         return (
           this.hoursToMilliseconds(hours) + this.minutesToMilliseconds(minutes)
         );
-        }
+      }
     }
     return 0;
   }
@@ -53,5 +51,14 @@ export class DateFormatService {
     const finalMinutes = minutes - hours * 60;
     return new HoursAndMinutes(hours, finalMinutes);
   }
+}
 
+class HoursAndMinutes {
+  hours: number;
+  minutes: number;
+
+  constructor(hours: number, minutes: number) {
+    this.hours = hours;
+    this.minutes = minutes;
+  }
 }

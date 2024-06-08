@@ -9,8 +9,8 @@ import { MatDivider } from '@angular/material/divider';
 import { MatMenuItem } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { User } from 'src/app/models/user';
 import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/initials-icon.component';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-navigation',

@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { User } from '../../../models/user';
+import { User } from '../../../shared/models/user';
 import { UserLoginService } from '../../../services/user-login-service/user-login.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

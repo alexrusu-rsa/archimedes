@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-calendar';
-import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
+import { EmployeeCommitmentDate } from 'src/app/features/reporting/models/employee-commitment-date';
+import { EmployeeCommitmentCalendar } from 'src/app/shared/models/employee-commitment-calendar';
 import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({

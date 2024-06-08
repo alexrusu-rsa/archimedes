@@ -1,21 +1,18 @@
 import { DatePipe } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Activity } from '../../../../models/activity';
-import { User } from '../../../../models/user';
+import { Activity } from '../../../../shared/models/activity';
+import { User } from '../../../../shared/models/user';
 import { ActivityService } from '../../../../services/activity-service/activity.service';
 import { UserLoginService } from '../../../../services/user-login-service/user-login.service';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
-import { UserDateActivity } from 'src/app/models/userDataActivity';
-import { Customer } from 'src/app/models/customer';
-import { Project } from 'src/app/models/project';
+import { Project } from 'src/app/shared/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { MatSelectChange } from '@angular/material/select';
 import { RateService } from 'src/app/services/rate-service/rate.service';
-import { Rate } from '../../../../models/rate';
+import { Rate } from '../../../../shared/models/rate';
 import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { ProjectIdActivities } from 'src/app/models/projectId-activities';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, of, switchMap, take } from 'rxjs';
 import {
@@ -27,6 +24,8 @@ import {
   duplicateActivityModalPreset,
 } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { UserDateActivity } from 'src/app/features/activity/models/userDataActivity';
+import { Customer } from 'src/app/shared/models/customer';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -439,4 +438,10 @@ export class ActivityPageComponent implements OnInit {
       Number(hhmm.slice(3, 5))
     );
   }
+}
+
+interface ProjectIdActivities {
+  projectId: string;
+  activitiesWithProjectId: Activity[];
+  visible?: boolean;
 }

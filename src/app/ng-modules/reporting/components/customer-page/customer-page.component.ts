@@ -1,6 +1,5 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,6 +8,7 @@ import {
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { Customer } from 'src/app/shared/models/customer';
 
 @Component({
   selector: 'app-customer-page',

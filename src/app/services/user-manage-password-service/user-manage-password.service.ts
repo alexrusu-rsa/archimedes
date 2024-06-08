@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { RequestWrapper } from '../../models/request-wrapper';
-import { User } from '../../models/user';
+import { RequestWrapper } from '../../shared/models/request-wrapper';
+import { User } from '../../shared/models/user';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 import { NotificationService } from '../notification-service/notification.service';
 

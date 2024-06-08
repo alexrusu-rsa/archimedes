@@ -1,9 +1,8 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { switchMap } from 'rxjs';
-import { Project } from 'src/app/models/project';
-import { Rate } from 'src/app/models/rate';
-import { User } from 'src/app/models/user';
+import { Project } from 'src/app/shared/models/project';
+import { Rate } from 'src/app/shared/models/rate';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { UserService } from 'src/app/services/user-service/user.service';
@@ -14,6 +13,7 @@ import {
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-rate-page',

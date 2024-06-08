@@ -3,13 +3,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
-import { Project } from 'src/app/models/project';
-import { Rate } from 'src/app/models/rate';
-import { User } from 'src/app/models/user';
+import { Project } from 'src/app/shared/models/project';
+import { Rate } from 'src/app/shared/models/rate';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { RateService } from 'src/app/services/rate-service/rate.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-rate-dialog',

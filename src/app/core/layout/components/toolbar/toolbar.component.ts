@@ -8,10 +8,10 @@ import {
   MatMenuTrigger,
 } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
-import { User } from 'src/app/models/user';
 import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/initials-icon.component';
 import { UserNavigationComponent } from 'src/app/shared/components/user-navigation/user-navigation.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-toolbar',

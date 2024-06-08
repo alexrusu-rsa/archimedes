@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Activity } from '../../models/activity';
+import { Activity } from '../../shared/models/activity';
 import { ActivityDuplication } from '../../features/activity/models/activity-duplication.model';
-import { RequestWrapper } from '../../models/request-wrapper';
+import { RequestWrapper } from '../../shared/models/request-wrapper';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
 
 @Injectable({

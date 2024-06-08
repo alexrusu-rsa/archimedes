@@ -3,10 +3,10 @@ import { Component, DestroyRef, Inject, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Customer } from 'src/app/models/customer';
-import { Project } from 'src/app/models/project';
+import { Project } from 'src/app/shared/models/project';
 import { CustomerService } from 'src/app/services/customer-service/customer.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
+import { Customer } from 'src/app/shared/models/customer';
 import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
