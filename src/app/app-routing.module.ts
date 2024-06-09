@@ -23,7 +23,13 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
-
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import(
+        './features/settings/pages/settings-page/settings-page.component'
+      ).then((m) => m.SettingsPageComponent),
+  },
   {
     path: '',
     redirectTo: 'auth',

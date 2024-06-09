@@ -9,7 +9,6 @@ import { InvoicePageComponent } from './components/invoice-page/invoice-page.com
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { AdminDashboardPageComponent } from 'src/app/ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
-import { UserSettingsPageComponent } from './components/user-settings-page/user-settings-page.component';
 import { RatePageComponent } from './components/rate-page/rate-page.component';
 
 const routes: Routes = [
@@ -49,10 +48,6 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: UserDashboardComponent,
-  },
-  {
-    path: 'settings',
-    component: UserSettingsPageComponent,
   },
   { path: 'rate', component: RatePageComponent },
   {

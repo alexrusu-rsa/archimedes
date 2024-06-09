@@ -1,11 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RequestWrapper } from '../../shared/models/request-wrapper';
 import { User } from '../../shared/models/user';
 import { ResponseHandlingService } from '../response-handling-service/response-handling.service';
-import { NotificationService } from '../notification-service/notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +16,6 @@ export class UserManagePasswordService {
   };
   constructor(
     private httpClient: HttpClient,
-    @Inject(NotificationService)
     private responseHandlingService: ResponseHandlingService
   ) {}
 

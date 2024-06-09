@@ -27,7 +27,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
-import { UserSettingsPageComponent } from './ng-modules/reporting/components/user-settings-page/user-settings-page.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -42,6 +41,7 @@ import { ShortenPipe } from './features/activity/pipes/shorten/shorten.pipe';
 import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
 import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
 import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
+import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,6 @@ import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/
     AdminDashboardPageComponent,
     RateDialogComponent,
     FirstUserPageComponent,
-    UserSettingsPageComponent,
     NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
@@ -79,6 +78,7 @@ import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,
+    SettingsPageComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
