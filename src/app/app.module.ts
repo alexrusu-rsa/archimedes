@@ -16,8 +16,7 @@ import {
 } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
-import { AuthModule } from './ng-modules/auth/auth.module';
-import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
@@ -26,7 +25,6 @@ import { ReportingPageComponent } from './ng-modules/reporting/components/report
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
-import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -42,6 +40,7 @@ import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
 import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
 import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
+import { LoginComponent } from './core/auth/pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +54,6 @@ import { SettingsPageComponent } from './features/settings/pages/settings-page/s
     InvoicePageComponent,
     AdminDashboardPageComponent,
     RateDialogComponent,
-    FirstUserPageComponent,
     NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
@@ -69,7 +67,6 @@ import { SettingsPageComponent } from './features/settings/pages/settings-page/s
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    AuthModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
     NavigationComponent,
@@ -79,6 +76,7 @@ import { SettingsPageComponent } from './features/settings/pages/settings-page/s
     EmployeeidPipe,
     CustomerfromprojectidPipe,
     SettingsPageComponent,
+    LoginComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './ng-modules/auth/auth.guard';
-import { LoginComponent } from './ng-modules/auth/login/login.component';
-import { ResetPasswordComponent } from './ng-modules/auth/reset-password/reset-password.component';
-import { UserAccessGuard } from './ng-modules/auth/user-access.guard';
+import { AuthGuard } from './core/auth/auth.guard';
+import { LoginComponent } from './core/auth/pages/login/login.component';
+import { ResetPasswordComponent } from './core/auth/pages/reset-password/reset-password.component';
+import { UserAccessGuard } from './core/auth/user-access.guard';
 
 const routes: Routes = [
   {

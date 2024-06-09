@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActivityPageComponent } from './components/activity-page/activity-page.component';
-import { RoleGuard } from '../auth/role.guard';
+import { RoleGuard } from '../../core/auth/role.guard';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { CustomerPageComponent } from './components/customer-page/customer-page.component';
 import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
