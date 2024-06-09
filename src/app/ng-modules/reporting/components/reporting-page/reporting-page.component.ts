@@ -12,12 +12,9 @@ import {
 } from '@angular/material-moment-adapter';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Activity } from 'src/app/shared/models/activity';
-import { ActivityService } from 'src/app/services/activity-service/activity.service';
 import { switchMap } from 'rxjs';
-import { UserService } from 'src/app/services/user-service/user.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
 import { Project } from 'src/app/shared/models/project';
-import { RateService } from 'src/app/services/rate-service/rate.service';
+import { RateService } from 'src/app/features/rate/services/rate-service/rate.service';
 import { Rate } from 'src/app/shared/models/rate';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportingHoursBookedDialogComponent } from '../reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
@@ -31,6 +28,9 @@ import {
 import { EmployeeCommitmentDate } from 'src/app/features/reporting/models/employee-commitment-date';
 import { EmployeeCommitmentCalendar } from 'src/app/shared/models/employee-commitment-calendar';
 import { User } from 'src/app/shared/models/user';
+import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
+import { UserService } from 'src/app/features/user/services/user-service/user.service';
 
 export const MY_FORMATS = {
   parse: {

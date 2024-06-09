@@ -2,9 +2,7 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, switchMap } from 'rxjs';
 import { Project } from 'src/app/shared/models/project';
-import { ProjectService } from 'src/app/services/project-service/project.service';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { UserManagePasswordService } from 'src/app/features/user/services/user-manage-password-service/user-manage-password.service';
 import { NewUserDialogComponent } from '../new-user-dialog/new-user-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -14,6 +12,8 @@ import {
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { User } from 'src/app/shared/models/user';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
+import { UserService } from 'src/app/features/user/services/user-service/user.service';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',

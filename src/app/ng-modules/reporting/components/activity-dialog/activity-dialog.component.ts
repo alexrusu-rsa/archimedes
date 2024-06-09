@@ -6,11 +6,11 @@ import { map, Observable, startWith } from 'rxjs';
 import { UserDateActivity } from 'src/app/features/activity/models/userDataActivity';
 import { Activity } from 'src/app/shared/models/activity';
 import { Project } from 'src/app/shared/models/project';
-import { ActivityService } from 'src/app/services/activity-service/activity.service';
-import { DateFormatService } from 'src/app/services/date-format-service/date-format.service';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
+import { DateFormatService } from 'src/app/features/activity/services/date-format-service/date-format.service';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 
 @Component({
   selector: 'app-activity-dialog',

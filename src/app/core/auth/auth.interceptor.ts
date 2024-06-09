@@ -6,11 +6,11 @@ import {
   HttpErrorResponse,
   HttpEvent,
 } from '@angular/common/http';
-import { AuthService } from 'src/app/services/auth-service/auth.service';
-import { RoleCheckService } from 'src/app/services/rolecheck-service/rolecheck.service';
+import { AuthService } from 'src/app/core/auth/services/auth-service/auth.service';
+import { RoleCheckService } from 'src/app/core/auth/services/rolecheck-service/rolecheck.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

@@ -37,7 +37,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { InvoiceDialogOnCloseResult } from 'src/app/features/invoice/models/invoice-dialog-onclose-result';
 import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
 import { Icons } from 'src/app/shared/models/icons.enum';

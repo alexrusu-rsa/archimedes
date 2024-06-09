@@ -1,12 +1,12 @@
 import { Component, DestroyRef, OnInit, Signal, inject } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from './services/auth-service/auth.service';
-import { LocalStorageService } from './services/localstorage-service/localstorage.service';
+import { AuthService } from './core/auth/services/auth-service/auth.service';
+import { LocalStorageService } from './shared/services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Icons } from './shared/models/icons.enum';
 import { of, switchMap } from 'rxjs';
-import { UserLoginService } from './services/user-login-service/user-login.service';
+import { UserLoginService } from './core/auth/services/user-login-service/user-login.service';
 import { User } from './shared/models/user';
 
 @Component({

@@ -3,16 +3,14 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Activity } from '../../../../shared/models/activity';
 import { User } from '../../../../shared/models/user';
-import { ActivityService } from '../../../../services/activity-service/activity.service';
-import { UserLoginService } from '../../../../services/user-login-service/user-login.service';
+import { UserLoginService } from '../../../../core/auth/services/user-login-service/user-login.service';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { Project } from 'src/app/shared/models/project';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { MatSelectChange } from '@angular/material/select';
-import { RateService } from 'src/app/services/rate-service/rate.service';
+import { RateService } from 'src/app/features/rate/services/rate-service/rate.service';
 import { Rate } from '../../../../shared/models/rate';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, of, switchMap, take } from 'rxjs';
 import {
@@ -26,6 +24,8 @@ import {
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { UserDateActivity } from 'src/app/features/activity/models/userDataActivity';
 import { Customer } from 'src/app/shared/models/customer';
+import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',

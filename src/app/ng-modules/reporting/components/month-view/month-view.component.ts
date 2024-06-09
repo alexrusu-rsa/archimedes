@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Activity } from 'src/app/shared/models/activity';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-month-view',

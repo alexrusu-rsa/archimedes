@@ -1,4 +1,4 @@
-import { LocalStorageService } from './../../../../services/localstorage-service/localstorage.service';
+import { LocalStorageService } from '../../../../shared/services/localstorage-service/localstorage.service';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -21,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButton } from '@angular/material/button';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
+import { UserManagePasswordService } from 'src/app/features/user/services/user-manage-password-service/user-manage-password.service';
 
 @Component({
   selector: 'app-settings-page',

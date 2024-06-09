@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { CustomerDialogComponent } from '../customer-dialog/customer-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {

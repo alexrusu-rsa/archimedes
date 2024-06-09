@@ -5,11 +5,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map, Observable, startWith } from 'rxjs';
 import { Project } from 'src/app/shared/models/project';
 import { Rate } from 'src/app/shared/models/rate';
-import { ProjectService } from 'src/app/services/project-service/project.service';
-import { RateService } from 'src/app/services/rate-service/rate.service';
-import { UserService } from 'src/app/services/user-service/user.service';
+import { RateService } from 'src/app/features/rate/services/rate-service/rate.service';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { User } from 'src/app/shared/models/user';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
+import { UserService } from 'src/app/features/user/services/user-service/user.service';
 
 @Component({
   selector: 'app-rate-dialog',

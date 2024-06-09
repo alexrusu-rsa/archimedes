@@ -2,8 +2,7 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { switchMap } from 'rxjs';
 import { Project } from 'src/app/shared/models/project';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -11,6 +10,7 @@ import {
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { Customer } from 'src/app/shared/models/customer';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 
 @Component({
   selector: 'app-project-page',

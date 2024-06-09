@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { User } from '../../../../shared/models/user';
-import { UserLoginService } from '../../../../services/user-login-service/user-login.service';
+import { UserLoginService } from '../../services/user-login-service/user-login.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';

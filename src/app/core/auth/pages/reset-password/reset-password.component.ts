@@ -19,7 +19,7 @@ import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { UserManagePasswordService } from 'src/app/services/user-manage-password-service/user-manage-password.service';
+import { UserManagePasswordService } from 'src/app/features/user/services/user-manage-password-service/user-manage-password.service';
 import { User } from 'src/app/shared/models/user';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { Customer } from 'src/app/shared/models/customer';
 import { Icons } from 'src/app/shared/models/icons.enum';
 
