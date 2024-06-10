@@ -1,4 +1,4 @@
-import { Activity } from '../../../models/activity';
+import { Activity } from '../../../shared/models/activity';
 
 export interface ActivityDuplication {
   activity: Activity;

@@ -1,4 +1,4 @@
-import { Activity } from './../../../../models/activity';
+import { Activity } from '../../../../shared/models/activity';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -31,7 +31,7 @@ import {
 } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { Icons } from 'src/app/models/icons.enum';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-duplicate-activity-modal',
@@ -64,7 +64,7 @@ import { Icons } from 'src/app/models/icons.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DuplicateActivityModalComponent {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   protected start: WritableSignal<Date> = signal(new Date());
   protected end: WritableSignal<Date> = signal(new Date());
   constructor(@Inject(MAT_DIALOG_DATA) public activity: Activity) {}

@@ -1,33 +1,31 @@
 import { DatePipe } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Activity } from '../../../../models/activity';
-import { User } from '../../../../models/user';
-import { ActivityService } from '../../../../services/activity-service/activity.service';
-import { UserLoginService } from '../../../../services/user-login-service/user-login.service';
+import { Activity } from '../../../../shared/models/activity';
+import { User } from '../../../../shared/models/user';
+import { UserLoginService } from '../../../../core/auth/services/user-login-service/user-login.service';
 import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
-import { UserDateActivity } from 'src/app/models/userDataActivity';
-import { Customer } from 'src/app/models/customer';
-import { Project } from 'src/app/models/project';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
+import { Project } from 'src/app/shared/models/project';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { MatSelectChange } from '@angular/material/select';
-import { RateService } from 'src/app/services/rate-service/rate.service';
-import { Rate } from '../../../../models/rate';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { ProjectIdActivities } from 'src/app/models/projectId-activities';
+import { RateService } from 'src/app/features/rate/services/rate-service/rate.service';
+import { Rate } from '../../../../shared/models/rate';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Icons } from 'src/app/models/icons.enum';
 import { filter, of, switchMap, take } from 'rxjs';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
-} from 'src/app/ng-modules/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+} from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
-import { NotificationService } from 'src/app/services/notification-service/notification.service';
+import { Icons } from 'src/app/shared/models/icons.enum';
+import { UserDateActivity } from 'src/app/features/activity/models/userDataActivity';
+import { Customer } from 'src/app/shared/models/customer';
+import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 @Component({
   selector: 'app-activity-page',
   templateUrl: './activity-page.component.html',
@@ -35,7 +33,7 @@ import { NotificationService } from 'src/app/services/notification-service/notif
 })
 export class ActivityPageComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  icons = Icons;
+  protected readonly icons = Icons;
   user?: User;
   activitiesOfTheDay: Activity[] = [];
   daySelected?: string;
@@ -66,8 +64,7 @@ export class ActivityPageComponent implements OnInit {
     private customerService: CustomerService,
     private projectService: ProjectService,
     private rateService: RateService,
-    private localStorageService: LocalStorageService,
-    private notificationService: NotificationService
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -441,4 +438,10 @@ export class ActivityPageComponent implements OnInit {
       Number(hhmm.slice(3, 5))
     );
   }
+}
+
+interface ProjectIdActivities {
+  projectId: string;
+  activitiesWithProjectId: Activity[];
+  visible?: boolean;
 }

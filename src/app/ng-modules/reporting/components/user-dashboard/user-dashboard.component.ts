@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Icons } from 'src/app/models/icons.enum';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -7,5 +7,5 @@ import { Icons } from 'src/app/models/icons.enum';
   styleUrls: ['./user-dashboard.component.sass'],
 })
 export class UserDashboardComponent {
-  icons = Icons;
+  protected readonly icons = Icons;
 }

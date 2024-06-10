@@ -15,14 +15,14 @@ import {
 } from '@angular/material/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { Project } from '../../../../models/project';
-import { CustomerService } from '../../../../services/customer-service/customer.service';
-import { Customer } from '../../../../models/customer';
-import { InvoiceDialogOnCloseResult } from '../../../../models/invoice-dialog-onclose-result';
-import { ProjectService } from '../../../../services/project-service/project.service';
-import { Icons } from 'src/app/models/icons.enum';
+import { Project } from '../../../../shared/models/project';
+import { CustomerService } from '../../../../features/customer/services/customer-service/customer.service';
+import { Customer } from '../../../../shared/models/customer';
+import { InvoiceDialogOnCloseResult } from '../../../../features/invoice/models/invoice-dialog-onclose-result';
+import { ProjectService } from '../../../../features/project/services/project-service/project.service';
 import { InvoiceModalComponent } from 'src/app/features/invoice/components/invoice-modal/invoice-modal.component';
 import { Invoice } from 'src/app/features/invoice/models/invoice.model';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -58,7 +58,7 @@ export class InvoicePageComponent implements OnInit {
   selectedMonth?: string;
   selectedYear?: string;
   selectedDateToDisplay?: string;
-  icons = Icons;
+  protected readonly icons = Icons;
   private invoiceSeries?: string;
 
   constructor(

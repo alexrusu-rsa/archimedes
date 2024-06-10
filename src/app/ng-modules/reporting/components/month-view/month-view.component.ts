@@ -8,9 +8,8 @@ import {
   inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Activity } from 'src/app/models/activity';
-import { LocalStorageService } from 'src/app/services/localstorage-service/localstorage.service';
-import { ActivitiesOfDate } from 'src/app/models/activities-of-date';
+import { Activity } from 'src/app/shared/models/activity';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-month-view',
@@ -35,4 +34,10 @@ export class MonthViewComponent implements OnInit {
   ngOnInit(): void {
     this.currentUserId = this.localStorageService.userId;
   }
+}
+
+interface ActivitiesOfDate {
+  date: string;
+  activities: Activity[];
+  reportedTime: number;
 }

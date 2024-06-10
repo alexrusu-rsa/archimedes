@@ -18,7 +18,6 @@ import {
 } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { Icons } from 'src/app/models/icons.enum';
 import {
   MatStep,
   MatStepContent,
@@ -38,9 +37,10 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SharedModule } from 'src/app/ng-modules/shared/shared.module';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
-import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclose-result';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
+import { InvoiceDialogOnCloseResult } from 'src/app/features/invoice/models/invoice-dialog-onclose-result';
+import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-invoice-modal',
@@ -68,14 +68,14 @@ import { InvoiceDialogOnCloseResult } from 'src/app/models/invoice-dialog-onclos
     MatDatepickerModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule,
+    SafePipe,
   ],
   templateUrl: './invoice-modal.component.html',
   styleUrl: './invoice-modal.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceModalComponent {
-  icons = Icons;
+  protected readonly icons = Icons;
   invoiceForm = new FormGroup({
     number: new FormControl('', [
       Validators.required,
@@ -93,7 +93,7 @@ export class InvoiceModalComponent {
     private dialogRef: MatDialogRef<InvoiceModalComponent>
   ) {
     this.invoiceForm.controls.exchangeRate.setValue(
-      this.invoice.customer.romanianCompany ? 1 : 0
+      this.invoice?.customer?.romanianCompany ? 1 : 0
     );
   }
 

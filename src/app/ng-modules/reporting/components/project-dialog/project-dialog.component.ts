@@ -3,11 +3,11 @@ import { Component, DestroyRef, Inject, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Customer } from 'src/app/models/customer';
-import { Icons } from 'src/app/models/icons.enum';
-import { Project } from 'src/app/models/project';
-import { CustomerService } from 'src/app/services/customer-service/customer.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
+import { Project } from 'src/app/shared/models/project';
+import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
+import { Customer } from 'src/app/shared/models/customer';
+import { Icons } from 'src/app/shared/models/icons.enum';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 
 @Component({
   selector: 'app-project-dialog',
@@ -17,7 +17,7 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 export class ProjectDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
 
-  icons = Icons;
+  protected readonly icons = Icons;
   addProjectForm?: FormGroup;
   currentProject?: Project;
   customers?: Customer[];

@@ -1,10 +1,13 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, Signal, inject } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from './services/auth-service/auth.service';
-import { LocalStorageService } from './services/localstorage-service/localstorage.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Icons } from './models/icons.enum';
+import { AuthService } from './core/auth/services/auth-service/auth.service';
+import { LocalStorageService } from './shared/services/localstorage-service/localstorage.service';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Icons } from './shared/models/icons.enum';
+import { of, switchMap } from 'rxjs';
+import { UserLoginService } from './core/auth/services/user-login-service/user-login.service';
+import { User } from './shared/models/user';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +17,14 @@ import { Icons } from './models/icons.enum';
 export class AppComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
   pageTitle?: string;
-  hasToken = false;
-  isAdmin = false;
-  currentUserId?: string;
   activeToken?: string;
-  icons = Icons;
+  protected readonly icons = Icons;
+  user: Signal<User>;
 
   constructor(
     private router: Router,
     public authService: AuthService,
+    private userService: UserLoginService,
     private localStorageService: LocalStorageService,
     public translate: TranslateService
   ) {
@@ -32,26 +34,20 @@ export class AppComponent implements OnInit {
     const browserLang = translate.getBrowserLang();
     if (browserLang?.match(/en|de|ro/)) translate.use(browserLang);
     else translate.use('en');
+
+    this.user = toSignal(
+      this.localStorageService.userIdValue.pipe(
+        switchMap((currentUserId) => {
+          if (currentUserId) return this.userService.getUser(currentUserId);
+          else return of(null);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      ),
+      null
+    );
   }
 
   ngOnInit() {
-    this.localStorageService.userIdValue
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((nextValue) => {
-        if (nextValue) this.currentUserId = nextValue;
-      });
-    this.localStorageService.accessTokenValue
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((nextValue) => {
-        this.hasToken = nextValue !== '' && nextValue !== null;
-      });
-
-    this.localStorageService.roleValue
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((nextValue) => {
-        this.isAdmin = nextValue === 'admin' && nextValue !== null;
-      });
-
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((event) => {

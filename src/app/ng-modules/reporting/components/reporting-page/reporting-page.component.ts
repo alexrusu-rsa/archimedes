@@ -11,25 +11,26 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Activity } from 'src/app/models/activity';
-import { ActivityService } from 'src/app/services/activity-service/activity.service';
+import { Activity } from 'src/app/shared/models/activity';
 import { switchMap } from 'rxjs';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user-service/user.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
-import { Project } from 'src/app/models/project';
-import { CalendarDay } from 'src/app/models/calendar-day';
-import { RateService } from 'src/app/services/rate-service/rate.service';
-import { Rate } from 'src/app/models/rate';
-import { EmployeeCommitmentCalendar } from 'src/app/models/employee-commitment-calendar';
-import { Calendar } from 'src/app/models/calendar';
-import { WeekCalendarDay } from 'src/app/models/week-calendar-day';
+import { Project } from 'src/app/shared/models/project';
+import { RateService } from 'src/app/features/rate/services/rate-service/rate.service';
+import { Rate } from 'src/app/shared/models/rate';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportingHoursBookedDialogComponent } from '../reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
-import { EmployeeCommitmentDate } from 'src/app/models/employee-commitment-date';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { DatePipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  CalendarDay,
+  WeekCalendarDay,
+} from 'src/app/features/activity/models/week-calendar-day';
+import { EmployeeCommitmentDate } from 'src/app/features/reporting/models/employee-commitment-date';
+import { EmployeeCommitmentCalendar } from 'src/app/shared/models/employee-commitment-calendar';
+import { User } from 'src/app/shared/models/user';
+import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
+import { UserService } from 'src/app/features/user/services/user-service/user.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -715,4 +716,9 @@ export class ReportingPageComponent implements OnInit {
   get end() {
     return this.range?.get('end');
   }
+}
+
+interface Calendar {
+  weeksInCalendar: WeekCalendarDay[];
+  numberOfWeeks: number;
 }
