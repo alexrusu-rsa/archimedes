@@ -12,7 +12,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   styleUrls: ['./customer-dialog.component.sass'],
 })
 export class CustomerDialogComponent implements OnInit {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<CustomerDialogComponent>,

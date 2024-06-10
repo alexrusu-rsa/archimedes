@@ -28,7 +28,7 @@ import { Icons } from '../../models/icons.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteConfirmationModalComponent {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   dialogRef = inject(MatDialogRef<DeleteConfirmationModalComponent>);
 }
 

@@ -12,7 +12,7 @@ import { User } from 'src/app/shared/models/user';
   styleUrls: ['./user-dialog.component.sass'],
 })
 export class UserDialogComponent implements OnInit {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   addUserForm?: FormGroup;
   currentUser?: User;
   addCurrentUserSub?: Subscription;

@@ -17,7 +17,7 @@ import { ProjectService } from 'src/app/features/project/services/project-servic
 export class ProjectDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
 
-  protected icons = Icons;
+  protected readonly icons = Icons;
   addProjectForm?: FormGroup;
   currentProject?: Project;
   customers?: Customer[];

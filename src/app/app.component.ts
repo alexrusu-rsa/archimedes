@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
   pageTitle?: string;
   activeToken?: string;
-  protected icons = Icons;
+  protected readonly icons = Icons;
   user: Signal<User>;
 
   constructor(

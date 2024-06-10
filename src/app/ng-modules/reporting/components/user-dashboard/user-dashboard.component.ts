@@ -7,5 +7,5 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   styleUrls: ['./user-dashboard.component.sass'],
 })
 export class UserDashboardComponent {
-  protected icons = Icons;
+  protected readonly icons = Icons;
 }

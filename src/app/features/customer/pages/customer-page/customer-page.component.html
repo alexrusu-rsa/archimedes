@@ -1,0 +1,22 @@
+<app-entity-page-header [label]="'customer.page.search' | translate"
+  [placeholder]="'customer.page.searchPlaceholder' | translate"
+  (keyUp)="search.set($event.target['value'])"></app-entity-page-header>
+
+<div class="d-flex flex-column">
+  @for (customer of filterdCustomers(); track $index) {
+  <app-entity-item [title]="customer.customerName" [subtitle]="customer.customerCUI"
+    [chips]="[customer?.VAT ? 'VAT 19%': null, customer?.romanianCompany? 'Romanian company':null,customer?.internal? 'Internal' : null]">
+    <button mat-icon-button (click)="editCustomer(customer)" aria-label="Edit customer button" type="button">
+      <mat-icon color="accent">{{icons.edit}}</mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteCustomer(customer.id)" aria-label="Delete customer button" type="button">
+      <mat-icon color="accent">{{icons.delete}}</mat-icon>
+    </button>
+  </app-entity-item>
+  }
+
+  <button mat-raised-button class="d-flex flex-column mx-auto add-entity-button" aria-label="Create customer button"
+    type="button">
+    <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
+  </button>
+</div>

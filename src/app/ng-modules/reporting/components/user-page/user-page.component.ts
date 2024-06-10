@@ -20,7 +20,7 @@ import { UserService } from 'src/app/features/user/services/user-service/user.se
   styleUrls: ['./user-page.component.sass'],
 })
 export class UserPageComponent implements OnInit {
-  icons = Icons;
+  protected readonly icons = Icons;
   readonly destroyRef = inject(DestroyRef);
   allUsers: User[] = [];
   users: User[] = [];

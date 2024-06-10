@@ -48,7 +48,7 @@ export class SettingsPageComponent {
   private destroyRef = inject(DestroyRef);
   private localStorage = inject(LocalStorageService);
   private service = inject(UserManagePasswordService);
-  protected icons = Icons;
+  protected readonly icons = Icons;
 
   protected password = signal('');
   protected retypePassword = signal('');

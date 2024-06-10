@@ -34,7 +34,7 @@ export class RatePageComponent implements OnInit {
     'editButton',
     'deleteButton',
   ];
-  protected icons = Icons;
+  protected readonly icons = Icons;
 
   constructor(
     private projectService: ProjectService,

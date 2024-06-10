@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReportingRoutingModule } from './reporting-routing.module';
 import { UserPageComponent } from './components/user-page/user-page.component';
-import { CustomerPageComponent } from './components/customer-page/customer-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DuplicateActivityModalComponent } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
@@ -16,11 +15,7 @@ import { ProjectidPipe } from 'src/app/shared/pipes/projectid/projectid.pipe';
 import { CustomerfromprojectidPipe } from 'src/app/shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 
 @NgModule({
-  declarations: [
-    UserPageComponent,
-    CustomerPageComponent,
-    ProjectPageComponent,
-  ],
+  declarations: [UserPageComponent, ProjectPageComponent],
   imports: [
     CommonModule,
     MaterialModule,

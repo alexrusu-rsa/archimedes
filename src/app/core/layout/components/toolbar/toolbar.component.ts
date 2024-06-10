@@ -36,5 +36,5 @@ export class ToolbarComponent {
   toggleSidenav = output<void>();
   logOut = output<void>();
 
-  protected icons = Icons;
+  protected readonly icons = Icons;
 }

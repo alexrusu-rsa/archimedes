@@ -13,7 +13,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
 export class ReportingHoursBookedDialogComponent implements OnInit {
   employeeCommitmentToDisplay: EmployeeCommitmentCalendar[];
   dateToDisplay: string;
-  protected icons = Icons;
+  protected readonly icons = Icons;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)

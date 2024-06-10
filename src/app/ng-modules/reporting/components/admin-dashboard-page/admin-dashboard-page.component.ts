@@ -7,5 +7,5 @@ import { Icons } from '../../../../shared/models/icons.enum';
   styleUrls: ['./admin-dashboard-page.component.sass'],
 })
 export class AdminDashboardPageComponent {
-  public icons = Icons;
+  protected readonly icons = Icons;
 }

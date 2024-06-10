@@ -64,7 +64,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DuplicateActivityModalComponent {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   protected start: WritableSignal<Date> = signal(new Date());
   protected end: WritableSignal<Date> = signal(new Date());
   constructor(@Inject(MAT_DIALOG_DATA) public activity: Activity) {}

@@ -58,7 +58,7 @@ export class InvoicePageComponent implements OnInit {
   selectedMonth?: string;
   selectedYear?: string;
   selectedDateToDisplay?: string;
-  protected icons = Icons;
+  protected readonly icons = Icons;
   private invoiceSeries?: string;
 
   constructor(

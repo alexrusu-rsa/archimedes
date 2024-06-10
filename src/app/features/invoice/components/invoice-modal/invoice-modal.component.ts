@@ -75,7 +75,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceModalComponent {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   invoiceForm = new FormGroup({
     number: new FormControl('', [
       Validators.required,

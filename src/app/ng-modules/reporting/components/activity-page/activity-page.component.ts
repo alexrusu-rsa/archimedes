@@ -33,7 +33,7 @@ import { ProjectService } from 'src/app/features/project/services/project-servic
 })
 export class ActivityPageComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  protected icons = Icons;
+  protected readonly icons = Icons;
   user?: User;
   activitiesOfTheDay: Activity[] = [];
   daySelected?: string;

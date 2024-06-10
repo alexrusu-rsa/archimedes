@@ -18,7 +18,7 @@ import { UserService } from 'src/app/features/user/services/user-service/user.se
 })
 export class RateDialogComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
-  protected icons = Icons;
+  protected readonly icons = Icons;
   currentRate?: Rate;
   addRateForm?: FormGroup;
   projects?: Project[];

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ActivityPageComponent } from './components/activity-page/activity-page.component';
 import { RoleGuard } from '../../core/auth/role.guard';
 import { UserPageComponent } from './components/user-page/user-page.component';
-import { CustomerPageComponent } from './components/customer-page/customer-page.component';
+import { CustomerPageComponent } from '../../features/customer/pages/customer-page/customer-page.component';
 import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
 import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';

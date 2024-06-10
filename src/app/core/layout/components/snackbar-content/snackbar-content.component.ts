@@ -12,6 +12,6 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   templateUrl: './snackbar-content.component.html',
 })
 export class SnackbarContentComponent {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: HttpErrorSnackbar) {}
 }

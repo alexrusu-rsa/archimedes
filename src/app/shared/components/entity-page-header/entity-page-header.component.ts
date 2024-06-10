@@ -26,7 +26,7 @@ import { Icons } from '../../models/icons.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EntityPageHeaderComponent {
-  protected icons = Icons;
+  protected readonly icons = Icons;
   label = input<string>();
   placeholder = input<string>();
   keyUp = output<Event>();
