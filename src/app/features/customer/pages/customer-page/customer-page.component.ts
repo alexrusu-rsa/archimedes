@@ -62,11 +62,11 @@ export class CustomerPageComponent {
   );
 
   constructor(
-    private customerService: CustomerService,
+    private service: CustomerService,
     public dialog: MatDialog
   ) {
     this.rawCustomers = toSignal(
-      this.customerService
+      this.service
         .getCustomers()
         .pipe(takeUntilDestroyed(this.destroyRef)),
       { initialValue: [] }
@@ -82,7 +82,7 @@ export class CustomerPageComponent {
       .pipe(
         filter((newCustomer: Customer) => !!newCustomer),
         switchMap((newCustomer: Customer) => {
-          return this.customerService
+          return this.service
             .addCustomer(newCustomer)
             .pipe(takeUntilDestroyed(this.destroyRef));
         }),
@@ -103,7 +103,7 @@ export class CustomerPageComponent {
       .pipe(
         filter((editedCustomer: Customer) => !!editedCustomer),
         switchMap((editedCustomer: Customer) => {
-          return this.customerService
+          return this.service
             .updateCustomer(editedCustomer)
             .pipe(takeUntilDestroyed(this.destroyRef));
         }),
@@ -126,7 +126,7 @@ export class CustomerPageComponent {
       .pipe(
         filter((deleteConfirmation) => deleteConfirmation === true),
         switchMap((_) => {
-          return this.customerService
+          return this.service
             .deleteCustomer(customerId)
             .pipe(takeUntilDestroyed(this.destroyRef));
         }),

@@ -4,6 +4,7 @@ import { AuthGuard } from './core/auth/auth.guard';
 import { LoginComponent } from './core/auth/pages/login/login.component';
 import { ResetPasswordComponent } from './core/auth/pages/reset-password/reset-password.component';
 import { UserAccessGuard } from './core/auth/user-access.guard';
+import { RoleGuard } from './core/auth/role.guard';
 
 const routes: Routes = [
   {
@@ -24,11 +25,28 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'customers',
+    loadComponent: () =>
+      import(
+        './features/customer/pages/customer-page/customer-page.component'
+      ).then((c) => c.CustomerPageComponent),
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'users',
+    loadComponent: () =>
+      import('./features/user/pages/user-page/user-page.component').then(
+        (c) => c.UserPageComponent
+      ),
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
     path: 'settings',
     loadComponent: () =>
       import(
         './features/settings/pages/settings-page/settings-page.component'
-      ).then((m) => m.SettingsPageComponent),
+      ).then((c) => c.SettingsPageComponent),
+    canActivate: [AuthGuard],
   },
   {
     path: '',
