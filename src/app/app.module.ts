@@ -19,7 +19,6 @@ import { ActivityPageComponent } from './ng-modules/reporting/components/activit
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
-import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -48,7 +47,6 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
     ActivityPageComponent,
     UserDialogComponent,
     ActivityDialogComponent,
-    CustomerDialogComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,

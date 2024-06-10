@@ -25,7 +25,7 @@ import {
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { take, filter, switchMap } from 'rxjs';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
-import { CustomerDialogComponent } from 'src/app/ng-modules/reporting/components/customer-dialog/customer-dialog.component';
+import { CustomerModalComponent } from '../../components/customer-modal/customer-modal.component';
 
 @Component({
   selector: 'app-customer-page',
@@ -75,12 +75,12 @@ export class CustomerPageComponent {
 
   addCustomer() {
     this.dialog
-      .open(CustomerDialogComponent, {
+      .open(CustomerModalComponent, {
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(
-        filter((newCustomer) => newCustomer != null),
+        filter((newCustomer: Customer) => !!newCustomer),
         switchMap((newCustomer: Customer) => {
           return this.customerService
             .addCustomer(newCustomer)
@@ -95,13 +95,13 @@ export class CustomerPageComponent {
 
   editCustomer(customer: Customer) {
     this.dialog
-      .open(CustomerDialogComponent, {
+      .open(CustomerModalComponent, {
         data: customer,
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(
-        filter((editedCustomer) => editedCustomer != null),
+        filter((editedCustomer: Customer) => !!editedCustomer),
         switchMap((editedCustomer: Customer) => {
           return this.customerService
             .updateCustomer(editedCustomer)
@@ -137,5 +137,14 @@ export class CustomerPageComponent {
           customers.filter((customer) => customer.id !== customerId)
         );
       });
+  }
+
+  chipsArray(customer: Customer): string[] {
+    const chips = [];
+    if (customer.internal) chips.push('Internal');
+    if (customer.romanianCompany) chips.push('Romanian Company');
+    if (customer.VAT) chips.push('TVA 19%');
+
+    return chips;
   }
 }

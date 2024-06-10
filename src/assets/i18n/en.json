@@ -43,7 +43,7 @@
   },
   "customer": {
     "dialog": {
-      "IBAN": "IBAN",
+      "IBANRO": "IBAN",
       "IBANEUR": "IBAN EUR",
       "addTitle": "Add customer",
       "customerAddress": "Customer Address",
@@ -61,9 +61,15 @@
       "customerNameHint": "You must enter a customer name",
       "customerReg": "Customer Reg",
       "customerRegHint": "You must enter a customer Reg",
-      "customerShortName": "Customer Short Name",
+      "shortName": "Customer Short Name",
       "swift": "SWIFT",
-      "updateTitle": "Update customer"
+      "VAT": "Apply VAT on invoices",
+      "internal": "Internal Company",
+      "romanianCompany": "Romanian Company",
+      "title": "Add a new customer",
+      "submit": "Create customer",
+      "submitEdit": "Update customer",
+      "cancel": "Cancel"
     },
     "page": {
       "applyVat": "Apply VAT on invoices",
