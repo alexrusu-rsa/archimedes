@@ -19,7 +19,6 @@ import {
   MatCardActions,
   MatCardSubtitle,
 } from '@angular/material/card';
-import { MatChip, MatChipSet } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
@@ -45,8 +44,6 @@ import { filter, switchMap, take } from 'rxjs';
     MatIcon,
     MatButton,
     MatIconButton,
-    MatChip,
-    MatChipSet,
     EntityItemComponent,
   ],
 })

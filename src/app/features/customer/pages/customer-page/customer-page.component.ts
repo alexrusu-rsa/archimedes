@@ -17,7 +17,6 @@ import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page
 import { MatCard, MatCardActions, MatCardTitle } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatChip, MatChipSet } from '@angular/material/chips';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   DeleteConfirmationModalComponent,
@@ -41,8 +40,6 @@ import { CustomerModalComponent } from '../../components/customer-modal/customer
     MatIcon,
     MatButton,
     MatIconButton,
-    MatChip,
-    MatChipSet,
     EntityItemComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,14 +58,9 @@ export class CustomerPageComponent {
     )
   );
 
-  constructor(
-    private service: CustomerService,
-    public dialog: MatDialog
-  ) {
+  constructor(private service: CustomerService, public dialog: MatDialog) {
     this.rawCustomers = toSignal(
-      this.service
-        .getCustomers()
-        .pipe(takeUntilDestroyed(this.destroyRef)),
+      this.service.getCustomers().pipe(takeUntilDestroyed(this.destroyRef)),
       { initialValue: [] }
     );
   }
