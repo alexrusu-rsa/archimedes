@@ -17,14 +17,12 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
-import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
 import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
-import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './core/translation/http-loader-factory';
@@ -45,14 +43,12 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
   declarations: [
     AppComponent,
     ActivityPageComponent,
-    UserDialogComponent,
     ActivityDialogComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,
     AdminDashboardPageComponent,
     RateDialogComponent,
-    NewUserDialogComponent,
     UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
