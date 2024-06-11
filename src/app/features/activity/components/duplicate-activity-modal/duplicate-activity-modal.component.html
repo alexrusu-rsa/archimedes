@@ -12,17 +12,11 @@
 <!-- activity card -->
 <mat-dialog-content>
     @if(activity) {
-    <!-- TODO extract this to component -->
-    <mat-card class="secondary-card mb-3">
-        <mat-card-title>{{ activity?.name }}</mat-card-title>
-        <mat-card-subtitle>
-            {{ activity?.start }} -
-            {{ activity?.end }}
-        </mat-card-subtitle>
-        <p>{{ activity?.description }}</p>
-        <p>{{ activity?.extras }}</p>
-    </mat-card>
+    <!-- TODO add activity customer and description -->
+    <app-entity-item [title]="activity?.name" [subtitle]="activity?.start+'-'+activity?.end"
+        [cardClass]="'secondary-card'"></app-entity-item>
     }
+
     <mat-form-field appearance="fill" class="col-12">
         <mat-label>
             {{

@@ -67,6 +67,7 @@
       "internal": "Internal Company",
       "romanianCompany": "Romanian Company",
       "title": "Add a new customer",
+      "titleEdit": "Edit customer",
       "submit": "Create customer",
       "submitEdit": "Update customer",
       "cancel": "Cancel"
@@ -236,22 +237,24 @@
   },
   "user": {
     "dialog": {
-      "addTitle": "Add User",
+      "title": "Add user",
+      "titleEdit": "Edit user",
       "admin": "Admin",
-      "adminToggleText": "Admin",
       "email": "Email",
       "emailHint": "Email is required",
-      "name": "User Name",
+      "name": "User name",
       "nameHint": "User name is required",
-      "role": "User Role",
+      "role": "User role",
       "roleHint": "User role is required",
       "seniority": "User seniority",
       "seniorityHint": "User seniority is required",
-      "surname": "User Surname",
+      "surname": "User surname",
       "surnameHint": "User surname is required",
       "timePerDay": "User time/day",
       "timePerDayHint": "User time/day is required",
-      "updateTitle": "Update User"
+      "submit": "Create a new user",
+      "submitEdit": "Update user",
+      "cancel": "Cancel"
     },
     "newDialog": {
       "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"

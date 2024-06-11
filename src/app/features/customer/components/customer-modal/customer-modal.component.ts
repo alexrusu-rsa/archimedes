@@ -1,6 +1,6 @@
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule, KeyValuePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormGroup,
   Validators,
@@ -15,7 +15,6 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { Customer } from 'src/app/shared/models/customer';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { MatCard, MatCardTitle } from '@angular/material/card';
 import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
@@ -56,15 +55,14 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
   templateUrl: './customer-modal.component.html',
 })
 export class CustomerModalComponent implements OnInit {
+  private dialogRef = inject(MatDialogRef<CustomerModalComponent>);
+  private formBuilder = inject(FormBuilder);
+  protected customer = inject(MAT_DIALOG_DATA);
   protected readonly icons = Icons;
   protected customerForm: FormGroup;
   protected validators = Validators;
 
-  constructor(
-    public dialogRef: MatDialogRef<CustomerModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public customer: Customer,
-    private formBuilder: FormBuilder
-  ) {
+  ngOnInit(): void {
     this.customerForm = this.formBuilder.group({
       customerName: ['', Validators.required],
       customerCUI: ['', Validators.required],
@@ -84,10 +82,6 @@ export class CustomerModalComponent implements OnInit {
       swift: [''],
     });
 
-    this.customerForm.markAllAsTouched();
-  }
-
-  ngOnInit(): void {
     if (this.customer) {
       const { id, ...customerWithoutId } = this.customer;
       this.customerForm.setValue(customerWithoutId);
@@ -95,12 +89,14 @@ export class CustomerModalComponent implements OnInit {
   }
 
   submit() {
-    if (this.customerForm.valid && !this.customer)
-      this.dialogRef.close(this.customerForm.value);
-    if (this.customerForm.valid && this.customer)
+    if (this.customerForm.invalid) return;
+
+    if (this.customer)
       this.dialogRef.close({
         ...this.customerForm.value,
         id: this.customer.id,
       });
+
+    if (!this.customer) this.dialogRef.close(this.customerForm.value);
   }
 }

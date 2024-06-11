@@ -50,8 +50,13 @@ import { CustomerModalComponent } from '../../components/customer-modal/customer
 export class CustomerPageComponent {
   private readonly destroyRef = inject(DestroyRef);
   protected readonly icons = Icons;
+  private service = inject(CustomerService);
+  private dialog = inject(MatDialog);
   protected search = signal('');
-  private rawCustomers: Signal<Customer[]>;
+  private rawCustomers: Signal<Customer[]> = toSignal(
+    this.service.getCustomers().pipe(takeUntilDestroyed(this.destroyRef)),
+    { initialValue: [] }
+  );
   private customers = computed(() => signal(this.rawCustomers()));
   protected filterdCustomers = computed(() =>
     this.customers()().filter((customer: Customer) =>
@@ -61,23 +66,9 @@ export class CustomerPageComponent {
     )
   );
 
-  constructor(
-    private service: CustomerService,
-    public dialog: MatDialog
-  ) {
-    this.rawCustomers = toSignal(
-      this.service
-        .getCustomers()
-        .pipe(takeUntilDestroyed(this.destroyRef)),
-      { initialValue: [] }
-    );
-  }
-
   addCustomer() {
     this.dialog
-      .open(CustomerModalComponent, {
-        panelClass: 'full-width-dialog',
-      })
+      .open(CustomerModalComponent)
       .afterClosed()
       .pipe(
         filter((newCustomer: Customer) => !!newCustomer),
@@ -97,7 +88,6 @@ export class CustomerPageComponent {
     this.dialog
       .open(CustomerModalComponent, {
         data: customer,
-        panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(

@@ -24,12 +24,12 @@ import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
-import { UserDialogComponent } from 'src/app/ng-modules/reporting/components/user-dialog/user-dialog.component';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { filter, switchMap, take } from 'rxjs';
+import { UserModalComponent } from '../../components/user-modal/user-modal.component';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -53,8 +53,13 @@ import { filter, switchMap, take } from 'rxjs';
 export class UserPageComponent {
   protected readonly icons = Icons;
   readonly destroyRef = inject(DestroyRef);
+  private service = inject(UserService);
+  private dialog = inject(MatDialog);
   protected search = signal('');
-  private rawUsers: Signal<User[]>;
+  private rawUsers: Signal<User[]> = toSignal(
+    this.service.getUsers().pipe(takeUntilDestroyed(this.destroyRef)),
+    { initialValue: [] }
+  );
   private users = computed(() => signal(this.rawUsers()));
   protected filteredUsers = computed(() =>
     this.users()().filter((user: User) =>
@@ -64,18 +69,9 @@ export class UserPageComponent {
     )
   );
 
-  constructor(private service: UserService, public dialog: MatDialog) {
-    this.rawUsers = toSignal(
-      this.service.getUsers().pipe(takeUntilDestroyed(this.destroyRef)),
-      { initialValue: [] }
-    );
-  }
-
   addUser() {
     this.dialog
-      .open(UserDialogComponent, {
-        panelClass: 'full-width-dialog',
-      })
+      .open(UserModalComponent)
       .afterClosed()
       .pipe(
         filter((newUser: User) => !!newUser),
@@ -93,9 +89,8 @@ export class UserPageComponent {
 
   editUser(user: User) {
     this.dialog
-      .open(UserDialogComponent, {
+      .open(UserModalComponent, {
         data: user,
-        panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(
