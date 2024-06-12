@@ -2,9 +2,6 @@
     <a mat-list-item routerLink="{{isAdmin()?'/reporting/admin-dashboard':'/reporting/dashboard'}}"
         (click)="closeSidenav.emit()" routerLinkActive="active">{{
         "sidenav.home" | translate }}</a>
-    <!-- TODO Remove this after activity page is ready -->
-    <a mat-list-item routerLink="reporting/activity" (click)="closeSidenav.emit()" routerLinkActive="active">{{
-        "sidenav.activities" | translate }}</a>
     <a mat-list-item routerLink="activity" (click)="closeSidenav.emit()" routerLinkActive="active">{{
         "sidenav.activities" | translate }}</a>
     @if(isAdmin()){

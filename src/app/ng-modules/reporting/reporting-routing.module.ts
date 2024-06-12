@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivityPageComponent } from './components/activity-page/activity-page.component';
 import { RoleGuard } from '../../core/auth/role.guard';
 import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
 import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
@@ -10,10 +9,6 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { RatePageComponent } from './components/rate-page/rate-page.component';
 
 const routes: Routes = [
-  {
-    path: 'activity',
-    component: ActivityPageComponent,
-  },
   {
     path: 'project',
     component: ProjectPageComponent,

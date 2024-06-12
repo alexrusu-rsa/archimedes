@@ -15,7 +15,6 @@ import {
   PathLocationStrategy,
 } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
@@ -30,18 +29,15 @@ import { RatePageComponent } from './ng-modules/reporting/components/rate-page/r
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
-import { ShortenPipe } from './features/activity/pipes/shorten/shorten.pipe';
 import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
 import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
 import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
-import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ActivityPageComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,
@@ -51,7 +47,6 @@ import { ActivityDialogComponent } from './ng-modules/reporting/components/activ
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
     RatePageComponent,
-    ActivityDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +58,6 @@ import { ActivityDialogComponent } from './ng-modules/reporting/components/activ
     ReactiveFormsModule,
     NavigationComponent,
     ToolbarComponent,
-    ShortenPipe,
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,
@@ -87,6 +81,5 @@ import { ActivityDialogComponent } from './ng-modules/reporting/components/activ
     },
   ],
   bootstrap: [AppComponent],
-  exports: [],
 })
 export class AppModule {}
