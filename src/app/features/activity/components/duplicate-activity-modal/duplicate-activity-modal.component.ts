@@ -10,11 +10,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
-import { MatNativeDateModule } from '@angular/material/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import {
   MatDateRangeInput,
   MatDateRangePicker,
-  MatDatepickerModule,
   MatDatepickerToggle,
   MatEndDate,
   MatStartDate,
@@ -59,12 +58,11 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatDateRangeInput,
     MatDatepickerToggle,
     MatDateRangePicker,
-    MatNativeDateModule,
     MatSuffix,
     FormsModule,
     EntityItemComponent,
   ],
-  providers: [MatDatepickerModule],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './duplicate-activity-modal.component.html',
   styleUrl: './duplicate-activity-modal.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush,

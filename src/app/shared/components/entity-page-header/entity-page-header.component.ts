@@ -6,7 +6,7 @@ import {
   output,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Icons } from '../../models/icons.enum';
@@ -15,7 +15,10 @@ import { Project } from '../../models/project';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
+import {
+  MatNativeDateModule,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 
 @Component({
   selector: 'app-entity-page-header',
@@ -24,7 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     CommonModule,
     TranslateModule,
     FormsModule,
-    MatFormField,
+    MatFormFieldModule,
     MatLabel,
     MatButton,
     MatIcon,
@@ -33,7 +36,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [],
+  providers: [provideNativeDateAdapter()],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
