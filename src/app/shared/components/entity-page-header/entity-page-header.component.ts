@@ -11,9 +11,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Icons } from '../../models/icons.enum';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Project } from '../../models/project';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-entity-page-header',
@@ -21,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     TranslateModule,
+    FormsModule,
     MatFormField,
     MatLabel,
     MatButton,
@@ -28,7 +31,9 @@ import { TranslateModule } from '@ngx-translate/core';
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatNativeDateModule,
   ],
+  providers: [],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

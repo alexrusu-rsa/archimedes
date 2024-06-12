@@ -10,13 +10,7 @@ import {
   signal,
 } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import {
-  MatCard,
-  MatCardTitle,
-  MatCardActions,
-  MatCardSubtitle,
-} from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCard, MatCardTitle, MatCardActions } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
@@ -30,10 +24,6 @@ import {
   toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
 import { filter, map, switchMap, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
@@ -61,14 +51,6 @@ import {
     MatButton,
     MatIconButton,
     EntityItemComponent,
-
-    // TODO remove this after extracting to component
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatCardSubtitle,
-    MatNativeDateModule,
   ],
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -172,6 +154,67 @@ export class ActivityPageComponent {
       .subscribe();
   }
 
-  editActivity(activity: Activity) {}
-  deleteActivity(id: string) {}
+  navigateToPreviousDate() {
+    this.currentDate.update((selectedDate) => {
+      const nextDate = new Date(selectedDate);
+      nextDate.setDate(selectedDate.getDate() - 1);
+      return nextDate;
+    });
+  }
+
+  navigateToNextDate() {
+    this.currentDate.update((selectedDate) => {
+      const nextDate = new Date(selectedDate);
+      nextDate.setDate(selectedDate.getDate() + 1);
+      return nextDate;
+    });
+  }
+
+  editActivity(activity: Activity) {
+    this.dialog
+      .open(ActivityDialogComponent, {
+        data: { activity: activity },
+        panelClass: 'full-width-dialog',
+      })
+      .afterClosed()
+      .pipe(
+        filter((activity: Activity) => !!activity),
+        switchMap((updatedActivity: Activity) => {
+          return this.service
+            .updateActivity({
+              ...updatedActivity,
+            })
+            .pipe(takeUntilDestroyed(this.destroyRef));
+        }),
+        take(1)
+      )
+      .subscribe((updatedActivity: Activity) => {
+        this.activities().update((activities) =>
+          activities.map((activity) => {
+            if (updatedActivity?.id === activity?.id) return updatedActivity;
+            return activity;
+          })
+        );
+      });
+  }
+
+  deleteActivity(id: string) {
+    this.dialog
+      .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
+      .afterClosed()
+      .pipe(
+        filter((deleteConfirmation) => deleteConfirmation === true),
+        switchMap((_) => {
+          return this.service
+            .deleteActivity(id)
+            .pipe(takeUntilDestroyed(this.destroyRef));
+        }),
+        take(1)
+      )
+      .subscribe((_) => {
+        this.activities().update((activities) =>
+          activities.filter((activity) => activity.id !== id)
+        );
+      });
+  }
 }

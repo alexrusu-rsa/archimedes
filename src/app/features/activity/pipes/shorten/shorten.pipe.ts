@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+// TODO REmove this after new activity page release
 @Pipe({
   name: 'shorten',
   standalone: true,

@@ -32,4 +32,12 @@
             aria-label="Create activity button" type="button" (click)="addActivity()">
             <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
         </button>
+        <div class="col-12 d-flex flex-row justify-content-end">
+            <button mat-icon-button class="col-1 mx-1" (click)="navigateToPreviousDate()">
+                <mat-icon color="accent">{{icons.keyboard_arrow_left}}</mat-icon>
+            </button>
+            <button mat-icon-button class="col-1 mx-1" (click)="navigateToNextDate()">
+                <mat-icon color="accent">{{icons.keyboard_arrow_right}}</mat-icon>
+            </button>
+        </div>
 </div>
