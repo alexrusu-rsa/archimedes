@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnInit,
   Signal,
   computed,
   inject,
@@ -36,6 +37,7 @@ import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
+import { ActivityModalComponent } from '../../components/activity-modal/activity-modal.component';
 
 @Component({
   selector: 'app-activity-page',
@@ -55,7 +57,7 @@ import {
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ActivityPageComponent {
+export class ActivityPageComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly service = inject(ActivityService);
   private readonly projectService = inject(ProjectService);
@@ -67,7 +69,8 @@ export class ActivityPageComponent {
 
   protected currentDate = signal(new Date());
   protected projects = toSignal(
-    this.projectService.getProjectsUser(this.localStorage.userId)
+    this.projectService.getProjectsUser(this.localStorage.userId),
+    { initialValue: [] }
   );
   private rawActivities: Signal<Activity[]> = toSignal(
     toObservable(this.currentDate).pipe(
@@ -76,12 +79,15 @@ export class ActivityPageComponent {
           this.localStorage.userId,
           this.datePipe.transform(currentDateVal, 'dd/MM/yyyy')
         )
-      ),
-      takeUntilDestroyed(this.destroyRef)
+      )
     )
   );
-  public activities = computed(() => signal(this.rawActivities()));
-  constructor() {
+  protected activities = computed(() => signal(this.rawActivities()));
+  protected activityTypes = toSignal(this.service.getAllActivityTypes(), {
+    initialValue: {},
+  });
+
+  ngOnInit() {
     this.route.queryParams
       .pipe(
         map(({ date }) => date),
@@ -113,7 +119,11 @@ export class ActivityPageComponent {
 
   addActivity() {
     this.dialog
-      .open(ActivityDialogComponent, {
+      .open(ActivityModalComponent, {
+        data: {
+          activityProjects: this.projects(),
+          activityTypes: Object.values(this.activityTypes()),
+        },
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
@@ -123,8 +133,14 @@ export class ActivityPageComponent {
           return this.service
             .addActivity({
               ...activity,
+              employeeId: this.localStorage.userId,
+              projectId: activity['projectName']
+                ? null
+                : this.projects().find(
+                    (project) => project.projectName === activity['projectName']
+                  ).id,
               date: this.datePipe.transform(
-                this.currentDate?.toString(),
+                this.currentDate()?.toString(),
                 'dd/MM/yyyy'
               ),
             })

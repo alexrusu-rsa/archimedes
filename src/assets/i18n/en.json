@@ -13,25 +13,32 @@
         "search": "Search {{entity}}",
         "searchPlaceholder": "Popescu Adrian"
       }
+    },
+    "modal": {
+      "cancel": "Cancel",
+      "confirmation": {
+        "submit": "Yes, delete",
+        "title": "Are you sure you want to delete this item?"
+      }
     }
   },
   "activity": {
     "dialog": {
-      "addTitle": "Add activity",
-      "description": "Activity description",
-      "endTime": "End time",
-      "endTimeHint": "Make sure you enter a valid combination of start/end time.",
-      "extras": "Activity extras",
-      "name": "Activity name",
-      "nameHint": "Activity name is required",
-      "noProject": "No project",
+      "title": "Add new activity",
+      "titleEdit": "Edit activity",
+      "description": "Description",
+      "end": "End time",
+      "endHint": "Make sure you enter a valid combination of start/end time.",
+      "extras": "Extra description",
+      "name": "Name",
+      "nameHint": "Name is required",
       "project": "Project",
-      "startTime": "Start time",
-      "startTimeHint": "Make sure you enter a valid combination of start/end time.",
-      "submitAdd": "Add activity",
-      "submitUpdate": "Update activity",
-      "type": "Activity type",
-      "updateTitle": "Update activity"
+      "noProject": "No project",
+      "start": "Start time",
+      "startHint": "Make sure you enter a valid combination of start/end time.",
+      "activityType": "Activity type",
+      "submit": "Add activity",
+      "submitEdit": "Update activity"
     }
   },
   "adminDashboard": {
@@ -43,13 +50,6 @@
     "rates": "Rates",
     "reporting": "Reporting",
     "users": "Users"
-  },
-  "confirmation": {
-    "dialog": {
-      "cancel": "Cancel",
-      "title": "Are you sure you want to delete this item?",
-      "yesButton": "Yes, delete"
-    }
   },
   "customer": {
     "dialog": {
@@ -79,8 +79,7 @@
       "title": "Add a new customer",
       "titleEdit": "Edit customer",
       "submit": "Create customer",
-      "submitEdit": "Update customer",
-      "cancel": "Cancel"
+      "submitEdit": "Update customer"
     }
   },
   "dashboard": {
@@ -260,8 +259,7 @@
       "timePerDay": "User time/day",
       "timePerDayHint": "User time/day is required",
       "submit": "Create a new user",
-      "submitEdit": "Update user",
-      "cancel": "Cancel"
+      "submitEdit": "Update user"
     },
     "newDialog": {
       "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"

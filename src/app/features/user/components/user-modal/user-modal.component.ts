@@ -76,6 +76,7 @@ export class UserModalComponent implements OnInit {
       role: ['', Validators.required],
       seniority: ['', Validators.required],
       timePerDay: [0, Validators.required],
+      // TODO handle this as in backend is a string===admin
       roles: [false],
     });
 

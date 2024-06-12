@@ -31,9 +31,9 @@ export class ActivityService {
       );
   }
 
-  getAllActivityTypes(): Observable<string[]> {
+  getAllActivityTypes(): Observable<unknown> {
     return this.httpClient
-      .get<string[]>(this.activitiesUrl + '/types')
+      .get<unknown>(this.activitiesUrl + '/types')
       .pipe(
         catchError(
           this.responseHandlingService.handleError<string[]>('getActivityTypes')
