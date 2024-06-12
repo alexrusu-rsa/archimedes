@@ -96,7 +96,8 @@
 
 <!-- dialog action buttons -->
 <mat-dialog-actions align="center" class="gap-2 pb-4">
-    <button mat-raised-button (click)="submit()" [disabled]="activityForm?.invalid" color="accent">
+    <button mat-raised-button (click)="submit()"
+        [disabled]="activityForm?.invalid || (data?.activity===activityForm?.value)" color="accent">
         {{ (data?.activity ? "activity.dialog.submitEdit" : "activity.dialog.submit") | translate }}
     </button>
     <button mat-raised-button mat-dialog-close>

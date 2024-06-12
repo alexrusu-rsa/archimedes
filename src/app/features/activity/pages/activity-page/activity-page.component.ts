@@ -1,4 +1,3 @@
-import { ActivityDialogComponent } from './../../../../ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -38,6 +37,8 @@ import {
   duplicateActivityModalPreset,
 } from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
 import { ActivityModalComponent } from '../../components/activity-modal/activity-modal.component';
+import { OrderByPipe } from '../../pipes/order-by.pipe';
+import { WorkedTimePipe } from '../../pipes/worked-time.pipe';
 
 @Component({
   selector: 'app-activity-page',
@@ -53,6 +54,8 @@ import { ActivityModalComponent } from '../../components/activity-modal/activity
     MatButton,
     MatIconButton,
     EntityItemComponent,
+    OrderByPipe,
+    WorkedTimePipe,
   ],
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -187,18 +190,46 @@ export class ActivityPageComponent implements OnInit {
   }
 
   editActivity(activity: Activity) {
+    const {
+      id,
+      employeeId,
+      date,
+      projectId,
+      project,
+      workedTime,
+      ...activityWithoutUnecessary
+    } = activity;
     this.dialog
-      .open(ActivityDialogComponent, {
-        data: { activity: activity },
+      .open(ActivityModalComponent, {
+        data: {
+          activity: {
+            ...activityWithoutUnecessary,
+            projectName: activity?.project?.projectName
+              ? activity?.project?.projectName
+              : 'Other',
+          },
+          activityProjects: this.projects(),
+          activityTypes: Object.values(this.activityTypes()),
+        },
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(
         filter((activity: Activity) => !!activity),
         switchMap((updatedActivity: Activity) => {
+          const { projectName, ...updatedActivityWithoutProjectName } =
+            updatedActivity;
           return this.service
             .updateActivity({
-              ...updatedActivity,
+              ...updatedActivityWithoutProjectName,
+              id: activity?.id,
+              employeeId: activity?.employeeId,
+              date: activity?.date,
+              projectId:
+                this.projects()?.find(
+                  (project) =>
+                    project?.projectName === updatedActivity?.projectName
+                )?.id || null,
             })
             .pipe(takeUntilDestroyed(this.destroyRef));
         }),

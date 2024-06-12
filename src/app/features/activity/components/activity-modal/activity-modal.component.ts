@@ -80,8 +80,7 @@ export class ActivityModalComponent implements OnInit {
     });
 
     if (this.data?.activity) {
-      const { id, ...activityWithoutId } = this.data.activity;
-      this.activityForm.setValue(activityWithoutId);
+      this.activityForm.setValue(this.data?.activity);
     }
   }
 
