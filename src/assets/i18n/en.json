@@ -179,7 +179,18 @@
       "updateTitle": "Update rate"
     },
     "page": {
-      "title": "Rates"
+      "title": "Rates",
+      "table": {
+        "header": {
+          "project": "Project",
+          "employee": "Employee",
+          "time": "Time allocation",
+          "rate": "Rate",
+          "rateType": "Rate type",
+          "edit": "Edit",
+          "delete": "Delete"
+        }
+      }
     }
   },
   "reporting": {
