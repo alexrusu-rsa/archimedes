@@ -1,8 +1,18 @@
 {
   "shared": {
-    "entityPageHeader": {
-      "date": "Date",
-      "select": "Select a project"
+    "entity": {
+      "item": {
+        "empty": {
+          "filteredListEmpty": "For {{search}} there are no users",
+          "listEmpty": "There are no {{entity}}"
+        }
+      },
+      "header": {
+        "date": "Date",
+        "select": "Select a project",
+        "search": "Search {{entity}}",
+        "searchPlaceholder": "Popescu Adrian"
+      }
     }
   },
   "activity": {
@@ -22,13 +32,7 @@
       "submitUpdate": "Update activity",
       "type": "Activity type",
       "updateTitle": "Update activity"
-    },
-    "page": {
-      "timeBooked": "Time booked: "
     }
-  },
-  "activityPage": {
-    "noActivities": "You have not reported any activities for this day yet."
   },
   "adminDashboard": {
     "activities": "Activities",
@@ -76,20 +80,6 @@
       "submit": "Create customer",
       "submitEdit": "Update customer",
       "cancel": "Cancel"
-    },
-    "page": {
-      "applyVat": "Apply VAT on invoices",
-      "internal": "Internal Company",
-      "romanianCompany": "Romanian Company",
-      "search": "Search customer",
-      "searchPlaceholder": "Ex Google...",
-      "title": "Customer Page",
-      "vat19": "VAT 19%"
-    }
-  },
-  "custommer": {
-    "page": {
-      "applyVat": "Apply VAT on invoices"
     }
   },
   "dashboard": {
@@ -263,19 +253,7 @@
       "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"
     },
     "page": {
-      "employeeRates": "Employee Rates",
-      "rateType": "Type",
-      "resetPassword": "Reset Password",
-      "search": "Search user",
-      "searchPlaceholder": "Ex: Popescu...",
-      "thDelete": "Delete",
-      "thEdit": "Edit",
-      "thEmployee": "Employee",
-      "thProject": "Project",
-      "thRate": "Rate",
-      "thRateType": "Type",
-      "thTime": "Time",
-      "title": "User page"
+      "search": "Search user"
     }
   },
   "userDashboard": {

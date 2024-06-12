@@ -1,8 +1,8 @@
 <app-entity-page-header [selectOptions]="projects()" [hasDatePicker]="true" [datePickerValue]="currentDate()"
     (addEntity)="addActivity()" (datePickerValueChanged)="this.currentDate.set($event)" [hasAddEntity]="true"
     [hasDeleteAll]="true" (deleteAll)="deleteAllActivity()"
-    class="d-flex flex-wrap justify-content-between gap-2 mb-5"></app-entity-page-header>
-<!-- TODO handle margin responsiveness for header -->
+    class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
+
 <div class="d-flex flex-column h-100">
     @for (activity of activities()(); track $index) {
     <app-entity-item [title]="activity.name" [subtitle]="activity.start + '-' + activity.end"
@@ -19,10 +19,14 @@
     </app-entity-item>
     }
 
-    <app-entity-item [title]="'activityPage.noActivities' | translate "></app-entity-item>
+    @if (activities()()?.length <= 0) { <app-entity-item
+        [title]="'shared.entity.item.empty.listEmpty' | translate:{entity:'activities for '+currentDate().toLocaleDateString()}"
+        [emptyIcon]="icons.info">
+        </app-entity-item>
+        }
 
-    <button mat-raised-button class="add-entity-button d-flex flex-column mx-auto" aria-label="Create customer button"
-        type="button" (click)="addActivity()">
-        <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
-    </button>
+        <button mat-raised-button class="add-entity-button d-flex flex-column mx-auto"
+            aria-label="Create customer button" type="button" (click)="addActivity()">
+            <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
+        </button>
 </div>

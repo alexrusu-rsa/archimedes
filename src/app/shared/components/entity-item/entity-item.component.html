@@ -1,9 +1,13 @@
 <mat-card class="row mx-0 px-0 mb-3">
     @if(title()){
-    <mat-card-title>
+    <mat-card-title class="d-flex align-items-center gap-1">
+        @if (emptyIcon()) {
+        <mat-icon>{{emptyIcon()}}</mat-icon>
+        }
         {{ title() }}
     </mat-card-title>
     }
+
 
     @if (subtitle()) {
     <mat-card-subtitle>

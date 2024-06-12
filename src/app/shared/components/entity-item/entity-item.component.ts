@@ -36,4 +36,5 @@ export class EntityItemComponent {
   title = input('');
   subtitle = input('');
   chips = input<string[]>([]);
+  emptyIcon = input('');
 }

@@ -9,7 +9,7 @@
 
 @if (hasDatePicker()) {
 <mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
-    <mat-label>{{ "shared.entityPageHeader.date" | translate }}</mat-label>
+    <mat-label>{{ "shared.entity.header.date" | translate }}</mat-label>
     <input matInput [matDatepicker]="datePicker" [value]="datePickerValue()"
         (dateChange)="datePickerValueChanged.emit($event.value)" />
     <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
@@ -19,7 +19,7 @@
 
 @if(selectOptions()?.length>0){
 <mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
-    <mat-label>{{ "shared.entityPageHeader.select" | translate }}</mat-label>
+    <mat-label>{{ "shared.entity.header.select" | translate }}</mat-label>
     <mat-select (selectionChange)="selectValueChanged.emit($event.value?.id)">
         @for (project of selectOptions(); track $index) {
         <mat-option [value]="project" required="true" ngDefaultControl>
@@ -31,13 +31,13 @@
 }
 
 @if (hasDeleteAll()) {
-<button (click)="deleteAll.emit()" mat-raised-button class="add-entity-button col-12 col-sm-1"
+<button (click)="deleteAll.emit()" mat-raised-button class="add-entity-button col-12 col-sm-1 mb-4"
     aria-label="Create entity button" type="button">
     <mat-icon color="accent" class="mx-0">{{icons.delete_forever}}</mat-icon>
 </button>
 }
 @if (hasAddEntity()) {
-<button (click)="addEntity.emit()" mat-raised-button class="add-entity-button col-12 col-sm-1"
+<button (click)="addEntity.emit()" mat-raised-button class="add-entity-button col-12 col-sm-1 mb-4"
     aria-label="Create entity button" type="button">
     <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
 </button>
