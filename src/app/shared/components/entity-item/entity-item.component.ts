@@ -35,6 +35,8 @@ import { TranslateModule } from '@ngx-translate/core';
 export class EntityItemComponent {
   title = input('');
   subtitle = input('');
+  actions = input('');
+  cardClass = input('');
   chips = input<string[]>([]);
   emptyIcon = input('');
   nestedCard = input(false);
