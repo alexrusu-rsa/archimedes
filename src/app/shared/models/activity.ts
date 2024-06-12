@@ -1,3 +1,5 @@
+import { Project } from './project';
+
 export interface Activity {
   id?: string;
   name?: string;
@@ -10,4 +12,5 @@ export interface Activity {
   extras?: string;
   employeeId: string;
   workedTime?: string;
+  project?: Project;
 }

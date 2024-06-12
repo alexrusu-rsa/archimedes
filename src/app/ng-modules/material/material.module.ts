@@ -1,3 +1,4 @@
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTableModule,
     MatChipsModule,
     MatTooltipModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatButtonModule,
@@ -40,6 +42,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTableModule,
     MatChipsModule,
     MatTooltipModule,
+    MatAutocompleteModule,
   ],
 })
 export class MaterialModule {}

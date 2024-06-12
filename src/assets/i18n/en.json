@@ -1,4 +1,10 @@
 {
+  "shared": {
+    "entityPageHeader": {
+      "date": "Date",
+      "select": "Select a project"
+    }
+  },
   "activity": {
     "dialog": {
       "addTitle": "Add activity",

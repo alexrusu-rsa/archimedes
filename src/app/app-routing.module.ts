@@ -25,6 +25,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'activity',
+    loadComponent: () =>
+      import(
+        './features/activity/pages/activity-page/activity-page.component'
+      ).then((c) => c.ActivityPageComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'customers',
     loadComponent: () =>
       import(

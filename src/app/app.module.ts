@@ -18,10 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
-import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
@@ -40,13 +38,13 @@ import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
 import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
+import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ActivityPageComponent,
     UserDialogComponent,
-    ActivityDialogComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,
@@ -57,6 +55,7 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
     RatePageComponent,
+    ActivityDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +65,6 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
     NavigationComponent,
     ToolbarComponent,
     ShortenPipe,

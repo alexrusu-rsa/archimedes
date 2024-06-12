@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Activity } from '../../../../shared/models/activity';
 import { User } from '../../../../shared/models/user';
 import { UserLoginService } from '../../../../core/auth/services/user-login-service/user-login.service';
-import { ActivityDialogComponent } from '../activity-dialog/activity-dialog.component';
 import { Project } from 'src/app/shared/models/project';
 import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { MatSelectChange } from '@angular/material/select';
@@ -339,7 +338,7 @@ export class ActivityPageComponent implements OnInit {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    const dialogRef = this.dialog.open(ActivityDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
@@ -362,7 +361,7 @@ export class ActivityPageComponent implements OnInit {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    const dialogRef = this.dialog.open(ActivityDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,
@@ -386,7 +385,7 @@ export class ActivityPageComponent implements OnInit {
       this.selectedDate?.toString(),
       'dd/MM/yyyy'
     );
-    const dialogRef = this.dialog.open(ActivityDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, {
       data: <UserDateActivity>{
         employeeId: this.user?.id,
         date: dateToSend,

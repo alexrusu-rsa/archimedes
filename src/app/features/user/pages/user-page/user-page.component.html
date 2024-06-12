@@ -1,6 +1,7 @@
-<app-entity-page-header [label]="'user.page.search' | translate"
-  [placeholder]="'user.page.searchPlaceholder' | translate" (addEntity)="addUser()"
-  (keyUp)="search.set($event.target['value'])"></app-entity-page-header>
+<app-entity-page-header [searchLabel]="'user.page.search' | translate" [hasAddEntity]="true"
+  [searchPlaceholder]="'user.page.searchPlaceholder' | translate" (addEntity)="addUser()"
+  (searchKeyUp)="search.set($event.target['value'])"
+  class="d-flex flex-wrap justify-content-between gap-2 mb-5"></app-entity-page-header>
 
 <div class="d-flex flex-column h-100">
   @for (user of filteredUsers(); track $index) {

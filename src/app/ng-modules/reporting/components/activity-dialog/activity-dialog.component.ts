@@ -26,8 +26,7 @@ export class ActivityDialogComponent implements OnInit {
     private dateFormatService: DateFormatService,
     private activityService: ActivityService,
     private projectService: ProjectService,
-    private localStorageService: LocalStorageService,
-    @Inject(MAT_DIALOG_DATA) public userDateActivity: UserDateActivity
+    private localStorageService: LocalStorageService
   ) {}
 
   projectNameFormControl = new FormControl();
@@ -154,19 +153,19 @@ export class ActivityDialogComponent implements OnInit {
     this.getProjects();
     this.getActivityTypes();
     this.currentActivity = <Activity>{};
-    if (this.userDateActivity.activity !== undefined) {
-      this.currentActivity = this.userDateActivity.activity;
-      this.selectedItem = this.projectOfSelectedActivity?.projectName;
-    } else {
-      if (this.userDateActivity.date && this.userDateActivity.employeeId) {
-        const activity: Activity = {
-          date: this.userDateActivity.date,
-          employeeId: this.userDateActivity.employeeId,
-          projectId: this.userDateActivity.projectId,
-        };
-        this.currentActivity = activity;
-      }
-    }
+    // if (this.userDateActivity.activity !== undefined) {
+    //   this.currentActivity = this.userDateActivity.activity;
+    //   this.selectedItem = this.projectOfSelectedActivity?.projectName;
+    // } else {
+    //   if (this.userDateActivity.date && this.userDateActivity.employeeId) {
+    //     const activity: Activity = {
+    //       date: this.userDateActivity.date,
+    //       employeeId: this.userDateActivity.employeeId,
+    //       project: {this.userDateActivity.projectId},
+    //     };
+    //     this.currentActivity = activity;
+    //   }
+    // }
     this.addActivityForm = new FormGroup({
       name: new FormControl(this.currentActivity?.name, [Validators.required]),
       date: new FormControl(this.currentActivity?.date),
