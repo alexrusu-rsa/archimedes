@@ -11,18 +11,16 @@
     </mat-card-subtitle>
     }
 
+    @if(chips()?.length>0){
     <mat-card-content>
-        @if(chips().length>0){
         <mat-chip-set>
             @for (chip of chips(); track $index) {
             <mat-chip> {{chip | translate}}</mat-chip>
             }
         </mat-chip-set>
-        }
     </mat-card-content>
+    }
 
-    <mat-card-actions
-        class="col-12 col-sm-12 col-md-12 d-flex d-sm-flex d-md-flex justify-content-end justify-content-sm-end justify-content-md-end mx-0 mx-sm-9 mx-md-0 px-2 px-md-2 mt-4 mt-sm-4 mt-md-0 mb-1">
-        <ng-content />
-    </mat-card-actions>
+    <ng-content select="[actions]">
+    </ng-content>
 </mat-card>
