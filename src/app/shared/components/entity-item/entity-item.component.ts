@@ -37,4 +37,5 @@ export class EntityItemComponent {
   subtitle = input('');
   chips = input<string[]>([]);
   emptyIcon = input('');
+  nestedCard = input(false);
 }

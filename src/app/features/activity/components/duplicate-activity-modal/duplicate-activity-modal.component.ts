@@ -10,9 +10,11 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
 import {
   MatDateRangeInput,
   MatDateRangePicker,
+  MatDatepickerModule,
   MatDatepickerToggle,
   MatEndDate,
   MatStartDate,
@@ -31,6 +33,7 @@ import {
 } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
@@ -56,9 +59,12 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatDateRangeInput,
     MatDatepickerToggle,
     MatDateRangePicker,
+    MatNativeDateModule,
     MatSuffix,
     FormsModule,
+    EntityItemComponent,
   ],
+  providers: [MatDatepickerModule],
   templateUrl: './duplicate-activity-modal.component.html',
   styleUrl: './duplicate-activity-modal.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush,

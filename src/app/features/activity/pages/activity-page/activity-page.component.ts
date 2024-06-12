@@ -42,6 +42,10 @@ import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import {
+  DuplicateActivityModalComponent,
+  duplicateActivityModalPreset,
+} from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
 
 @Component({
   selector: 'app-activity-page',
@@ -149,6 +153,23 @@ export class ActivityPageComponent {
       .subscribe((activity: Activity) => {
         this.activities().update((activities) => [...activities, activity]);
       });
+  }
+
+  duplicateActivity(activity: Activity) {
+    this.dialog
+      .open(DuplicateActivityModalComponent, {
+        ...duplicateActivityModalPreset,
+        data: activity,
+      })
+      .afterClosed()
+      .pipe(
+        filter((activityDuplication) => !!activityDuplication),
+        switchMap((activityDuplication) =>
+          this.service.addDuplicates(activityDuplication)
+        ),
+        take(1)
+      )
+      .subscribe();
   }
 
   editActivity(activity: Activity) {}
