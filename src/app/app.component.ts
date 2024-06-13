@@ -4,16 +4,10 @@ import {
   OnInit,
   Signal,
   computed,
-  effect,
   inject,
   signal,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './core/auth/services/auth-service/auth.service';
 import { LocalStorageService } from './shared/services/localstorage-service/localstorage.service';
@@ -68,8 +62,6 @@ export class AppComponent implements OnInit {
       ),
       null
     );
-
-    effect(() => console.log(this.activatedRoute()));
   }
 
   ngOnInit() {
