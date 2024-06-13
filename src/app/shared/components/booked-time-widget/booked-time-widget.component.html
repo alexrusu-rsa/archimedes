@@ -5,7 +5,7 @@
     <mat-progress-bar class="mb-1" mode="buffer" color="accent"
         value="{{bookedTime() | appBookedPercentage: alocatedTime()}}"></mat-progress-bar>
     <mat-card-footer>
-        <mat-card-subtitle>Start booking now!</mat-card-subtitle>
+        <mat-card-subtitle>{{bookedTime() | appBookedMessage: alocatedTime():user().surname}}</mat-card-subtitle>
         <button mat-raised-button class="secondary-card col-12 mt-2" aria-label="Create activity button" type="button"
             routerLink="activity">
             <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
