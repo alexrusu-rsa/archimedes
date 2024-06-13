@@ -39,6 +39,9 @@
       "activityType": "Activity type",
       "submit": "Add activity",
       "submitEdit": "Update activity"
+    },
+    "shared": {
+      "other": "Other"
     }
   },
   "adminDashboard": {

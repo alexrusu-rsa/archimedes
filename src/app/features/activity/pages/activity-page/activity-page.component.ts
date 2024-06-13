@@ -137,11 +137,9 @@ export class ActivityPageComponent implements OnInit {
             .addActivity({
               ...activity,
               employeeId: this.localStorage.userId,
-              projectId: activity['projectName']
-                ? null
-                : this.projects().find(
-                    (project) => project.projectName === activity['projectName']
-                  ).id,
+              projectId: this.projects().find(
+                (project) => project.projectName === activity['projectName']
+              )?.id,
               date: this.datePipe.transform(
                 this.currentDate()?.toString(),
                 'dd/MM/yyyy'
@@ -206,7 +204,7 @@ export class ActivityPageComponent implements OnInit {
             ...activityWithoutUnecessary,
             projectName: activity?.project?.projectName
               ? activity?.project?.projectName
-              : 'Other',
+              : 'other',
           },
           activityProjects: this.projects(),
           activityTypes: Object.values(this.activityTypes()),

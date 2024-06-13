@@ -7,7 +7,7 @@
     @for (activity of activities()() | appOrderBy; track $index) {
     <app-entity-item [title]="activity.name"
         subtitle="{{activity.start}} - {{activity.end}} {{activity.workedTime | appWorkedTime}}"
-        [chips]="[activity?.project?.projectName?activity?.project?.projectName:'Other']">
+        [chips]="[activity?.project?.projectName ? activity?.project?.projectName : ('activity.shared.other' | translate)]">
         <mat-card-actions actions align="end">
             <button (click)="editActivity(activity)" mat-icon-button aria-label="Edit activity button" type="button">
                 <mat-icon color="accent">{{icons.edit}}</mat-icon>
