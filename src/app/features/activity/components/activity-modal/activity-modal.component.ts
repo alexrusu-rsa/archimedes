@@ -1,4 +1,4 @@
-import { CommonModule, KeyValuePipe } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,29 +12,31 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardTitle } from '@angular/material/card';
+import { MatOptionModule } from '@angular/material/core';
 import {
+  MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
-  MatDialogRef,
 } from '@angular/material/dialog';
 import { MatLabel, MatHint, MatFormField } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { Project } from 'src/app/shared/models/project';
 
 @Component({
-  selector: 'app-user-modal',
+  selector: 'app-activity-modal',
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     TranslateModule,
     MatDialogContent,
     MatDialogActions,
@@ -48,51 +50,47 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatButton,
     MatIconButton,
     MatInput,
-    MatSlideToggle,
+    MatSelectModule,
+    MatOptionModule,
+    MatAutocompleteModule,
     KeyValuePipe,
   ],
-  templateUrl: './user-modal.component.html',
-  styles: [
-    `
-      .mat-dialog-content
-        overflow: unset
-    `,
-  ],
+  templateUrl: './activity-modal.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserModalComponent implements OnInit {
-  private dialogRef = inject(MatDialogRef<UserModalComponent>);
+export class ActivityModalComponent implements OnInit {
+  private dialogRef = inject(MatDialogRef<ActivityModalComponent>);
   private formBuilder = inject(FormBuilder);
-  protected user = inject(MAT_DIALOG_DATA);
+  protected data = inject(MAT_DIALOG_DATA);
+  protected activityProjects: Project[];
+  protected activityTypes: string[];
   protected readonly icons = Icons;
-  protected userForm: FormGroup;
+  protected activityForm: FormGroup;
   protected validators = Validators;
 
   ngOnInit(): void {
-    this.userForm = this.formBuilder.group({
-      surname: ['', Validators.required],
+    this.activityForm = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
-      role: ['', Validators.required],
-      seniority: ['', Validators.required],
-      timePerDay: [0, Validators.required],
-      // TODO handle this as in backend is a string===admin
-      roles: [false],
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+      projectName: ['', Validators.required],
+      activityType: ['', Validators.required],
+      description: [''],
+      extras: [''],
     });
 
-    if (this.user) {
-      const { id, password, ...userWithoutId } = this.user;
-      this.userForm.setValue(userWithoutId);
+    if (this.data?.activity) {
+      this.activityForm.setValue(this.data?.activity);
     }
   }
 
   submit() {
-    if (this.userForm.invalid) return;
-    if (this.user)
+    if (this.activityForm.invalid) return;
+    if (this.data?.activity)
       this.dialogRef.close({
-        ...this.userForm.value,
-        id: this.user.id,
+        ...this.activityForm.value,
+        id: this.data?.activity.id,
       });
-    if (!this.user) this.dialogRef.close(this.userForm.value);
+    if (!this.data?.activity) this.dialogRef.close(this.activityForm.value);
   }
 }

@@ -6,14 +6,14 @@
 </div>
 
 <!-- dialog title -->
-<h2 mat-dialog-title align="center" class="p-5">{{ "confirmation.dialog.title" | translate }} </h2>
+<h2 mat-dialog-title align="center" class="p-5">{{ "shared.modal.confirmation.title" | translate }} </h2>
 
 <!-- dialog action buttons -->
 <mat-dialog-actions align="center" class="gap-2 pb-4">
     <button mat-raised-button mat-dialog-close (click)="dialogRef.close(true)" color="accent">
-        {{ "confirmation.dialog.yesButton" | translate }}
+        {{ "shared.modal.confirmation.submit" | translate }}
     </button>
     <button mat-raised-button mat-dialog-close>
-        {{ "confirmation.dialog.cancel" | translate }}
+        {{ "shared.modal.cancel"| translate }}
     </button>
 </mat-dialog-actions>

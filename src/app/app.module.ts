@@ -15,12 +15,9 @@ import {
   PathLocationStrategy,
 } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
-import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
 import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
@@ -32,7 +29,6 @@ import { RatePageComponent } from './ng-modules/reporting/components/rate-page/r
 import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
-import { ShortenPipe } from './features/activity/pipes/shorten/shorten.pipe';
 import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
 import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
 import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
@@ -42,8 +38,6 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ActivityPageComponent,
-    ActivityDialogComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
     InvoicePageComponent,
@@ -62,10 +56,8 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
     NavigationComponent,
     ToolbarComponent,
-    ShortenPipe,
     ProjectidPipe,
     EmployeeidPipe,
     CustomerfromprojectidPipe,
@@ -89,6 +81,5 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
     },
   ],
   bootstrap: [AppComponent],
-  exports: [],
 })
 export class AppModule {}

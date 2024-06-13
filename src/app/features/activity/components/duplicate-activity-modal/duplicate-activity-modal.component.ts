@@ -9,6 +9,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import {
   MatDateRangeInput,
   MatDateRangePicker,
@@ -61,6 +62,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     FormsModule,
     EntityItemComponent,
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './duplicate-activity-modal.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

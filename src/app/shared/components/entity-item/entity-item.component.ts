@@ -38,4 +38,6 @@ export class EntityItemComponent {
   actions = input('');
   cardClass = input('');
   chips = input<string[]>([]);
+  emptyIcon = input('');
+  nestedCard = input(false);
 }

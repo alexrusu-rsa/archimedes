@@ -1,6 +1,6 @@
-<app-entity-page-header [label]="'project.page.search' | translate"
-  [placeholder]="'project.page.searchPlaceholder' | translate" (addEntity)="addProject()"
-  (keyUp)="applyFilter($event)"></app-entity-page-header>
+<app-entity-page-header [searchLabel]="'project.page.search' | translate" [hasAddEntity]="true"
+  [searchPlaceholder]="'project.page.searchPlaceholder' | translate" (addEntity)="addProject()"
+  (keyUp)="applyFilter($event)" class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
 
 <mat-card class="content-container h-100">
   <mat-card class="entity-card row mb-3 px-0 mx-0" *ngFor="let project of allProjects">
