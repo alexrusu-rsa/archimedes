@@ -91,6 +91,7 @@ export class ActivityPageComponent implements OnInit {
         ])
       ),
       map(([activities, filters]) => {
+        // TODO handle 'other' project id in backend
         if (filters?.project?.id === 'other')
           return activities.filter((activity) => !activity?.project);
         if (filters?.project?.id)
@@ -168,6 +169,7 @@ export class ActivityPageComponent implements OnInit {
         take(1)
       )
       .subscribe((activity: Activity) => {
+        // TODO handle 'other' project id in backend
         if (
           activity?.project &&
           this.filters()?.project?.id === activity?.project?.id
@@ -264,6 +266,7 @@ export class ActivityPageComponent implements OnInit {
       )
       .subscribe((updatedActivity: Activity) => {
         this.activities().update((activities) => {
+          // TODO handle 'other' project id in backend
           if (this.filters().project?.id)
             return activities
               .map((activity) => {
