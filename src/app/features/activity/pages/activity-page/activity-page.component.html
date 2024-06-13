@@ -1,6 +1,7 @@
-<app-entity-page-header [selectOptions]="projects()" [hasDatePicker]="true" [datePickerValue]="currentDate()"
-    (addEntity)="addActivity()" (datePickerValueChanged)="this.currentDate.set($event)" [hasAddEntity]="true"
-    [hasDeleteAll]="true" (deleteAll)="deleteAllActivity()"
+<app-entity-page-header [selectOptions]="projects()" [filters]="filters()"
+    (selectValueChanged)="updateFilters('project', $event)" [hasDatePicker]="true" (addEntity)="addActivity()"
+    (datePickerValueChanged)="updateFilters('date', $event)" [hasAddEntity]="true" [hasDeleteAll]="true"
+    (deleteAll)="deleteAllActivity()"
     class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
 
 <div class="d-flex flex-column h-100">
@@ -24,7 +25,7 @@
     }
 
     @if (activities()()?.length <= 0) { <app-entity-item
-        [title]="'shared.entity.item.empty.listEmpty' | translate:{entity:'activities for '+currentDate().toLocaleDateString()}"
+        [title]="'shared.entity.item.empty.listEmpty' | translate:{entity:'activities for '+filters()?.date?.toLocaleDateString()}"
         [emptyIcon]="icons.info">
         </app-entity-item>
         }

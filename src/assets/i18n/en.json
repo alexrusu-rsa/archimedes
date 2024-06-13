@@ -10,6 +10,7 @@
       "header": {
         "date": "Date",
         "select": "Select a project",
+        "all": "All projects",
         "search": "Search {{entity}}",
         "searchPlaceholder": "Popescu Adrian"
       }

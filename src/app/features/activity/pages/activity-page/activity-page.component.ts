@@ -24,7 +24,7 @@ import {
   toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
-import { filter, map, switchMap, take } from 'rxjs';
+import { combineLatest, filter, map, of, switchMap, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -39,6 +39,7 @@ import {
 import { ActivityModalComponent } from '../../components/activity-modal/activity-modal.component';
 import { OrderByPipe } from '../../pipes/order-by.pipe';
 import { WorkedTimePipe } from '../../pipes/worked-time.pipe';
+import { ActivityFilters } from '../../models/activity-filters.model';
 
 @Component({
   selector: 'app-activity-page',
@@ -70,25 +71,45 @@ export class ActivityPageComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   protected readonly icons = Icons;
 
-  protected currentDate = signal(new Date());
+  protected filters = signal<ActivityFilters>({
+    date: new Date(),
+    project: null,
+  });
   protected projects = toSignal(
     this.projectService.getProjectsUser(this.localStorage.userId),
     { initialValue: [] }
   );
   private rawActivities: Signal<Activity[]> = toSignal(
-    toObservable(this.currentDate).pipe(
-      switchMap((currentDateVal) =>
-        this.service.getActivitiesByDateEmployeeId(
-          this.localStorage.userId,
-          this.datePipe.transform(currentDateVal, 'dd/MM/yyyy')
-        )
-      )
+    toObservable(this.filters).pipe(
+      switchMap((filters) =>
+        combineLatest([
+          this.service.getActivitiesByDateEmployeeId(
+            this.localStorage.userId,
+            this.datePipe.transform(filters?.date, 'dd/MM/yyyy')
+          ),
+          of(filters),
+        ])
+      ),
+      map(([activities, filters]) => {
+        if (filters?.project?.id === 'other')
+          return activities.filter((activity) => !activity?.project);
+        if (filters?.project?.id)
+          return activities.filter(
+            (activity) => activity?.project?.id === filters?.project?.id
+          );
+        return activities;
+      })
     )
   );
   protected activities = computed(() => signal(this.rawActivities()));
   protected activityTypes = toSignal(this.service.getAllActivityTypes(), {
     initialValue: {},
   });
+
+  protected updateFilters(key, value) {
+    if (key === 'date') this.filters.set({ date: value, project: null });
+    else this.filters.set({ ...this.filters(), [key]: value });
+  }
 
   ngOnInit() {
     this.route.queryParams
@@ -97,7 +118,7 @@ export class ActivityPageComponent implements OnInit {
         filter((date) => !!date)
       )
       .subscribe((date) => {
-        this.currentDate.set(new Date(date));
+        this.updateFilters('date', new Date(date));
       });
   }
 
@@ -110,7 +131,7 @@ export class ActivityPageComponent implements OnInit {
         switchMap((_) => {
           return this.service.deleteAllActivitiesOfUserDay(
             this.localStorage.userId,
-            this.datePipe.transform(this.currentDate(), 'yyyy-MM-dd')
+            this.datePipe.transform(this.filters()?.date, 'yyyy-MM-dd')
           );
         }),
         take(1)
@@ -140,17 +161,25 @@ export class ActivityPageComponent implements OnInit {
               projectId: this.projects().find(
                 (project) => project.projectName === activity['projectName']
               )?.id,
-              date: this.datePipe.transform(
-                this.currentDate()?.toString(),
-                'dd/MM/yyyy'
-              ),
+              date: this.datePipe.transform(this.filters()?.date, 'dd/MM/yyyy'),
             })
             .pipe(takeUntilDestroyed(this.destroyRef));
         }),
         take(1)
       )
       .subscribe((activity: Activity) => {
-        this.activities().update((activities) => [...activities, activity]);
+        if (
+          activity?.project &&
+          this.filters()?.project?.id === activity?.project?.id
+        )
+          this.activities().update((activities) => [...activities, activity]);
+        if (
+          activity?.project === null &&
+          this.filters()?.project?.id === 'other'
+        )
+          this.activities().update((activities) => [...activities, activity]);
+        if (!this.filters()?.project?.id)
+          this.activities().update((activities) => [...activities, activity]);
       });
   }
 
@@ -172,18 +201,18 @@ export class ActivityPageComponent implements OnInit {
   }
 
   navigateToPreviousDate() {
-    this.currentDate.update((selectedDate) => {
-      const nextDate = new Date(selectedDate);
-      nextDate.setDate(selectedDate.getDate() - 1);
-      return nextDate;
+    this.filters.update((filters) => {
+      const nextDate = new Date(filters?.date);
+      nextDate.setDate(filters?.date.getDate() - 1);
+      return { date: nextDate };
     });
   }
 
   navigateToNextDate() {
-    this.currentDate.update((selectedDate) => {
-      const nextDate = new Date(selectedDate);
-      nextDate.setDate(selectedDate.getDate() + 1);
-      return nextDate;
+    this.filters.update((filters) => {
+      const nextDate = new Date(filters?.date);
+      nextDate.setDate(filters?.date.getDate() + 1);
+      return { date: nextDate };
     });
   }
 
@@ -234,12 +263,26 @@ export class ActivityPageComponent implements OnInit {
         take(1)
       )
       .subscribe((updatedActivity: Activity) => {
-        this.activities().update((activities) =>
-          activities.map((activity) => {
+        this.activities().update((activities) => {
+          if (this.filters().project?.id)
+            return activities
+              .map((activity) => {
+                if (updatedActivity?.id === activity?.id)
+                  return updatedActivity;
+                return activity;
+              })
+              .filter(
+                (activity) =>
+                  activity?.project?.id === this.filters().project.id ||
+                  (this.filters().project.id === 'other' && !activity.project)
+              );
+
+          // base case
+          return activities.map((activity) => {
             if (updatedActivity?.id === activity?.id) return updatedActivity;
             return activity;
-          })
-        );
+          });
+        });
       });
   }
 
