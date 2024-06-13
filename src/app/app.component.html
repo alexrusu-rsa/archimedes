@@ -20,7 +20,10 @@
     </section>
 
     <section class="d-xl-flex d-lg-flex d-md-none d-sm-none d-none col-2" #right *ngIf="user()?.id">
-      &nbsp;
+      @if(displayBookedTimeWidget()){
+      <app-booked-time-widget [bookedTime]="bookedTimeService.bookedTime()"
+        [alocatedTime]="bookedTimeService.alocatedTime()"></app-booked-time-widget>
+      }
     </section>
   </mat-sidenav-content>
 </mat-sidenav-container>
