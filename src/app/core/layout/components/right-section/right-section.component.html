@@ -1,0 +1,4 @@
+@if(displayBookedTimeWidget()){
+<app-booked-time-widget [bookedTime]="store.activities() | appBookedTime" [displayDate]="store.filter().date"
+    [user]="user()"></app-booked-time-widget>
+}

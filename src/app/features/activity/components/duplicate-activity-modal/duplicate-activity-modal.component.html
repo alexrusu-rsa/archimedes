@@ -24,9 +24,9 @@
             }}
         </mat-label>
         <mat-date-range-input [rangePicker]="picker">
-            <input name="startDate" #startDateInput [ngModel]="start()" (ngModelChange)="start.set($event)" matStartDate
-                placeholder="{{ 'duplicate.dialog.startDate' | translate }}" />
-            <input name="endDate" #endDateInput [ngModel]="end()" (ngModelChange)="end.set($event)" matEndDate
+            <input name="startDate" #startDateInput [ngModel]="startDate()" (ngModelChange)="startDate.set($event)"
+                matStartDate placeholder="{{ 'duplicate.dialog.startDate' | translate }}" />
+            <input name="endDate" #endDateInput [ngModel]="endDate()" (ngModelChange)="endDate.set($event)" matEndDate
                 placeholder="{{ 'duplicate.dialog.endDate' | translate }}" />
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -35,7 +35,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="center" class="gap-2 pb-4">
-    <button mat-raised-button color="accent" type="submit" [mat-dialog-close]="{start: start(), end: end(), activity}">
+    <button mat-raised-button color="accent" type="submit"
+        [mat-dialog-close]="{startDate: startDate(), endDate: endDate(), activity}">
         {{ "duplicate.dialog.title" | translate }}
     </button>
     <button mat-raised-button mat-dialog-close>

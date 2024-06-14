@@ -20,11 +20,11 @@ export class UserLoginService {
   ) {}
 
   getUser(userId: string): Observable<User> {
-    return this.httpClient
-      .get<User>(this.usersUrl + '/' + userId)
-      .pipe(
-        catchError(this.responseHandlingService.handleError<User>('getUser'))
-      );
+    return this.httpClient.get<User>(this.usersUrl + '/' + userId).pipe(
+      // TODO handle this time format in backend
+      map((user) => ({ ...user, timePerDay: user.timePerDay + ':00' })),
+      catchError(this.responseHandlingService.handleError<User>('getUser'))
+    );
   }
 
   logUserIn(user: User): Observable<LoginResponse> {

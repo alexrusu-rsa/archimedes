@@ -1,12 +1,11 @@
 import { Component, DestroyRef, OnInit, Signal, inject } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './core/auth/services/auth-service/auth.service';
 import { LocalStorageService } from './shared/services/localstorage-service/localstorage.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Icons } from './shared/models/icons.enum';
-import { of, switchMap } from 'rxjs';
-import { UserLoginService } from './core/auth/services/user-login-service/user-login.service';
+import { filter, map, of, switchMap } from 'rxjs';
 import { User } from './shared/models/user';
 
 @Component({
@@ -15,46 +14,46 @@ import { User } from './shared/models/user';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
-  readonly destroyRef = inject(DestroyRef);
-  pageTitle?: string;
-  activeToken?: string;
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
+  public readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
   protected readonly icons = Icons;
-  user: Signal<User>;
 
-  constructor(
-    private router: Router,
-    public authService: AuthService,
-    private userService: UserLoginService,
-    private localStorageService: LocalStorageService,
-    public translate: TranslateService
-  ) {
-    translate.addLangs(['en', 'de', 'ro']);
-    translate.setDefaultLang('en');
-
-    const browserLang = translate.getBrowserLang();
-    if (browserLang?.match(/en|de|ro/)) translate.use(browserLang);
-    else translate.use('en');
-
-    this.user = toSignal(
-      this.localStorageService.userIdValue.pipe(
-        switchMap((currentUserId) => {
-          if (currentUserId) return this.userService.getUser(currentUserId);
-          else return of(null);
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      ),
-      null
-    );
-  }
+  protected user: Signal<User> = toSignal(
+    inject(LocalStorageService).userIdValue.pipe(
+      switchMap((currentUserId) => {
+        if (currentUserId) return this.auth.getUser(currentUserId);
+        else return of(null);
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ),
+    { initialValue: null }
+  );
+  protected pageTitle = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationStart),
+      map((event: NavigationStart) => {
+        const path = event?.url?.substring(1, event?.url?.length);
+        return path.includes('?') ? path.split('?')[0] : path;
+      })
+    )
+  );
+  protected activatedRoute = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map((event: NavigationEnd) => {
+        return event.urlAfterRedirects;
+      })
+    )
+  );
 
   ngOnInit() {
-    this.router.events
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((event) => {
-        if (event instanceof NavigationStart) {
-          const urlToFormat = event.url.substring(1, event.url.length);
-          this.pageTitle = urlToFormat.split('/')[1];
-        }
-      });
+    this.translate.addLangs(['en', 'de', 'ro']);
+    this.translate.setDefaultLang('en');
+    const browserLang = this.translate.getBrowserLang();
+
+    if (browserLang?.match(/en|de|ro/)) this.translate.use(browserLang);
+    else this.translate.use('en');
   }
 }
