@@ -1,5 +1,3 @@
-<!--  
- -->
 <app-entity-page-header [selectOptions]="projects()" [hasDatePicker]="true" [hasDeleteAll]="true" [hasAddEntity]="true"
     (addEntity)="addActivity()" (datePickerValueChanged)="updateFilter('date', $event)" [filter]="store.filter()"
     (deleteAll)="deleteAllActivity()" (selectValueChanged)="updateFilter('project', $event)"
@@ -10,18 +8,18 @@
     <app-entity-item [title]="activity.name"
         subtitle="{{activity.start}} - {{activity.end}} {{activity.workedTime | appWorkedTime}}"
         [chips]="[activity?.project?.projectName ? activity?.project?.projectName : ('activity.shared.other' | translate)]">
-        <!-- <mat-card-actions actions align="end">
+        <mat-card-actions actions align="end">
             <button (click)="editActivity(activity)" mat-icon-button aria-label="Edit activity button" type="button">
                 <mat-icon color="accent">{{icons.edit}}</mat-icon>
             </button>
-            <button (click)="duplicateActivity(activity)" mat-icon-button aria-label="Duplicate activity button">
+            <!-- <button (click)="duplicateActivity(activity)" mat-icon-button aria-label="Duplicate activity button">
                 <mat-icon color="accent">{{icons.control_point_duplicate}}</mat-icon>
-            </button>
+            </button> -->
             <button (click)="deleteActivity(activity.id)" mat-icon-button aria-label="Delete activity button"
                 type="button">
                 <mat-icon color="accent">{{icons.delete}}</mat-icon>
             </button>
-        </mat-card-actions> -->
+        </mat-card-actions>
     </app-entity-item>
     }
 
@@ -31,16 +29,16 @@
         </app-entity-item>
         }
 
-        <!-- <button mat-raised-button class="add-entity-button d-flex flex-column mx-auto"
+        <button mat-raised-button class="add-entity-button d-flex flex-column mx-auto"
             aria-label="Create activity button" type="button" (click)="addActivity()">
             <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
         </button>
         <div class="col-12 d-flex flex-row justify-content-end">
-            <button mat-icon-button class="col-1 mx-1" (click)="navigateToPreviousDate()">
+            <button mat-icon-button class="col-1 mx-1" (click)="store.nextDate()">
                 <mat-icon color="accent">{{icons.keyboard_arrow_left}}</mat-icon>
             </button>
-            <button mat-icon-button class="col-1 mx-1" (click)="navigateToNextDate()">
+            <button mat-icon-button class="col-1 mx-1" (click)="store.previousDate()">
                 <mat-icon color="accent">{{icons.keyboard_arrow_right}}</mat-icon>
             </button>
-        </div> -->
+        </div>
 </div>

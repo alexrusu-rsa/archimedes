@@ -26,11 +26,10 @@ import {
 import {
   MatLabel,
   MatHint,
-  MatFormField,
   MatFormFieldModule,
 } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';

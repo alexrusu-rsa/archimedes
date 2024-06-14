@@ -15,13 +15,13 @@ export class TimePipe implements PipeTransform {
 
     if (hours > 0) {
       result += `${hours}h`;
-    } else {
-      result += '0h';
     }
 
     if (minutes > 0) {
       result += ` ${minutes}m`;
     }
+
+    if (minutes === 0 && hours === 0) result += '0h';
 
     return result.trim();
   }

@@ -120,8 +120,102 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+      editActivity: rxMethod<Activity>(
+        pipe(
+          debounceTime(300),
+          switchMap((activity) =>
+            activityService
+              .updateActivity({
+                ...activity,
+                employeeId: localStorage?.userId,
+                projectId:
+                  activity?.projectId === 'other' ? null : activity?.projectId,
+                date: datePipe.transform(store.filter()?.date, 'dd/MM/yyyy'),
+              })
+              .pipe(
+                tapResponse({
+                  next: (editedActivity: Activity) => {
+                    //if no filters, just update
+                    if (!store.filter()?.project) {
+                      patchState(store, {
+                        isLoading: true,
+                        activities: store
+                          .activities()
+                          ?.map((mappedActivity) => {
+                            if (editedActivity.id === mappedActivity.id)
+                              return editedActivity;
+                            return mappedActivity;
+                          }),
+                      });
+                    } else {
+                      // If the selected filter is 'other'
+                      if (store.filter()?.project?.id === 'other') {
+                        // Special case: If the activity has a project (not null), filter it out
+                        if (editedActivity?.project) {
+                          patchState(store, {
+                            isLoading: true,
+                            activities: store
+                              .activities()
+                              ?.filter(
+                                (filteredActivity) =>
+                                  filteredActivity.id !== editedActivity.id
+                              ),
+                          });
+                        } else {
+                          // If the activity does not have a project (null), update the activity
+                          patchState(store, {
+                            isLoading: true,
+                            activities: store
+                              .activities()
+                              ?.map((mappedActivity) => {
+                                if (editedActivity.id === mappedActivity.id)
+                                  return editedActivity;
+                                return mappedActivity;
+                              }),
+                          });
+                        }
+                      } else {
+                        // If the selected filter matches the activity's project, update the activity
+                        if (
+                          store.filter()?.project?.id ===
+                          editedActivity?.project?.id
+                        ) {
+                          patchState(store, {
+                            isLoading: true,
+                            activities: store
+                              .activities()
+                              ?.map((mappedActivity) => {
+                                if (editedActivity.id === mappedActivity.id)
+                                  return editedActivity;
+                                return mappedActivity;
+                              }),
+                          });
+                        } else {
+                          // If the selected filter does not match the activity's project, filter it out
+                          patchState(store, {
+                            isLoading: true,
+                            activities: store
+                              .activities()
+                              ?.filter(
+                                (filteredActivity) =>
+                                  filteredActivity.id !== editedActivity.id
+                              ),
+                          });
+                        }
+                      }
+                    }
+                  },
+                  // eslint-disable-next-line no-console
+                  error: (error) => console.error(error),
+                  finalize: () => patchState(store, { isLoading: false }),
+                })
+              )
+          )
+        )
+      ),
       deleteAllActivity: rxMethod<void>(
         pipe(
+          debounceTime(300),
           switchMap((_) =>
             activityService
               .deleteAllActivitiesOfUserDay(
@@ -146,6 +240,38 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+      delete: rxMethod<string>(
+        pipe(
+          debounceTime(300),
+          switchMap((id: string) =>
+            activityService.deleteActivity(id).pipe(
+              tapResponse({
+                next: (_) => {
+                  patchState(store, {
+                    isLoading: true,
+                    activities: store
+                      .activities()
+                      .filter((activity) => activity.id !== id),
+                  });
+                },
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+                finalize: () => patchState(store, { isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+      nextDate() {
+        const nextDate = new Date(store.filter()?.date);
+        nextDate.setDate(store.filter()?.date?.getDate() + 1);
+        patchState(store, { filter: { date: nextDate, project: null } });
+      },
+      previousDate() {
+        const nextDate = new Date(store.filter()?.date);
+        nextDate.setDate(store.filter()?.date?.getDate() - 1);
+        patchState(store, { filter: { date: nextDate, project: null } });
+      },
     })
   ),
   withHooks({

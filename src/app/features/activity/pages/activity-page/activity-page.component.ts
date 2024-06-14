@@ -15,7 +15,7 @@ import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, switchMap, take } from 'rxjs';
+import { filter, map, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -56,7 +56,12 @@ export class ActivityPageComponent implements OnInit {
   private readonly projectService = inject(ProjectService);
   private readonly localStorage = inject(LocalStorageService);
   private readonly dialog = inject(MatDialog);
-  private readonly route = inject(ActivatedRoute);
+  private readonly dateParam = toSignal(
+    inject(ActivatedRoute).queryParams.pipe(
+      map(({ date }) => date),
+      filter((date) => !!date)
+    )
+  );
   protected readonly icons = Icons;
   protected projects = toSignal(
     this.projectService.getProjectsUser(this.localStorage.userId),
@@ -68,14 +73,7 @@ export class ActivityPageComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.route.queryParams
-      .pipe(
-        map(({ date }) => date),
-        filter((date) => !!date)
-      )
-      .subscribe((date) => {
-        this.updateFilter('date', new Date(date));
-      });
+    this.updateFilter('date', new Date(this.dateParam()));
   }
 
   protected updateFilter(key: string, value) {
@@ -123,6 +121,51 @@ export class ActivityPageComponent implements OnInit {
       });
   }
 
+  editActivity(activity: Activity) {
+    const {
+      id,
+      employeeId,
+      date,
+      projectId,
+      projectName,
+      workedTime,
+      ...activityWithoutUnecessary
+    } = activity;
+    this.dialog
+      .open(ActivityModalComponent, {
+        data: {
+          activity: {
+            ...activityWithoutUnecessary,
+          },
+          activityProjects: this.projects(),
+          activityTypes: Object.values(this.activityTypes()),
+        },
+        panelClass: 'full-width-dialog',
+      })
+      .afterClosed()
+      .pipe(
+        filter((activity: Activity) => !!activity),
+        take(1)
+      )
+      .subscribe(({ project, ...updatedActivity }: Activity) => {
+        this.store.editActivity({
+          ...updatedActivity,
+          projectId: project?.id,
+          id: activity?.id,
+        });
+      });
+  }
+
+  deleteActivity(id: string) {
+    this.dialog
+      .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
+      .afterClosed()
+      .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
+      .subscribe((_) => {
+        this.store.delete(id);
+      });
+  }
+  
   // duplicateActivity(activity: Activity) {
   //   this.dialog
   //     .open(DuplicateActivityModalComponent, {
@@ -138,114 +181,5 @@ export class ActivityPageComponent implements OnInit {
   //       take(1)
   //     )
   //     .subscribe();
-  // }
-
-  // navigateToPreviousDate() {
-  //   this.updateFilter('date'.)
-  //   this.filter.update((filters) => {
-  //     const nextDate = new Date(filters?.date);
-  //     nextDate.setDate(filters?.date.getDate() - 1);
-  //     return { date: nextDate };
-  //   });
-  // }
-
-  // navigateToNextDate() {
-  //   this.filters.update((filters) => {
-  //     const nextDate = new Date(filters?.date);
-  //     nextDate.setDate(filters?.date.getDate() + 1);
-  //     return { date: nextDate };
-  //   });
-  // }
-
-  // editActivity(activity: Activity) {
-  //   const {
-  //     id,
-  //     employeeId,
-  //     date,
-  //     projectId,
-  //     project,
-  //     workedTime,
-  //     ...activityWithoutUnecessary
-  //   } = activity;
-  //   this.dialog
-  //     .open(ActivityModalComponent, {
-  //       data: {
-  //         activity: {
-  //           ...activityWithoutUnecessary,
-  //           projectName: activity?.project?.projectName
-  //             ? activity?.project?.projectName
-  //             : 'other',
-  //         },
-  //         activityProjects: this.projects(),
-  //         activityTypes: Object.values(this.activityTypes()),
-  //       },
-  //       panelClass: 'full-width-dialog',
-  //     })
-  //     .afterClosed()
-  //     .pipe(
-  //       filter((activity: Activity) => !!activity),
-  //       switchMap((updatedActivity: Activity) => {
-  //         const { projectName, ...updatedActivityWithoutProjectName } =
-  //           updatedActivity;
-  //         return this.service
-  //           .updateActivity({
-  //             ...updatedActivityWithoutProjectName,
-  //             id: activity?.id,
-  //             employeeId: activity?.employeeId,
-  //             date: activity?.date,
-  //             projectId:
-  //               this.projects()?.find(
-  //                 (project) =>
-  //                   project?.projectName === updatedActivity?.projectName
-  //               )?.id || null,
-  //           })
-  //           .pipe(takeUntilDestroyed(this.destroyRef));
-  //       }),
-  //       take(1)
-  //     )
-  //     .subscribe((updatedActivity: Activity) => {
-  //       // TODO update state in store
-  //       // this.activities().update((activities) => {
-  //       //   // TODO handle 'other' project id in backend
-  //       //   if (this.filters().project?.id)
-  //       //     return activities
-  //       //       .map((activity) => {
-  //       //         if (updatedActivity?.id === activity?.id)
-  //       //           return updatedActivity;
-  //       //         return activity;
-  //       //       })
-  //       //       .filter(
-  //       //         (activity) =>
-  //       //           activity?.project?.id === this.filters().project.id ||
-  //       //           (this.filters().project.id === 'other' && !activity.project)
-  //       //       );
-  //       //   // base case
-  //       //   return activities.map((activity) => {
-  //       //     if (updatedActivity?.id === activity?.id) return updatedActivity;
-  //       //     return activity;
-  //       //   });
-  //       // });
-  //     });
-  // }
-
-  // deleteActivity(id: string) {
-  //   this.dialog
-  //     .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
-  //     .afterClosed()
-  //     .pipe(
-  //       filter((deleteConfirmation) => deleteConfirmation === true),
-  //       switchMap((_) => {
-  //         return this.service
-  //           .deleteActivity(id)
-  //           .pipe(takeUntilDestroyed(this.destroyRef));
-  //       }),
-  //       take(1)
-  //     )
-  //     .subscribe((_) => {
-  //       // TODO update state in store
-  //       // this.activities().update((activities) =>
-  //       //   activities.filter((activity) => activity.id !== id)
-  //       // );
-  //     });
   // }
 }
