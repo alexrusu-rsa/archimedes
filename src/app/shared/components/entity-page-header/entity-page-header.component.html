@@ -10,7 +10,7 @@
 @if (hasDatePicker()) {
 <mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
     <mat-label>{{ "shared.entity.header.date" | translate }}</mat-label>
-    <input matInput [matDatepicker]="datePicker" [value]="filters().date"
+    <input matInput [matDatepicker]="datePicker" [value]="filter()?.date"
         (dateChange)="datePickerValueChanged.emit($event.value)" />
     <mat-datepicker-toggle [for]="datePicker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #datePicker touchUi></mat-datepicker>
@@ -21,7 +21,7 @@
 <mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
     <mat-label>{{ "shared.entity.header.select" | translate }}</mat-label>
     <mat-select (selectionChange)="selectValueChanged.emit($event?.value)">
-        <mat-select-trigger>{{filters().project?.projectName}}</mat-select-trigger>
+        <mat-select-trigger>{{filter()?.project?.projectName}}</mat-select-trigger>
         <mat-option default>{{"shared.entity.header.all" | translate}}</mat-option>
         @for (project of selectOptions(); track $index) {
         <mat-option [value]="project" required="true" ngDefaultControl>
