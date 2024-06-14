@@ -15,6 +15,7 @@ import { LocalStorageService } from '../services/localstorage-service/localstora
 import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
 import { DatePipe } from '@angular/common';
 import { tapResponse } from '@ngrx/operators';
+import { ActivityDuplication } from 'src/app/features/activity/models/activity-duplication.model';
 
 type ActivityState = {
   activities: Activity[];
@@ -253,6 +254,47 @@ export const ActivityStore = signalStore(
                       .activities()
                       .filter((activity) => activity.id !== id),
                   });
+                },
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+                finalize: () => patchState(store, { isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+      duplicateActivity: rxMethod<ActivityDuplication>(
+        pipe(
+          debounceTime(300),
+          switchMap((activityDuplication: ActivityDuplication) =>
+            activityService.addDuplicates(activityDuplication).pipe(
+              tapResponse({
+                next: (_) => {
+                  const dateInRange = ({
+                    activity,
+                    startDate,
+                    endDate,
+                  }: ActivityDuplication) => {
+                    // Parse activity.date from string to Date
+                    const [day, month, year] = activity.date
+                      .split('/')
+                      .map(Number);
+                    const activityDate = new Date(year, month - 1, day); // Note: month is zero-based in JavaScript Date
+
+                    // Check if activityDate is between startDate and endDate
+                    return activityDate >= startDate && activityDate <= endDate;
+                  };
+
+                  console.log(dateInRange(activityDuplication));
+
+                  if (dateInRange(activityDuplication))
+                    patchState(store, {
+                      isLoading: true,
+                      activities: [
+                        ...store.activities(),
+                        activityDuplication.activity,
+                      ],
+                    });
                 },
                 // eslint-disable-next-line no-console
                 error: (error) => console.error(error),

@@ -12,9 +12,9 @@
             <button (click)="editActivity(activity)" mat-icon-button aria-label="Edit activity button" type="button">
                 <mat-icon color="accent">{{icons.edit}}</mat-icon>
             </button>
-            <!-- <button (click)="duplicateActivity(activity)" mat-icon-button aria-label="Duplicate activity button">
+            <button (click)="duplicateActivity(activity)" mat-icon-button aria-label="Duplicate activity button">
                 <mat-icon color="accent">{{icons.control_point_duplicate}}</mat-icon>
-            </button> -->
+            </button>
             <button (click)="deleteActivity(activity.id)" mat-icon-button aria-label="Delete activity button"
                 type="button">
                 <mat-icon color="accent">{{icons.delete}}</mat-icon>
@@ -34,10 +34,10 @@
             <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
         </button>
         <div class="col-12 d-flex flex-row justify-content-end">
-            <button mat-icon-button class="col-1 mx-1" (click)="store.nextDate()">
+            <button mat-icon-button class="col-1 mx-1" (click)="store.previousDate()">
                 <mat-icon color="accent">{{icons.keyboard_arrow_left}}</mat-icon>
             </button>
-            <button mat-icon-button class="col-1 mx-1" (click)="store.previousDate()">
+            <button mat-icon-button class="col-1 mx-1" (click)="store.nextDate()">
                 <mat-icon color="accent">{{icons.keyboard_arrow_right}}</mat-icon>
             </button>
         </div>

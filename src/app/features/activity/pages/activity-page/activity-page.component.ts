@@ -15,7 +15,7 @@ import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, take } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,6 +29,10 @@ import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import {
+  DuplicateActivityModalComponent,
+  duplicateActivityModalPreset,
+} from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
 
 @Component({
   selector: 'app-activity-page',
@@ -165,21 +169,17 @@ export class ActivityPageComponent implements OnInit {
         this.store.delete(id);
       });
   }
-  
-  // duplicateActivity(activity: Activity) {
-  //   this.dialog
-  //     .open(DuplicateActivityModalComponent, {
-  //       ...duplicateActivityModalPreset,
-  //       data: activity,
-  //     })
-  //     .afterClosed()
-  //     .pipe(
-  //       filter((activityDuplication) => !!activityDuplication),
-  //       switchMap((activityDuplication) =>
-  //         this.service.addDuplicates(activityDuplication)
-  //       ),
-  //       take(1)
-  //     )
-  //     .subscribe();
-  // }
+
+  duplicateActivity(activity: Activity) {
+    this.dialog
+      .open(DuplicateActivityModalComponent, {
+        ...duplicateActivityModalPreset,
+        data: activity,
+      })
+      .afterClosed()
+      .pipe(filter((activityDuplication) => !!activityDuplication))
+      .subscribe((activityDuplication) => {
+        this.store.duplicateActivity(activityDuplication);
+      });
+  }
 }
