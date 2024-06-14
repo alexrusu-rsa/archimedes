@@ -15,7 +15,7 @@ import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, switchMap } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,6 +25,10 @@ import { ActivityStore } from 'src/app/shared/store/activity.store';
 import { ActivityModalComponent } from '../../components/activity-modal/activity-modal.component';
 import { Activity } from 'src/app/shared/models/activity';
 import { ActivityService } from '../../services/activity-service/activity.service';
+import {
+  DeleteConfirmationModalComponent,
+  deleteConfirmationModalPreset,
+} from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-activity-page',
@@ -74,22 +78,6 @@ export class ActivityPageComponent implements OnInit {
       });
   }
 
-  addActivity() {
-    this.dialog
-      .open(ActivityModalComponent, {
-        data: {
-          activityProjects: this.projects(),
-          activityTypes: Object.values(this.activityTypes()),
-        },
-        panelClass: 'full-width-dialog',
-      })
-      .afterClosed()
-      .pipe(filter((activity: Activity) => !!activity))
-      .subscribe((activity: Activity) => {
-        this.store.addActivity(activity);
-      });
-  }
-
   protected updateFilter(key: string, value) {
     switch (key) {
       case 'date':
@@ -109,25 +97,31 @@ export class ActivityPageComponent implements OnInit {
     }
   }
 
-  // deleteAllActivity() {
-  //   this.dialog
-  //     .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
-  //     .afterClosed()
-  //     .pipe(
-  //       filter((deleteConfirmation) => deleteConfirmation === true),
-  //       switchMap((_) => {
-  //         return this.service.deleteAllActivitiesOfUserDay(
-  //           this.localStorage.userId,
-  //           this.datePipe.transform(this.store.filter()?.date, 'yyyy-MM-dd')
-  //         );
-  //       }),
-  //       take(1)
-  //     )
-  //     .subscribe((_) => {
-  //       // TODO update state in store
-  //       // this.activities().set([]);
-  //     });
-  // }
+  addActivity() {
+    this.dialog
+      .open(ActivityModalComponent, {
+        data: {
+          activityProjects: this.projects(),
+          activityTypes: Object.values(this.activityTypes()),
+        },
+        panelClass: 'full-width-dialog',
+      })
+      .afterClosed()
+      .pipe(filter((activity: Activity) => !!activity))
+      .subscribe((activity: Activity) => {
+        this.store.addActivity(activity);
+      });
+  }
+
+  deleteAllActivity() {
+    this.dialog
+      .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
+      .afterClosed()
+      .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
+      .subscribe((_) => {
+        this.store.deleteAllActivity();
+      });
+  }
 
   // duplicateActivity(activity: Activity) {
   //   this.dialog

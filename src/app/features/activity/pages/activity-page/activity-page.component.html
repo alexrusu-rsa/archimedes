@@ -1,8 +1,8 @@
 <!--  
- (deleteAll)="deleteAllActivity()" -->
+ -->
 <app-entity-page-header [selectOptions]="projects()" [hasDatePicker]="true" [hasDeleteAll]="true" [hasAddEntity]="true"
     (addEntity)="addActivity()" (datePickerValueChanged)="updateFilter('date', $event)" [filter]="store.filter()"
-    (selectValueChanged)="updateFilter('project', $event)"
+    (deleteAll)="deleteAllActivity()" (selectValueChanged)="updateFilter('project', $event)"
     class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
 
 <div class="d-flex flex-column h-100">

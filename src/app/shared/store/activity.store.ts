@@ -15,7 +15,6 @@ import { LocalStorageService } from '../services/localstorage-service/localstora
 import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
 import { DatePipe } from '@angular/common';
 import { tapResponse } from '@ngrx/operators';
-import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 
 type ActivityState = {
   activities: Activity[];
@@ -37,7 +36,6 @@ export const ActivityStore = signalStore(
       store,
       activityService = inject(ActivityService),
       localStorage = inject(LocalStorageService),
-      projectService = inject(ProjectService),
       datePipe = inject(DatePipe)
     ) => ({
       updateFilter(filter: ActivityFilter) {
@@ -94,6 +92,7 @@ export const ActivityStore = signalStore(
                   next: (activity: Activity) => {
                     if (!store.filter()?.project)
                       patchState(store, {
+                        isLoading: true,
                         activities: [...store.activities(), activity],
                       });
                     else {
@@ -102,14 +101,42 @@ export const ActivityStore = signalStore(
                         !activity?.project
                       )
                         patchState(store, {
+                          isLoading: true,
                           activities: [...store.activities(), activity],
                         });
 
                       if (store.filter()?.project?.id === activity?.project?.id)
                         patchState(store, {
+                          isLoading: true,
                           activities: [...store.activities(), activity],
                         });
                     }
+                  },
+                  // eslint-disable-next-line no-console
+                  error: (error) => console.error(error),
+                  finalize: () => patchState(store, { isLoading: false }),
+                })
+              )
+          )
+        )
+      ),
+      deleteAllActivity: rxMethod<void>(
+        pipe(
+          switchMap((_) =>
+            activityService
+              .deleteAllActivitiesOfUserDay(
+                localStorage?.userId,
+                datePipe
+                  .transform(store.filter()?.date, 'yyyy-MM-dd')
+                  .toString()
+              )
+              .pipe(
+                tapResponse({
+                  next: (_) => {
+                    patchState(store, {
+                      isLoading: true,
+                      activities: [],
+                    });
                   },
                   // eslint-disable-next-line no-console
                   error: (error) => console.error(error),
