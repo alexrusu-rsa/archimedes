@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   activatedRoute = signal('');
   displayBookedTimeWidget = computed(
     () =>
-      this.activatedRoute() !== '/activity' &&
+      !!this.bookedTimeService.displayDate() &&
       !!this.bookedTimeService.bookedTime() &&
       !!this.bookedTimeService.alocatedTime()
   );

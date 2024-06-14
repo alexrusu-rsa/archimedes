@@ -1,6 +1,7 @@
-@if(bookedTime() && alocatedTime()){
 <mat-card>
-    <mat-card-subtitle>Today</mat-card-subtitle>
+    @if(displayDate()){
+    <mat-card-subtitle>{{displayDate() | date}}</mat-card-subtitle>
+    }
     <mat-card-title class="mb-1 mt-2">{{bookedTime() | appTime}} / {{alocatedTime() | appTime}}</mat-card-title>
     <mat-progress-bar class="mb-1" mode="buffer" color="accent"
         value="{{bookedTime() | appBookedPercentage: alocatedTime()}}"></mat-progress-bar>
@@ -12,4 +13,3 @@
         </button>
     </mat-card-footer>
 </mat-card>
-}

@@ -23,6 +23,7 @@ export class BookedTimeService {
     this.calculateTotalWorkingTime(this.store.activities())
   );
   alocatedTime = computed(() => this.rawAlocatedTime());
+  displayDate = computed(() => this.store.filter().date);
 
   private calculateTotalWorkingTime(activities: Activity[]): string {
     if (!activities) return '00:00';

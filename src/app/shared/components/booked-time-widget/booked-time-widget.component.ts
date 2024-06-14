@@ -39,6 +39,7 @@ import { User } from '../../models/user';
 })
 export class BookedTimeWidgetComponent {
   icons = Icons;
+  displayDate = input(new Date());
   bookedTime = input('');
   alocatedTime = input('');
   user = input<User>();
