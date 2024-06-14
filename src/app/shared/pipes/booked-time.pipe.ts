@@ -1,18 +1,12 @@
-import { Injectable, computed, inject } from '@angular/core';
+import { Pipe, type PipeTransform } from '@angular/core';
 import { Activity } from '../models/activity';
-import { ActivityStore } from '../../features/activity/store/activity.store';
 
-@Injectable({
-  providedIn: 'root',
+@Pipe({
+  name: 'appBookedTime',
+  standalone: true,
 })
-export class BookedTimeService {
-  private store = inject(ActivityStore);
-  bookedTime = computed(() =>
-    this.calculateTotalWorkingTime(this.store.activities())
-  );
-  displayDate = computed(() => this.store.filter().date);
-
-  private calculateTotalWorkingTime(activities: Activity[]): string {
+export class BookedTimePipe implements PipeTransform {
+  transform(activities: Activity[]): string {
     if (!activities) return '00:00';
     let totalMinutes = 0;
 
