@@ -1,18 +1,19 @@
-<mat-card class="row mx-0 px-0 mb-3" [ngClass]="{'secondary-card':nestedCard()}">
+<mat-card class="p-2" [ngClass]="{'secondary-card':nestedCard()}">
     @if(title()){
-    <mat-card-title class="d-flex align-items-center gap-1 text-white">
-        @if (emptyIcon()) {
-        <mat-icon>{{emptyIcon()}}</mat-icon>
+    <mat-card-header [ngClass]="{'p-2': emptyIcon()}">
+        <mat-card-title class="d-flex align-items-center gap-1 text-white">
+            @if (emptyIcon()) {
+            <mat-icon>{{emptyIcon()}}</mat-icon>
+            }
+            {{ title() }}
+        </mat-card-title>
+
+        @if (subtitle()) {
+        <mat-card-subtitle>
+            {{ subtitle() }}
+        </mat-card-subtitle>
         }
-        {{ title() }}
-    </mat-card-title>
-    }
-
-
-    @if (subtitle()) {
-    <mat-card-subtitle>
-        {{ subtitle() }}
-    </mat-card-subtitle>
+    </mat-card-header>
     }
 
     @if(chips()?.length>0){

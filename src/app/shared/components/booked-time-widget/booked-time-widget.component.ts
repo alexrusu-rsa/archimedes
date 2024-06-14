@@ -3,7 +3,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import {
   MatCard,
-  MatCardFooter,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
@@ -22,9 +24,11 @@ import { User } from '../../models/user';
   imports: [
     CommonModule,
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardSubtitle,
-    MatCardFooter,
+    MatCardContent,
+    MatCardActions,
     MatProgressBarModule,
     MatButton,
     MatIcon,
