@@ -16,15 +16,20 @@ import { ActivityFilter } from 'src/app/features/activity/models/activity-filter
 import { DatePipe } from '@angular/common';
 import { tapResponse } from '@ngrx/operators';
 import { ActivityDuplication } from 'src/app/features/activity/models/activity-duplication.model';
+import { ProjectService } from '../../project/services/project-service/project.service';
 
 type ActivityState = {
   activities: Activity[];
+  activityTypes: string[];
+  projects: Project[];
   isLoading: boolean;
   filter: { project?: Project; date?: Date };
 };
 
 const initialState: ActivityState = {
   activities: [],
+  activityTypes: [],
+  projects: [],
   isLoading: false,
   filter: { project: null, date: new Date() },
 };
@@ -36,12 +41,49 @@ export const ActivityStore = signalStore(
     (
       store,
       activityService = inject(ActivityService),
+      projectService = inject(ProjectService),
       localStorage = inject(LocalStorageService),
       datePipe = inject(DatePipe)
     ) => ({
       updateFilter(filter: ActivityFilter) {
         patchState(store, { filter });
       },
+      loadActivityTypes: rxMethod<void>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap(() =>
+            activityService.getAllActivityTypes().pipe(
+              tapResponse({
+                next: (activityTypes) =>
+                  patchState(store, {
+                    activityTypes: Object.values(activityTypes),
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+              })
+            )
+          )
+        )
+      ),
+      loadProjects: rxMethod<void>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap(() =>
+            projectService.getProjectsUser(localStorage?.userId).pipe(
+              tapResponse({
+                next: (projects: Project[]) =>
+                  patchState(store, {
+                    projects,
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+              })
+            )
+          )
+        )
+      ),
       loadActivitiesByFilter: rxMethod<ActivityFilter>(
         pipe(
           debounceTime(300),
@@ -315,8 +357,15 @@ export const ActivityStore = signalStore(
     })
   ),
   withHooks({
-    onInit({ loadActivitiesByFilter, filter }) {
+    onInit({
+      loadActivitiesByFilter,
+      filter,
+      loadActivityTypes,
+      loadProjects,
+    }) {
       loadActivitiesByFilter(filter);
+      loadProjects();
+      loadActivityTypes();
     },
   })
 );

@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  computed,
   inject,
 } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -13,18 +12,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderByPipe } from '../../pipes/order-by.pipe';
 import { WorkedTimePipe } from '../../pipes/worked-time.pipe';
 import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { ActivityModalComponent } from '../../components/activity-modal/activity-modal.component';
 import { Activity } from 'src/app/shared/models/activity';
-import { ActivityService } from '../../services/activity-service/activity.service';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
@@ -56,9 +52,6 @@ import {
 })
 export class ActivityPageComponent implements OnInit {
   public readonly store = inject(ActivityStore);
-  private readonly service = inject(ActivityService);
-  private readonly projectService = inject(ProjectService);
-  private readonly localStorage = inject(LocalStorageService);
   private readonly dialog = inject(MatDialog);
   private readonly dateParam = toSignal(
     inject(ActivatedRoute).queryParams.pipe(
@@ -67,14 +60,6 @@ export class ActivityPageComponent implements OnInit {
     )
   );
   protected readonly icons = Icons;
-  protected projects = toSignal(
-    this.projectService.getProjectsUser(this.localStorage.userId),
-    { initialValue: [] }
-  );
-  protected activities = computed(() => this.store.activities());
-  protected activityTypes = toSignal(this.service.getAllActivityTypes(), {
-    initialValue: {},
-  });
 
   ngOnInit() {
     if (this.dateParam()) this.updateFilter('date', new Date(this.dateParam()));
@@ -104,8 +89,8 @@ export class ActivityPageComponent implements OnInit {
     this.dialog
       .open(ActivityModalComponent, {
         data: {
-          activityProjects: this.projects(),
-          activityTypes: Object.values(this.activityTypes()),
+          activityProjects: this.store.projects(),
+          activityTypes: this.store.activityTypes(),
         },
         panelClass: 'full-width-dialog',
       })
@@ -142,8 +127,8 @@ export class ActivityPageComponent implements OnInit {
           activity: {
             ...activityWithoutUnecessary,
           },
-          activityProjects: this.projects(),
-          activityTypes: Object.values(this.activityTypes()),
+          activityProjects: this.store.projects(),
+          activityTypes: this.store.activityTypes(),
         },
         panelClass: 'full-width-dialog',
       })

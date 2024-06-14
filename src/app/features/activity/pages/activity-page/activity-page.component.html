@@ -1,10 +1,10 @@
-<app-entity-page-header [selectOptions]="projects()" [hasDatePicker]="true" [hasDeleteAll]="true" [hasAddEntity]="true"
-    (addEntity)="addActivity()" (datePickerValueChanged)="updateFilter('date', $event)" [filter]="store.filter()"
-    (deleteAll)="deleteAllActivity()" (selectValueChanged)="updateFilter('project', $event)"
+<app-entity-page-header [selectOptions]="store.projects()" [hasDatePicker]="true" [hasDeleteAll]="true"
+    [hasAddEntity]="true" (addEntity)="addActivity()" (datePickerValueChanged)="updateFilter('date', $event)"
+    [filter]="store.filter()" (deleteAll)="deleteAllActivity()" (selectValueChanged)="updateFilter('project', $event)"
     class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
 
 <div class="d-flex flex-column h-100">
-    @for (activity of activities() | appOrderBy; track $index) {
+    @for (activity of store.activities() | appOrderBy; track $index) {
     <app-entity-item [title]="activity.name"
         subtitle="{{activity.start}} - {{activity.end}} {{activity.workedTime | appWorkedTime}}"
         [chips]="[activity?.project?.projectName ? activity?.project?.projectName : ('activity.shared.other' | translate)]">
@@ -23,7 +23,7 @@
     </app-entity-item>
     }
 
-    @if (activities()?.length <= 0) { <app-entity-item
+    @if (store.activities()?.length <= 0) { <app-entity-item
         [title]="'shared.entity.item.empty.listEmpty' | translate:{entity:'activities for '+this.store.filter()?.date?.toLocaleDateString()}"
         [emptyIcon]="icons.info">
         </app-entity-item>
