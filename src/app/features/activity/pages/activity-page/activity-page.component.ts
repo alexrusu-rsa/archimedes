@@ -21,7 +21,7 @@ import { ProjectService } from 'src/app/features/project/services/project-servic
 import { MatDialog } from '@angular/material/dialog';
 import { OrderByPipe } from '../../pipes/order-by.pipe';
 import { WorkedTimePipe } from '../../pipes/worked-time.pipe';
-import { ActivityStore } from 'src/app/shared/store/activity.store';
+import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { ActivityModalComponent } from '../../components/activity-modal/activity-modal.component';
 import { Activity } from 'src/app/shared/models/activity';
 import { ActivityService } from '../../services/activity-service/activity.service';

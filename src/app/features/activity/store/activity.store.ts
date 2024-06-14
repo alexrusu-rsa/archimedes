@@ -1,17 +1,11 @@
 import { inject } from '@angular/core';
-import {
-  patchState,
-  signalStore,
-  withHooks,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { Activity } from 'src/app/shared/models/activity';
 import { Project } from 'src/app/shared/models/project';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { debounceTime, distinctUntilChanged, pipe, switchMap, tap } from 'rxjs';
-import { LocalStorageService } from '../services/localstorage-service/localstorage.service';
+import { LocalStorageService } from '../../../shared/services/localstorage-service/localstorage.service';
 import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
 import { DatePipe } from '@angular/common';
 import { tapResponse } from '@ngrx/operators';
@@ -50,7 +44,7 @@ export const ActivityStore = signalStore(
           switchMap((filter: ActivityFilter) =>
             activityService
               .getActivitiesByDateEmployeeId(
-                localStorage.userId,
+                localStorage?.userId,
                 datePipe.transform(filter?.date, 'dd/MM/yyyy')
               )
               .pipe(
@@ -313,10 +307,5 @@ export const ActivityStore = signalStore(
         patchState(store, { filter: { date: nextDate, project: null } });
       },
     })
-  ),
-  withHooks({
-    onInit({ loadActivitiesByFilter, filter }) {
-      loadActivitiesByFilter(filter);
-    },
-  })
+  )
 );
