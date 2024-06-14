@@ -1,5 +1,11 @@
 import { inject } from '@angular/core';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import {
+  patchState,
+  signalStore,
+  withHooks,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { Activity } from 'src/app/shared/models/activity';
 import { Project } from 'src/app/shared/models/project';
@@ -307,5 +313,10 @@ export const ActivityStore = signalStore(
         patchState(store, { filter: { date: nextDate, project: null } });
       },
     })
-  )
+  ),
+  withHooks({
+    onInit({ loadActivitiesByFilter, filter }) {
+      loadActivitiesByFilter(filter);
+    },
+  })
 );

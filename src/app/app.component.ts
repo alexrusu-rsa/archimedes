@@ -1,11 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  OnInit,
-  Signal,
-  computed,
-  inject,
-} from '@angular/core';
+import { Component, DestroyRef, OnInit, Signal, inject } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './core/auth/services/auth-service/auth.service';
@@ -14,7 +7,6 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Icons } from './shared/models/icons.enum';
 import { filter, map, of, switchMap } from 'rxjs';
 import { User } from './shared/models/user';
-import { BookedTimeService } from './shared/services/booked-time.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +15,6 @@ import { BookedTimeService } from './shared/services/booked-time.service';
 })
 export class AppComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
-  public readonly bookedTimeService = inject(BookedTimeService);
   private readonly translate = inject(TranslateService);
   public readonly auth = inject(AuthService);
   private readonly router = inject(Router);
@@ -37,7 +28,7 @@ export class AppComponent implements OnInit {
       }),
       takeUntilDestroyed(this.destroyRef)
     ),
-    null
+    { initialValue: null }
   );
   protected pageTitle = toSignal(
     this.router.events.pipe(
@@ -47,20 +38,13 @@ export class AppComponent implements OnInit {
       })
     )
   );
-  private activatedRoute = toSignal(
+  protected activatedRoute = toSignal(
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map((event: NavigationEnd) => {
         return event.urlAfterRedirects;
       })
     )
-  );
-  protected displayBookedTimeWidget = computed(
-    () =>
-      this.activatedRoute()?.includes('/activity') &&
-      !!this.bookedTimeService.displayDate() &&
-      !!this.bookedTimeService.bookedTime() &&
-      !!this.user()?.timePerDay
   );
 
   ngOnInit() {

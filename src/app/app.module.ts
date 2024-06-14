@@ -34,7 +34,7 @@ import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
 import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
-import { BookedTimeWidgetComponent } from './shared/components/booked-time-widget/booked-time-widget.component';
+import { RightSectionComponent } from './core/layout/components/right-section/right-section.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { BookedTimeWidgetComponent } from './shared/components/booked-time-widge
     CustomerfromprojectidPipe,
     SettingsPageComponent,
     LoginComponent,
-    BookedTimeWidgetComponent,
+    RightSectionComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

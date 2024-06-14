@@ -75,13 +75,22 @@ export class BookedMessagePipe implements PipeTransform {
         `Fantastic effort, ${userName}, keep booking!`,
       ];
       message = messages[Math.floor(Math.random() * messages.length)];
-    } else {
+    } else if (percentage === 100) {
       const messages = [
         `Congratulations, ${userName}, you've booked 100%!`,
         `Well done, ${userName}, you've reached 100%!`,
         `Great job, ${userName}, you've achieved 100%!`,
         `Mission accomplished, ${userName}! You've booked 100%!`,
         `Fantastic job, ${userName}, you've reached your goal!`,
+      ];
+      message = messages[Math.floor(Math.random() * messages.length)];
+    } else if (percentage > 100) {
+      const messages = [
+        `Woah, ${userName}, you've booked more than 100%!`,
+        `Well done, ${userName}, you overachieved!`,
+        `Great job, ${userName}, you've achieved 100% and more!`,
+        `Mission overaccomplished, ${userName}! You've booked more than 100%!`,
+        `Fantastic job, ${userName}, you've passed your goal!`,
       ];
       message = messages[Math.floor(Math.random() * messages.length)];
     }

@@ -20,10 +20,7 @@
     </section>
 
     <section class="d-xl-flex d-lg-flex d-md-none d-sm-none d-none col-2" #right *ngIf="user()?.id">
-      @if(displayBookedTimeWidget()){
-      <app-booked-time-widget [bookedTime]="bookedTimeService.bookedTime()"
-        [displayDate]="bookedTimeService.displayDate()" [user]="user()"></app-booked-time-widget>
-      }
+      <app-right-section [user]="user()" [activatedRoute]="activatedRoute()"></app-right-section>
     </section>
   </mat-sidenav-content>
 </mat-sidenav-container>
