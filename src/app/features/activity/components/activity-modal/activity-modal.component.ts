@@ -23,9 +23,13 @@ import {
   MatDialogClose,
   MatDialogContent,
 } from '@angular/material/dialog';
-import { MatLabel, MatHint, MatFormField } from '@angular/material/form-field';
+import {
+  MatLabel,
+  MatHint,
+  MatFormFieldModule,
+} from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
@@ -46,10 +50,10 @@ import { Project } from 'src/app/shared/models/project';
     MatLabel,
     MatIcon,
     MatHint,
-    MatFormField,
+    MatFormFieldModule,
     MatButton,
     MatIconButton,
-    MatInput,
+    MatInputModule,
     MatSelectModule,
     MatOptionModule,
     MatAutocompleteModule,
@@ -73,7 +77,7 @@ export class ActivityModalComponent implements OnInit {
       name: ['', Validators.required],
       start: ['', Validators.required],
       end: ['', Validators.required],
-      projectName: ['', Validators.required],
+      project: [null, Validators.required],
       activityType: ['', Validators.required],
       description: [''],
       extras: [''],
@@ -92,5 +96,9 @@ export class ActivityModalComponent implements OnInit {
         id: this.data?.activity.id,
       });
     if (!this.data?.activity) this.dialogRef.close(this.activityForm.value);
+  }
+
+  protected displayName(project) {
+    return project?.projectName ? project?.projectName : '';
   }
 }

@@ -19,7 +19,7 @@ import {
   MatNativeDateModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { ActivityFilters } from 'src/app/features/activity/models/activity-filters.model';
+import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
 
 @Component({
   selector: 'app-entity-page-header',
@@ -48,7 +48,7 @@ export class EntityPageHeaderComponent {
   searchPlaceholder = input<string>();
   searchKeyUp = output<Event>();
 
-  filters = input<ActivityFilters>();
+  filter = input<ActivityFilter>();
 
   hasDatePicker = input(false);
   datePickerValueChanged = output<Date>();

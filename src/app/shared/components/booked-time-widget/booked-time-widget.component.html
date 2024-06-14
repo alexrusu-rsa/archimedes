@@ -1,0 +1,15 @@
+<mat-card>
+    @if(displayDate()){
+    <mat-card-subtitle>{{displayDate() | date}}</mat-card-subtitle>
+    }
+    <mat-card-title class="mb-1 mt-2">{{bookedTime() | appTime}} / {{user()?.timePerDay| appTime}}</mat-card-title>
+    <mat-progress-bar class="mb-1" mode="buffer" color="accent"
+        value="{{bookedTime() | appBookedPercentage: user().timePerDay}}"></mat-progress-bar>
+    <mat-card-footer>
+        <mat-card-subtitle>{{bookedTime() | appBookedMessage: user()?.timePerDay:user()?.surname}}</mat-card-subtitle>
+        <button mat-raised-button class="secondary-card col-12 mt-2" aria-label="Create activity button" type="button"
+            routerLink="activity">
+            <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
+        </button>
+    </mat-card-footer>
+</mat-card>

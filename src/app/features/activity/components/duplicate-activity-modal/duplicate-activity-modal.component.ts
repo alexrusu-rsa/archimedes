@@ -69,8 +69,8 @@ import { Icons } from 'src/app/shared/models/icons.enum';
 export class DuplicateActivityModalComponent {
   protected readonly icons = Icons;
   public activity: Activity = inject(MAT_DIALOG_DATA);
-  protected start: WritableSignal<Date> = signal(new Date());
-  protected end: WritableSignal<Date> = signal(new Date());
+  protected startDate: WritableSignal<Date> = signal(new Date());
+  protected endDate: WritableSignal<Date> = signal(new Date());
 }
 
 export const duplicateActivityModalPreset = {

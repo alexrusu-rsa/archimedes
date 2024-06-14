@@ -52,18 +52,17 @@
         </mat-form-field>
         <mat-form-field class="mx-0 px-0" appearance="fill">
             <mat-label>{{ "activity.dialog.project" | translate }}</mat-label>
-            <input type="text" aria-label="Project" matInput [value]="activityForm.controls['projectName']?.value"
-                formControlName="projectName" [matAutocomplete]="auto" />
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option value="other">{{
-                    'activity.shared.other' | translate
-                    }}</mat-option>
+            <input type="text" aria-label="Project" matInput formControlName="project" [matAutocomplete]="auto" />
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName.bind(this)">
                 @if (data?.activityProjects?.length>0) {
                 @for (project of data?.activityProjects; track $index) {
-                <mat-option [value]="project?.projectName" ngDefaultControl>{{
+                <mat-option [value]="project" ngDefaultControl>{{
                     project?.projectName }}</mat-option>
                 }
                 }
+                <mat-option [value]="{id:'other', projectName:'other'}">{{
+                    'activity.shared.other' | translate
+                    }}</mat-option>
             </mat-autocomplete>
         </mat-form-field>
         <mat-form-field class="mx-0 px-0" appearance="fill">

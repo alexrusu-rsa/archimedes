@@ -26,6 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'activity',
+    title: 'Activity',
     loadComponent: () =>
       import(
         './features/activity/pages/activity-page/activity-page.component'
