@@ -1,33 +1,26 @@
 import { Injectable, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { LocalStorageService } from './localstorage-service/localstorage.service';
-import { DatePipe } from '@angular/common';
 import { Activity } from '../models/activity';
 import { UserService } from 'src/app/features/user/services/user-service/user.service';
 import { map } from 'rxjs';
+import { ActivityStore } from '../store/activity.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookedTimeService {
-  private service = inject(ActivityService);
   private localStorage = inject(LocalStorageService);
-  private datePipe = inject(DatePipe);
   private userService = inject(UserService);
-  private activities = toSignal(
-    this.service.getActivitiesByDateEmployeeId(
-      this.localStorage.userId,
-      this.datePipe.transform(new Date(), 'dd/MM/yyyy')
-    )
-  );
+  private store = inject(ActivityStore);
+
   rawAlocatedTime = toSignal(
     this.userService
       .getUserTimePerDay(this.localStorage.userId)
       .pipe(map((timePerDay) => timePerDay.toString() + ':00'))
   );
   bookedTime = computed(() =>
-    this.calculateTotalWorkingTime(this.activities())
+    this.calculateTotalWorkingTime(this.store.activities())
   );
   alocatedTime = computed(() => this.rawAlocatedTime());
 

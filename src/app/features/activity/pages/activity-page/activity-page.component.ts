@@ -15,7 +15,7 @@ import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, switchMap, take } from 'rxjs';
+import { filter, map, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -77,7 +77,8 @@ export class ActivityPageComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.updateFilter('date', new Date(this.dateParam()));
+    if (this.dateParam()) this.updateFilter('date', new Date(this.dateParam()));
+    else this.updateFilter('date', new Date());
   }
 
   protected updateFilter(key: string, value) {

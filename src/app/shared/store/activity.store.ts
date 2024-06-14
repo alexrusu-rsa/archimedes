@@ -285,8 +285,6 @@ export const ActivityStore = signalStore(
                     return activityDate >= startDate && activityDate <= endDate;
                   };
 
-                  console.log(dateInRange(activityDuplication));
-
                   if (dateInRange(activityDuplication))
                     patchState(store, {
                       isLoading: true,
