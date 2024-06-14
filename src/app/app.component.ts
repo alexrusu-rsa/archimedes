@@ -34,7 +34,8 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter((event) => event instanceof NavigationStart),
       map((event: NavigationStart) => {
-        return event?.url?.substring(1, event?.url?.length);
+        const path = event?.url?.substring(1, event?.url?.length);
+        return path.includes('?') ? path.split('?')[0] : path;
       })
     )
   );
