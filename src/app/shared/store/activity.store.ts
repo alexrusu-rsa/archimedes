@@ -83,7 +83,10 @@ export const ActivityStore = signalStore(
               .addActivity({
                 ...activity,
                 employeeId: localStorage?.userId,
-                projectId: activity?.project?.id,
+                projectId:
+                  activity?.project?.id === 'other'
+                    ? null
+                    : activity?.project?.id,
                 date: datePipe.transform(store.filter()?.date, 'dd/MM/yyyy'),
               })
               .pipe(
