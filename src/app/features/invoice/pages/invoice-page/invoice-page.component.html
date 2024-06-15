@@ -1,4 +1,4 @@
-<app-entity-page-header [hasDatePicker]="true" (datePickerValueChanged)="currentMonth.set($event)"
+<app-entity-page-header [datePickerType]="datePickerType.monthYear" (datePickerValueChanged)="currentMonth.set($event)"
     class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
 
 <div class="d-flex flex-column row-gap-3 h-100">

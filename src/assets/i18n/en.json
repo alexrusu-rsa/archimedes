@@ -9,6 +9,7 @@
       },
       "header": {
         "date": "Date",
+        "monthYear": "Month Year",
         "select": "Select a project",
         "all": "All projects",
         "search": "Search {{entity}}",

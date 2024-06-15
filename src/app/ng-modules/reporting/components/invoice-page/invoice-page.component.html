@@ -3,7 +3,7 @@
     <mat-label>{{ "invoice.page.monthAndYear" | translate }}</mat-label>
     <input matInput [matDatepicker]="datepicker" [formControl]="date" />
     <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker #datepicker startView="multi-year" (monthSelected)="setMonthAndYear($event, datepicker)"
+    <mat-datepicker #datepicker startView="year" (monthSelected)="setMonthAndYear($event, datepicker);"
       panelClass="header-month-picker">
     </mat-datepicker>
   </mat-form-field>

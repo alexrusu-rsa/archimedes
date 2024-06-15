@@ -15,6 +15,11 @@ import { Icons } from 'src/app/shared/models/icons.enum';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { Project } from 'src/app/shared/models/project';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { DatePickerType } from 'src/app/shared/models/date-picker-type.enum';
+import { Invoice } from '../../models/invoice.model';
+import { MatDialog } from '@angular/material/dialog';
+import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
+import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
 
 @Component({
   selector: 'app-invoice-page',
@@ -32,17 +37,36 @@ import { toSignal } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoicePageComponent {
-  private service = inject(ProjectService);
+  private readonly service = inject(ProjectService);
+  private readonly dialog = inject(MatDialog);
   protected readonly icons = Icons;
+  protected readonly datePickerType = DatePickerType;
   protected invoices = toSignal(this.service.getProjects(), {
     initialValue: [],
   });
-  currentMonth = signal<Date>(new Date());
+  protected readonly currentMonth = signal<Date>(new Date());
 
-  udpateDate(arg0: string, $event: Date) {
-    throw new Error('Method not implemented.');
-  }
   downloadInvoice(project: Project) {
-    throw new Error('Method not implemented.');
+    const invoice: Invoice = {
+      customer: project?.customer,
+      project: project,
+      month: this.currentMonth().getMonth().toString(),
+      year: this.currentMonth().getFullYear().toString(),
+      //TODO get internal customer from backend on login
+      series: 'RSA',
+    };
+
+    this.dialog
+      .open(InvoiceModalComponent, {
+        data: invoice,
+      })
+      .afterClosed()
+      .pipe()
+      .subscribe((invoiceDialogClosed: InvoiceDialogOnCloseResult) => {
+        const a = document.createElement('a');
+        a.href = invoiceDialogClosed?.blobUrl;
+        a.download = invoiceDialogClosed.invoiceName;
+        a.click();
+      });
   }
 }
