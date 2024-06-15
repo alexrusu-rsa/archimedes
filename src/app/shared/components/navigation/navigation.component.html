@@ -22,5 +22,9 @@
         "sidenav.invoices"
         | translate }}
     </a>
+    <a mat-list-item routerLink="invoices" (click)="closeSidenav.emit()" routerLinkActive="active">{{
+        "sidenav.invoices"
+        | translate }}
+    </a>
     }
 </mat-nav-list>

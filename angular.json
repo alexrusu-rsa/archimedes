@@ -34,7 +34,7 @@
               "src/styles/custom_theme.sass",
               "src/styles.sass"
             ],
-            "scripts": []
+            "allowedCommonJsDependencies": ["moment"]
           },
           "configurations": {
             "production": {

@@ -1,4 +1,4 @@
-<mat-card class="row mx-0 px-0 mb-3" [ngClass]="{'secondary-card':nestedCard()}">
+<mat-card class="row mx-0 px-0" [ngClass]="{'secondary-card':nestedCard()}">
     @if(title()){
     <mat-card-title class="d-flex align-items-center gap-1 text-white">
         @if (emptyIcon()) {
@@ -18,8 +18,13 @@
     @if(chips()?.length>0){
     <mat-card-content>
         <mat-chip-set>
+            @if(chipsIsArray()){
             @for (chip of chips(); track $index) {
+            @if(chip){
             <mat-chip> {{chip | translate}}</mat-chip>
+            }
+            }} @else {
+            <mat-chip> {{chips().toString() | translate}}</mat-chip>
             }
         </mat-chip-set>
     </mat-card-content>

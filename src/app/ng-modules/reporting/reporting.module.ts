@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ReportingRoutingModule } from './reporting-routing.module';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { DuplicateActivityModalComponent } from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
-import { InvoiceModalComponent } from 'src/app/features/invoice/components/invoice-modal/invoice-modal.component';
 import { EntityPageHeaderComponent } from '../../shared/components/entity-page-header/entity-page-header.component';
 import { ProjectidPipe } from 'src/app/shared/pipes/projectid/projectid.pipe';
 import { CustomerfromprojectidPipe } from 'src/app/shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
@@ -21,8 +19,6 @@ import { CustomerfromprojectidPipe } from 'src/app/shared/pipes/customerfromproj
     RouterModule,
     ReportingRoutingModule,
     TranslateModule,
-    DuplicateActivityModalComponent,
-    InvoiceModalComponent,
     EntityPageHeaderComponent,
     ProjectidPipe,
     CustomerfromprojectidPipe,
