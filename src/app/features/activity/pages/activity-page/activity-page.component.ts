@@ -62,6 +62,8 @@ export class ActivityPageComponent implements OnInit {
   protected readonly icons = Icons;
 
   ngOnInit() {
+    this.store.loadProjects();
+    this.store.loadActivityTypes();
     if (this.dateParam()) this.updateFilter('date', new Date(this.dateParam()));
     else this.updateFilter('date', new Date());
   }

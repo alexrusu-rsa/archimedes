@@ -357,15 +357,8 @@ export const ActivityStore = signalStore(
     })
   ),
   withHooks({
-    onInit({
-      loadActivitiesByFilter,
-      filter,
-      loadActivityTypes,
-      loadProjects,
-    }) {
+    onInit({ loadActivitiesByFilter, filter }) {
       loadActivitiesByFilter(filter);
-      loadProjects();
-      loadActivityTypes();
     },
   })
 );
