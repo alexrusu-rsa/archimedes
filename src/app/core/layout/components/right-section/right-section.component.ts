@@ -3,10 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
 } from '@angular/core';
-import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { BookedTimeWidgetComponent } from 'src/app/shared/components/booked-time-widget/booked-time-widget.component';
 import { User } from 'src/app/shared/models/user';
 import { BookedTimePipe } from 'src/app/shared/pipes/booked-time.pipe';
@@ -19,14 +17,13 @@ import { BookedTimePipe } from 'src/app/shared/pipes/booked-time.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RightSectionComponent {
-  store = inject(ActivityStore);
   user = input<User>(null);
   activatedRoute = input<string>('');
+  store = input(null);
   protected displayBookedTimeWidget = computed(
     () =>
-      this.activatedRoute()?.includes('/activity') &&
-      !!this.store.filter().date &&
-      !!this.store.activities() &&
+      !!this.store().filter().date &&
+      !!this.store().activities() &&
       !!this.user()?.timePerDay
   );
 }

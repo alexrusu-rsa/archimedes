@@ -1,7 +1,7 @@
 <mat-card class="p-2">
     @if(displayDate() && bookedTime() && user()?.timePerDay){
     <mat-card-header>
-        <mat-card-subtitle>{{displayDate() | date}}</mat-card-subtitle>
+        <mat-card-subtitle>{{displayDate() | appTodayDate}}</mat-card-subtitle>
         <mat-card-title class="mb-1">{{bookedTime() | appTime}} / {{user()?.timePerDay| appTime}}</mat-card-title>
     </mat-card-header>
     }
