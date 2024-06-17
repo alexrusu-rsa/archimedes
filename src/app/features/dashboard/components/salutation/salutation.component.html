@@ -1,8 +1,8 @@
-<mat-card>
-    <mat-card-header class="py-4">
+<mat-card class="p-2">
+    <mat-card-header class="py-3">
         <mat-card-title>
-            {{ 'dashboard.shared.salutation.title' | translate: { name: user().name, surname:
-            user().surname } }} {{'&#128075;'}}
+            {{ 'dashboard.shared.salutation.title' | translate: { name: user()?.name, surname:
+            user()?.surname } }} {{'&#128075;'}}
         </mat-card-title>
         <mat-card-subtitle> {{ 'dashboard.shared.salutation.welcome' | translate }}</mat-card-subtitle>
     </mat-card-header>
