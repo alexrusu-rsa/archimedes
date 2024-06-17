@@ -1,9 +1,9 @@
-<mat-card class="col-md-8 col-lg-6 col-xl-4 col-xxl-4 mx-auto">
-  <form [formGroup]="loginForm" (ngSubmit)="logUserIn()" class="px-3">
+<mat-card class="col-md-8 col-lg-6 col-xl-4 col-xxl-4 mx-auto p-5">
+  <form [formGroup]="loginForm" (ngSubmit)="logUserIn()" class="p-2">
     <mat-card-title class="row col-12 text-center mt-2 mx-0 mb-5">{{
       "loginPage.title" | translate
       }}</mat-card-title>
-    <mat-card-content class="p-0 m-0">
+    <mat-card-content>
       <mat-form-field class="col-12">
         <mat-label>{{ "loginPage.email" | translate }}</mat-label>
         <input #userEmail matInput id="email" type="email" formControlName="email" class="col-12" />

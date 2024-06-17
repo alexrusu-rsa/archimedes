@@ -3,7 +3,7 @@
   (addEntity)="addCustomer()" (searchKeyUp)="search.set($event.target['value'])"
   class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
 
-<div class="d-flex flex-column h-100">
+<div class="d-flex flex-column row-gap-3 h-100">
   @for (customer of filterdCustomers(); track $index) {
   <app-entity-item [title]="customer.customerName" [subtitle]="customer.shortName" [chips]="chipsArray(customer)">
     <mat-card-actions actions align="end">

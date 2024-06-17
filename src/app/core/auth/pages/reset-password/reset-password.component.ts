@@ -26,6 +26,15 @@ import { User } from 'src/app/shared/models/user';
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   standalone: true,
+  styles: [
+    `
+    :host
+      display: flex
+      flex-direction: column
+      justify-content: center
+      height: 100%
+    `,
+  ],
   imports: [
     CommonModule,
     FormsModule,

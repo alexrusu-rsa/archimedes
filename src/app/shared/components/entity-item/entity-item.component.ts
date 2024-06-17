@@ -5,6 +5,7 @@ import {
   MatCard,
   MatCardActions,
   MatCardContent,
+  MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
@@ -19,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     TranslateModule,
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardSubtitle,
     MatCardContent,
