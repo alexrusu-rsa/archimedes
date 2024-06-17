@@ -32,7 +32,7 @@
                 }}</mat-label>
             <input matInput type="time" min="00:00" max="24:00" formControlName="start" />
             @if(activityForm?.controls['start']?.invalid){
-            <!-- TODO update and clean hints implementation-->
+            <!-- TODO update and clean hints implementation  handle max time 24.00-->
             <mat-hint>{{
                 ("activity.dialog.startHint") | translate
                 }}</mat-hint>
@@ -44,7 +44,7 @@
                 }}</mat-label>
             <input matInput type="time" min="00:00" max="24:00" formControlName="end" />
             @if(activityForm?.controls['end']?.invalid){
-            <!-- TODO update and clean hints implementation-->
+            <!-- TODO update and clean hints implementation, handle max time 24.00-->
             <mat-hint>{{
                 ("activity.dialog.endHint") | translate
                 }}</mat-hint>

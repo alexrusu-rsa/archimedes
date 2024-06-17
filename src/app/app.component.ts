@@ -7,16 +7,17 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Icons } from './shared/models/icons.enum';
 import { filter, map, of, switchMap } from 'rxjs';
 import { User } from './shared/models/user';
+import { ActivityStore } from './features/activity/store/activity.store';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly translate = inject(TranslateService);
   public readonly auth = inject(AuthService);
+  protected readonly store = inject(ActivityStore);
   private readonly router = inject(Router);
   protected readonly icons = Icons;
 
@@ -43,6 +44,8 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map((event: NavigationEnd) => {
+        if (this.store.filter().date !== new Date())
+          this.store.updateFilter({ project: null, date: new Date() });
         return event.urlAfterRedirects;
       })
     )

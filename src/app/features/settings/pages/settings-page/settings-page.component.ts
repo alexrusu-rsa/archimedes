@@ -9,7 +9,14 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatCard, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
 import {
   MatFormField,
   MatHint,
@@ -31,8 +38,11 @@ import { UserManagePasswordService } from 'src/app/features/user/services/user-m
     FormsModule,
     TranslateModule,
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardSubtitle,
+    MatCardContent,
+    MatCardActions,
     MatSuffix,
     MatFormField,
     MatInput,
