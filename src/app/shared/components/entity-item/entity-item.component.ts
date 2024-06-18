@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   MatCard,
@@ -39,7 +44,8 @@ export class EntityItemComponent {
   subtitle = input('');
   actions = input('');
   cardClass = input('');
-  chips = input<string[]>([]);
+  chips = input<string[] | string>();
+  protected chipsIsArray = computed(() => Array.isArray(this.chips()));
   emptyIcon = input('');
   nestedCard = input(false);
 }

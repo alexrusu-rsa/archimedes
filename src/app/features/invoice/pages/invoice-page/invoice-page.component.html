@@ -1,0 +1,20 @@
+<app-entity-page-header [datePickerType]="datePickerType.monthYear" (datePickerValueChanged)="currentMonth.set($event)"
+    class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
+
+<div class="d-flex flex-column row-gap-3 h-100">
+    @if (invoices()?.length > 0) { @for (invoice of invoices(); track $index) { <app-entity-item
+        [title]="invoice?.projectName" [subtitle]="currentMonth() | date: 'MMMM yyyy'"
+        [chips]="invoice?.customer?.customerName">
+        <mat-card-actions actions align="end" class="pt-0">
+            <button (click)="downloadInvoice(invoice)" mat-icon-button aria-label="Edit activity button" type="button">
+                <mat-icon color="accent">{{icons.download}}</mat-icon>
+            </button>
+        </mat-card-actions>
+    </app-entity-item>
+    }
+    }
+    @if (invoices()?.length <= 0) { <app-entity-item [title]="'invoice.page.item.empty.listEmpty' | translate"
+        [emptyIcon]="icons.info">
+        </app-entity-item>
+        }
+</div>

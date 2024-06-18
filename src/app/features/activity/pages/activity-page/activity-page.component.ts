@@ -1,3 +1,4 @@
+import { DatePickerType } from './../../../../shared/models/date-picker-type.enum';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -60,8 +61,11 @@ export class ActivityPageComponent implements OnInit {
     )
   );
   protected readonly icons = Icons;
+  protected readonly datePickerType = DatePickerType;
 
   ngOnInit() {
+    this.store.loadProjects();
+    this.store.loadActivityTypes();
     if (this.dateParam()) this.updateFilter('date', new Date(this.dateParam()));
     else this.updateFilter('date', new Date());
   }

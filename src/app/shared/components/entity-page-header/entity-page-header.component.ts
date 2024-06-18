@@ -4,6 +4,7 @@ import {
   Component,
   input,
   output,
+  signal,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -15,12 +16,11 @@ import { Project } from '../../models/project';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
-import {
-  MatNativeDateModule,
-  provideNativeDateAdapter,
-} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
-
+import moment from 'moment';
+import { DatePickerType } from '../../models/date-picker-type.enum';
+import { MonthYearDatepickerComponent } from '../month-year-datepicker/month-year-datepicker.component';
 @Component({
   selector: 'app-entity-page-header',
   templateUrl: './entity-page-header.component.html',
@@ -36,8 +36,9 @@ import { ActivityFilter } from 'src/app/features/activity/models/activity-filter
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MonthYearDatepickerComponent,
   ],
-  providers: [provideNativeDateAdapter()],
+
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -50,7 +51,8 @@ export class EntityPageHeaderComponent {
 
   filter = input<ActivityFilter>();
 
-  hasDatePicker = input(false);
+  datePickerType = input<DatePickerType>();
+  datepickerTypes = DatePickerType;
   datePickerValueChanged = output<Date>();
 
   selectOptions = input<Project[]>();
@@ -61,4 +63,6 @@ export class EntityPageHeaderComponent {
 
   hasDeleteAll = input(false);
   deleteAll = output<void>();
+
+  readonly date = signal(moment());
 }

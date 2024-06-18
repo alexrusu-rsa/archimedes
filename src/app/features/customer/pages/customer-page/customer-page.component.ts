@@ -125,13 +125,4 @@ export class CustomerPageComponent {
         );
       });
   }
-
-  chipsArray(customer: Customer): string[] {
-    const chips = [];
-    if (customer.internal) chips.push('Internal');
-    if (customer.romanianCompany) chips.push('Romanian Company');
-    if (customer.VAT) chips.push('TVA 19%');
-
-    return chips;
-  }
 }

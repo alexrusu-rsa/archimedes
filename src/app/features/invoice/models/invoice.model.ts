@@ -4,7 +4,7 @@ import { Customer } from 'src/app/shared/models/customer';
 export interface Invoice {
   customer: Customer;
   project: Project;
-  month: string;
-  year: string;
-  series: string;
+  month?: string;
+  year?: string;
+  series?: string;
 }

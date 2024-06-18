@@ -13,7 +13,7 @@
 <mat-dialog-content>
     @if(activity) {
     <app-entity-item [title]="activity?.name" [subtitle]="activity?.start + '-' + activity?.end"
-        [chips]="[activity?.project?.projectName ? activity?.project?.projectName: 'activity.shared.other' | translate]"
+        [chips]="activity?.project?.projectName ? activity?.project?.projectName: 'activity.shared.other' | translate"
         [nestedCard]="true"></app-entity-item>
     }
 
