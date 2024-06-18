@@ -71,7 +71,6 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     SafePipe,
   ],
   templateUrl: './invoice-modal.component.html',
-  styleUrl: './invoice-modal.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceModalComponent {

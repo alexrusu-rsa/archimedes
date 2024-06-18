@@ -3,7 +3,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import {
   MatCard,
-  MatCardFooter,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
@@ -15,6 +17,7 @@ import { TimePipe } from '../../pipes/time.pipe';
 import { BookedPercentagePipe } from '../../pipes/booked-percentage.pipe';
 import { BookedMessagePipe } from '../../pipes/booked-message.pipe';
 import { User } from '../../models/user';
+import { TodayDatePipe } from '../../pipes/today-date.pipe';
 
 @Component({
   selector: 'app-booked-time-widget',
@@ -22,9 +25,11 @@ import { User } from '../../models/user';
   imports: [
     CommonModule,
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardSubtitle,
-    MatCardFooter,
+    MatCardContent,
+    MatCardActions,
     MatProgressBarModule,
     MatButton,
     MatIcon,
@@ -33,6 +38,7 @@ import { User } from '../../models/user';
     TimePipe,
     BookedPercentagePipe,
     BookedMessagePipe,
+    TodayDatePipe,
   ],
   templateUrl: './booked-time-widget.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

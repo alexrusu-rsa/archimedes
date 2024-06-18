@@ -14,7 +14,6 @@ import { LocalStorageService } from 'src/app/shared/services/localstorage-servic
 @Component({
   selector: 'app-month-view',
   templateUrl: './month-view.component.html',
-  styleUrls: ['./month-view.component.sass'],
 })
 export class MonthViewComponent implements OnInit {
   selectedDate?: Date;
