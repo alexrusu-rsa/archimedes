@@ -26,7 +26,6 @@ import { HttpLoaderFactory } from './core/translation/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
 import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
-import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
 import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
@@ -41,7 +40,6 @@ import { RightSectionComponent } from './core/layout/components/right-section/ri
     AppComponent,
     ProjectDialogComponent,
     ReportingPageComponent,
-    InvoicePageComponent,
     AdminDashboardPageComponent,
     RateDialogComponent,
     UserDashboardComponent,

@@ -1,15 +1,15 @@
 <div class="d-flex gap-2">
   <mat-card class="col-4 d-flex justify-content-between">
     <div class="d-flex justify-content-start flex-column">
-      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/reporting/activity">
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/activity">
         {{ "adminDashboard.activities" | translate }}
         <mat-icon>{{icons.event_note}}</mat-icon>
       </button>
-      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/reporting/user">
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/users">
         {{ "adminDashboard.users" | translate }}
         <mat-icon>{{icons.person}}</mat-icon>
       </button>
-      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/reporting/customer">
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/customers">
         <mat-icon>{{icons.people}}</mat-icon>
         {{ "adminDashboard.customers" | translate }}
       </button>
@@ -17,7 +17,7 @@
         <mat-icon>{{icons.list_alt}}</mat-icon>
         {{ "adminDashboard.projects" | translate }}
       </button>
-      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/reporting/invoice">
+      <button mat-raised-button class="col-12 mt-2 py-4" color="primary" routerLink="/invoices">
         <mat-icon>{{icons.assignment_turned_in}}</mat-icon>
         {{ "adminDashboard.invoices" | translate }}
       </button>

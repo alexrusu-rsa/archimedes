@@ -42,6 +42,14 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
   },
   {
+    path: 'invoices',
+    loadComponent: () =>
+      import(
+        './features/invoice/pages/invoice-page/invoice-page.component'
+      ).then((c) => c.InvoicePageComponent),
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
     path: 'users',
     loadComponent: () =>
       import('./features/user/pages/user-page/user-page.component').then(

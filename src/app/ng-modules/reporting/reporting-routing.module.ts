@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoleGuard } from '../../core/auth/role.guard';
 import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
-import { InvoicePageComponent } from './components/invoice-page/invoice-page.component';
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { AdminDashboardPageComponent } from 'src/app/ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
@@ -17,11 +16,6 @@ const routes: Routes = [
   {
     path: 'user-reporting',
     component: ReportingPageComponent,
-  },
-  {
-    path: 'invoice',
-    component: InvoicePageComponent,
-    canActivate: [RoleGuard],
   },
   {
     path: 'admin-dashboard',

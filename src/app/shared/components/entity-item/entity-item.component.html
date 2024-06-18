@@ -19,8 +19,13 @@
     @if(chips()?.length>0){
     <mat-card-content>
         <mat-chip-set>
+            @if(chipsIsArray()){
             @for (chip of chips(); track $index) {
+            @if(chip){
             <mat-chip> {{chip | translate}}</mat-chip>
+            }
+            }} @else {
+            <mat-chip> {{chips().toString() | translate}}</mat-chip>
             }
         </mat-chip-set>
     </mat-card-content>
