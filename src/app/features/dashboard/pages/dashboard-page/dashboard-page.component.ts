@@ -35,7 +35,6 @@ import { ActivityService } from 'src/app/features/activity/services/activity-ser
         display: flex
         flex-direction: column
         gap: 1em
-
     `,
   ],
   templateUrl: './dashboard-page.component.html',
@@ -59,9 +58,10 @@ export class DashboardPageComponent {
 
   protected activities: Signal<Activity[]> = toSignal(
     inject(ActivityService).getActivitiesOfMonthYearForUser(
-      new Date().getMonth().toString(),
-      new Date().getFullYear().toString(),
-      this.user()?.id
+      new Date().getMonth() < 10
+        ? '0' + new Date().getMonth().toString()
+        : new Date().getMonth().toString(),
+      new Date().getFullYear().toString()
     ),
     { initialValue: [] }
   );
