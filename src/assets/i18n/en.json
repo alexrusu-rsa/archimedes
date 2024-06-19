@@ -168,7 +168,8 @@
           "rate": "Rate",
           "rateType": "Rate type",
           "time": "Allocation"
-        }
+        },
+        "noData": "No data matching the filter"
       },
       "title": "Rates"
     }
