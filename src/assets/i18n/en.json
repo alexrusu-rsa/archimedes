@@ -21,16 +21,6 @@
       "other": "Other"
     }
   },
-  "adminDashboard": {
-    "activities": "Activities",
-    "customers": "Customers",
-    "invoices": "Invoices",
-    "logOut": "Log Out",
-    "projects": "Projects",
-    "rates": "Rates",
-    "reporting": "Reporting",
-    "users": "Users"
-  },
   "customer": {
     "dialog": {
       "IBANEUR": "IBAN EUR",

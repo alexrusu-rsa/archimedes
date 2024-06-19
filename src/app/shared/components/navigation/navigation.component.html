@@ -1,14 +1,9 @@
 <mat-nav-list>
-    @if(!isAdmin()){
     <a mat-list-item routerLink="dashboard" (click)="closeSidenav.emit()" routerLinkActive="active">{{
         "sidenav.home" | translate }}</a>
-    }
     <a mat-list-item routerLink="activity" (click)="closeSidenav.emit()" routerLinkActive="active">{{
         "sidenav.activities" | translate }}</a>
     @if(isAdmin()){
-    <a mat-list-item routerLink="{{'/reporting/admin-dashboard'}}" (click)="closeSidenav.emit()"
-        routerLinkActive="active">{{
-        "sidenav.home" | translate }}</a>
     <a mat-list-item routerLink="users" (click)="closeSidenav.emit()" routerLinkActive="active">{{
         "sidenav.users" | translate }}</a>
     <a mat-list-item routerLink="reporting/rate" (click)="closeSidenav.emit()" routerLinkActive="active">{{
