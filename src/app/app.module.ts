@@ -20,7 +20,6 @@ import { ProjectDialogComponent } from './ng-modules/reporting/components/projec
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
-import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './core/translation/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
@@ -42,7 +41,6 @@ import { RightSectionComponent } from './core/layout/components/right-section/ri
     ReportingPageComponent,
     AdminDashboardPageComponent,
     RateDialogComponent,
-    UserDashboardComponent,
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
     RatePageComponent,

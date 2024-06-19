@@ -283,10 +283,5 @@
     "page": {
       "search": "Search user"
     }
-  },
-  "userDashboard": {
-    "activities": "Activities",
-    "settings": "Settings",
-    "title": "User Dashboard"
   }
 }
