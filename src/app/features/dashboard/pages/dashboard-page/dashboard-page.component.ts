@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,14 +10,14 @@ import { SalutationComponent } from '../../components/salutation/salutation.comp
 import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 import { AuthService } from 'src/app/core/auth/services/auth-service/auth.service';
 import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { switchMap, of } from 'rxjs';
+import { switchMap, of, map } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { BookedTimeWidgetComponent } from 'src/app/shared/components/booked-time-widget/booked-time-widget.component';
 import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { BookedTimePipe } from 'src/app/shared/pipes/booked-time.pipe';
 import { MonthOverviewWidgetComponent } from 'src/app/shared/components/month-overview-widget/month-overview-widget.component';
-import { Activity } from 'src/app/shared/models/activity';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -28,6 +28,7 @@ import { ActivityService } from 'src/app/features/activity/services/activity-ser
     BookedTimeWidgetComponent,
     MonthOverviewWidgetComponent,
     BookedTimePipe,
+    DatePipe,
   ],
   styles: [
     `
@@ -43,6 +44,8 @@ import { ActivityService } from 'src/app/features/activity/services/activity-ser
 export class DashboardPageComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly service = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly datePipe = inject(DatePipe);
   public readonly store = inject(ActivityStore);
 
   protected user: Signal<User> = toSignal(
@@ -51,18 +54,24 @@ export class DashboardPageComponent {
         if (currentUserId) return this.service.getUser(currentUserId);
         else return of(null);
       }),
+      map((user) => ({
+        ...user,
+      })),
       takeUntilDestroyed(this.destroyRef)
     ),
     { initialValue: null }
   );
 
-  protected activities: Signal<Activity[]> = toSignal(
-    inject(ActivityService).getActivitiesOfMonthYearForUser(
-      new Date().getMonth() < 10
-        ? '0' + new Date().getMonth().toString()
-        : new Date().getMonth().toString(),
-      new Date().getFullYear().toString()
-    ),
-    { initialValue: [] }
+  protected bookedTimePerDay = toSignal(
+    inject(ActivityService).getBookedTimePerDayOfMonthYear(new Date()),
+    { initialValue: null }
   );
+
+  navigateToDate(activityDate: Date) {
+    this.router.navigate(['activity'], {
+      queryParams: {
+        date: this.datePipe.transform(activityDate, 'MM-dd-yyyy'),
+      },
+    });
+  }
 }

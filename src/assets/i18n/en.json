@@ -1,29 +1,4 @@
 {
-  "shared": {
-    "entity": {
-      "item": {
-        "empty": {
-          "filteredListEmpty": "For {{search}} there are no users",
-          "listEmpty": "There are no {{entity}}"
-        }
-      },
-      "header": {
-        "date": "Date",
-        "monthYear": "Month Year",
-        "select": "Select a project",
-        "all": "All projects",
-        "search": "Search {{entity}}",
-        "searchPlaceholder": "Popescu Adrian"
-      }
-    },
-    "modal": {
-      "cancel": "Cancel",
-      "confirmation": {
-        "submit": "Yes, delete",
-        "title": "Are you sure you want to delete this item?"
-      }
-    }
-  },
   "activity": {
     "dialog": {
       "activityType": "Activity type",
@@ -91,8 +66,8 @@
     "monthOverview": "Month overview",
     "shared": {
       "salutation": {
-        "welcome": "Welcome to Archimedes, your time booking webapp.\n Let's get you booked!",
-        "title": "Hi {{name}} {{surname}},"
+        "title": "Hi {{name}} {{surname}},",
+        "welcome": "Welcome to Archimedes, your time booking webapp.\n Let's get you booked!"
       }
     }
   },
@@ -239,7 +214,36 @@
     "retypePassword": "Re-type your password",
     "title": "Settings"
   },
-
+  "shared": {
+    "entity": {
+      "header": {
+        "all": "All projects",
+        "date": "Date",
+        "monthYear": "Month Year",
+        "search": "Search {{entity}}",
+        "searchPlaceholder": "Popescu Adrian",
+        "select": "Select a project"
+      },
+      "item": {
+        "empty": {
+          "filteredListEmpty": "For {{search}} there are no users",
+          "listEmpty": "There are no {{entity}}"
+        }
+      }
+    },
+    "modal": {
+      "cancel": "Cancel",
+      "confirmation": {
+        "submit": "Yes, delete",
+        "title": "Are you sure you want to delete this item?"
+      }
+    },
+    "widget": {
+      "monthlyOverview": {
+        "title": "Your monthly overview"
+      }
+    }
+  },
   "sidenav": {
     "account": "ACCOUNT",
     "activities": "Activities",
