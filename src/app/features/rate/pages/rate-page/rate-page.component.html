@@ -75,16 +75,11 @@
                         </button>
                     </mat-cell>
                 </ng-container>
-
-                <<<<<<< HEAD <mat-header-row *matHeaderRowDef="displayedColumns" class="text-truncate"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-                    <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No data matching the filter </td>
-                    </tr>
-                    =======
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-                    >>>>>>> 76cbdf5e4072afd22144dada96eb81a73580d210
+                <mat-header-row *matHeaderRowDef="displayedColumns" class="text-truncate"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter </td>
+                </tr>
             </mat-table>
         </mat-card-content>
     </mat-card>
