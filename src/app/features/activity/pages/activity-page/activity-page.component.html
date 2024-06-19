@@ -5,9 +5,9 @@
     class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
 
 <div class="d-flex flex-column row-gap-3 h-100">
-    @for (activity of store.activities() | appOrderBy; track $index) {
+    @for (activity of store.activities() | orderBy; track $index) {
     <app-entity-item [title]="activity.name"
-        subtitle="{{activity.start}} - {{activity.end}} {{activity.workedTime | appWorkedTime}}"
+        subtitle="{{activity.start}} - {{activity.end}} {{activity.workedTime | workedTime}}"
         [chips]="activity?.project?.projectName ? activity?.project?.projectName : ('activity.shared.other' | translate)">
         <mat-card-actions actions align="end">
             <button (click)="editActivity(activity)" mat-icon-button aria-label="Edit activity button" type="button">

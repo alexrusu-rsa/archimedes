@@ -1,0 +1,89 @@
+<app-entity-page-header [searchLabel]="'shared.entity.header.search' | translate:{entity:'customer'}"
+    [hasAddEntity]="true" [searchPlaceholder]="'shared.entity.header.searchPlaceholder' | translate"
+    (addEntity)="addRate()" (searchKeyUp)="search.set($event.target['value'])"
+    class="d-flex flex-wrap justify-content-between column-gap-2"></app-entity-page-header>
+
+<div class="d-flex flex-column row-gap-3 h-100 col-12">
+    <mat-card class="col-12">
+        <mat-card-content class="col-12">
+            <mat-table [dataSource]="filteredRates()">
+                <ng-container matColumnDef="project">
+                    <mat-header-cell *matHeaderCellDef>
+                        {{ "rate.page.table.header.project" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let rate">
+                        {{ rate?.project?.projectName }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="employee">
+                    <mat-header-cell *matHeaderCellDef>
+                        {{ "rate.page.table.header.employee" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let rate">
+                        {{ rate?.employee?.surname }} {{ rate?.employee?.name }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="rate">
+                    <mat-header-cell *matHeaderCellDef>
+                        {{ "rate.page.table.header.rate" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let rate">
+                        {{ rate.rate }}&euro;<span class="d-flex d-md-none"> {{rate?.rateType |
+                            mobileRateType}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="rateType">
+                    <mat-header-cell *matHeaderCellDef class="d-none d-md-flex">
+                        {{ "rate.page.table.header.rateType" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let rate" class="d-none d-md-flex">
+                        {{ rate.rateType }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="employeeTimeCommitement">
+                    <mat-header-cell *matHeaderCellDef>
+                        {{ "rate.page.table.header.time" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let rate">
+                        <!-- TODO fix employeeTimeCommitement in backend as minutes, display as pretty string -->
+                        {{ rate.employeeTimeCommitement+':00' | time}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="editButton">
+                    <mat-header-cell *matHeaderCellDef class="d-none d-md-flex">
+                        {{ "rate.page.table.header.edit" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let rate" class="d-none d-md-flex">
+                        <button mat-icon-button (click)="editRate(rate)">
+                            <mat-icon color="accent">{{icons.edit}}</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="deleteButton">
+                    <mat-header-cell *matHeaderCellDef>
+                        {{ "rate.page.table.header.delete" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let rate">
+                        <button mat-icon-button (click)="deleteRate(rate)">
+                            <mat-icon color="accent">{{icons.delete}}</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </mat-card-content>
+    </mat-card>
+
+    <button mat-raised-button class="d-flex flex-column mx-auto add-entity-button" aria-label="Create customer button"
+        type="button" (click)="addRate()">
+        <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
+    </button>
+</div>
