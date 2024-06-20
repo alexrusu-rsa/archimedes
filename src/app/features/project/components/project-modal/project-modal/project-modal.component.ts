@@ -94,7 +94,6 @@ export class ProjectModalComponent implements OnInit {
     if (this.data.project)
       this.dialogRef.close({
         ...this.projectForm.value,
-        id: this.data.project.id,
       });
 
     if (!this.data.project) this.dialogRef.close(this.projectForm.value);

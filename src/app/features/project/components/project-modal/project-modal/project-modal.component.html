@@ -32,24 +32,6 @@
       >}
     </mat-form-field>
 
-    <!-- <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
-      <mat-label>{{ "project.dialog.customerName" | translate }}</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="customerName"
-        [required]="
-          this.projectForm.controls['customerName'].hasValidator(
-            validators.required
-          )
-        "
-      />
-      @if(projectForm?.controls['customerName']?.invalid){
-
-      <mat-hint>{{ "project.dialog.customerName" | translate }}</mat-hint
-      >}
-    </mat-form-field> -->
-
     <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
       <mat-label>{{ "project.dialog.contract" | translate }}</mat-label>
       <input
@@ -128,7 +110,7 @@
       <mat-label>{{ "project.dialog.customerName" | translate }}</mat-label>
       <mat-select formControlName="customer">
         @for (customer of data?.customers; track $index) {
-        <mat-option [value]="customer.id">
+        <mat-option [value]="customer">
           {{ customer?.customerName }}
         </mat-option>
         }

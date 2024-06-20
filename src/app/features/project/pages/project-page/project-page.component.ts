@@ -80,41 +80,32 @@ export class ProjectPageComponent {
       .pipe(
         filter((newProject: Project) => !!newProject),
         switchMap((newProject: Project) => {
+          const dueDateAsString = this.transformDateToString(
+            newProject.dueDate
+          );
+          const contractSignDateAsString = this.transformDateToString(
+            newProject.contractSignDate
+          );
+
+          const projectToAdd = {
+            ...newProject,
+            dueDate: dueDateAsString,
+            contractSignDate: contractSignDateAsString,
+            customerId: newProject.customer?.id,
+          };
           return this.service
-            .addProject(newProject)
+            .addProject(projectToAdd)
             .pipe(takeUntilDestroyed(this.destroyRef));
         }),
         take(1)
       )
       .subscribe((project: Project) => {
-        this.projects().update((projects) => [...projects, project]);
+        const customer = this.rawCustomers().find(
+          (customer) => customer.id === project.customerId
+        );
+        const newProject = { ...project, customer: customer };
+        this.projects().update((projects) => [...projects, newProject]);
       });
-  }
-
-  transformStringToDate(dateString: string) {
-    if (dateString !== null) {
-      const parts = dateString.split('/');
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1;
-      const year = parseInt(parts[2], 10);
-
-      const dateObject = new Date(year, month, day);
-      return dateObject;
-    }
-    return null;
-  }
-
-  transformDateToString(date) {
-    if (date !== null) {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-
-      const dateString = `${day}/${month}/${year}`;
-
-      return dateString;
-    }
-    return null;
   }
 
   editProject(project: Project) {
@@ -123,15 +114,13 @@ export class ProjectPageComponent {
       project?.contractSignDate
     );
 
-    console.log('Project that we want to edit before it is edited', project);
-    const { id, customer, customerId, ...projectWithoutUnnecessary } = project;
+    const { id, customerId, ...projectWithoutUnnecessary } = project;
 
     this.dialog
       .open(ProjectModalComponent, {
         data: {
           project: {
             ...projectWithoutUnnecessary,
-            customer,
             dueDate: dueDateAsDate,
             contractSignDate: contractSignDateAsDate,
           },
@@ -155,17 +144,21 @@ export class ProjectPageComponent {
               id: id,
               dueDate: dueDateToString,
               contractSignDate: contractSignDateToString,
+              customerId: customer.id,
             })
             .pipe(takeUntilDestroyed(this.destroyRef));
         }),
         take(1)
       )
       .subscribe((editedProject: Project) => {
+        const customer = this.rawCustomers().find(
+          (customer) => customer.id === editedProject.customerId
+        );
         const editedProjectWithCustomer = {
           ...editedProject,
           customer: customer,
         };
-        console.log('Project after it was edited', editedProjectWithCustomer);
+
         this.projects().update((projects) =>
           projects.map((project) => {
             if (editedProjectWithCustomer?.id === project?.id)
@@ -194,5 +187,31 @@ export class ProjectPageComponent {
           projects.filter((project) => project.id !== projectId)
         );
       });
+  }
+
+  transformStringToDate(dateString: string) {
+    if (dateString !== null) {
+      const parts = dateString.split('/');
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1;
+      const year = parseInt(parts[2], 10);
+
+      const dateObject = new Date(year, month, day);
+      return dateObject;
+    }
+    return null;
+  }
+
+  transformDateToString(date) {
+    if (date !== null) {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+
+      const dateString = `${day}/${month}/${year}`;
+
+      return dateString;
+    }
+    return null;
   }
 }
