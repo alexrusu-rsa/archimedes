@@ -92,11 +92,7 @@ export class LoginComponent {
           this.localStorageService.accessToken = accessToken;
           this.localStorageService.role = currentUser.roles;
           this.localStorageService.userId = currentUser.id;
-          if (currentUser.roles === 'admin') {
-            this.router.navigate(['reporting/admin-dashboard/']);
-          } else {
-            this.router.navigate(['reporting/dashboard/']);
-          }
+          this.router.navigate(['/dashboard']);
         });
     else {
       this.loginForm?.markAsDirty();
