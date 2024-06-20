@@ -90,12 +90,7 @@ export class ActivityModalComponent implements OnInit {
 
   submit() {
     if (this.activityForm.invalid) return;
-    if (this.data?.activity)
-      this.dialogRef.close({
-        ...this.activityForm.value,
-        id: this.data?.activity.id,
-      });
-    if (!this.data?.activity) this.dialogRef.close(this.activityForm.value);
+    this.dialogRef.close(this.activityForm.value);
   }
 
   protected displayName(project) {

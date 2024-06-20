@@ -158,6 +158,7 @@
   },
   "project": {
     "dialog": {
+      "title": "Add a new project",
       "contract": "Project Contract",
       "contractSignDate": "Contract Sign Date",
       "customerName": "Customer Name",
@@ -165,7 +166,19 @@
       "invoiceTerm": "Project Invoice Term",
       "name": "Project Name",
       "titleAdd": "Add Project",
-      "titleUpdate": "Update Project"
+      "titleUpdate": "Update Project",
+      "submit": "Add project",
+      "submitEdit": "Update project",
+      "contractHint": "Contract",
+      "customerHint": "Customer",
+      "invoiceTermHint": "Invoice term",
+      "projectNameHint": "Project name",
+      "projectName": "Project name",
+      "customer": "Customer",
+      "customerId": "CustomerId",
+      "contractSignDateHint": "Contract sign date",
+      "dueDateHint": "Due date",
+      "customerIdHint": "Customer ID"
     },
     "page": {
       "search": "Search project",
