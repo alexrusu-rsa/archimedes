@@ -80,22 +80,31 @@ export class ProjectModalComponent implements OnInit {
       invoiceTerm: ['', Validators.required],
       dueDate: new FormControl(new Date(), Validators.required),
       contractSignDate: new FormControl(new Date(), Validators.required),
-      customer: [null, Validators.required],
+      customer: ['', Validators.required],
     });
 
     if (this.data?.project) {
-      this.projectForm.setValue(this.data?.project);
+      this.projectForm.patchValue(this.data?.project);
+    }
+    if (this.data.project) {
+      const selectedCustomer = this.data.customers.find(
+        (customer) => customer.id === this.data.project.customer.id
+      );
+
+      this.projectForm.get('customer').setValue(selectedCustomer);
     }
   }
 
   submit() {
     if (this.projectForm.invalid) return;
 
-    if (this.data.project)
+    if (this.data.project) {
       this.dialogRef.close({
         ...this.projectForm.value,
       });
-
-    if (!this.data.project) this.dialogRef.close(this.projectForm.value);
+    }
+    if (!this.data.project) {
+      this.dialogRef.close(this.projectForm.value);
+    }
   }
 }
