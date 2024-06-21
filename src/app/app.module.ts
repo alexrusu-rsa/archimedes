@@ -27,7 +27,6 @@ import { NavigationComponent } from './shared/components/navigation/navigation.c
 import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
 import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
 import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
-import { CustomerfromprojectidPipe } from './shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
 import { RightSectionComponent } from './core/layout/components/right-section/right-section.component';
@@ -53,7 +52,6 @@ import { RightSectionComponent } from './core/layout/components/right-section/ri
     ToolbarComponent,
     ProjectidPipe,
     EmployeeidPipe,
-    CustomerfromprojectidPipe,
     SettingsPageComponent,
     LoginComponent,
     RightSectionComponent,
