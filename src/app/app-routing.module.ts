@@ -50,6 +50,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'project',
+    loadComponent: () =>
+      import(
+        './features/project/pages/project-page/project-page.component'
+      ).then((c) => c.ProjectPageComponent),
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
     path: 'invoices',
     loadComponent: () =>
       import(

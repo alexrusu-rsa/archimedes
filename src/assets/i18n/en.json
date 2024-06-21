@@ -129,14 +129,16 @@
   },
   "project": {
     "dialog": {
+      "title": "Add a new project",
       "contract": "Project Contract",
       "contractSignDate": "Contract Sign Date",
       "customerName": "Customer Name",
       "dueDate": "Project Due Date",
       "invoiceTerm": "Project Invoice Term",
-      "name": "Project Name",
-      "titleAdd": "Add Project",
-      "titleUpdate": "Update Project"
+      "submit": "Add project",
+      "submitEdit": "Update project",
+      "projectName": "Project name",
+      "customer": "Customer"
     },
     "page": {
       "search": "Search project",

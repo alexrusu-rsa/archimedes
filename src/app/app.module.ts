@@ -16,7 +16,6 @@ import {
 } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
-import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
 import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -36,7 +35,6 @@ import { RightSectionComponent } from './core/layout/components/right-section/ri
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectDialogComponent,
     ReportingPageComponent,
     RateDialogComponent,
     ReportingHoursBookedDialogComponent,
