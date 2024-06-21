@@ -25,9 +25,8 @@ import {
 } from '@angular/material/dialog';
 import { MatLabel, MatHint, MatFormField } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
 
@@ -49,7 +48,6 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatButton,
     MatIconButton,
     MatInputModule,
-    MatSlideToggle,
     MatSelect,
     MatDatepicker,
     MatOption,

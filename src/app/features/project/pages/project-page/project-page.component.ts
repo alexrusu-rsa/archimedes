@@ -1,7 +1,6 @@
 import {
   Component,
   DestroyRef,
-  OnInit,
   Signal,
   computed,
   inject,
@@ -36,8 +35,6 @@ import { Customer } from 'src/app/shared/models/customer';
     CommonModule,
     TranslateModule,
     EntityPageHeaderComponent,
-    MatCard,
-    MatCardTitle,
     MatCardActions,
     MatIcon,
     MatButton,
