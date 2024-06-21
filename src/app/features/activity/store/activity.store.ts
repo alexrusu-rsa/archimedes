@@ -57,7 +57,7 @@ export const ActivityStore = signalStore(
               tapResponse({
                 next: (activityTypes) =>
                   patchState(store, {
-                    activityTypes: Object.values(activityTypes),
+                    activityTypes: activityTypes,
                   }),
                 // eslint-disable-next-line no-console
                 error: (error) => console.error(error),

@@ -11,7 +11,6 @@ import { ProjectidPipe } from 'src/app/shared/pipes/projectid/projectid.pipe';
 import { CustomerfromprojectidPipe } from 'src/app/shared/pipes/customerfromprojectid/customerfromprojectid.pipe';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     MaterialModule,

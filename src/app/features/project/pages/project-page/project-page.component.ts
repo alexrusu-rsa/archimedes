@@ -17,7 +17,7 @@ import {
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardTitle, MatCardActions } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
@@ -46,13 +46,15 @@ import { Customer } from 'src/app/shared/models/customer';
   ],
 })
 export class ProjectPageComponent {
-  readonly destroyRef = inject(DestroyRef);
   protected readonly icons = Icons;
 
-  private service = inject(ProjectService);
-  private customerService = inject(CustomerService);
-  private dialog = inject(MatDialog);
   protected search = signal('');
+
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly service = inject(ProjectService);
+  private readonly customerService = inject(CustomerService);
+  private readonly dialog = inject(MatDialog);
+  private readonly datePipe = inject(DatePipe);
 
   private rawCustomers: Signal<Customer[]> = toSignal(
     this.customerService.getCustomers(),
@@ -80,11 +82,14 @@ export class ProjectPageComponent {
       .pipe(
         filter((newProject: Project) => !!newProject),
         switchMap((newProject: Project) => {
-          const dueDateAsString = this.transformDateToString(
-            newProject.dueDate
+          const dueDateAsString = this.datePipe.transform(
+            newProject.dueDate,
+            'dd/MM/yyyy'
           );
-          const contractSignDateAsString = this.transformDateToString(
-            newProject.contractSignDate
+
+          const contractSignDateAsString = this.datePipe.transform(
+            newProject.contractSignDate,
+            'dd/MM/yyyy'
           );
 
           const projectToAdd = {
@@ -100,16 +105,13 @@ export class ProjectPageComponent {
         take(1)
       )
       .subscribe((project: Project) => {
-        const customer = this.rawCustomers().find(
-          (customer) => customer.id === project.customerId
-        );
-        const newProject = { ...project, customer: customer };
-        this.projects().update((projects) => [...projects, newProject]);
+        this.projects().update((projects) => [...projects, project]);
       });
   }
 
   editProject(project: Project) {
     const dueDateAsDate = this.transformStringToDate(project?.dueDate);
+
     const contractSignDateAsDate = this.transformStringToDate(
       project?.contractSignDate
     );
@@ -132,18 +134,21 @@ export class ProjectPageComponent {
         filter((editedProject: Project) => !!editedProject),
         switchMap((editedProject: Project) => {
           const { customer, ...editedProjectWithoutCustomer } = editedProject;
-          const dueDateToString = this.transformDateToString(
-            editedProject.dueDate
+          const dueDateAsString = this.datePipe.transform(
+            editedProject.dueDate,
+            'dd/MM/yyyy'
           );
-          const contractSignDateToString = this.transformDateToString(
-            editedProject.contractSignDate
+
+          const contractSignDateAsString = this.datePipe.transform(
+            editedProject.contractSignDate,
+            'dd/MM/yyyy'
           );
           return this.service
             .updateProject({
               ...editedProjectWithoutCustomer,
-              id: id,
-              dueDate: dueDateToString,
-              contractSignDate: contractSignDateToString,
+              id,
+              dueDate: dueDateAsString,
+              contractSignDate: contractSignDateAsString,
               customerId: customer.id,
             })
             .pipe(takeUntilDestroyed(this.destroyRef));
@@ -151,18 +156,9 @@ export class ProjectPageComponent {
         take(1)
       )
       .subscribe((editedProject: Project) => {
-        const customer = this.rawCustomers().find(
-          (customer) => customer.id === editedProject.customerId
-        );
-        const editedProjectWithCustomer = {
-          ...editedProject,
-          customer: customer,
-        };
-
         this.projects().update((projects) =>
           projects.map((project) => {
-            if (editedProjectWithCustomer?.id === project?.id)
-              return editedProjectWithCustomer;
+            if (editedProject?.id === project?.id) return editedProject;
             return project;
           })
         );
@@ -198,19 +194,6 @@ export class ProjectPageComponent {
 
       const dateObject = new Date(year, month, day);
       return dateObject;
-    }
-    return null;
-  }
-
-  transformDateToString(date) {
-    if (date !== null) {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-
-      const dateString = `${day}/${month}/${year}`;
-
-      return dateString;
     }
     return null;
   }
