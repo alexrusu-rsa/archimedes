@@ -55,7 +55,6 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatOption,
     MatDatepickerToggle,
     MatNativeDateModule,
-    KeyValuePipe,
   ],
   styles: [
     `
@@ -85,8 +84,6 @@ export class ProjectModalComponent implements OnInit {
 
     if (this.data?.project) {
       this.projectForm.patchValue(this.data?.project);
-    }
-    if (this.data.project) {
       const selectedCustomer = this.data.customers.find(
         (customer) => customer.id === this.data.project.customer.id
       );

@@ -27,7 +27,6 @@
         "
       />
       @if(projectForm?.controls['projectName']?.invalid){
-
       <mat-hint>{{ "project.dialog.projectName" | translate }}</mat-hint
       >}
     </mat-form-field>
@@ -45,7 +44,6 @@
         "
       />
       @if(projectForm?.controls['contract']?.invalid){
-
       <mat-hint>{{ "project.dialog.contract" | translate }}</mat-hint
       >}
     </mat-form-field>
@@ -64,7 +62,6 @@
       ></mat-datepicker-toggle>
       <mat-datepicker #datePicker touchUi></mat-datepicker>
       @if(projectForm?.controls['dueDate']?.invalid){
-
       <mat-hint>{{ "project.dialog.dueDate" | translate }}</mat-hint
       >}
     </mat-form-field>
@@ -83,7 +80,6 @@
       ></mat-datepicker-toggle>
       <mat-datepicker #contractSignDatepicker touchUi></mat-datepicker>
       @if(projectForm?.controls['contractSignDate']?.invalid){
-
       <mat-hint>{{ "project.dialog.contractSignDate" | translate }}</mat-hint
       >}
     </mat-form-field>
@@ -101,7 +97,6 @@
         "
       />
       @if(projectForm?.controls['invoiceTerm']?.invalid){
-
       <mat-hint>{{ "project.dialog.invoiceTerm" | translate }}</mat-hint
       >}
     </mat-form-field>
@@ -116,7 +111,6 @@
         }
       </mat-select>
       @if(projectForm?.controls['']?.invalid){
-
       <mat-hint>{{ "project.dialog.customer" | translate }}</mat-hint
       >}
     </mat-form-field>

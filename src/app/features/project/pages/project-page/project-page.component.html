@@ -36,6 +36,14 @@
       </button>
     </mat-card-actions>
   </app-entity-item>
+  } @if (filteredProjects().length <= 0) {
+  <app-entity-item
+    [title]="
+      'shared.entity.item.empty.listEmpty' | translate : { entity: 'projects' }
+    "
+    [emptyIcon]="icons.info"
+  >
+  </app-entity-item>
   }
 
   <button
