@@ -1,6 +1,5 @@
 <mat-nav-list>
-    <a mat-list-item routerLink="{{isAdmin()?'/reporting/admin-dashboard':'/reporting/dashboard'}}"
-        (click)="closeSidenav.emit()" routerLinkActive="active">{{
+    <a mat-list-item routerLink="dashboard" (click)="closeSidenav.emit()" routerLinkActive="active">{{
         "sidenav.home" | translate }}</a>
     <a mat-list-item routerLink="activity" (click)="closeSidenav.emit()" routerLinkActive="active">{{
         "sidenav.activities" | translate }}</a>

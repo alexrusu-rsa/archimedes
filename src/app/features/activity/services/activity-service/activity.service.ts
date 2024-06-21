@@ -208,17 +208,30 @@ export class ActivityService {
       );
   }
 
-  getActivitiesOfMonthYearForUser(
-    month: string,
-    year: string,
-    userId: string
-  ): Observable<Activity[]> {
+  getActivitiesOfMonthYearForUser(date: Date): Observable<Activity[]> {
     const requestBody = {
-      month: month,
-      year: year,
-      userId: userId,
+      month: (date.getUTCMonth() + 1).toString(),
+      year: date.getUTCFullYear().toString(),
     };
     const activitiesOfMonthYearUserUrl = this.activitiesUrl + '/monthYear';
+    return this.httpClient
+      .post<Activity[]>(activitiesOfMonthYearUserUrl, requestBody)
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<Activity[]>(
+            `getActivitiesOfMonthYearForUser`
+          )
+        )
+      );
+  }
+
+  getBookedTimePerDayOfMonthYear(date: Date): Observable<Activity[]> {
+    const requestBody = {
+      month: date.getUTCMonth() + 1,
+      year: date.getUTCFullYear(),
+    };
+    const activitiesOfMonthYearUserUrl =
+      this.activitiesUrl + '/monthYear/bookedTimePerDay';
     return this.httpClient
       .post<Activity[]>(activitiesOfMonthYearUserUrl, requestBody)
       .pipe(

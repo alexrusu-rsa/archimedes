@@ -42,6 +42,14 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
   },
   {
+    path: 'dashboard',
+    loadComponent: () =>
+      import(
+        './features/dashboard/pages/dashboard-page/dashboard-page.component'
+      ).then((c) => c.DashboardPageComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'invoices',
     loadComponent: () =>
       import(
