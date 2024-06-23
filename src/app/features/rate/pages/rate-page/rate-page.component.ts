@@ -110,21 +110,32 @@ export class RatePageComponent {
   ];
 
   addRate() {
-    // this.dialog
-    //   .open(CustomerModalComponent)
-    //   .afterClosed()
-    //   .pipe(
-    //     filter((newCustomer: Customer) => !!newCustomer),
-    //     switchMap((newCustomer: Customer) => {
-    //       return this.service
-    //         .addCustomer(newCustomer)
-    //         .pipe(takeUntilDestroyed(this.destroyRef));
-    //     }),
-    //     take(1)
-    //   )
-    //   .subscribe((customer: Customer) => {
-    //     this.rates().update((customers) => [...customers, customer]);
-    //   });
+    this.dialog
+      .open(RateModalComponent, {
+        data: {
+          projects: this.rawProjects(),
+          users: this.rawUsers(),
+          rateTypes: this.rawRateTypes(),
+        },
+      })
+      .afterClosed()
+      .pipe(
+        filter((newRate: Rate) => !!newRate),
+        switchMap((newRate: Rate) => {
+          const newRateWithIds = {
+            ...newRate,
+            projectId: newRate.project?.id,
+            employeeId: newRate.user?.id,
+          };
+          return this.service
+            .addRate(newRateWithIds)
+            .pipe(takeUntilDestroyed(this.destroyRef));
+        }),
+        take(1)
+      )
+      .subscribe((rate: Rate) => {
+        this.rates().update((rates) => [...rates, rate]);
+      });
   }
 
   editRate(rate: Rate) {
