@@ -64,6 +64,7 @@ export class ProjectPageComponent {
   );
 
   private projects = computed(() => signal(this.rawProjects()));
+  
   protected filteredProjects = computed(() =>
     this.projects()().filter((project: Project) =>
       project.projectName

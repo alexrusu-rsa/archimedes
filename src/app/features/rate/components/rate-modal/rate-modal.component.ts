@@ -28,6 +28,7 @@ import { MatSelect } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProjectModalComponent } from 'src/app/features/project/components/project-modal/project-modal/project-modal.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { isJSDocNonNullableType } from 'typescript';
 
 @Component({
   selector: 'app-rate-modal',
@@ -65,12 +66,26 @@ export class RateModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.rateForm = this.formBuilder.group({
-      projectName: ['', Validators.required], 
-      employee: ['', Validators.required],
+      project: ['', Validators.required],
+      user: ['', Validators.required],
       rate: ['', Validators.required],
       rateType: new FormControl('', Validators.required),
-      timeCommitment: new FormControl('', Validators.required),
+      employeeTimeCommitement: new FormControl('', Validators.required),
     });
+    if (this.data?.rate) {
+      this.rateForm.patchValue(this.data?.rate);
+      const selectedProject = this.data?.projects.find(
+        (project) => project.id === this.data?.rate?.projectId
+      );
+      const selectedUser = this.data?.users?.find(
+        (user) => user.id === this.data?.rate?.employeeId
+      );
+      this.rateForm
+        .get('employeeTimeCommitement')
+        .setValue(this.data?.rate?.employeeTimeCommitement);
+      this.rateForm.get('project').setValue(selectedProject);
+      this.rateForm.get('user').setValue(selectedUser);
+    }
   }
 
   submit() {

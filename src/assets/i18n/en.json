@@ -148,13 +148,14 @@
   },
   "rate": {
     "dialog": {
-      "addTitle": "Add Rate",
+      "title": "Add a new rate",
       "employeeName": "Employee name",
       "employeeTimeCommitment": "Employee Time Commitment",
       "projectName": "Project name",
       "rate": "Rate",
       "rateType": "Rate type",
-      "updateTitle": "Update rate"
+      "submitEdit": "Update rate",
+      "submit": "Add rate"
     },
     "page": {
       "table": {

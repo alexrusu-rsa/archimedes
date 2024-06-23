@@ -30,6 +30,11 @@ import {
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { filter, switchMap, take } from 'rxjs';
+import { RateModalComponent } from '../../components/rate-modal/rate-modal.component';
+import { ProjectService } from 'src/app/features/project/services/project-service/project.service';
+import { UserService } from 'src/app/features/user/services/user-service/user.service';
+import { User } from 'src/app/shared/models/user';
+import { Project } from 'src/app/shared/models/project';
 
 @Component({
   selector: 'app-rate-page',
@@ -53,17 +58,39 @@ import { filter, switchMap, take } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatePageComponent {
-  private readonly dialog = inject(MatDialog);
-  protected search = signal('');
-
-  private readonly destroyRef = inject(DestroyRef);
   protected readonly icons = Icons;
+  protected search = signal('');
+  private readonly dialog = inject(MatDialog);
+  private readonly destroyRef = inject(DestroyRef);
 
   private readonly service = inject(RateService);
+  private readonly projectService = inject(ProjectService);
+  private readonly userService = inject(UserService);
+
+  private rawRateTypes: Signal<string[]> = toSignal(
+    this.service.getAllRateTypes(),
+    {
+      initialValue: [],
+    }
+  );
+
+  private rawUsers: Signal<User[]> = toSignal(this.userService.getUsers(), {
+    initialValue: [],
+  });
+
+  private rawProjects: Signal<Project[]> = toSignal(
+    this.projectService.getProjects(),
+    {
+      initialValue: [],
+    }
+  );
+
   private rawRates: Signal<Rate[]> = toSignal(this.service.getRates(), {
     initialValue: [],
   });
+
   private rates = computed(() => signal(this.rawRates()));
+
   protected filteredRates = computed(() =>
     this.rates()().filter((rate: Rate) =>
       rate.project.projectName
@@ -101,28 +128,43 @@ export class RatePageComponent {
   }
 
   editRate(rate: Rate) {
-    // this.dialog
-    //   .open(CustomerModalComponent, {
-    //     data: customer,
-    //   })
-    //   .afterClosed()
-    //   .pipe(
-    //     filter((editedCustomer: Customer) => !!editedCustomer),
-    //     switchMap((editedCustomer: Customer) => {
-    //       return this.service
-    //         .updateCustomer(editedCustomer)
-    //         .pipe(takeUntilDestroyed(this.destroyRef));
-    //     }),
-    //     take(1)
-    //   )
-    //   .subscribe((editedCustomer: Customer) => {
-    //     this.customers().update((customers) =>
-    //       customers.map((customer) => {
-    //         if (editedCustomer?.id === customer?.id) return editedCustomer;
-    //         return customer;
-    //       })
-    //     );
-    //   });
+    const { id, ...rateWithoutUnnecessary } = rate;
+
+    this.dialog
+      .open(RateModalComponent, {
+        data: {
+          rate: rateWithoutUnnecessary,
+          projects: this.rawProjects(),
+          users: this.rawUsers(),
+          rateTypes: this.rawRateTypes(),
+        },
+      })
+      .afterClosed()
+      .pipe(
+        filter((editedRate: Rate) => !!editedRate),
+        switchMap((editedRate: Rate) => {
+          const { project, user, ...editedRateWithoutProjectAndEmployee } =
+            editedRate;
+          const editedRateWithId = {
+            ...editedRateWithoutProjectAndEmployee,
+            id: id,
+            projectId: project?.id,
+            employeeId: user?.id,
+          };
+          return this.service
+            .updateRate(editedRateWithId)
+            .pipe(takeUntilDestroyed(this.destroyRef));
+        }),
+        take(1)
+      )
+      .subscribe((editedRate: Rate) => {
+        this.rates().update((rates) =>
+          rates.map((rate) => {
+            if (editedRate?.id === rate?.id) return editedRate;
+            return rate;
+          })
+        );
+      });
   }
 
   deleteRate(rateId: string) {
