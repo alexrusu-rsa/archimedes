@@ -60,9 +60,9 @@ import { Project } from 'src/app/shared/models/project';
 export class RatePageComponent {
   protected readonly icons = Icons;
   protected search = signal('');
+
   private readonly dialog = inject(MatDialog);
   private readonly destroyRef = inject(DestroyRef);
-
   private readonly service = inject(RateService);
   private readonly projectService = inject(ProjectService);
   private readonly userService = inject(UserService);

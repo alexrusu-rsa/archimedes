@@ -8,12 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatOption, MatNativeDateModule } from '@angular/material/core';
-import {
-  MatDatepickerModule,
-  MatDatepicker,
-  MatDatepickerToggle,
-} from '@angular/material/datepicker';
+import { MatOption } from '@angular/material/core';
+
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -28,7 +24,6 @@ import { MatSelect } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProjectModalComponent } from 'src/app/features/project/components/project-modal/project-modal/project-modal.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { isJSDocNonNullableType } from 'typescript';
 
 @Component({
   selector: 'app-rate-modal',
@@ -36,7 +31,6 @@ import { isJSDocNonNullableType } from 'typescript';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MatDatepickerModule,
     TranslateModule,
     MatDialogContent,
     MatDialogActions,
@@ -49,10 +43,7 @@ import { isJSDocNonNullableType } from 'typescript';
     MatIconButton,
     MatInputModule,
     MatSelect,
-    MatDatepicker,
     MatOption,
-    MatDatepickerToggle,
-    MatNativeDateModule,
   ],
   templateUrl: './rate-modal.component.html',
 })
