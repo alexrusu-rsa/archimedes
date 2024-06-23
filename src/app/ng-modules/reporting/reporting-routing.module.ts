@@ -8,7 +8,6 @@ const routes: Routes = [
     path: 'user-reporting',
     component: ReportingPageComponent,
   },
-  { path: 'rate', component: RatePageComponent },
   {
     path: '',
     redirectTo: 'dashboard',

@@ -1,1 +1,131 @@
-<p>rate-modal works!</p>
+<div class="d-flex flex-row-reverse">
+  <button class="text-white" mat-icon-button mat-dialog-close>
+    <mat-icon>{{ icons.close }}</mat-icon>
+  </button>
+</div>
+
+<!-- dialog title -->
+<h2 mat-dialog-title align="center" class="p-0">
+  {{ "project.dialog.title" | translate }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="rateForm" class="d-flex row gap-2 justify-content-center">
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "project.dialog.projectName" | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="projectName"
+        [required]="
+          this.rateForm.controls['projectName'].hasValidator(
+            validators.required
+          )
+        "
+      />
+      @if(rateForm?.controls['projectName']?.invalid){
+      <mat-hint>{{ "project.dialog.projectName" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "project.dialog.contract" | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="contract"
+        [required]="
+          this.rateForm.controls['contract'].hasValidator(validators.required)
+        "
+      />
+      @if(rateForm?.controls['contract']?.invalid){
+      <mat-hint>{{ "project.dialog.contract" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "project.dialog.dueDate" | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="dueDate"
+        required
+        [matDatepicker]="datePicker"
+      />
+      <mat-datepicker-toggle
+        [for]="datePicker"
+        matSuffix
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datePicker touchUi></mat-datepicker>
+      @if(rateForm?.controls['dueDate']?.invalid){
+      <mat-hint>{{ "project.dialog.dueDate" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "project.dialog.contractSignDate" | translate }}</mat-label>
+      <input
+        matInput
+        [matDatepicker]="contractSignDatepicker"
+        formControlName="contractSignDate"
+      />
+
+      <mat-datepicker-toggle
+        [for]="contractSignDatepicker"
+        matSuffix
+      ></mat-datepicker-toggle>
+      <mat-datepicker #contractSignDatepicker touchUi></mat-datepicker>
+      @if(rateForm?.controls['contractSignDate']?.invalid){
+      <mat-hint>{{ "project.dialog.contractSignDate" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "project.dialog.invoiceTerm" | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="invoiceTerm"
+        [required]="
+          this.projectForm.controls['invoiceTerm'].hasValidator(
+            validators.required
+          )
+        "
+      />
+      @if(rateForm?.controls['invoiceTerm']?.invalid){
+      <mat-hint>{{ "project.dialog.invoiceTerm" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "project.dialog.customerName" | translate }}</mat-label>
+      <mat-select formControlName="customer">
+        @for (customer of data?.customers; track $index) {
+        <mat-option [value]="customer">
+          {{ customer?.customerName }}
+        </mat-option>
+        }
+      </mat-select>
+      @if(rateForm?.controls['']?.invalid){
+      <mat-hint>{{ "project.dialog.customer" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<!-- dialog action buttons -->
+<mat-dialog-actions align="center" class="gap-2 pb-4">
+  <button
+    mat-raised-button
+    (click)="submit()"
+    [disabled]="rateForm.invalid"
+    color="accent"
+  >
+    {{
+      (data.project ? "project.dialog.submitEdit" : "project.dialog.submit")
+        | translate
+    }}
+  </button>
+  <button mat-raised-button mat-dialog-close>
+    {{ "shared.modal.cancel" | translate }}
+  </button>
+</mat-dialog-actions>

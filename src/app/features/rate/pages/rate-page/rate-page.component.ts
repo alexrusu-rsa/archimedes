@@ -1,12 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   Signal,
   computed,
   inject,
   signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import {
   MatCard,
   MatCardActions,
@@ -24,6 +25,11 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MobileRateTypePipe } from '../../mobileRateType.pipe';
 import { TimePipe } from 'src/app/shared/pipes/time.pipe';
+import {
+  DeleteConfirmationModalComponent,
+  deleteConfirmationModalPreset,
+} from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { filter, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-rate-page',
@@ -47,17 +53,20 @@ import { TimePipe } from 'src/app/shared/pipes/time.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatePageComponent {
-  private dialog = inject(MatDialog);
-  protected readonly icons = Icons;
+  private readonly dialog = inject(MatDialog);
   protected search = signal('');
-  private rawRates: Signal<Rate[]> = toSignal(inject(RateService).getRates(), {
+
+  private readonly destroyRef = inject(DestroyRef);
+  protected readonly icons = Icons;
+
+  private readonly service = inject(RateService);
+  private rawRates: Signal<Rate[]> = toSignal(this.service.getRates(), {
     initialValue: [],
   });
   private rates = computed(() => signal(this.rawRates()));
   protected filteredRates = computed(() =>
     this.rates()().filter((rate: Rate) =>
-      // TODO fix this after BE UPDATE
-      JSON.stringify(rate)
+      rate.project.projectName
         .toLowerCase()
         .includes(this.search().trim().toLowerCase())
     )
@@ -117,22 +126,22 @@ export class RatePageComponent {
   }
 
   deleteRate(rateId: string) {
-    //   this.dialog
-    //     .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
-    //     .afterClosed()
-    //     .pipe(
-    //       filter((deleteConfirmation) => deleteConfirmation === true),
-    //       switchMap((_) => {
-    //         return this.service
-    //           .deleteCustomer(customerId)
-    //           .pipe(takeUntilDestroyed(this.destroyRef));
-    //       }),
-    //       take(1)
-    //     )
-    //     .subscribe((_) => {
-    //       this.customers().update((customers) =>
-    //         customers.filter((customer) => customer.id !== customerId)
-    //       );
-    //     });
+    this.dialog
+      .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
+      .afterClosed()
+      .pipe(
+        filter((deleteConfirmation) => deleteConfirmation === true),
+        switchMap((_) => {
+          return this.service
+            .deleteRate(rateId)
+            .pipe(takeUntilDestroyed(this.destroyRef));
+        }),
+        take(1)
+      )
+      .subscribe((_) => {
+        this.rates().update((rates) =>
+          rates.filter((rate) => rate.id !== rateId)
+        );
+      });
   }
 }

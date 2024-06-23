@@ -70,7 +70,7 @@
                         {{ "rate.page.table.header.delete" | translate }}
                     </mat-header-cell>
                     <mat-cell *matCellDef="let rate">
-                        <button mat-icon-button (click)="deleteRate(rate)">
+                        <button mat-icon-button (click)="deleteRate(rate.id)">
                             <mat-icon color="accent">{{icons.delete}}</mat-icon>
                         </button>
                     </mat-cell>
