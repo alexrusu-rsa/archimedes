@@ -42,11 +42,19 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
   },
   {
-    path: 'rate',
+    path: 'dashboard',
     loadComponent: () =>
-      import('./features/rate/pages/rate-page/rate-page.component').then(
-        (c) => c.RatePageComponent
-      ),
+      import(
+        './features/dashboard/pages/dashboard-page/dashboard-page.component'
+      ).then((c) => c.DashboardPageComponent),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'project',
+    loadComponent: () =>
+      import(
+        './features/project/pages/project-page/project-page.component'
+      ).then((c) => c.ProjectPageComponent),
     canActivate: [AuthGuard, RoleGuard],
   },
   {

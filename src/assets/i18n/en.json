@@ -21,16 +21,6 @@
       "other": "Other"
     }
   },
-  "adminDashboard": {
-    "activities": "Activities",
-    "customers": "Customers",
-    "invoices": "Invoices",
-    "logOut": "Log Out",
-    "projects": "Projects",
-    "rates": "Rates",
-    "reporting": "Reporting",
-    "users": "Users"
-  },
   "customer": {
     "dialog": {
       "IBANEUR": "IBAN EUR",
@@ -63,7 +53,13 @@
     }
   },
   "dashboard": {
-    "monthOverview": "Month overview"
+    "monthOverview": "Month overview",
+    "shared": {
+      "salutation": {
+        "title": "Hi {{name}} {{surname}},",
+        "welcome": "Welcome to Archimedes, your time booking webapp.\n Let's get you booked!"
+      }
+    }
   },
   "duplicate": {
     "dialog": {
@@ -133,14 +129,16 @@
   },
   "project": {
     "dialog": {
+      "title": "Add a new project",
       "contract": "Project Contract",
       "contractSignDate": "Contract Sign Date",
       "customerName": "Customer Name",
       "dueDate": "Project Due Date",
       "invoiceTerm": "Project Invoice Term",
-      "name": "Project Name",
-      "titleAdd": "Add Project",
-      "titleUpdate": "Update Project"
+      "submit": "Add project",
+      "submitEdit": "Update project",
+      "projectName": "Project name",
+      "customer": "Customer"
     },
     "page": {
       "search": "Search project",
@@ -232,6 +230,11 @@
         "submit": "Yes, delete",
         "title": "Are you sure you want to delete this item?"
       }
+    },
+    "widget": {
+      "monthlyOverview": {
+        "title": "Your monthly overview"
+      }
     }
   },
   "sidenav": {
@@ -273,10 +276,5 @@
     "page": {
       "search": "Search user"
     }
-  },
-  "userDashboard": {
-    "activities": "Activities",
-    "settings": "Settings",
-    "title": "User Dashboard"
   }
 }

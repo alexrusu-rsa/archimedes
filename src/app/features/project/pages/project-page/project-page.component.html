@@ -1,0 +1,58 @@
+<app-entity-page-header
+  [searchLabel]="
+    'shared.entity.header.search' | translate : { entity: 'project' }
+  "
+  [hasAddEntity]="true"
+  [searchPlaceholder]="'shared.entity.header.searchPlaceholder' | translate"
+  (addEntity)="addProject()"
+  (searchKeyUp)="search.set($event.target['value'])"
+  class="d-flex flex-wrap justify-content-between column-gap-2"
+></app-entity-page-header>
+
+<div class="d-flex flex-column row-gap-3 h-100">
+  @for (project of filteredProjects(); track $index) {
+  <app-entity-item
+    [title]="project?.projectName"
+    [chips]="[
+      project?.customer?.customerName ? project?.customer?.customerName : ''
+    ]"
+  >
+    <mat-card-actions actions align="end">
+      <button
+        mat-icon-button
+        (click)="editProject(project)"
+        aria-label="Edit project button"
+        type="button"
+      >
+        <mat-icon color="accent">{{ icons.edit }}</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        (click)="deleteProject(project?.id)"
+        aria-label="Delete project button"
+        type="button"
+      >
+        <mat-icon color="accent">{{ icons.delete }}</mat-icon>
+      </button>
+    </mat-card-actions>
+  </app-entity-item>
+  } @if (filteredProjects().length <= 0) {
+  <app-entity-item
+    [title]="
+      'shared.entity.item.empty.listEmpty' | translate : { entity: 'projects' }
+    "
+    [emptyIcon]="icons.info"
+  >
+  </app-entity-item>
+  }
+
+  <button
+    mat-raised-button
+    class="d-flex flex-column mx-auto add-entity-button"
+    aria-label="Create project button"
+    type="button"
+    (click)="addProject()"
+  >
+    <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
+  </button>
+</div>
