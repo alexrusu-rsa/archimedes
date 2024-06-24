@@ -93,7 +93,7 @@ export class RatePageComponent {
 
   protected filteredRates = computed(() =>
     this.rates()().filter((rate: Rate) =>
-      rate.project.projectName
+      JSON.stringify(rate)
         .toLowerCase()
         .includes(this.search().trim().toLowerCase())
     )
