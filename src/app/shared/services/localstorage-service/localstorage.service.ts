@@ -6,11 +6,24 @@ export class LocalStorageService {
   accessTokenValue = new BehaviorSubject(this.accessToken);
   roleValue = new BehaviorSubject(this.role);
   userIdValue = new BehaviorSubject(this.userId);
-
+  darkModeValue = new BehaviorSubject(this.darkMode);
   localStorageLogout() {
     this.accessToken = null;
     this.role = null;
     this.userId = null;
+    this.darkMode = null;
+  }
+
+  get darkMode(): string | null {
+    return localStorage.getItem('darkMode');
+  }
+
+  set darkMode(value: string | null) {
+    this.darkModeValue.next(value);
+    if (value) localStorage.setItem('darkMode', value);
+    else {
+      localStorage.removeItem('darkMode');
+    }
   }
 
   set accessToken(value: string | null) {

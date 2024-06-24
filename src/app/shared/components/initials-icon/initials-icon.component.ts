@@ -8,7 +8,6 @@ import { User } from '../../models/user';
   standalone: true,
   imports: [CommonModule, MatIcon],
   templateUrl: './initials-icon.component.html',
-  styleUrls: ['./initials-icon.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InitialsIconComponent {

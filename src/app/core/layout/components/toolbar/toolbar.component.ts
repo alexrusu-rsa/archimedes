@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, Renderer2, inject, input, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -7,6 +7,9 @@ import {
   MatMenuContent,
   MatMenuTrigger,
 } from '@angular/material/menu';
+import {
+  MatSlideToggle,
+} from '@angular/material/slide-toggle';
 import { MatToolbar } from '@angular/material/toolbar';
 import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/initials-icon.component';
 import { UserNavigationComponent } from 'src/app/shared/components/user-navigation/user-navigation.component';
@@ -27,6 +30,7 @@ import { User } from 'src/app/shared/models/user';
     MatMenu,
     MatMenuContent,
     MatMenuTrigger,
+    MatSlideToggle,
   ],
 })
 export class ToolbarComponent {
@@ -34,7 +38,11 @@ export class ToolbarComponent {
   user = input<User>();
 
   toggleSidenav = output<void>();
+
   logOut = output<void>();
+
+  darkMode = input<boolean>();
+  darkModeChanged = output<boolean>();
 
   protected readonly icons = Icons;
 }

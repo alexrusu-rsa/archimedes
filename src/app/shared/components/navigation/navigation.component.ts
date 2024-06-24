@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   styles: [
     `
-  .active 
+  .active
     background-color: #c45d17
     `,
   ],

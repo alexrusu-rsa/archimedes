@@ -1,105 +1,122 @@
 <!-- dialog header with x button -->
 <div class="d-flex flex-row-reverse">
-    <button class="text-white" mat-icon-button mat-dialog-close>
-        <mat-icon>{{icons.close}}</mat-icon>
-    </button>
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>{{ icons.close }}</mat-icon>
+  </button>
 </div>
 
 <!-- dialog title -->
-<h2 mat-dialog-title align="center" class="text-white m-0">{{ (data?.activity? "activity.dialog.titleEdit" :
-    "activity.dialog.title")
-    |
-    translate }} </h2>
+<h2 mat-dialog-title align="center" class="m-0">
+  {{
+    (data?.activity ? "activity.dialog.titleEdit" : "activity.dialog.title")
+      | translate
+  }}
+</h2>
 
 <mat-dialog-content>
-    <form [formGroup]="activityForm" class="d-flex row gap-2 justify-content-center">
-
-        <mat-form-field class="col-12 m-0 p-0" appearance="fill">
-            <mat-label>{{
-                ("activity.dialog.name") | translate
-                }}</mat-label>
-            <input matInput type="text" formControlName="name" />
-            @if(activityForm?.controls['name']?.invalid){
-            <!-- TODO update and clean hints implementation-->
-            <mat-hint>{{
-                ("activity.dialog.nameHint") | translate
-                }}</mat-hint>
-            }
-        </mat-form-field>
-        <mat-form-field class="col-12 m-0 p-0" appearance="fill">
-            <mat-label>{{
-                ("activity.dialog.start") | translate
-                }}</mat-label>
-            <input matInput type="time" min="00:00" max="24:00" formControlName="start" />
-            @if(activityForm?.controls['start']?.invalid){
-            <!-- TODO update and clean hints implementation  handle max time 24.00-->
-            <mat-hint>{{
-                ("activity.dialog.startHint") | translate
-                }}</mat-hint>
-            }
-        </mat-form-field>
-        <mat-form-field class="col-12 m-0 p-0" appearance="fill">
-            <mat-label>{{
-                ("activity.dialog.end") | translate
-                }}</mat-label>
-            <input matInput type="time" min="00:00" max="24:00" formControlName="end" />
-            @if(activityForm?.controls['end']?.invalid){
-            <!-- TODO update and clean hints implementation, handle max time 24.00-->
-            <mat-hint>{{
-                ("activity.dialog.endHint") | translate
-                }}</mat-hint>
-            }
-        </mat-form-field>
-        <mat-form-field class="mx-0 px-0" appearance="fill">
-            <mat-label>{{ "activity.dialog.project" | translate }}</mat-label>
-            <input type="text" aria-label="Project" matInput formControlName="project" [matAutocomplete]="auto" />
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName.bind(this)">
-                @if (data?.activityProjects?.length>0) {
-                @for (project of data?.activityProjects; track $index) {
-                <mat-option [value]="project" ngDefaultControl>{{
-                    project?.projectName }}</mat-option>
-                }
-                }
-                <mat-option [value]="{id:'other', projectName:'other'}">{{
-                    'activity.shared.other' | translate
-                    }}</mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-        <mat-form-field class="mx-0 px-0" appearance="fill">
-            <mat-label>{{ "activity.dialog.activityType" | translate }}</mat-label>
-            <mat-select formControlName="activityType" (keyup.enter)="$event.stopPropagation()">
-                @if (data?.activityTypes?.length>0) {
-                @for (type of data?.activityTypes; track $index) {
-                <mat-option value="{{ type }}">{{
-                    type }}</mat-option>
-                }
-                }
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="col-12 m-0 p-0" appearance="fill">
-            <mat-label>{{
-                ("activity.dialog.description") | translate
-                }}</mat-label>
-            <textarea matInput type="text" formControlName="description"></textarea>
-        </mat-form-field>
-        @if (activityForm?.value?.description!=='') {
-        <mat-form-field class="col-12 m-0 p-0" appearance="fill">
-            <mat-label>{{
-                ("activity.dialog.extras") | translate
-                }}</mat-label>
-            <textarea matInput type="text" formControlName="extras"></textarea>
-        </mat-form-field>
-        }
-    </form>
+  <form
+    [formGroup]="activityForm"
+    class="d-flex row gap-2 justify-content-center"
+  >
+    <mat-form-field class="col-12 m-0 p-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.name" | translate }}</mat-label>
+      <input matInput type="text" formControlName="name" />
+      @if(activityForm?.controls['name']?.invalid){
+      <!-- TODO update and clean hints implementation-->
+      <mat-hint>{{ "activity.dialog.nameHint" | translate }}</mat-hint>
+      }
+    </mat-form-field>
+    <mat-form-field class="col-12 m-0 p-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.start" | translate }}</mat-label>
+      <input
+        matInput
+        type="time"
+        min="00:00"
+        max="24:00"
+        formControlName="start"
+      />
+      @if(activityForm?.controls['start']?.invalid){
+      <!-- TODO update and clean hints implementation  handle max time 24.00-->
+      <mat-hint>{{ "activity.dialog.startHint" | translate }}</mat-hint>
+      }
+    </mat-form-field>
+    <mat-form-field class="col-12 m-0 p-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.end" | translate }}</mat-label>
+      <input
+        matInput
+        type="time"
+        min="00:00"
+        max="24:00"
+        formControlName="end"
+      />
+      @if(activityForm?.controls['end']?.invalid){
+      <!-- TODO update and clean hints implementation, handle max time 24.00-->
+      <mat-hint>{{ "activity.dialog.endHint" | translate }}</mat-hint>
+      }
+    </mat-form-field>
+    <mat-form-field class="mx-0 px-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.project" | translate }}</mat-label>
+      <input
+        type="text"
+        aria-label="Project"
+        matInput
+        formControlName="project"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="displayName.bind(this)"
+      >
+        @if (data?.activityProjects?.length>0) { @for (project of
+        data?.activityProjects; track $index) {
+        <mat-option [value]="project" ngDefaultControl>{{
+          project?.projectName
+        }}</mat-option>
+        } }
+        <mat-option [value]="{ id: 'other', projectName: 'other' }">{{
+          "activity.shared.other" | translate
+        }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="mx-0 px-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.activityType" | translate }}</mat-label>
+      <mat-select
+        formControlName="activityType"
+        (keyup.enter)="$event.stopPropagation()"
+      >
+        @if (data?.activityTypes?.length>0) { @for (type of data?.activityTypes;
+        track $index) {
+        <mat-option value="{{ type }}">{{ type }}</mat-option>
+        } }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-12 m-0 p-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.description" | translate }}</mat-label>
+      <textarea matInput type="text" formControlName="description"></textarea>
+    </mat-form-field>
+    @if (activityForm?.value?.description!=='') {
+    <mat-form-field class="col-12 m-0 p-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.extras" | translate }}</mat-label>
+      <textarea matInput type="text" formControlName="extras"></textarea>
+    </mat-form-field>
+    }
+  </form>
 </mat-dialog-content>
 
 <!-- dialog action buttons -->
 <mat-dialog-actions align="center" class="gap-2 pb-4">
-    <button mat-raised-button (click)="submit()"
-        [disabled]="activityForm?.invalid || (data?.activity===activityForm?.value)" color="accent">
-        {{ (data?.activity ? "activity.dialog.submitEdit" : "activity.dialog.submit") | translate }}
-    </button>
-    <button mat-raised-button mat-dialog-close>
-        {{ "shared.modal.cancel"| translate }}
-    </button>
+  <button
+    mat-raised-button
+    (click)="submit()"
+    [disabled]="activityForm?.invalid || data?.activity === activityForm?.value"
+    color="accent"
+  >
+    {{
+      (data?.activity ? "activity.dialog.submitEdit" : "activity.dialog.submit")
+        | translate
+    }}
+  </button>
+  <button mat-raised-button mat-dialog-close>
+    {{ "shared.modal.cancel" | translate }}
+  </button>
 </mat-dialog-actions>

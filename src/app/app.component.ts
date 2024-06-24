@@ -1,4 +1,12 @@
-import { Component, DestroyRef, OnInit, Signal, inject } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  Renderer2,
+  Signal,
+  inject,
+  signal,
+} from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './core/auth/services/auth-service/auth.service';
@@ -20,6 +28,11 @@ export class AppComponent implements OnInit {
   protected readonly store = inject(ActivityStore);
   private readonly router = inject(Router);
   protected readonly icons = Icons;
+  private renderer = inject(Renderer2);
+
+  private readonly localStorageService = inject(LocalStorageService);
+
+  protected isDarkMode = signal(false);
 
   protected user: Signal<User> = toSignal(
     inject(LocalStorageService).userIdValue.pipe(
@@ -51,12 +64,38 @@ export class AppComponent implements OnInit {
     )
   );
 
+  protected onThemeChanged() {
+    this.isDarkMode.set(!this.isDarkMode());
+    this.localStorageService.darkMode = this.isDarkMode()?.toString();
+    if (this.isDarkMode()) {
+      this.renderer.addClass(document.body, 'dark-theme');
+      this.renderer.removeClass(document.body, 'light-theme');
+    } else {
+      this.renderer.addClass(document.body, 'light-theme');
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
+  }
+
   ngOnInit() {
     this.translate.addLangs(['en', 'de', 'ro']);
     this.translate.setDefaultLang('en');
     const browserLang = this.translate.getBrowserLang();
-
     if (browserLang?.match(/en|de|ro/)) this.translate.use(browserLang);
     else this.translate.use('en');
+
+
+  
+    if (!this.localStorageService.darkMode) {
+      this.localStorageService.darkMode = true.toString();
+    }
+    this.isDarkMode.set(this.localStorageService.darkMode === 'true');
+
+    if (this.isDarkMode()) {
+      this.renderer.addClass(document.body, 'dark-theme');
+      this.renderer.removeClass(document.body, 'light-theme');
+    } else {
+      this.renderer.addClass(document.body, 'light-theme');
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
   }
 }

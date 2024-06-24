@@ -1,12 +1,20 @@
+@use '@angular/material' as mat
+@import 'src/styles/custom_light_theme.sass'
 @import 'src/styles/custom_theme.sass'
 @import 'src/styles/variables.sass'
-
+@import 'src/styles/variables-light.sass'
 html, body
   margin: 0
   height: $full-height
   width: $full-width
   background: $rsasoft-background-color
 
+.light-theme
+  @include mat.all-component-themes($rsasoft-light-theme)
+
+.dark-theme
+  @include mat.all-component-themes($rsasoft-dark-theme)
+  
 *
   scrollbar-width: thin
   scrollbar-color: $rsasoft-layer1-card-color $rsasoft-layer2-card-color
@@ -20,7 +28,7 @@ html, body
 *::-webkit-scrollbar-thumb
   background-color: $rsasoft-layer2-card-color
   border-radius: 20px
-  
+
 .pointer-cursor
   cursor: pointer
 

@@ -1,21 +1,35 @@
 <mat-card class="p-2">
-    @if(displayDate() && bookedTime() && user()?.timePerDay){
-    <mat-card-header>
-        <mat-card-subtitle>{{displayDate() | appTodayDate}}</mat-card-subtitle>
-        <mat-card-title class="mb-1">{{bookedTime() | appTime}} / {{user()?.timePerDay| appTime}}</mat-card-title>
-    </mat-card-header>
-    }
+  @if(displayDate() && bookedTime() && user()?.timePerDay){
+  <mat-card-header>
+    <mat-card-subtitle>{{ displayDate() | appTodayDate }}</mat-card-subtitle>
+    <mat-card-title class="mb-1"
+      >{{ bookedTime() | appTime }} /
+      {{ user()?.timePerDay | appTime }}</mat-card-title
+    >
+  </mat-card-header>
+  }
 
-    <mat-card-content>
-        <mat-progress-bar class="mb-1" mode="buffer" color="accent"
-            value="{{bookedTime() | appBookedPercentage: user()?.timePerDay}}"></mat-progress-bar>
-        <mat-card-subtitle>{{bookedTime() | appBookedMessage: user()?.timePerDay:user()?.surname}}</mat-card-subtitle>
-    </mat-card-content>
+  <mat-card-content>
+    <mat-progress-bar
+      class="mb-1"
+      mode="buffer"
+      color="accent"
+      value="{{ bookedTime() | appBookedPercentage : user()?.timePerDay }}"
+    ></mat-progress-bar>
+    <mat-card-subtitle>{{
+      bookedTime() | appBookedMessage : user()?.timePerDay : user()?.surname
+    }}</mat-card-subtitle>
+  </mat-card-content>
 
-    <mat-card-actions>
-        <button mat-raised-button class="secondary-card col-12 mt-2" aria-label="Create activity button" type="button"
-            routerLink="/activity">
-            <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
-        </button>
-    </mat-card-actions>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      class="col-12 mt-2"
+      aria-label="Create activity button"
+      type="button"
+      routerLink="/activity"
+    >
+      <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>

@@ -30,6 +30,7 @@ import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
 import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
 import { RightSectionComponent } from './core/layout/components/right-section/right-section.component';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
