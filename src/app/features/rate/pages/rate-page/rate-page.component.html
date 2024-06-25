@@ -64,7 +64,10 @@
             {{ "rate.page.table.header.edit" | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let rate" class="d-none d-md-flex">
-            <button mat-icon-button (click)="editRate(rate)">
+            <button
+              mat-icon-button
+              (click)="editRate(rate); $event.stopPropagation()"
+            >
               <mat-icon color="accent">{{ icons.edit }}</mat-icon>
             </button>
           </mat-cell>
@@ -75,7 +78,10 @@
             {{ "rate.page.table.header.delete" | translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let rate">
-            <button mat-icon-button (click)="deleteRate(rate.id)">
+            <button
+              mat-icon-button
+              (click)="deleteRate(rate.id); $event.stopPropagation()"
+            >
               <mat-icon color="accent">{{ icons.delete }}</mat-icon>
             </button>
           </mat-cell>
@@ -84,7 +90,11 @@
           *matHeaderRowDef="displayedColumns"
           class="text-truncate"
         ></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="editRate(row)"
+          class="clickable-row"
+        ></mat-row>
         <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell" colspan="4">
             {{ "rate.page.table.noData" | translate }}

@@ -55,6 +55,12 @@ import { Project } from 'src/app/shared/models/project';
     TimePipe,
   ],
   templateUrl: './rate-page.component.html',
+  styles: [
+    `
+        .clickable-row
+          cursor: pointer
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RatePageComponent {

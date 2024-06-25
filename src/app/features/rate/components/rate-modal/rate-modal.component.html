@@ -6,7 +6,9 @@
 
 <!-- dialog title -->
 <h2 mat-dialog-title align="center" class="p-0">
-  {{ "rate.dialog.title" | translate }}
+  {{
+    (data.rate ? "rate.dialog.editTitle" : "rate.dialog.title") | translate
+  }}
 </h2>
 
 <mat-dialog-content>
@@ -81,7 +83,9 @@
         "
       />
       @if(rateForm?.controls['employeeTimeCommitment']?.invalid){
-      <mat-hint>{{ "rate.dialog.employeeTimeCommitement" | translate }}</mat-hint
+      <mat-hint>{{
+        "rate.dialog.employeeTimeCommitement" | translate
+      }}</mat-hint
       >}
     </mat-form-field>
   </form>
