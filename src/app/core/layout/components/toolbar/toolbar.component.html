@@ -26,7 +26,7 @@
     </div>
 
     <!-- User passed must be named differently than user from component as it might confuse Angular -->
-    <mat-menu #menu="matMenu" class="px-2 pt-3 pb-0" xPosition="before">
+    <mat-menu #menu="matMenu" class="px-2 pt-3 pb-0 mt-3" xPosition="before">
       <ng-template matMenuContent let-menuUser="menuUser">
         @if(user()){
         <app-user-navigation

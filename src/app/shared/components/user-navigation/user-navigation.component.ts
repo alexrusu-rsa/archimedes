@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/initials-icon.component';
 import { User } from '../../models/user';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { LocalStorageService } from '../../services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-user-navigation',
