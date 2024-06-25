@@ -1,8 +1,5 @@
 @use '@angular/material' as mat
-@import 'src/styles/variables-light.sass'
+@use 'src/styles/variables.sass' as variables
 @include mat.core()
-$rsasoft-orange-palette: (50:#fef9e7, 100: #fceec3, 200: #fae59c, 300: #f6db78, 400: #c45d17,500: #c45d17, 600: #debb3f,700: #c9a639, 800: #b39035, 900: #8f6d2d, contrast:(50: #000000, 100: #000000, 200: #000000 ,300:#000000, 400:#000000, 500:#ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff), contrast-contrast:#ffffff)
-$rsasoft-primary: mat.define-palette($rsasoft-blue-palette,900)
-$rsasoft-accent: mat.define-palette($rsasoft-orange-palette,400)
-$rsasoft-light-theme: mat.define-light-theme((color: (primary: $rsasoft-primary, accent: $rsasoft-accent, warn:$rsasoft-warning-color)))
 
+$rsasoft-light-theme: mat.define-light-theme((color: (primary: variables.$rsasoft-primary, accent: variables.$rsasoft-accent, warn: variables.$rsasoft-warning-color)))

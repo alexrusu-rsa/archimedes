@@ -42,12 +42,14 @@ enum CellColor {
   providers: [provideNativeDateAdapter()],
   styles: [
     `
+    @use 'src/styles/variables.sass' as variables
+
     button.red span
-        color: red!important
+        color: variables.$rsasoft-without-reported-hours
     button.orange span
-        color: orange!important
+        color: variables.$rsasoft-partially-reported-day
     button.green span
-        color: green!important
+        color: variables.$rsasoft-fully-reported-day
     `,
   ],
   templateUrl: './month-overview-widget.component.html',
