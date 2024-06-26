@@ -237,6 +237,9 @@
       "monthlyOverview": {
         "title": "Your monthly overview"
       }
+    },
+    "userNavigation": {
+      "darkModeSwitch": "Dark Mode"
     }
   },
   "sidenav": {

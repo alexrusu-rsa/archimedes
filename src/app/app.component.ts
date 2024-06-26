@@ -1,4 +1,12 @@
-import { Component, DestroyRef, OnInit, Signal, inject } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  Renderer2,
+  Signal,
+  inject,
+  signal,
+} from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './core/auth/services/auth-service/auth.service';
@@ -19,6 +27,8 @@ export class AppComponent implements OnInit {
   public readonly auth = inject(AuthService);
   protected readonly store = inject(ActivityStore);
   private readonly router = inject(Router);
+  private renderer = inject(Renderer2);
+  protected readonly localStorageService = inject(LocalStorageService);
   protected readonly icons = Icons;
 
   protected user: Signal<User> = toSignal(
@@ -51,12 +61,30 @@ export class AppComponent implements OnInit {
     )
   );
 
+  protected onThemeChanged() {
+    this.localStorageService.updateDarkMode();
+    if (this.localStorageService.darkMode()) {
+      this.renderer.addClass(document.body, 'dark-theme');
+      this.renderer.removeClass(document.body, 'light-theme');
+    } else {
+      this.renderer.addClass(document.body, 'light-theme');
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
+  }
+
   ngOnInit() {
     this.translate.addLangs(['en', 'de', 'ro']);
     this.translate.setDefaultLang('en');
     const browserLang = this.translate.getBrowserLang();
-
     if (browserLang?.match(/en|de|ro/)) this.translate.use(browserLang);
     else this.translate.use('en');
+
+    if (this.localStorageService.darkMode()) {
+      this.renderer.addClass(document.body, 'dark-theme');
+      this.renderer.removeClass(document.body, 'light-theme');
+    } else {
+      this.renderer.addClass(document.body, 'light-theme');
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
   }
 }

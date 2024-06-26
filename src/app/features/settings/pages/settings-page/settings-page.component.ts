@@ -51,7 +51,6 @@ import { UserManagePasswordService } from 'src/app/features/user/services/user-m
     MatButton,
   ],
   templateUrl: './settings-page.component.html',
-  styleUrl: './settings-page.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsPageComponent {

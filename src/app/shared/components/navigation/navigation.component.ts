@@ -23,8 +23,10 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   styles: [
     `
-  .active 
-    background-color: #c45d17
+      @use 'src/styles/variables.sass' as variables
+
+      .active
+        background-color: variables.$rsasoft-navigation-hover
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

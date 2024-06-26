@@ -1,47 +1,65 @@
 <!-- dialog header with x button -->
 <div class="d-flex flex-row-reverse">
-  <button class="text-white" mat-icon-button mat-dialog-close>
-    <mat-icon>{{icons.close}}</mat-icon>
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>{{ icons.close }}</mat-icon>
   </button>
 </div>
 
 <!-- dialog title -->
-<h2 mat-dialog-title align="center" class="text-white m-0">{{ "customer.dialog.title" | translate }} </h2>
+<h2 mat-dialog-title align="center" class="m-0">
+  {{ "customer.dialog.title" | translate }}
+</h2>
 
 <mat-dialog-content>
-  <form [formGroup]="customerForm" class="d-flex row gap-2 justify-content-center">
-    @for (form of customerForm.controls | keyvalue; track $index) {
-    @if (!(form.key ==='internal' || form.key === 'VAT' || form.key === 'romanianCompany')) {
+  <form
+    [formGroup]="customerForm"
+    class="d-flex row gap-2 justify-content-center"
+  >
+    @for (form of customerForm.controls | keyvalue; track $index) { @if
+    (!(form.key ==='internal' || form.key === 'VAT' || form.key ===
+    'romanianCompany')) {
     <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
-      <mat-label>{{
-        ("customer.dialog."+form.key) | translate
-        }}</mat-label>
-      <input matInput type="text" [formControlName]="form.key"
-        [required]="this.customerForm.controls[form.key].hasValidator(validators.required)" />
+      <mat-label>{{ "customer.dialog." + form.key | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControlName]="form.key"
+        [required]="
+          this.customerForm.controls[form.key].hasValidator(validators.required)
+        "
+      />
       @if(customerForm?.controls[form.key]?.invalid){
 
       <!-- TODO update and clean hints implementation-->
       <mat-hint>{{
-        ("customer.dialog."+form.key+"Hint") | translate
-        }}</mat-hint>
+        "customer.dialog." + form.key + "Hint" | translate
+      }}</mat-hint>
       }
     </mat-form-field>
-    } }
-
-    @for (form of customerForm.controls | keyvalue; track $index) {
-    @if(form.key ==='internal' || form.key === 'VAT' || form.key === 'romanianCompany'){
-    <mat-slide-toggle class="col-10" [formControlName]="form.key">{{ ("customer.dialog."+form.key)
-      | translate }}</mat-slide-toggle>
+    } } @for (form of customerForm.controls | keyvalue; track $index) {
+    @if(form.key ==='internal' || form.key === 'VAT' || form.key ===
+    'romanianCompany'){
+    <mat-slide-toggle class="col-10" [formControlName]="form.key">{{
+      "customer.dialog." + form.key | translate
+    }}</mat-slide-toggle>
     } }
   </form>
 </mat-dialog-content>
 
 <!-- dialog action buttons -->
 <mat-dialog-actions align="center" class="gap-2 pb-4">
-  <button mat-raised-button (click)="submit()" [disabled]="customerForm.invalid" color="accent">
-    {{ (customer? "customer.dialog.submitEdit" : "customer.dialog.submit") | translate }}
+  <button
+    mat-raised-button
+    (click)="submit()"
+    [disabled]="customerForm.invalid"
+    color="accent"
+  >
+    {{
+      (customer ? "customer.dialog.submitEdit" : "customer.dialog.submit")
+        | translate
+    }}
   </button>
   <button mat-raised-button mat-dialog-close>
-    {{ "shared.modal.cancel"| translate }}
+    {{ "shared.modal.cancel" | translate }}
   </button>
 </mat-dialog-actions>

@@ -1,31 +1,39 @@
-@import 'src/styles/custom_theme.sass'
-@import 'src/styles/variables.sass'
+@use '@angular/material' as mat
+@use 'src/styles/custom_light_theme.sass' as light-theme
+@use 'src/styles/custom_dark_theme.sass' as dark-theme
+@use 'src/styles/variables.sass' as variables
 
 html, body
   margin: 0
-  height: $full-height
-  width: $full-width
-  background: $rsasoft-background-color
+  height: variables.$full-height
+  width: variables.$full-width
+  background: variables.$rsasoft-background-color
+
+.light-theme
+  @include mat.all-component-themes(light-theme.$rsasoft-light-theme)
+
+.dark-theme
+  @include mat.all-component-themes(dark-theme.$rsasoft-dark-theme)
 
 *
   scrollbar-width: thin
-  scrollbar-color: $rsasoft-layer1-card-color $rsasoft-layer2-card-color
+  scrollbar-color: variables.$rsasoft-layer1-card-color variables.$rsasoft-layer2-card-color
 
 *::-webkit-scrollbar
   width: 12px
 
 *::-webkit-scrollbar-track
-  background: $rsasoft-layer2-card-color
+  background: variables.$rsasoft-layer2-card-color
 
 *::-webkit-scrollbar-thumb
-  background-color: $rsasoft-layer2-card-color
+  background-color: variables.$rsasoft-layer2-card-color
   border-radius: 20px
-  
+
 .pointer-cursor
   cursor: pointer
 
 .secondary-card
-  background-color: $rsasoft-layer2-card-color!important
+  background-color: variables.$rsasoft-layer2-card-color!important
 
 .add-entity-button
   height: 58px!important

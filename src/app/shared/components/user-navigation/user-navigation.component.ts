@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/initials-icon.component';
 import { User } from '../../models/user';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-user-navigation',
@@ -23,10 +24,11 @@ import { User } from '../../models/user';
     MatMenuItem,
     CommonModule,
     RouterLink,
+    MatSlideToggle,
   ],
   styles: [
     `
-      .opacity-70 
+      .opacity-70
         opacity: 0.7
     `,
   ],
@@ -35,4 +37,7 @@ import { User } from '../../models/user';
 export class UserNavigationComponent {
   user = input<User>();
   logOut = output<void>();
+
+  darkMode = input<boolean>(false);
+  darkModeChanged = output<boolean>();
 }

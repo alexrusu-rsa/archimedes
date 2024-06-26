@@ -1,19 +1,36 @@
 @if(user){
-<sub class="opacity-70 d-flex mx-3 mb-4 text-white">{{ 'sidenav.account' | translate
-    }}</sub>
-<div class="opacity-70 d-flex flex-row gap-2 mx-3 my-2 text-white">
-    <app-initials-icon class="rounded-circle" [user]="user()"></app-initials-icon>
-    <div class="d-flex flex-column mb-3 ml-4 white">
-        <span>{{user().name}} {{user().surname}}</span>
-        <sub>{{user().email}}</sub>
-    </div>
+<sub class="opacity-70 z-index-5 d-flex mx-3 mb-4">{{
+  "sidenav.account" | translate
+}}</sub>
+<div class="opacity-70 d-flex flex-row gap-2 mx-3 my-2">
+  <app-initials-icon [user]="user()"></app-initials-icon>
+  <div class="d-flex flex-column mb-3 ml-4">
+    <span>{{ user().name }} {{ user().surname }}</span>
+    <sub>{{ user().email }}</sub>
+  </div>
 </div>
 }
+
+<mat-divider></mat-divider>
+<div class="d-flex flex-row">
+  <a mat-menu-item class="opacity-70">
+    {{ "shared.userNavigation.darkModeSwitch" | translate }}
+    <mat-slide-toggle
+      class="align-self-center"
+      color="accent"
+      [checked]="darkMode()"
+      (change)="darkModeChanged.emit(true)"
+      (click)="$event.stopPropagation()"
+    >
+    </mat-slide-toggle>
+  </a>
+</div>
+
 <mat-divider></mat-divider>
 <a mat-menu-item class="opacity-70" routerLink="/settings">
-    {{'sidenav.settings' | translate}}
+  {{ "sidenav.settings" | translate }}
 </a>
 <mat-divider></mat-divider>
 <button mat-menu-item class="opacity-70" (click)="logOut.emit()">
-    <span>{{'sidenav.logOut' | translate}}</span>
+  <span>{{ "sidenav.logOut" | translate }}</span>
 </button>

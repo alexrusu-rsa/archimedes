@@ -24,7 +24,7 @@
 
     <mat-card-actions class="col-12 d-flex flex-column justify-content-center">
       <div class="col-12 py-2">
-        <a class="text-white" [routerLink]="['/auth/resetpassword']" routerLinkActive="router-link-active">{{
+        <a [routerLink]="['/auth/resetpassword']" routerLinkActive="router-link-active">{{
           "loginPage.forgottenPassword" | translate }}</a>
       </div>
       <button mat-raised-button color="accent" class="col-12" type="submit">
