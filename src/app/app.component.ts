@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   protected readonly icons = Icons;
   private renderer = inject(Renderer2);
 
-  private readonly localStorageService = inject(LocalStorageService);
+  readonly localStorageService = inject(LocalStorageService);
 
   protected isDarkMode = signal(false);
 
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
 
   protected onThemeChanged() {
     this.isDarkMode.set(!this.isDarkMode());
-    this.localStorageService.darkMode = this.isDarkMode()?.toString();
+    this.localStorageService.darkMode = this.isDarkMode();
     if (this.isDarkMode()) {
       this.renderer.addClass(document.body, 'dark-theme');
       this.renderer.removeClass(document.body, 'light-theme');
@@ -82,20 +82,21 @@ export class AppComponent implements OnInit {
     const browserLang = this.translate.getBrowserLang();
     if (browserLang?.match(/en|de|ro/)) this.translate.use(browserLang);
     else this.translate.use('en');
-
-
-  
-    if (!this.localStorageService.darkMode) {
-      this.localStorageService.darkMode = true.toString();
-    }
-    this.isDarkMode.set(this.localStorageService.darkMode === 'true');
-
-    if (this.isDarkMode()) {
+    
+    if (this.localStorageService.darkMode === null) {
       this.renderer.addClass(document.body, 'dark-theme');
       this.renderer.removeClass(document.body, 'light-theme');
+      this.localStorageService.darkMode = true;
+      this.isDarkMode.set(this.localStorageService.darkMode);
     } else {
-      this.renderer.addClass(document.body, 'light-theme');
-      this.renderer.removeClass(document.body, 'dark-theme');
+      this.isDarkMode.set(this.localStorageService.darkMode);
+      if (this.isDarkMode()) {
+        this.renderer.addClass(document.body, 'dark-theme');
+        this.renderer.removeClass(document.body, 'light-theme');
+      } else {
+        this.renderer.addClass(document.body, 'light-theme');
+        this.renderer.removeClass(document.body, 'dark-theme');
+      }
     }
   }
 }

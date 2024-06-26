@@ -17,12 +17,10 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
-import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './core/translation/http-loader-factory';
 import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
 import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
-import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
 import { NavigationComponent } from './shared/components/navigation/navigation.component';
 import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
 import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
@@ -36,10 +34,8 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
   declarations: [
     AppComponent,
     ReportingPageComponent,
-    RateDialogComponent,
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
-    RatePageComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Renderer2,
-  inject,
   input,
   output,
 } from '@angular/core';

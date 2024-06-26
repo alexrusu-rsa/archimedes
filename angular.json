@@ -31,7 +31,8 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles/custom_theme.sass",
+              "src/styles/custom_dark_theme.sass",
+              "src/styles/custom_light_theme.sass",
               "src/styles.sass"
             ],
             "allowedCommonJsDependencies": ["moment"]

@@ -2,7 +2,7 @@ import { Pipe, type PipeTransform } from '@angular/core';
 import { Activity } from 'src/app/shared/models/activity';
 
 @Pipe({
-  name: 'appOrderBy',
+  name: 'orderBy',
   standalone: true,
 })
 export class OrderByPipe implements PipeTransform {

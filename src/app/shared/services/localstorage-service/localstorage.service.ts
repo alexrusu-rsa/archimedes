@@ -14,16 +14,17 @@ export class LocalStorageService {
     this.darkMode = null;
   }
 
-  get darkMode(): string | null {
-    return localStorage.getItem('darkMode');
+  get darkMode(): boolean | null {
+    if (localStorage.getItem('darkMode') == null) {
+      return null;
+    } else {
+      return localStorage.getItem('darkMode') === 'true';
+    }
   }
 
-  set darkMode(value: string | null) {
+  set darkMode(value: boolean | null) {
     this.darkModeValue.next(value);
-    if (value) localStorage.setItem('darkMode', value);
-    else {
-      localStorage.removeItem('darkMode');
-    }
+    localStorage.setItem('darkMode', value.toString());
   }
 
   set accessToken(value: string | null) {
