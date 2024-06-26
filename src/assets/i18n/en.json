@@ -148,13 +148,15 @@
   },
   "rate": {
     "dialog": {
-      "addTitle": "Add Rate",
+      "title": "Add a new rate",
+      "editTitle": "Update rate",
       "employeeName": "Employee name",
       "employeeTimeCommitment": "Employee Time Commitment",
       "projectName": "Project name",
       "rate": "Rate",
       "rateType": "Rate type",
-      "updateTitle": "Update rate"
+      "submitEdit": "Update rate",
+      "submit": "Add rate"
     },
     "page": {
       "table": {
@@ -165,8 +167,9 @@
           "project": "Project",
           "rate": "Rate",
           "rateType": "Rate type",
-          "time": "Time allocation"
-        }
+          "time": "Allocation"
+        },
+        "noData": "No data matching the filter"
       },
       "title": "Rates"
     }

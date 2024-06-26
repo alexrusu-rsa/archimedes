@@ -2,7 +2,7 @@ import { Pipe, type PipeTransform } from '@angular/core';
 import { Activity } from '../models/activity';
 
 @Pipe({
-  name: 'appBookedTime',
+  name: 'bookedTime',
   standalone: true,
 })
 export class BookedTimePipe implements PipeTransform {
