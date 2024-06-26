@@ -27,10 +27,9 @@ export class AppComponent implements OnInit {
   public readonly auth = inject(AuthService);
   protected readonly store = inject(ActivityStore);
   private readonly router = inject(Router);
-  protected readonly icons = Icons;
   private renderer = inject(Renderer2);
-
-  readonly localStorageService = inject(LocalStorageService);
+  protected readonly localStorageService = inject(LocalStorageService);
+  protected readonly icons = Icons;
 
   protected user: Signal<User> = toSignal(
     inject(LocalStorageService).userIdValue.pipe(
