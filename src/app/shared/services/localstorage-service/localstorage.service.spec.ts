@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LocalStorageService } from './localstorage.service';
+import { LocalStorageKeys, LocalStorageService } from './localstorage.service';
 
 describe('SpecFileLocalStorageService', () => {
   let service: LocalStorageService;
@@ -23,48 +23,50 @@ describe('SpecFileLocalStorageService', () => {
   });
 
   it('should getAccessToken', () => {
-    localStorage.setItem('access_token', expectedToken);
+    localStorage.setItem(LocalStorageKeys.accessToken, expectedToken);
     const actualAccessToken = service.accessToken;
     expect(actualAccessToken).toEqual(expectedToken);
   });
 
   it('should set access token in localStorage', () => {
     service.accessToken = expectedToken;
-    const actualAccessToken = localStorage.getItem('access_token');
+    const actualAccessToken = localStorage.getItem(
+      LocalStorageKeys.accessToken
+    );
     expect(actualAccessToken).toEqual(expectedToken);
   });
 
   it('should get role of the user from localStorage', () => {
-    localStorage.setItem('role', expectedRole);
+    localStorage.setItem(LocalStorageKeys.role, expectedRole);
     const actualRole = service.role;
     expect(actualRole).toEqual(expectedRole);
   });
 
   it('should set role value in localStorage', () => {
     service.role = expectedRole;
-    const actualRole = localStorage.getItem('role');
+    const actualRole = localStorage.getItem(LocalStorageKeys.role);
     expect(actualRole).toEqual(expectedRole);
   });
 
   it('should get userId from localStorage', () => {
-    localStorage.setItem('userId', expectedUserId);
+    localStorage.setItem(LocalStorageKeys.userId, expectedUserId);
     const actualUserId = service.userId;
     expect(actualUserId).toEqual(expectedUserId);
   });
 
   it('should set userId value in localStorage', () => {
     service.userId = expectedUserId;
-    const actualUserId = localStorage.getItem('userId');
+    const actualUserId = localStorage.getItem(LocalStorageKeys.userId);
     expect(actualUserId).toEqual(expectedUserId);
   });
 
   it('should make everything in localstorage be null', () => {
-    localStorage.setItem('userId', expectedUserId);
-    localStorage.setItem('role', expectedRole);
-    localStorage.setItem('access_token', expectedToken);
+    localStorage.setItem(LocalStorageKeys.userId, expectedUserId);
+    localStorage.setItem(LocalStorageKeys.role, expectedRole);
+    localStorage.setItem(LocalStorageKeys.accessToken, expectedToken);
     service.localStorageLogout();
-    expect(localStorage.getItem('role')).toEqual(null);
-    expect(localStorage.getItem('access_token')).toEqual(null);
-    expect(localStorage.getItem('userId')).toEqual(null);
+    expect(localStorage.getItem(LocalStorageKeys.role)).toEqual(null);
+    expect(localStorage.getItem(LocalStorageKeys.accessToken)).toEqual(null);
+    expect(localStorage.getItem(LocalStorageKeys.userId)).toEqual(null);
   });
 });

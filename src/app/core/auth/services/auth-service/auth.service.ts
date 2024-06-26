@@ -1,6 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../../../../shared/services/localstorage-service/localstorage.service';
+import {
+  LocalStorageKeys,
+  LocalStorageService,
+} from '../../../../shared/services/localstorage-service/localstorage.service';
 import { UserLoginService } from '../user-login-service/user-login.service';
 @Injectable({
   providedIn: 'root',
@@ -11,7 +14,7 @@ export class AuthService {
   private readonly localStorage = inject(LocalStorageService);
 
   getToken() {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem(LocalStorageKeys.accessToken);
   }
 
   getUser(id) {
@@ -19,8 +22,8 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    const authToken = localStorage.getItem('access_token');
-    const userId = localStorage.getItem('userId');
+    const authToken = localStorage.getItem(LocalStorageKeys.accessToken);
+    const userId = localStorage.getItem(LocalStorageKeys.userId);
     if (authToken !== null && userId !== null) return true;
     return false;
   }

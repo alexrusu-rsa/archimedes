@@ -2,7 +2,7 @@
   [pageTitle]="pageTitle()"
   (toggleSidenav)="sidenav.toggle()"
   (logOut)="auth.doLogout()"
-  [darkMode]="isDarkMode()"
+  [darkMode]="localStorageService.darkMode()"
   (darkModeChanged)="onThemeChanged()"
   [user]="user()"
 ></app-toolbar>

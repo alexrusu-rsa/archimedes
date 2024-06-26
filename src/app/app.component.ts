@@ -32,8 +32,6 @@ export class AppComponent implements OnInit {
 
   readonly localStorageService = inject(LocalStorageService);
 
-  protected isDarkMode = signal(false);
-
   protected user: Signal<User> = toSignal(
     inject(LocalStorageService).userIdValue.pipe(
       switchMap((currentUserId) => {
@@ -65,9 +63,8 @@ export class AppComponent implements OnInit {
   );
 
   protected onThemeChanged() {
-    this.isDarkMode.set(!this.isDarkMode());
-    this.localStorageService.darkMode = this.isDarkMode();
-    if (this.isDarkMode()) {
+    this.localStorageService.updateDarkMode();
+    if (this.localStorageService.darkMode()) {
       this.renderer.addClass(document.body, 'dark-theme');
       this.renderer.removeClass(document.body, 'light-theme');
     } else {
@@ -82,21 +79,13 @@ export class AppComponent implements OnInit {
     const browserLang = this.translate.getBrowserLang();
     if (browserLang?.match(/en|de|ro/)) this.translate.use(browserLang);
     else this.translate.use('en');
-    
-    if (this.localStorageService.darkMode === null) {
+
+    if (this.localStorageService.darkMode()) {
       this.renderer.addClass(document.body, 'dark-theme');
       this.renderer.removeClass(document.body, 'light-theme');
-      this.localStorageService.darkMode = true;
-      this.isDarkMode.set(this.localStorageService.darkMode);
     } else {
-      this.isDarkMode.set(this.localStorageService.darkMode);
-      if (this.isDarkMode()) {
-        this.renderer.addClass(document.body, 'dark-theme');
-        this.renderer.removeClass(document.body, 'light-theme');
-      } else {
-        this.renderer.addClass(document.body, 'light-theme');
-        this.renderer.removeClass(document.body, 'dark-theme');
-      }
+      this.renderer.addClass(document.body, 'light-theme');
+      this.renderer.removeClass(document.body, 'dark-theme');
     }
   }
 }
