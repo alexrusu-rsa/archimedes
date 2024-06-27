@@ -7,5 +7,10 @@
     "angular-component": {
       "skipDisplayBlock": true
     }
-  }
+  },
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ]
 }

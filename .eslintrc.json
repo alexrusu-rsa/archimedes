@@ -3,9 +3,9 @@
   "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": ["**/*.ts"],
+      "files": ["*.ts", "**/*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": ["./tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
