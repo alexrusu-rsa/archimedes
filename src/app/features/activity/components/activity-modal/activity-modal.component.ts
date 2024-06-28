@@ -73,19 +73,34 @@ export class ActivityModalComponent implements OnInit {
   protected validators = Validators;
 
   ngOnInit(): void {
-    this.activityForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      start: ['', Validators.required],
-      end: ['', Validators.required],
-      project: [null, Validators.required],
-      activityType: ['', Validators.required],
-      description: [''],
-      extras: [''],
-    });
+    this.activityForm = this.formBuilder.group(
+      {
+        name: ['', Validators.required],
+        start: ['', Validators.required],
+        end: ['', Validators.required],
+        project: [null, Validators.required],
+        activityType: ['', Validators.required],
+        description: [''],
+        extras: [''],
+      },
+      { validator: this.timeValidator }
+    );
 
     if (this.data?.activity) {
       this.activityForm.setValue(this.data?.activity);
     }
+  }
+
+  timeValidator(formGroup: FormGroup) {
+    const startTime = formGroup.get('start').value;
+    const endTime = formGroup.get('end').value;
+
+    if (startTime && endTime) {
+      const start = new Date(`1970-01-01T${startTime}:00`);
+      const end = new Date(`1970-01-01T${endTime}:00`);
+      return start < end ? null : { timeInvalid: true };
+    }
+    return null;
   }
 
   submit() {
