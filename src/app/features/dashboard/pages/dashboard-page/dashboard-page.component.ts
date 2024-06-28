@@ -51,7 +51,7 @@ export class DashboardPageComponent {
   protected user: Signal<User> = toSignal(
     inject(LocalStorageService).userIdValue.pipe(
       switchMap((currentUserId) => {
-        if (currentUserId) return this.service.getUser(currentUserId);
+        if (currentUserId) return this.service.getUserMe();
         else return of(null);
       }),
       map((user) => ({

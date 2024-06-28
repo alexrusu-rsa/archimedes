@@ -89,9 +89,9 @@ export class ProjectService {
       );
   }
 
-  getProjectsUser(userId: string): Observable<Project[]> {
+  getProjectsUser(): Observable<Project[]> {
     return this.httpClient
-      .get<Project[]>(`${this.projectsUrl}/${userId}`)
+      .get<Project[]>(`${this.projectsUrl}/user`)
       .pipe(
         catchError(
           this.responseHandlingService.handleError<Project[]>('getProjects')

@@ -88,11 +88,8 @@ export class ActivityService {
       );
   }
 
-  deleteAllActivitiesOfUserDay(
-    userId: string,
-    date: string
-  ): Observable<RequestWrapper> {
-    const deleteAllActivitiesOfUserDayUrl = `${this.activitiesUrl}/${userId}/${date}`;
+  deleteAllActivitiesOfUserDay(date: string): Observable<RequestWrapper> {
+    const deleteAllActivitiesOfUserDayUrl = `${this.activitiesUrl}/deleteAll/${date}`;
     return this.httpClient
       .delete<RequestWrapper>(deleteAllActivitiesOfUserDayUrl, {
         observe: 'response',
@@ -203,23 +200,6 @@ export class ActivityService {
         catchError(
           this.responseHandlingService.handleError<Activity[]>(
             `getActivitiesByRange`
-          )
-        )
-      );
-  }
-
-  getActivitiesOfMonthYearForUser(date: Date): Observable<Activity[]> {
-    const requestBody = {
-      month: (date.getUTCMonth() + 1).toString(),
-      year: date.getUTCFullYear().toString(),
-    };
-    const activitiesOfMonthYearUserUrl = this.activitiesUrl + '/monthYear';
-    return this.httpClient
-      .post<Activity[]>(activitiesOfMonthYearUserUrl, requestBody)
-      .pipe(
-        catchError(
-          this.responseHandlingService.handleError<Activity[]>(
-            `getActivitiesOfMonthYearForUser`
           )
         )
       );
