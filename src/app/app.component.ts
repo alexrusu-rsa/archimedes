@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   protected user: Signal<User> = toSignal(
     inject(LocalStorageService).userIdValue.pipe(
       switchMap((currentUserId) => {
-        if (currentUserId) return this.auth.getUser();
+        if (currentUserId) return this.auth.getUserMe();
         else return of(null);
       }),
       takeUntilDestroyed(this.destroyRef)
