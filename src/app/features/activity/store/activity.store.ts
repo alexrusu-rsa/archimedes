@@ -71,7 +71,7 @@ export const ActivityStore = signalStore(
           debounceTime(300),
           distinctUntilChanged(),
           switchMap(() =>
-            projectService.getProjectsUser(localStorage?.userId).pipe(
+            projectService.getProjectsUser().pipe(
               tapResponse({
                 next: (projects: Project[]) =>
                   patchState(store, {
@@ -262,7 +262,6 @@ export const ActivityStore = signalStore(
           switchMap((_) =>
             activityService
               .deleteAllActivitiesOfUserDay(
-                localStorage?.userId,
                 datePipe
                   .transform(store.filter()?.date, 'yyyy-MM-dd')
                   .toString()

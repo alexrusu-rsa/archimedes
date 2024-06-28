@@ -19,8 +19,8 @@ export class UserLoginService {
     private responseHandlingService: ResponseHandlingService
   ) {}
 
-  getUser(userId: string): Observable<User> {
-    return this.httpClient.get<User>(this.usersUrl + '/' + userId).pipe(
+  getUserMe(): Observable<User> {
+    return this.httpClient.get<User>(this.usersUrl + '/me').pipe(
       // TODO handle this time format in backend
       map((user) => ({ ...user, timePerDay: user.timePerDay + ':00' })),
       catchError(this.responseHandlingService.handleError<User>('getUser'))
