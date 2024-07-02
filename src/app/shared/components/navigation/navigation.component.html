@@ -1,14 +1,16 @@
-<mat-nav-list>
+<mat-nav-list class="px-0">
   <a
     mat-list-item
     routerLink="dashboard"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     >{{ "sidenav.home" | translate }}</a
   >
   <a
     mat-list-item
     routerLink="activity"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
     >{{ "sidenav.activities" | translate }}</a
@@ -17,6 +19,7 @@
   <a
     mat-list-item
     routerLink="users"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
     >{{ "sidenav.users" | translate }}</a
@@ -24,6 +27,7 @@
   <a
     mat-list-item
     routerLink="rate"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
     >{{ "sidenav.rates" | translate }}</a
@@ -31,6 +35,7 @@
   <a
     mat-list-item
     routerLink="project"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
     >{{ "sidenav.projects" | translate }}</a
@@ -38,6 +43,7 @@
   <a
     mat-list-item
     routerLink="customers"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
     >{{ "sidenav.customers" | translate }}</a
@@ -45,6 +51,7 @@
   <a
     mat-list-item
     routerLink="reporting/user-reporting"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
     >{{ "sidenav.reporting" | translate }}
@@ -52,6 +59,7 @@
   <a
     mat-list-item
     routerLink="invoices"
+    class="p-md-0 p-lg-1 text-md-center text-lg-start"
     (click)="closeSidenav.emit()"
     routerLinkActive="active"
     >{{ "sidenav.invoices" | translate }}
