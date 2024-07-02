@@ -32,13 +32,13 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
-    AppComponent,
     ReportingPageComponent,
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
   ],
   imports: [
     BrowserModule,
+    AppComponent,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,

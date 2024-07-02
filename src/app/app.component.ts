@@ -5,9 +5,13 @@ import {
   Renderer2,
   Signal,
   inject,
-  signal,
 } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import {
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './core/auth/services/auth-service/auth.service';
 import { LocalStorageService } from './shared/services/localstorage-service/localstorage.service';
@@ -16,10 +20,33 @@ import { Icons } from './shared/models/icons.enum';
 import { filter, map, of, switchMap } from 'rxjs';
 import { User } from './shared/models/user';
 import { ActivityStore } from './features/activity/store/activity.store';
+import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
+import {
+  MatSidenav,
+  MatSidenavContainer,
+  MatSidenavContent,
+} from '@angular/material/sidenav';
+import { NavigationComponent } from './shared/components/navigation/navigation.component';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { RightSectionComponent } from './core/layout/components/right-section/right-section.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  standalone: true,
+  imports: [
+    ToolbarComponent,
+    MatSidenav,
+    MatSidenavContainer,
+    NavigationComponent,
+    MatSidenavContent,
+    MatCard,
+    MatCardContent,
+    CommonModule,
+    RouterModule,
+    RightSectionComponent,
+  ],
 })
 export class AppComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
