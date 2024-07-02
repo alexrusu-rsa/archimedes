@@ -6,13 +6,19 @@ import {
   input,
 } from '@angular/core';
 import { BookedTimeWidgetComponent } from 'src/app/shared/components/booked-time-widget/booked-time-widget.component';
+import { UserWidgetComponent } from 'src/app/shared/components/user-widget/user-widget/user-widget.component';
 import { User } from 'src/app/shared/models/user';
 import { BookedTimePipe } from 'src/app/shared/pipes/booked-time.pipe';
 
 @Component({
   selector: 'app-right-section',
   standalone: true,
-  imports: [CommonModule, BookedTimeWidgetComponent, BookedTimePipe],
+  imports: [
+    CommonModule,
+    BookedTimeWidgetComponent,
+    BookedTimePipe,
+    UserWidgetComponent,
+  ],
   templateUrl: './right-section.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

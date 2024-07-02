@@ -9,6 +9,12 @@ import { User } from '../../models/user';
   imports: [CommonModule, MatIcon],
   templateUrl: './initials-icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `
+      @use 'src/styles/variables.sass' as variables
+
+    .custom-icon
+      color: variables.$user-navigation-header
+  `,
 })
 export class InitialsIconComponent {
   user = input<User>(null);

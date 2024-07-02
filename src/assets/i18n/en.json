@@ -256,6 +256,9 @@
     "users": "Users"
   },
   "user": {
+    "widget": {
+      "role": "Role"
+    },
     "dialog": {
       "admin": "Admin",
       "email": "Email",

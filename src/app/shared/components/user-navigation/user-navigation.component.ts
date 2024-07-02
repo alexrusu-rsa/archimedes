@@ -28,8 +28,9 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
   ],
   styles: [
     `
-      .opacity-70
-        opacity: 0.7
+      @use 'src/styles/variables.sass' as variables
+
+
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

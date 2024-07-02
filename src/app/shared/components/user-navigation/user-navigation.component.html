@@ -1,10 +1,10 @@
 @if(user){
-<sub class="opacity-70 z-index-5 d-flex mx-3 mb-4">{{
+<sub class="z-index-5 d-flex mx-3 mb-4">{{
   "sidenav.account" | translate
 }}</sub>
-<div class="opacity-70 d-flex flex-row gap-2 mx-3 my-2">
-  <app-initials-icon [user]="user()"></app-initials-icon>
-  <div class="d-flex flex-column mb-3 ml-4">
+<div class="d-flex flex-row gap-2 mx-3 my-2">
+  <app-initials-icon mat-button [user]="user()"></app-initials-icon>
+  <div class="d-flex flex-column mb-3 ml-4 custom-icon">
     <span>{{ user().name }} {{ user().surname }}</span>
     <sub>{{ user().email }}</sub>
   </div>
@@ -13,7 +13,7 @@
 
 <mat-divider></mat-divider>
 <div class="d-flex flex-row">
-  <a mat-menu-item class="opacity-70">
+  <a mat-menu-item>
     {{ "shared.userNavigation.darkModeSwitch" | translate }}
     <mat-slide-toggle
       class="align-self-center"
