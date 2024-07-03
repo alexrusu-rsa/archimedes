@@ -192,7 +192,8 @@
       "thursday": "Th",
       "title": "Reporting Page",
       "tuesday": "Tu",
-      "wednesday": "We"
+      "wednesday": "We",
+      "monthOverview": "Month overview"
     }
   },
   "resetPasswordPage": {

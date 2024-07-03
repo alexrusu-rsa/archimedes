@@ -1,0 +1,6 @@
+<app-reporting-month-overview
+  [alocatedTime]="user().timePerDay"
+  [bookedTimeOfMonth]="bookedTimePerDay()"
+  class="col-lg-6"
+  (dateSelected)="navigateToDate($event)"
+></app-reporting-month-overview>
