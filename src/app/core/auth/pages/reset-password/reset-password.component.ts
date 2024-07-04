@@ -58,6 +58,7 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordForm?: FormGroup;
 
   constructor(private userManagePasswordService: UserManagePasswordService) {}
+  
   sendPasswordResetRequest(email: string) {
     if (this.user) {
       this.user.email = email;
