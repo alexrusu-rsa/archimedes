@@ -146,7 +146,6 @@ export class RatePageComponent {
 
   editRate(rate: Rate) {
     const { id, ...rateWithoutUnnecessary } = rate;
-    console.log(rate);
     this.dialog
       .open(RateModalComponent, {
         data: {
