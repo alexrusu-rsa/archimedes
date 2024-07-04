@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +14,7 @@ import { BookedTimePipe } from 'src/app/shared/pipes/booked-time.pipe';
   selector: 'app-right-section',
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
     BookedTimeWidgetComponent,
     BookedTimePipe,
     UserWidgetComponent,

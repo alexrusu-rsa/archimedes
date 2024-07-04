@@ -21,12 +21,8 @@ export class ResponseHandlingService {
         err.error.message,
         err.error.statusCode
       );
-      this.log(`${operation} failed: ${err.message}`);
+      console.error(`${operation} failed: ${err.message}`);
       return of(result as T);
     };
-  }
-
-  log(message: string) {
-    console.log(`ActivityService: ${message}`);
   }
 }

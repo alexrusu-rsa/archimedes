@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
 import {
   MatCard,
@@ -15,7 +14,6 @@ import { User } from 'src/app/shared/models/user';
   selector: 'app-user-widget',
   standalone: true,
   imports: [
-    CommonModule,
     MatCard,
     MatCardHeader,
     MatCardContent,
