@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnInit,
   input,
   output,
 } from '@angular/core';
@@ -16,6 +17,7 @@ import {
   MatCalendarCellClassFunction,
   MatDatepickerModule,
 } from '@angular/material/datepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 enum CellColor {
   red = 'red',
@@ -33,6 +35,7 @@ enum CellColor {
     MatCardContent,
     MatCalendar,
     MatDatepickerModule,
+    MatTooltipModule,
     TranslateModule,
   ],
   providers: [provideNativeDateAdapter()],
@@ -44,11 +47,15 @@ export class ReportingMonthOverviewComponent {
   protected readonly alocatedTime = input<string>();
   protected readonly dateSelected = output<Date>();
 
+  customCalendarCell = {
+    dateClass: (date: Date) => {
+      return 'custom-cell';
+    },
+  };
+  
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
-    console.log(currentDate);
     const formattedDate = this.formatDateToString(cellDate);
-    console.log(formattedDate);
     const bookedTime = this.bookedTimeOfMonth()[formattedDate];
     const allocatedTimeMinutes = this.convertTimeToMinutes(this.alocatedTime());
 
