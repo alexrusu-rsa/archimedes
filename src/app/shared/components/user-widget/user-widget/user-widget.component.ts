@@ -26,5 +26,5 @@ import { User } from 'src/app/shared/models/user';
   templateUrl: './user-widget.component.html',
 })
 export class UserWidgetComponent {
-  user = input<User>(null);
+  user = input<User>();
 }

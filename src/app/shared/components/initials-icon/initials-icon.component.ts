@@ -10,7 +10,7 @@ import { User } from '../../models/user';
   templateUrl: './initials-icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
-      @use 'src/styles/variables.sass' as variables
+    @use 'src/styles/variables.sass' as variables
 
     .custom-icon
       color: variables.$user-navigation-header
