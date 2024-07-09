@@ -1,4 +1,4 @@
 <app-reporting-month-overview
-  [bookedTimeOfMonth]="bookedTimePerDay()"
-  (dateSelected)="navigateToDate($event)"
+  *ngIf="bookedDays()"
+  [bookedDays]="bookedDays()"
 ></app-reporting-month-overview>

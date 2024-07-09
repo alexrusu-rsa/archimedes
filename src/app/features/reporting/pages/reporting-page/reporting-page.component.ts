@@ -3,14 +3,14 @@ import { ReportingMonthOverviewComponent } from '../../components/reporting-mont
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { AuthService } from 'src/app/core/auth/services/auth-service/auth.service';
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/features/user/services/user-service/user.service';
 
 @Component({
   selector: 'app-reporting-page',
   standalone: true,
-  imports: [ReportingMonthOverviewComponent],
+  imports: [ReportingMonthOverviewComponent, AsyncPipe, NgIf],
   templateUrl: './reporting-page.component.html',
 })
 export class ReportingPageComponent {
@@ -23,18 +23,8 @@ export class ReportingPageComponent {
     initialValue: null,
   });
 
-  
-
-  protected bookedTimePerDay = toSignal(
-    inject(ActivityService).getBookedTimePerDayOfMonthYear(new Date()),
+  protected bookedDays = toSignal(
+    inject(ActivityService).getUsersWithActivities(new Date()),
     { initialValue: null }
   );
-
-  navigateToDate(activityDate: Date) {
-    this.router.navigate(['activity'], {
-      queryParams: {
-        date: this.datePipe.transform(activityDate, 'MM-dd-yyyy'),
-      },
-    });
-  }
 }

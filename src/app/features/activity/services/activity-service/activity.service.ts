@@ -6,6 +6,8 @@ import { RequestWrapper } from 'src/app/shared/models/request-wrapper';
 import { ResponseHandlingService } from 'src/app/shared/services/response-handling-service/response-handling.service';
 import { environment } from 'src/environments/environment';
 import { ActivityDuplication } from '../../models/activity-duplication.model';
+import { UserWithActivities } from 'src/app/shared/models/user-with-activities';
+import { BookedDay } from 'src/app/features/reporting/models/booked-day';
 
 @Injectable({
   providedIn: 'root',
@@ -205,7 +207,25 @@ export class ActivityService {
       );
   }
 
-  getBookedTimePerDayOfMonthYear(date: Date): Observable<Activity[]> {
+  getUsersWithActivities(date: Date): Observable<BookedDay[]> {
+    const requestBody = {
+      month: date.getUTCMonth() + 1,
+      year: date.getUTCFullYear(),
+    };
+    const activitiesOfMonthYearUserUrl =
+      this.activitiesUrl + '/monthYear/users';
+    return this.httpClient
+      .post<BookedDay[]>(activitiesOfMonthYearUserUrl, requestBody)
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<BookedDay[]>(
+            `usersWithActivitiesForMonthYear`
+          )
+        )
+      );
+  }
+
+  getBookedTimePerDayOfMonthYear(date: Date): Observable<UserWithActivities[]> {
     const requestBody = {
       month: date.getUTCMonth() + 1,
       year: date.getUTCFullYear(),
@@ -213,10 +233,10 @@ export class ActivityService {
     const activitiesOfMonthYearUserUrl =
       this.activitiesUrl + '/monthYear/bookedTimePerDay';
     return this.httpClient
-      .post<Activity[]>(activitiesOfMonthYearUserUrl, requestBody)
+      .post<UserWithActivities[]>(activitiesOfMonthYearUserUrl, requestBody)
       .pipe(
         catchError(
-          this.responseHandlingService.handleError<Activity[]>(
+          this.responseHandlingService.handleError<UserWithActivities[]>(
             `getActivitiesOfMonthYearForUser`
           )
         )
