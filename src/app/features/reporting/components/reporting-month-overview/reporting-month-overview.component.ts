@@ -1,7 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  effect,
   inject,
   input,
   output,
@@ -21,6 +25,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { BookedDay } from '../../models/booked-day';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 enum CellColor {
   red = 'red',
@@ -42,14 +47,24 @@ enum CellColor {
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-month-overview.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportingMonthOverviewComponent {
-  private readonly destroyRef = inject(DestroyRef);
-  protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
+  @ViewChild(MatCalendar) calendar: MatCalendar<Date>;
+
   protected readonly bookedDays = input<BookedDay[]>();
+  protected readonly activeMonth = input<Date>();
+
+  protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
 
   service = inject(ActivityService);
+  constructor() {
+    effect(() => {
+      if (this.activeMonth() && this.calendar) {
+        this.calendar.activeDate = new Date(this.activeMonth());
+        this.calendar?.updateTodaysDate();
+      }
+    });
+  }
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const formattedDate = this.formatDateToString(cellDate);
@@ -58,7 +73,6 @@ export class ReportingMonthOverviewComponent {
     if (cellDate > currentDate) {
       return CellColor.default;
     }
-    //check is weekend
     if (cellDate.getDay() === 0 || cellDate.getDay() === 6) {
       return CellColor.default;
     }
@@ -67,22 +81,22 @@ export class ReportingMonthOverviewComponent {
     );
 
     if (
-      parseInt(currentDay[0].timeBooked.split(':')[0]) >=
-      currentDay[0].expectedHours
+      parseInt(currentDay[0]?.timeBooked.split(':')[0]) >=
+      currentDay[0]?.expectedHours
     ) {
       return CellColor.green;
     }
     if (
-      (parseInt(currentDay[0].timeBooked.split(':')[0]) > 0 ||
-        parseInt(currentDay[0].timeBooked.split(':')[1]) > 0) &&
-      parseInt(currentDay[0].timeBooked.split(':')[0]) <
-        currentDay[0].expectedHours
+      (parseInt(currentDay[0]?.timeBooked.split(':')[0]) > 0 ||
+        parseInt(currentDay[0]?.timeBooked.split(':')[1]) > 0) &&
+      parseInt(currentDay[0]?.timeBooked.split(':')[0]) <
+        currentDay[0]?.expectedHours
     ) {
       return CellColor.orange;
     }
     if (
-      parseInt(currentDay[0].timeBooked.split(':')[0]) === 0 &&
-      parseInt(currentDay[0].timeBooked.split(':')[1]) === 0
+      parseInt(currentDay[0]?.timeBooked.split(':')[0]) === 0 &&
+      parseInt(currentDay[0]?.timeBooked.split(':')[1]) === 0
     ) {
       return CellColor.red;
     }
@@ -95,20 +109,7 @@ export class ReportingMonthOverviewComponent {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
-
-  private convertTimeToMinutes(timeString: string): number {
-    const [hoursStr, minutesStr] = timeString.split(':');
-    const hours = parseInt(hoursStr, 10);
-    const minutes = parseInt(minutesStr, 10);
-
-    if (isNaN(hours) || isNaN(minutes)) {
-      throw new Error('Invalid time format');
-    }
-
-    return hours * 60 + minutes;
-  }
 }
-
 @Component({
   standalone: true,
   template: ``,

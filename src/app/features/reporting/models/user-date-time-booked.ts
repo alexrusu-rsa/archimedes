@@ -4,3 +4,4 @@ export interface UserDateTimeBooked {
   user: UserWithActivities;
   timeBooked: string;
 }
+
