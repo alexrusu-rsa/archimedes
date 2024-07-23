@@ -5,8 +5,8 @@ export interface Project {
   projectName: string;
   customerId?: string;
   customer?: Customer;
-  dueDate?: string;
+  dueDate?: Date;
   contract?: string;
-  contractSignDate?: string;
+  contractSignDate?: Date;
   invoiceTerm?: number;
 }
