@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Renderer2, inject, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -7,9 +7,7 @@ import {
   MatMenuContent,
   MatMenuTrigger,
 } from '@angular/material/menu';
-import {
-  MatSlideToggle,
-} from '@angular/material/slide-toggle';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatToolbar } from '@angular/material/toolbar';
 import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/initials-icon.component';
 import { UserNavigationComponent } from 'src/app/shared/components/user-navigation/user-navigation.component';
