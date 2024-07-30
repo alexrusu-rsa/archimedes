@@ -18,7 +18,7 @@ import { ProjectService } from 'src/app/features/project/services/project-servic
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatCard, MatCardTitle, MatCardActions } from '@angular/material/card';
+import { MatCardActions } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
@@ -64,7 +64,7 @@ export class ProjectPageComponent {
   );
 
   private projects = computed(() => signal(this.rawProjects()));
-  
+
   protected filteredProjects = computed(() =>
     this.projects()().filter((project: Project) =>
       project.projectName
