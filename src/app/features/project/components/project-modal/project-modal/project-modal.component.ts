@@ -8,7 +8,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatNativeDateModule, MatOption } from '@angular/material/core';
+import {
+  MatNativeDateModule,
+  MatOption,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 import {
   MatDatepicker,
   MatDatepickerModule,
@@ -58,6 +62,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
         overflow: unset
     `,
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './project-modal.component.html',
 })
 export class ProjectModalComponent implements OnInit {
