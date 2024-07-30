@@ -70,36 +70,40 @@ export class ReportingMonthOverviewComponent {
     const formattedDate = this.formatDateToString(cellDate);
 
     const currentDate = new Date();
+
     if (cellDate > currentDate) {
       return CellColor.default;
     }
-    if (cellDate.getDay() === 0 || cellDate.getDay() === 6) {
+
+    const isWeekend = cellDate.getDay() === 0 || cellDate.getDay() === 6;
+    if (isWeekend) {
       return CellColor.default;
     }
-    const currentDay = this.bookedDays().filter(
+
+    const currentDay = this.bookedDays().find(
       (bookedDay) => bookedDay.date === formattedDate
     );
 
-    if (
-      parseInt(currentDay[0]?.timeBooked.split(':')[0]) >=
-      currentDay[0]?.expectedHours
-    ) {
+    if (!currentDay) {
+      return CellColor.default;
+    }
+
+    const bookedHours = parseInt(currentDay.timeBooked.split(':')[0]);
+    const bookedMinutes = parseInt(currentDay.timeBooked.split(':')[1]);
+    const expectedHours = currentDay.expectedHours;
+
+    if (bookedHours >= expectedHours) {
       return CellColor.green;
     }
-    if (
-      (parseInt(currentDay[0]?.timeBooked.split(':')[0]) > 0 ||
-        parseInt(currentDay[0]?.timeBooked.split(':')[1]) > 0) &&
-      parseInt(currentDay[0]?.timeBooked.split(':')[0]) <
-        currentDay[0]?.expectedHours
-    ) {
+
+    if ((bookedHours > 0 || bookedMinutes > 0) && bookedHours < expectedHours) {
       return CellColor.orange;
     }
-    if (
-      parseInt(currentDay[0]?.timeBooked.split(':')[0]) === 0 &&
-      parseInt(currentDay[0]?.timeBooked.split(':')[1]) === 0
-    ) {
+
+    if (bookedHours === 0 && bookedMinutes === 0) {
       return CellColor.red;
     }
+
     return CellColor.default;
   };
 

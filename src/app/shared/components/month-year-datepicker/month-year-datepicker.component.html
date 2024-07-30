@@ -3,10 +3,8 @@
   <mat-label>{{ label() }}</mat-label>
   }
   <input matInput [matDatepicker]="datePicker" [value]="date()" />
-  <mat-datepicker-toggle
-    [for]="datePicker"
-    matIconSuffix
-  ></mat-datepicker-toggle>
+  <mat-datepicker-toggle [for]="datePicker" matIconSuffix>
+  </mat-datepicker-toggle>
   <mat-datepicker
     #datePicker
     (monthSelected)="
@@ -14,5 +12,6 @@
     "
     startView="multi-year"
     touchUi
-  ></mat-datepicker>
+  >
+  </mat-datepicker>
 </mat-form-field>

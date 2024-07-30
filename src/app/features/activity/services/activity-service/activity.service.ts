@@ -6,8 +6,8 @@ import { RequestWrapper } from 'src/app/shared/models/request-wrapper';
 import { ResponseHandlingService } from 'src/app/shared/services/response-handling-service/response-handling.service';
 import { environment } from 'src/environments/environment';
 import { ActivityDuplication } from '../../models/activity-duplication.model';
-import { UserWithActivities } from 'src/app/shared/models/user-with-activities';
 import { BookedDay } from 'src/app/features/reporting/models/booked-day';
+import { UserWithActivities } from 'src/app/features/reporting/models/user-with-activities';
 
 @Injectable({
   providedIn: 'root',
