@@ -15,7 +15,7 @@
   @for (activity of store.activities() | orderBy; track $index) {
   <app-entity-item
     [title]="activity.name"
-    subtitle="{{ activity.start }} - {{ activity.end }} {{
+    subtitle="{{ activity.start | dateTime }} - {{ activity.end | dateTime }} {{
       activity.workedTime | workedTime
     }}"
     [chips]="

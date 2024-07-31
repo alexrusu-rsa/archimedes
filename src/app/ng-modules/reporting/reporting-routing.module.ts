@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
+// import { ReportingPageComponent } from './components/reporting-page/reporting-page.component';
 
 const routes: Routes = [
-  {
-    path: 'user-reporting',
-    component: ReportingPageComponent,
-  },
+  // {
+  //   path: 'user-reporting',
+  //   component: ReportingPageComponent,
+  // },
   {
     path: '',
     redirectTo: 'dashboard',

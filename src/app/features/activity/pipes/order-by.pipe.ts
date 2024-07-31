@@ -21,25 +21,21 @@ export class OrderByPipe implements PipeTransform {
         return 1; // b goes before a (a is null)
       }
 
-      // If both have the same project or both are null, sort by start time
-      const [aStartHours, aStartMinutes] = a.start.split(':').map(Number);
-      const [bStartHours, bStartMinutes] = b.start.split(':').map(Number);
+      const aStartTime = a.start.getTime();
+      const bStartTime = a.start.getTime();
 
-      if (aStartHours !== bStartHours) {
-        return aStartHours - bStartHours;
-      } else if (aStartMinutes !== bStartMinutes) {
-        return aStartMinutes - bStartMinutes;
+      if (aStartTime !== bStartTime) {
+        return aStartTime - bStartTime;
       }
 
-      // If start times are the same, sort by end time
-      const [aEndHours, aEndMinutes] = a.end.split(':').map(Number);
-      const [bEndHours, bEndMinutes] = b.end.split(':').map(Number);
+      const aEndTime = a.end.getTime();
+      const bEndTime = a.end.getTime();
 
-      if (aEndHours !== bEndHours) {
-        return aEndHours - bEndHours;
-      } else {
-        return aEndMinutes - bEndMinutes;
+      if (aEndTime !== bEndTime) {
+        return aEndTime - bEndTime;
       }
+
+      return aStartTime;
     });
   }
 }

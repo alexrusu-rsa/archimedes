@@ -30,6 +30,7 @@ import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
+import { DateTimePipe } from 'src/app/shared/pipes/date-time.pipe';
 
 @Component({
   selector: 'app-activity-page',
@@ -47,6 +48,7 @@ import {
     EntityItemComponent,
     OrderByPipe,
     WorkedTimePipe,
+    DateTimePipe,
   ],
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
