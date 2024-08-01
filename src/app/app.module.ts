@@ -31,13 +31,13 @@ import { RightSectionComponent } from './core/layout/components/right-section/ri
 
 @NgModule({
   declarations: [
-    AppComponent,
     ReportingPageComponent,
     ReportingHoursBookedDialogComponent,
     MonthViewComponent,
   ],
   imports: [
     BrowserModule,
+    AppComponent,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
