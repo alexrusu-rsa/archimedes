@@ -146,7 +146,7 @@ export class ActivityPageComponent implements OnInit {
       .subscribe(({ project, ...updatedActivity }: Activity) => {
         this.store.editActivity({
           ...updatedActivity,
-          projectId,
+          projectId: project?.id,
           id,
         });
       });
