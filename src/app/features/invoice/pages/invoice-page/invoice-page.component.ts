@@ -20,6 +20,7 @@ import { Invoice } from '../../models/invoice.model';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
 import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
+import moment from 'moment';
 
 @Component({
   selector: 'app-invoice-page',
@@ -44,15 +45,23 @@ export class InvoicePageComponent {
   protected invoices = toSignal(this.service.getProjects(), {
     initialValue: [],
   });
-  protected readonly currentMonth = signal<Date>(new Date());
-
+  protected readonly currentMonth = signal<any>(moment());
   downloadInvoice(project: Project) {
+    const currentMonthValue = this.currentMonth();
+
+    let currentMonthDate: Date;
+    if (currentMonthValue && typeof currentMonthValue.toDate === 'function') {
+      currentMonthDate = currentMonthValue.toDate();
+    }
+
+    const month = currentMonthDate.getMonth() + 1;
+    const year = currentMonthDate.getFullYear();
+
     const invoice: Invoice = {
       customer: project?.customer,
       project: project,
-      month: this.currentMonth().getMonth().toString(),
-      year: this.currentMonth().getFullYear().toString(),
-      //TODO get internal customer from backend on login
+      month: month.toString(),
+      year: year.toString(),
       series: 'RSA',
     };
 

@@ -21,15 +21,17 @@ export class OrderByPipe implements PipeTransform {
         return 1; // b goes before a (a is null)
       }
 
-      const aStartTime = a.start.getTime();
-      const bStartTime = a.start.getTime();
+      // Ensure a.start and b.start are Date objects
+      const aStartTime = new Date(a.start).getTime();
+      const bStartTime = new Date(b.start).getTime();
 
       if (aStartTime !== bStartTime) {
         return aStartTime - bStartTime;
       }
 
-      const aEndTime = a.end.getTime();
-      const bEndTime = a.end.getTime();
+      // Ensure a.end and b.end are Date objects
+      const aEndTime = new Date(a.end).getTime();
+      const bEndTime = new Date(b.end).getTime();
 
       if (aEndTime !== bEndTime) {
         return aEndTime - bEndTime;

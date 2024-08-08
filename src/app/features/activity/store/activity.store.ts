@@ -313,13 +313,8 @@ export const ActivityStore = signalStore(
                     startDate,
                     endDate,
                   }: ActivityDuplication) => {
-                    // Parse activity.date from string to Date
-                    // const [day, month, year] = activity.date
-                    //   .split('/')
-                    //   .map(Number);
-                    const activityDate = activity?.date; // Note: month is zero-based in JavaScript Date
+                    const activityDate = activity?.date;
 
-                    // Check if activityDate is between startDate and endDate
                     return activityDate >= startDate && activityDate <= endDate;
                   };
 

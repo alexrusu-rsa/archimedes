@@ -36,7 +36,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { InvoiceDialogOnCloseResult } from 'src/app/features/invoice/models/invoice-dialog-onclose-result';
 import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
@@ -71,6 +71,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     SafePipe,
   ],
   templateUrl: './invoice-modal.component.html',
+  providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoiceModalComponent {
@@ -80,7 +81,7 @@ export class InvoiceModalComponent {
       Validators.required,
       Validators.pattern('[0-9]{1,4}'),
     ]),
-    exchangeRate: new FormControl(0, [Validators.required]),
+    exchangeRate: new FormControl(1, [Validators.required]),
     invoiceEmittingDay: new FormControl(new Date(), Validators.required),
   });
   protected pdfUrl: WritableSignal<string> = signal('');
@@ -90,11 +91,7 @@ export class InvoiceModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public invoice: Invoice,
     private dialogRef: MatDialogRef<InvoiceModalComponent>
-  ) {
-    this.invoiceForm.controls.exchangeRate.setValue(
-      this.invoice?.customer?.romanianCompany ? 1 : 0
-    );
-  }
+  ) {}
 
   onSubmit(stepper: MatStepper) {
     this.service
