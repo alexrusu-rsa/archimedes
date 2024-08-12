@@ -14,6 +14,9 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BookedDay } from '../../models/booked-day';
+import { NotificationService } from 'src/app/core/services/notification-service/notification.service';
+import { TranslateService } from '@ngx-translate/core';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-reporting-page',
@@ -38,7 +41,9 @@ export class ReportingPageComponent {
   protected readonly datePickerType = DatePickerType;
   protected readonly activeMonth = signal<Date>(new Date());
 
+  protected notificationService = inject(NotificationService);
   protected activityService = inject(ActivityService);
+  protected translateService = inject(TranslateService);
   protected bookedDays = signal<BookedDay[]>([]);
 
   constructor() {
@@ -52,10 +57,17 @@ export class ReportingPageComponent {
     });
   }
 
-  changeDate(event: any) {
+  changeDate(event: Date) {
     const date = event instanceof Date ? event : new Date(event);
 
-    if (isNaN(date.getTime())) {
+    if (!isNaN(date.getTime())) {
+      const message = this.translateService.instant(
+        'reporting.page.monthChangedError'
+      );
+      const status = this.translateService.instant(
+        'reporting.page.monthChangedStatus'
+      );
+      this.notificationService.openSnackBar(message, status);
       console.error('Invalid date provided:', event);
       return;
     }

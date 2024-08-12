@@ -193,7 +193,9 @@
       "title": "Reporting Page",
       "tuesday": "Tu",
       "wednesday": "We",
-      "monthOverview": "Month overview"
+      "monthOverview": "Month overview",
+      "monthChangedError": "There was an error selecting the month!",
+      "monthChangedStatus": "Input data has errors."
     }
   },
   "resetPasswordPage": {

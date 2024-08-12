@@ -21,7 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { BookedDay } from '../../models/booked-day';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 enum CellColor {
   red = 'red',
@@ -39,7 +39,7 @@ enum CellColor {
     MatCardContent,
     MatCalendar,
     MatDatepickerModule,
-    CommonModule,
+    NgIf,
     TranslateModule,
   ],
   providers: [provideNativeDateAdapter()],

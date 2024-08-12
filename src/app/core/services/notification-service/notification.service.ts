@@ -11,7 +11,7 @@ export class NotificationService {
   dataToSend?: HttpErrorSnackbar;
   durationInSeconds = 3;
   constructor(private snackBar: MatSnackBar) {}
-  openSnackBar(errorMessage: string, status: number) {
+  openSnackBar(errorMessage: string, status: number | string) {
     this.snackBar.openFromComponent(SnackbarContentComponent, {
       duration: this.durationInSeconds * 1000,
       data: { status, message: errorMessage },
