@@ -20,7 +20,6 @@ import { Invoice } from '../../models/invoice.model';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
 import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
-import moment from 'moment';
 
 @Component({
   selector: 'app-invoice-page',
