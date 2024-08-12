@@ -1,5 +1,5 @@
 import { DatePickerType } from './../../../../shared/models/date-picker-type.enum';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -47,6 +47,7 @@ import {
     EntityItemComponent,
     OrderByPipe,
     WorkedTimePipe,
+    DatePipe
   ],
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -144,7 +145,7 @@ export class ActivityPageComponent implements OnInit {
       .subscribe(({ project, ...updatedActivity }: Activity) => {
         this.store.editActivity({
           ...updatedActivity,
-          projectId,
+          projectId: project?.id,
           id,
         });
       });

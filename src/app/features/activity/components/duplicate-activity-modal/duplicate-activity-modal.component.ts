@@ -34,6 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { Activity } from 'src/app/shared/models/activity';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { WorkedTimePipe } from '../../pipes/worked-time.pipe';
 
 @Component({
   selector: 'app-duplicate-activity-modal',
@@ -61,6 +62,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatSuffix,
     FormsModule,
     EntityItemComponent,
+    WorkedTimePipe,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './duplicate-activity-modal.component.html',

@@ -87,7 +87,25 @@ export class ActivityModalComponent implements OnInit {
     );
 
     if (this.data?.activity) {
-      this.activityForm.setValue(this.data?.activity);
+      const start = new Date(this.data.activity.start);
+      const end = new Date(this.data.activity.end);
+
+      // Ensure the dates are valid
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+        throw new Error('Invalid Date format provided in activity');
+      }
+
+      const startHours = String(start.getHours()).padStart(2, '0');
+      const startMinutes = String(start.getMinutes()).padStart(2, '0');
+
+      const endHours = String(end.getHours()).padStart(2, '0');
+      const endMinutes = String(end.getMinutes()).padStart(2, '0');
+
+      this.activityForm.setValue({
+        ...this.data.activity,
+        start: `${startHours}:${startMinutes}`,
+        end: `${endHours}:${endMinutes}`,
+      });
     }
   }
 
@@ -103,9 +121,28 @@ export class ActivityModalComponent implements OnInit {
     return null;
   }
 
+  protected splitToHoursAndMinutes(inputTime: string): Date {
+    const splitInputTime = inputTime.split(':');
+    const [hours, minutes] = [
+      parseInt(splitInputTime[0]),
+      parseInt(splitInputTime[1]),
+    ];
+    const resultDate = new Date();
+    resultDate.setHours(hours, minutes, 0, 0);
+    return resultDate;
+  }
+
   submit() {
+    const startTime = this.activityForm.get('start').value;
+    const endTime = this.activityForm.get('end').value;
+
     if (this.activityForm.invalid) return;
-    this.dialogRef.close(this.activityForm.value);
+
+    this.dialogRef.close({
+      ...this.activityForm.value,
+      start: this.splitToHoursAndMinutes(startTime),
+      end: this.splitToHoursAndMinutes(endTime),
+    });
   }
 
   protected displayName(project) {

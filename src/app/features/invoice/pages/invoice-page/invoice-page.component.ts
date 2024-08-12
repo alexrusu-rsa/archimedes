@@ -47,12 +47,16 @@ export class InvoicePageComponent {
   protected readonly currentMonth = signal<Date>(new Date());
 
   downloadInvoice(project: Project) {
+    const currentMonthValue = this.currentMonth();
+    const currentMonthDate: Date = new Date(currentMonthValue);
+    const month = currentMonthDate.getMonth() + 1;
+    const year = currentMonthDate.getFullYear();
+
     const invoice: Invoice = {
       customer: project?.customer,
       project: project,
-      month: this.currentMonth().getMonth().toString(),
-      year: this.currentMonth().getFullYear().toString(),
-      //TODO get internal customer from backend on login
+      month: month.toString(),
+      year: year.toString(),
       series: 'RSA',
     };
 

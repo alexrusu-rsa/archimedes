@@ -63,6 +63,4 @@ export class EntityPageHeaderComponent {
 
   hasDeleteAll = input(false);
   deleteAll = output<void>();
-
-  readonly date = signal(moment());
 }

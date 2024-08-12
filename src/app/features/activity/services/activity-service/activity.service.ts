@@ -141,7 +141,7 @@ export class ActivityService {
 
   getActivitiesByDateEmployeeId(
     id: string,
-    dateToFind: string
+    dateToFind: Date
   ): Observable<Activity[]> {
     const activitiesByDateUrl = this.activitiesUrl + '/date';
     return this.httpClient
