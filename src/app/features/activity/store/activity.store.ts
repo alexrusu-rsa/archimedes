@@ -91,10 +91,7 @@ export const ActivityStore = signalStore(
           tap(() => patchState(store, { isLoading: true })),
           switchMap((filter: ActivityFilter) =>
             activityService
-              .getActivitiesByDateEmployeeId(
-                localStorage?.userId,
-                datePipe.transform(filter?.date, 'dd/MM/yyyy')
-              )
+              .getActivitiesByDateEmployeeId(localStorage?.userId, filter?.date)
               .pipe(
                 tapResponse({
                   next: (activities: Activity[]) =>
@@ -128,7 +125,7 @@ export const ActivityStore = signalStore(
                   activity?.project?.id === 'other'
                     ? null
                     : activity?.project?.id,
-                date: datePipe.transform(store.filter()?.date, 'dd/MM/yyyy'),
+                date: store.filter?.date(),
               })
               .pipe(
                 tapResponse({
@@ -173,7 +170,7 @@ export const ActivityStore = signalStore(
                 employeeId: localStorage?.userId,
                 projectId:
                   activity?.projectId === 'other' ? null : activity?.projectId,
-                date: datePipe.transform(store.filter()?.date, 'dd/MM/yyyy'),
+                date: activity?.date,
               })
               .pipe(
                 tapResponse({
@@ -316,13 +313,8 @@ export const ActivityStore = signalStore(
                     startDate,
                     endDate,
                   }: ActivityDuplication) => {
-                    // Parse activity.date from string to Date
-                    const [day, month, year] = activity.date
-                      .split('/')
-                      .map(Number);
-                    const activityDate = new Date(year, month - 1, day); // Note: month is zero-based in JavaScript Date
+                    const activityDate = activity?.date;
 
-                    // Check if activityDate is between startDate and endDate
                     return activityDate >= startDate && activityDate <= endDate;
                   };
 

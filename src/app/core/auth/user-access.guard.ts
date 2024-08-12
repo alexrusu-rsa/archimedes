@@ -11,7 +11,7 @@ export class UserAccessGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn === true) {
-      this.router.navigate(['reporting']);
+      this.router.navigate(['dashboard']);
     }
     return true;
   }

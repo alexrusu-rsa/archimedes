@@ -18,7 +18,7 @@ import { ProjectService } from 'src/app/features/project/services/project-servic
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatCard, MatCardTitle, MatCardActions } from '@angular/material/card';
+import { MatCardActions } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
@@ -64,7 +64,7 @@ export class ProjectPageComponent {
   );
 
   private projects = computed(() => signal(this.rawProjects()));
-  
+
   protected filteredProjects = computed(() =>
     this.projects()().filter((project: Project) =>
       project.projectName
@@ -80,20 +80,10 @@ export class ProjectPageComponent {
       .pipe(
         filter((newProject: Project) => !!newProject),
         switchMap((newProject: Project) => {
-          const dueDateAsString = this.datePipe.transform(
-            newProject.dueDate,
-            'dd/MM/yyyy'
-          );
-
-          const contractSignDateAsString = this.datePipe.transform(
-            newProject.contractSignDate,
-            'dd/MM/yyyy'
-          );
-
           const projectToAdd = {
             ...newProject,
-            dueDate: dueDateAsString,
-            contractSignDate: contractSignDateAsString,
+            dueDate: newProject.dueDate,
+            contractSignDate: newProject.contractSignDate,
             customerId: newProject.customer?.id,
           };
           return this.service
@@ -108,11 +98,9 @@ export class ProjectPageComponent {
   }
 
   editProject(project: Project) {
-    const dueDateAsDate = this.transformStringToDate(project?.dueDate);
+    const dueDateAsDate = project?.dueDate;
 
-    const contractSignDateAsDate = this.transformStringToDate(
-      project?.contractSignDate
-    );
+    const contractSignDateAsDate = project?.contractSignDate;
 
     const { id, customerId, ...projectWithoutUnnecessary } = project;
 
@@ -132,21 +120,12 @@ export class ProjectPageComponent {
         filter((editedProject: Project) => !!editedProject),
         switchMap((editedProject: Project) => {
           const { customer, ...editedProjectWithoutCustomer } = editedProject;
-          const dueDateAsString = this.datePipe.transform(
-            editedProject.dueDate,
-            'dd/MM/yyyy'
-          );
-
-          const contractSignDateAsString = this.datePipe.transform(
-            editedProject.contractSignDate,
-            'dd/MM/yyyy'
-          );
           return this.service
             .updateProject({
               ...editedProjectWithoutCustomer,
               id,
-              dueDate: dueDateAsString,
-              contractSignDate: contractSignDateAsString,
+              dueDate: editedProject.dueDate,
+              contractSignDate: editedProject.contractSignDate,
               customerId: customer.id,
             })
             .pipe(takeUntilDestroyed(this.destroyRef));
@@ -181,18 +160,5 @@ export class ProjectPageComponent {
           projects.filter((project) => project.id !== projectId)
         );
       });
-  }
-
-  transformStringToDate(dateString: string) {
-    if (dateString !== null) {
-      const parts = dateString.split('/');
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1;
-      const year = parseInt(parts[2], 10);
-
-      const dateObject = new Date(year, month, day);
-      return dateObject;
-    }
-    return null;
   }
 }

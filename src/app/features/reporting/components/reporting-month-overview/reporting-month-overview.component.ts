@@ -1,14 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
   ViewChild,
   effect,
   inject,
   input,
-  output,
 } from '@angular/core';
 import {
   MatCard,
@@ -25,7 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { BookedDay } from '../../models/booked-day';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
 
 enum CellColor {
   red = 'red',
@@ -43,6 +39,7 @@ enum CellColor {
     MatCardContent,
     MatCalendar,
     MatDatepickerModule,
+    CommonModule,
     TranslateModule,
   ],
   providers: [provideNativeDateAdapter()],
@@ -65,31 +62,31 @@ export class ReportingMonthOverviewComponent {
       }
     });
   }
-
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
-    const formattedDate = this.formatDateToString(cellDate);
-
     const currentDate = new Date();
+    const cursorDate = new Date(cellDate);
 
-    if (cellDate > currentDate) {
+    if (cursorDate > currentDate) {
       return CellColor.default;
     }
 
-    const isWeekend = cellDate.getDay() === 0 || cellDate.getDay() === 6;
+    const isWeekend = cursorDate.getDay() === 0 || cursorDate.getDay() === 6;
     if (isWeekend) {
       return CellColor.default;
     }
 
     const currentDay = this.bookedDays().find(
-      (bookedDay) => bookedDay.date === formattedDate
+      (bookedDay) =>
+        new Date(bookedDay.date).toDateString() === cursorDate.toDateString()
     );
 
     if (!currentDay) {
       return CellColor.default;
     }
 
-    const bookedHours = parseInt(currentDay.timeBooked.split(':')[0]);
-    const bookedMinutes = parseInt(currentDay.timeBooked.split(':')[1]);
+    const [bookedHours, bookedMinutes] = currentDay.timeBooked
+      .split(':')
+      .map(Number);
     const expectedHours = currentDay.expectedHours;
 
     if (bookedHours >= expectedHours) {
@@ -106,13 +103,6 @@ export class ReportingMonthOverviewComponent {
 
     return CellColor.default;
   };
-
-  private formatDateToString(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
 }
 @Component({
   standalone: true,

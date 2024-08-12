@@ -52,11 +52,18 @@ export class ReportingPageComponent {
     });
   }
 
-  changeDate(event) {
-    const date = event._d as Date;
+  changeDate(event: any) {
+    const date = event instanceof Date ? event : new Date(event);
+
+    if (isNaN(date.getTime())) {
+      console.error('Invalid date provided:', event);
+      return;
+    }
+
     const formattedDate = new Date(
       Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 1)
     );
+
     this.activeMonth.set(formattedDate);
   }
 }

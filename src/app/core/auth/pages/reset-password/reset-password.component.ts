@@ -53,16 +53,17 @@ import { User } from 'src/app/shared/models/user';
 })
 export class ResetPasswordComponent implements OnInit {
   readonly destroyRef = inject(DestroyRef);
+
+  private readonly service = inject(UserManagePasswordService);
   user!: User;
   userResetPasswordSub?: Subscription;
   resetPasswordForm?: FormGroup;
 
-  constructor(private userManagePasswordService: UserManagePasswordService) {}
   sendPasswordResetRequest(email: string) {
     if (this.user) {
       this.user.email = email;
       this.user.password = '';
-      this.userResetPasswordSub = this.userManagePasswordService
+      this.userResetPasswordSub = this.service
         .resetPasswordFor(this.user)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
