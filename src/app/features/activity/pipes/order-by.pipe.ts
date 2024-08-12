@@ -21,23 +21,30 @@ export class OrderByPipe implements PipeTransform {
         return 1; // b goes before a (a is null)
       }
 
-      // Ensure a.start and b.start are Date objects
-      const aStartTime = new Date(a.start).getTime();
-      const bStartTime = new Date(b.start).getTime();
-
-      if (aStartTime !== bStartTime) {
-        return aStartTime - bStartTime;
+      const startComparison = this.compareDates(a.start, b.start);
+      if (startComparison !== 0) {
+        return startComparison;
       }
 
-      // Ensure a.end and b.end are Date objects
-      const aEndTime = new Date(a.end).getTime();
-      const bEndTime = new Date(b.end).getTime();
-
-      if (aEndTime !== bEndTime) {
-        return aEndTime - bEndTime;
+      const endComparison = this.compareDates(a.end, b.end);
+      if (endComparison !== 0) {
+        return endComparison;
       }
 
-      return aStartTime;
+      return 0;
     });
+  }
+
+  private compareDates(date1: Date, date2: Date): number {
+    const time1 = new Date(date1).getTime();
+    const time2 = new Date(date2).getTime();
+
+    if (isNaN(time1) || isNaN(time2)) {
+      if (!isNaN(time1)) return -1;
+      if (!isNaN(time2)) return 1;
+      return 0;
+    }
+
+    return time1 - time2;
   }
 }

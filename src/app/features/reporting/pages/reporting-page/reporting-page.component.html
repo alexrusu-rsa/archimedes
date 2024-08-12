@@ -2,12 +2,10 @@
   [datePickerType]="datePickerType.monthYear"
   (datePickerValueChanged)="changeDate($event)"
   class="d-flex flex-wrap justify-content-between column-gap-2"
->
-</app-entity-page-header>
+/>
 
-<app-reporting-month-overview 
+<app-reporting-month-overview
   *ngIf="bookedDays() && activeMonth()"
   [bookedDays]="bookedDays()"
   [activeMonth]="activeMonth()"
->
-</app-reporting-month-overview>
+/>

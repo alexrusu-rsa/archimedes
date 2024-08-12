@@ -45,15 +45,11 @@ export class InvoicePageComponent {
   protected invoices = toSignal(this.service.getProjects(), {
     initialValue: [],
   });
-  protected readonly currentMonth = signal<any>(moment());
+  protected readonly currentMonth = signal<Date>(new Date());
+
   downloadInvoice(project: Project) {
     const currentMonthValue = this.currentMonth();
-
-    let currentMonthDate: Date;
-    if (currentMonthValue && typeof currentMonthValue.toDate === 'function') {
-      currentMonthDate = currentMonthValue.toDate();
-    }
-
+    const currentMonthDate: Date = new Date(currentMonthValue);
     const month = currentMonthDate.getMonth() + 1;
     const year = currentMonthDate.getFullYear();
 

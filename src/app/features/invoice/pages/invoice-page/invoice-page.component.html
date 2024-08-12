@@ -2,7 +2,7 @@
   [datePickerType]="datePickerType.monthYear"
   (datePickerValueChanged)="currentMonth.set($event)"
   class="d-flex flex-wrap justify-content-between column-gap-2"
-></app-entity-page-header>
+/>
 
 <div class="d-flex flex-column row-gap-3 h-100">
   @if (invoices()?.length > 0) { @for (invoice of invoices(); track $index) {
@@ -26,7 +26,6 @@
   <app-entity-item
     [title]="'invoice.page.item.empty.listEmpty' | translate"
     [emptyIcon]="icons.info"
-  >
-  </app-entity-item>
+  />
   }
 </div>

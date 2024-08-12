@@ -121,29 +121,27 @@ export class ActivityModalComponent implements OnInit {
     return null;
   }
 
+  protected splitToHoursAndMinutes(inputTime: string): Date {
+    const splitInputTime = inputTime.split(':');
+    const [hours, minutes] = [
+      parseInt(splitInputTime[0]),
+      parseInt(splitInputTime[1]),
+    ];
+    const resultDate = new Date();
+    resultDate.setHours(hours, minutes, 0, 0);
+    return resultDate;
+  }
+
   submit() {
     const startTime = this.activityForm.get('start').value;
     const endTime = this.activityForm.get('end').value;
 
     if (this.activityForm.invalid) return;
 
-    const startAsDate = new Date();
-    const [startHours, startMinutes] = [
-      startTime.split(':')[0],
-      startTime.split(':')[1],
-    ];
-    startAsDate.setHours(startHours, startMinutes, 0, 0);
-
-    const endAsDate = new Date();
-    const [endHours, endMinutes] = [
-      endTime.split(':')[0],
-      endTime.split(':')[1],
-    ];
-    endAsDate.setHours(endHours, endMinutes, 0, 0);
     this.dialogRef.close({
       ...this.activityForm.value,
-      start: startAsDate,
-      end: endAsDate,
+      start: this.splitToHoursAndMinutes(startTime),
+      end: this.splitToHoursAndMinutes(endTime),
     });
   }
 

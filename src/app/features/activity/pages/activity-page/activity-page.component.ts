@@ -1,5 +1,5 @@
 import { DatePickerType } from './../../../../shared/models/date-picker-type.enum';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -30,7 +30,6 @@ import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
-import { DateTimePipe } from 'src/app/shared/pipes/date-time.pipe';
 
 @Component({
   selector: 'app-activity-page',
@@ -48,7 +47,7 @@ import { DateTimePipe } from 'src/app/shared/pipes/date-time.pipe';
     EntityItemComponent,
     OrderByPipe,
     WorkedTimePipe,
-    DateTimePipe,
+    DatePipe
   ],
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
