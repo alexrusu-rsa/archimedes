@@ -1,10 +1,15 @@
 <mat-form-field>
-    @if(label()){
-    <mat-label>{{ label() }}</mat-label>
-    }
-    <input matInput [matDatepicker]="datePicker" [value]="date()" />
-    <mat-datepicker-toggle [for]="datePicker" matIconSuffix></mat-datepicker-toggle>
-    <mat-datepicker #datePicker
-        (monthSelected)="datePickerValueChanged.emit($event);date.set($event);datePicker.close()" startView="multi-year"
-        touchUi></mat-datepicker>
+  @if(label()){
+  <mat-label>{{ label() }}</mat-label>
+  }
+  <input matInput [matDatepicker]="datePicker" [value]="date()" />
+  <mat-datepicker-toggle [for]="datePicker" matIconSuffix />
+  <mat-datepicker
+    #datePicker
+    (monthSelected)="
+      datePickerValueChanged.emit($event); date.set($event); datePicker.close()
+    "
+    startView="multi-year"
+    touchUi
+  />
 </mat-form-field>

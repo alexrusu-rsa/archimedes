@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InitialsIconComponent } from 'src/app/shared/components/initials-icon/initials-icon.component';
 import { User } from '../../models/user';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatCardSubtitle } from '@angular/material/card';
 
 @Component({
   selector: 'app-user-navigation',
@@ -22,14 +23,13 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
     InitialsIconComponent,
     TranslateModule,
     MatMenuItem,
-    CommonModule,
     RouterLink,
     MatSlideToggle,
+    MatCardSubtitle,
   ],
   styles: [
     `
-      .opacity-70
-        opacity: 0.7
+      @use 'src/styles/variables.sass' as variables
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
