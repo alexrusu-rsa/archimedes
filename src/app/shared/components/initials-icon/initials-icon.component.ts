@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { User } from '../../models/user';
@@ -7,7 +6,7 @@ import { MatCardSubtitle } from '@angular/material/card';
 @Component({
   selector: 'app-initials-icon',
   standalone: true,
-  imports: [CommonModule, MatIcon, MatCardSubtitle],
+  imports: [MatIcon, MatCardSubtitle],
   templateUrl: './initials-icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `

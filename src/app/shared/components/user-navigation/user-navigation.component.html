@@ -7,7 +7,7 @@
     class="my-auto border rounded-circle pointer-cursor initials"
     mat-button
     [user]="user()"
-  ></app-initials-icon>
+  />
   <div class="d-flex flex-column mb-0 ml-4 custom-icon justify-content-center">
     <span mat-card-subtitle class=""
       >{{ user().name }} {{ user().surname }}</span
@@ -27,8 +27,7 @@
       [checked]="darkMode()"
       (change)="darkModeChanged.emit(true)"
       (click)="$event.stopPropagation()"
-    >
-    </mat-slide-toggle>
+    />
   </a>
 </div>
 

@@ -21,7 +21,6 @@ import { User } from 'src/app/shared/models/user';
     MatCardTitle,
     MatChip,
     MatChipSet,
-    TranslateModule,
   ],
   templateUrl: './user-widget.component.html',
 })

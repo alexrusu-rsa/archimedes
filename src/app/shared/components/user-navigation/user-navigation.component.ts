@@ -23,7 +23,6 @@ import { MatCardSubtitle } from '@angular/material/card';
     InitialsIconComponent,
     TranslateModule,
     MatMenuItem,
-    CommonModule,
     RouterLink,
     MatSlideToggle,
     MatCardSubtitle,
