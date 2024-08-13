@@ -60,7 +60,7 @@ export class ReportingPageComponent {
   changeDate(event: Date) {
     const date = event instanceof Date ? event : new Date(event);
 
-    if (!isNaN(date.getTime())) {
+    if (isNaN(date.getTime())) {
       const message = this.translateService.instant(
         'reporting.page.monthChangedError'
       );
