@@ -1,4 +1,9 @@
-@if(displayBookedTimeWidget()){
-<app-booked-time-widget [bookedTime]="store().activities() | bookedTime" [displayDate]="store().filter().date"
-    [user]="user()"></app-booked-time-widget>
+@if(user()){
+<app-user-widget [user]="user()"> </app-user-widget>
+} @if(displayBookedTimeWidget()){
+<app-booked-time-widget
+  [bookedTime]="store().activities() | bookedTime"
+  [displayDate]="store().filter().date"
+  [user]="user()"
+></app-booked-time-widget>
 }

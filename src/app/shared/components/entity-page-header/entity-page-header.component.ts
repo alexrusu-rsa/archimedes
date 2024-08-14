@@ -4,7 +4,6 @@ import {
   Component,
   input,
   output,
-  signal,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';

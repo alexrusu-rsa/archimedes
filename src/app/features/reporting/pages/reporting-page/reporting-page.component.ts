@@ -16,7 +16,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { BookedDay } from '../../models/booked-day';
 import { NotificationService } from 'src/app/core/services/notification-service/notification.service';
 import { TranslateService } from '@ngx-translate/core';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-reporting-page',

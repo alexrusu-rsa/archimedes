@@ -1,19 +1,25 @@
 @if(user){
-<sub class="opacity-70 z-index-5 d-flex mx-3 mb-4">{{
+<sub mat-card-subtitle class="z-index-5 d-flex mx-3 mb-4">{{
   "sidenav.account" | translate
 }}</sub>
-<div class="opacity-70 d-flex flex-row gap-2 mx-3 my-2">
-  <app-initials-icon [user]="user()"></app-initials-icon>
-  <div class="d-flex flex-column mb-3 ml-4">
-    <span>{{ user().name }} {{ user().surname }}</span>
-    <sub>{{ user().email }}</sub>
+<div class="d-flex flex-row gap-2 mx-3 my-2 justify-content-center">
+  <app-initials-icon
+    class="my-auto border rounded-circle pointer-cursor initials"
+    mat-button
+    [user]="user()"
+  />
+  <div class="d-flex flex-column mb-0 ml-4 custom-icon justify-content-center">
+    <span mat-card-subtitle class=""
+      >{{ user().name }} {{ user().surname }}</span
+    >
+    <sub mat-card-subtitle>{{ user().email }}</sub>
   </div>
 </div>
 }
 
 <mat-divider></mat-divider>
 <div class="d-flex flex-row">
-  <a mat-menu-item class="opacity-70">
+  <a mat-menu-item>
     {{ "shared.userNavigation.darkModeSwitch" | translate }}
     <mat-slide-toggle
       class="align-self-center"
@@ -21,8 +27,7 @@
       [checked]="darkMode()"
       (change)="darkModeChanged.emit(true)"
       (click)="$event.stopPropagation()"
-    >
-    </mat-slide-toggle>
+    />
   </a>
 </div>
 
