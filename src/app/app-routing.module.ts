@@ -17,14 +17,6 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'reporting',
-    loadChildren: () =>
-      import('./ng-modules/reporting/reporting.module').then(
-        (m) => m.ReportingModule
-      ),
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'activity',
     title: 'Activity',
     loadComponent: () =>
@@ -71,6 +63,14 @@ const routes: Routes = [
       import(
         './features/invoice/pages/invoice-page/invoice-page.component'
       ).then((c) => c.InvoicePageComponent),
+    canActivate: [AuthGuard, RoleGuard],
+  },
+  {
+    path: 'reporting',
+    loadComponent: () =>
+      import(
+        './features/reporting/pages/reporting-page/reporting-page.component'
+      ).then((c) => c.ReportingPageComponent),
     canActivate: [AuthGuard, RoleGuard],
   },
   {

@@ -4,7 +4,6 @@ import {
   Component,
   input,
   output,
-  signal,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -18,7 +17,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
-import moment from 'moment';
 import { DatePickerType } from '../../models/date-picker-type.enum';
 import { MonthYearDatepickerComponent } from '../month-year-datepicker/month-year-datepicker.component';
 @Component({
