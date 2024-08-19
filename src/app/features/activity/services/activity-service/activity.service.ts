@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { ActivityDuplication } from '../../models/activity-duplication.model';
 import { BookedDay } from 'src/app/features/reporting/models/booked-day';
 import { UserWithActivities } from 'src/app/features/reporting/models/user-with-activities';
+import { WidgetDay } from 'src/app/features/invoice/models/widget-day';
 
 @Injectable({
   providedIn: 'root',
@@ -225,7 +226,7 @@ export class ActivityService {
       );
   }
 
-  getBookedTimePerDayOfMonthYear(date: Date): Observable<UserWithActivities[]> {
+  getBookedTimePerDayOfMonthYear(date: Date): Observable<WidgetDay[]> {
     const requestBody = {
       month: date.getUTCMonth() + 1,
       year: date.getUTCFullYear(),
@@ -233,10 +234,10 @@ export class ActivityService {
     const activitiesOfMonthYearUserUrl =
       this.activitiesUrl + '/monthYear/bookedTimePerDay';
     return this.httpClient
-      .post<UserWithActivities[]>(activitiesOfMonthYearUserUrl, requestBody)
+      .post<WidgetDay[]>(activitiesOfMonthYearUserUrl, requestBody)
       .pipe(
         catchError(
-          this.responseHandlingService.handleError<UserWithActivities[]>(
+          this.responseHandlingService.handleError<WidgetDay[]>(
             `getActivitiesOfMonthYearForUser`
           )
         )

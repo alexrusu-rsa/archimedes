@@ -18,6 +18,7 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { TranslateModule } from '@ngx-translate/core';
+import { WidgetDay } from 'src/app/features/invoice/models/widget-day';
 
 enum CellColor {
   red = 'red',
@@ -40,31 +41,28 @@ enum CellColor {
   ],
   encapsulation: ViewEncapsulation.None,
   providers: [provideNativeDateAdapter()],
-  styles: [
-    `
-    @use 'src/styles/variables.sass' as variables
-
-    button.red span
-        color: variables.$rsasoft-without-reported-hours
-    button.orange span
-        color: variables.$rsasoft-partially-reported-day
-    button.green span
-        color: variables.$rsasoft-fully-reported-day
-    `,
-  ],
   templateUrl: './month-overview-widget.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MonthOverviewWidgetComponent {
   protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
-  protected readonly bookedTimeOfMonth = input<unknown>();
+  protected readonly bookedTimeOfMonth = input<WidgetDay[]>();
   protected readonly alocatedTime = input<string>();
   protected readonly dateSelected = output<Date>();
-
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
-    const formattedDate = this.formatDateToString(cellDate);
-    const bookedTime = this.bookedTimeOfMonth()[formattedDate];
+
+    const cursorDate = this.bookedTimeOfMonth().find((widgetDay) => {
+      const widgetDayDate = new Date(widgetDay.date);
+      return widgetDayDate.toDateString() === cellDate.toDateString();
+    });
+
+    let cursorDateBookTimeInMinutes = 0;
+    if (cursorDate) {
+      const timeBooked = cursorDate.timeBooked || '00:00';
+      cursorDateBookTimeInMinutes = this.convertTimeToMinutes(timeBooked);
+    }
+
     const allocatedTimeMinutes = this.convertTimeToMinutes(this.alocatedTime());
 
     if (cellDate > currentDate) {
@@ -72,36 +70,34 @@ export class MonthOverviewWidgetComponent {
     }
 
     if (cellDate.getDay() === 0 || cellDate.getDay() === 6) {
-      return bookedTime > 0 ? CellColor.orange : CellColor.default;
+      return cursorDateBookTimeInMinutes > 0
+        ? CellColor.orange
+        : CellColor.default;
     }
 
-    if (bookedTime === 0) {
+    if (cursorDateBookTimeInMinutes === 0) {
       return CellColor.red;
     }
 
-    if (allocatedTimeMinutes !== bookedTime) {
+    if (allocatedTimeMinutes !== cursorDateBookTimeInMinutes) {
       return CellColor.orange;
     }
 
     return CellColor.green;
   };
 
-  // TODO in Backend update Activity Date from 'dd/MM/yyyy' to Date type and User workedTime to number type of minutes
-  private formatDateToString(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-
-  // TODO in Backend update Activity Date from 'dd/MM/yyyy' to Date type and User workedTime to number type of minutes
   private convertTimeToMinutes(timeString: string): number {
+    if (!timeString) {
+      return 0;
+    }
+
     const [hoursStr, minutesStr] = timeString.split(':');
+
     const hours = parseInt(hoursStr, 10);
     const minutes = parseInt(minutesStr, 10);
 
     if (isNaN(hours) || isNaN(minutes)) {
-      throw new Error('Invalid time format');
+      throw new Error(`Invalid time format: ${timeString}`);
     }
 
     return hours * 60 + minutes;
