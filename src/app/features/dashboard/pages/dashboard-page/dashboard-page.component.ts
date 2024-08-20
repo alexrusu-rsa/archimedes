@@ -70,7 +70,10 @@ export class DashboardPageComponent {
   navigateToDate(activityDate: Date) {
     this.router.navigate(['activity'], {
       queryParams: {
-        date: this.datePipe.transform(activityDate, 'MM-dd-yyyy'),
+        date: this.datePipe.transform(
+          activityDate.setDate(activityDate.getDate() + 1),
+          'MM-dd-yyyy'
+        ),
       },
     });
   }

@@ -49,6 +49,7 @@ export class MonthOverviewWidgetComponent {
   protected readonly bookedTimeOfMonth = input<WidgetDay[]>();
   protected readonly alocatedTime = input<string>();
   protected readonly dateSelected = output<Date>();
+  
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
 
