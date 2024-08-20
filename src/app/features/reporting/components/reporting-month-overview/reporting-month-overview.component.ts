@@ -64,9 +64,27 @@ export class ReportingMonthOverviewComponent {
   }
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
-    const cursorDate = new Date(cellDate);
 
-    if (cursorDate > currentDate) {
+    const toRomaniaDate = (date: Date): Date => {
+      const options = {
+        timeZone: 'Europe/Bucharest',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+      } as const;
+      const formatter = new Intl.DateTimeFormat('en-US', options);
+      const parts = formatter.formatToParts(date).reduce((acc, part) => {
+        if (part.type !== 'literal') acc[part.type] = parseInt(part.value, 10);
+        return acc;
+      }, {} as Record<string, number>);
+
+      return new Date(parts['year'], parts['month'] - 1, parts['day']);
+    };
+
+    const cursorDate = toRomaniaDate(cellDate);
+    const currentRomaniaDate = toRomaniaDate(currentDate);
+
+    if (cursorDate > currentRomaniaDate) {
       return CellColor.default;
     }
 
@@ -75,10 +93,10 @@ export class ReportingMonthOverviewComponent {
       return CellColor.default;
     }
 
-    const currentDay = this.bookedDays().find(
-      (bookedDay) =>
-        new Date(bookedDay.date).toDateString() === cursorDate.toDateString()
-    );
+    const currentDay = this.bookedDays().find((bookedDay) => {
+      const bookedDayDate = toRomaniaDate(new Date(bookedDay.date));
+      return bookedDayDate.toDateString() === cursorDate.toDateString();
+    });
 
     if (!currentDay) {
       return CellColor.default;

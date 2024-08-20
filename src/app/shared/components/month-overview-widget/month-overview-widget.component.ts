@@ -52,9 +52,33 @@ export class MonthOverviewWidgetComponent {
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
 
+    const toRomaniaDate = (date: Date): Date => {
+      const options = {
+        timeZone: 'Europe/Bucharest',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+      } as const;
+      const formatter = new Intl.DateTimeFormat('en-US', options);
+      const parts = formatter.formatToParts(date).reduce((acc, part) => {
+        if (part.type !== 'literal') acc[part.type] = parseInt(part.value, 10);
+        return acc;
+      }, {} as Record<string, number>);
+
+      return new Date(parts['year'], parts['month'] - 1, parts['day']);
+    };
+
+    const cellRomaniaDate = toRomaniaDate(cellDate);
+    const currentRomaniaDate = toRomaniaDate(currentDate);
+
     const cursorDate = this.bookedTimeOfMonth().find((widgetDay) => {
-      const widgetDayDate = new Date(widgetDay.date);
-      return widgetDayDate.toDateString() === cellDate.toDateString();
+      const widgetDayDate = toRomaniaDate(new Date(widgetDay.date));
+
+      return (
+        widgetDayDate.getFullYear() === cellRomaniaDate.getFullYear() &&
+        widgetDayDate.getMonth() === cellRomaniaDate.getMonth() &&
+        widgetDayDate.getDate() === cellRomaniaDate.getDate()
+      );
     });
 
     let cursorDateBookTimeInMinutes = 0;
@@ -65,11 +89,11 @@ export class MonthOverviewWidgetComponent {
 
     const allocatedTimeMinutes = this.convertTimeToMinutes(this.alocatedTime());
 
-    if (cellDate > currentDate) {
+    if (cellRomaniaDate > currentRomaniaDate) {
       return CellColor.default;
     }
 
-    if (cellDate.getDay() === 0 || cellDate.getDay() === 6) {
+    if (cellRomaniaDate.getDay() === 0 || cellRomaniaDate.getDay() === 6) {
       return cursorDateBookTimeInMinutes > 0
         ? CellColor.orange
         : CellColor.default;
