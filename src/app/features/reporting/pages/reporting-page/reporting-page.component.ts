@@ -71,9 +71,7 @@ export class ReportingPageComponent {
       return;
     }
 
-    const formattedDate = new Date(
-      Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 1)
-    );
+    const formattedDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
     this.activeMonth.set(formattedDate);
   }

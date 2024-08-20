@@ -210,8 +210,8 @@ export class ActivityService {
 
   getUsersWithActivities(date: Date): Observable<BookedDay[]> {
     const requestBody = {
-      month: date.getUTCMonth() + 1,
-      year: date.getUTCFullYear(),
+      month: date.getMonth() + 1,
+      year: date.getFullYear(),
     };
     const activitiesOfMonthYearUserUrl =
       this.activitiesUrl + '/monthYear/users';
@@ -228,8 +228,8 @@ export class ActivityService {
 
   getBookedTimePerDayOfMonthYear(date: Date): Observable<WidgetDay[]> {
     const requestBody = {
-      month: date.getUTCMonth() + 1,
-      year: date.getUTCFullYear(),
+      month: date.getMonth() + 1,
+      year: date.getFullYear(),
     };
     const activitiesOfMonthYearUserUrl =
       this.activitiesUrl + '/monthYear/bookedTimePerDay';
