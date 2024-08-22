@@ -53,13 +53,12 @@ export class CustomerPageComponent {
   private rawCustomers: Signal<Customer[]> = toSignal(
     this.service.getCustomers().pipe(takeUntilDestroyed(this.destroyRef)),
     { initialValue: [] }
-  ); private customers = computed(() => signal(this.rawCustomers()));
+  );
+  private customers = computed(() => signal(this.rawCustomers()));
 
   protected filterdCustomers = computed(() =>
     this.customers()().filter((customer: Customer) =>
-      customer.customerName
-        .toLowerCase()
-        .includes(this.search().trim().toLowerCase())
+      customer.name.toLowerCase().includes(this.search().trim().toLowerCase())
     )
   );
 

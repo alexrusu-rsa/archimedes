@@ -1,14 +1,14 @@
 export interface Customer {
   id?: string;
-  customerName: string;
-  customerCUI: string;
-  customerReg: string;
-  customerAddress: string;
-  customerCity: string;
-  customerCountry: string;
-  customerDirectorName: string;
-  customerDirectorTel: string;
-  customerDirectorEmail: string;
+  name: string;
+  CUI: string;
+  Reg: string;
+  address: string;
+  city: string;
+  country: string;
+  directorName: string;
+  directorTel: string;
+  directorEmail: string;
   internal: boolean;
   IBANRO?: string;
   IBANEUR?: string;

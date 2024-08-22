@@ -5,7 +5,7 @@
 
 <div class="d-flex flex-column row-gap-3 h-100">
   @for (customer of filterdCustomers(); track $index) {
-  <app-entity-item [title]="customer.customerName" [subtitle]="customer.shortName"
+  <app-entity-item [title]="customer.name" [subtitle]="customer.shortName"
     [chips]="[customer.internal ? 'internal': null, customer.romanianCompany ? 'romanian company': null, customer.VAT ? 'TVA 19%': null]">
     <mat-card-actions actions align="end">
       <button mat-icon-button (click)="editCustomer(customer)" aria-label="Edit project button" type="button">

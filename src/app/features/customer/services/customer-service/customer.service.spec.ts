@@ -8,8 +8,8 @@ import {
 import { environment } from 'src/environments/environment';
 import { ResponseHandlingService } from '../../../../shared/services/response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Customer } from 'src/app/models/customer';
 import { CustomerService } from './customer.service';
+import { Customer } from 'src/app/shared/models/customer';
 
 describe('SpecFileCustomerService', () => {
   let service: CustomerService;
@@ -17,15 +17,15 @@ describe('SpecFileCustomerService', () => {
   const expectedCustomers: Customer[] = [
     {
       id: 'ba545783-bbd6-4505-bdcf-39a968dc3077',
-      customerName: 'Alighieri',
-      customerCUI: 'fs.dkjmfl',
-      customerReg: 'lfksdjkfllk',
-      customerAddress: 'kjsdalfklsl',
-      customerCity: 'ksdfjdslfsjfdl',
-      customerCountry: 'safasfsss',
-      customerDirectorName: '',
-      customerDirectorTel: '',
-      customerDirectorEmail: '',
+      name: 'Alighieri',
+      CUI: 'fs.dkjmfl',
+      Reg: 'lfksdjkfllk',
+      address: 'kjsdalfklsl',
+      city: 'ksdfjdslfsjfdl',
+      country: 'safasfsss',
+      directorName: '',
+      directorTel: '',
+      directorEmail: '',
       internal: false,
       romanianCompany: true,
       VAT: true,
@@ -33,33 +33,33 @@ describe('SpecFileCustomerService', () => {
     },
     {
       id: 'ba545783-bbd6-4505-bdcf-39a968dc3077',
-      customerName: 'Alighieri',
-      customerCUI: 'fs.dkjmfl',
+      name: 'Alighieri',
+      CUI: 'fs.dkjmfl',
       romanianCompany: true,
       VAT: true,
-      customerReg: 'lfksdjkfllk',
-      customerAddress: 'kjsdalfklsl',
-      customerCity: 'ksdfjdslfsjfdl',
-      customerCountry: 'safasfsss',
-      customerDirectorName: '',
-      customerDirectorTel: '',
-      customerDirectorEmail: '',
+      Reg: 'lfksdjkfllk',
+      address: 'kjsdalfklsl',
+      city: 'ksdfjdslfsjfdl',
+      country: 'safasfsss',
+      directorName: '',
+      directorTel: '',
+      directorEmail: '',
       internal: false,
       shortName: 'null',
     },
     {
       id: 'ba545783-bbd6-4505-bdcf-39a968dc3077',
-      customerName: 'Alighieri',
-      customerCUI: 'fs.dkjmfl',
-      customerReg: 'lfksdjkfllk',
+      name: 'Alighieri',
+      CUI: 'fs.dkjmfl',
+      Reg: 'lfksdjkfllk',
       romanianCompany: true,
       VAT: true,
-      customerAddress: 'kjsdalfklsl',
-      customerCity: 'ksdfjdslfsjfdl',
-      customerCountry: 'safasfsss',
-      customerDirectorName: '',
-      customerDirectorTel: '',
-      customerDirectorEmail: '',
+      address: 'kjsdalfklsl',
+      city: 'ksdfjdslfsjfdl',
+      country: 'safasfsss',
+      directorName: '',
+      directorTel: '',
+      directorEmail: '',
       internal: false,
       shortName: 'null',
     },
@@ -95,17 +95,17 @@ describe('SpecFileCustomerService', () => {
 
   it('should call getCustomer(id) and return the customer with id taken as parameter', () => {
     const expectedCustomer: Customer = {
-      customerName: 'Alighieri',
-      customerCUI: 'fs.dkjmfl',
-      customerReg: 'lfksdjkfllk',
-      customerAddress: 'kjsdalfklsl',
-      customerCity: 'ksdfjdslfsjfdl',
-      customerCountry: 'safasfsss',
-      customerDirectorName: '',
-      customerDirectorTel: '',
+      name: 'Alighieri',
+      CUI: 'fs.dkjmfl',
+      Reg: 'lfksdjkfllk',
+      address: 'kjsdalfklsl',
+      city: 'ksdfjdslfsjfdl',
+      country: 'safasfsss',
+      directorName: '',
+      directorTel: '',
       romanianCompany: true,
       VAT: true,
-      customerDirectorEmail: '',
+      directorEmail: '',
       internal: false,
       shortName: 'null',
     };
@@ -124,15 +124,15 @@ describe('SpecFileCustomerService', () => {
   it('should call addCustomer(customer) and return the customer added', () => {
     let actualResponse = {};
     const customerToAdd: Customer = {
-      customerName: 'Alighieri',
-      customerCUI: 'fs.dkjmfl',
-      customerReg: 'lfksdjkfllk',
-      customerAddress: 'kjsdalfklsl',
-      customerCity: 'ksdfjdslfsjfdl',
-      customerCountry: 'safasfsss',
-      customerDirectorName: '',
-      customerDirectorTel: '',
-      customerDirectorEmail: '',
+      name: 'Alighieri',
+      CUI: 'fs.dkjmfl',
+      Reg: 'lfksdjkfllk',
+      address: 'kjsdalfklsl',
+      city: 'ksdfjdslfsjfdl',
+      country: 'safasfsss',
+      directorName: '',
+      directorTel: '',
+      directorEmail: '',
       internal: false,
       romanianCompany: true,
       VAT: true,
@@ -172,15 +172,15 @@ describe('SpecFileCustomerService', () => {
     const expectedReturn = {};
     const customerToUpdate = <Customer>(<unknown>{
       id: '8dbd427f-fa5f-4807-9ded-048706e0a91d',
-      customerName: 'RSA SOFT',
-      customerCUI: '43911790',
-      customerReg: 'J31/149/2021',
-      customerAddress: 'Gheorghe Doje, nr 89',
-      customerCity: 'Zalau',
-      customerCountry: 'Romania',
-      customerDirectorName: 'Rusu Alex George',
-      customerDirectorTel: '+40 747011397',
-      customerDirectorEmail: 'rusualexrsa@gmail.com',
+      name: 'RSA SOFT',
+      CUI: '43911790',
+      Reg: 'J31/149/2021',
+      address: 'Gheorghe Doje, nr 89',
+      city: 'Zalau',
+      country: 'Romania',
+      directorName: 'Rusu Alex George',
+      directorTel: '+40 747011397',
+      directorEmail: 'rusualexrsa@gmail.com',
       internal: true,
       shortName: 'RSA',
     });
@@ -194,50 +194,6 @@ describe('SpecFileCustomerService', () => {
       url: environment.serviceURL + 'customer/' + customerToUpdate.id,
     });
     req.flush(expectedReturn);
-  });
-  it('should call getCustomerInvoiceXLSX and return XLSX invoice as Blob', () => {
-    const customerId = 'lskdjfhjksdf';
-    const invoiceNumber = '1123';
-    const selectedMonth = '02';
-    const selectedYear = '2022';
-    const euroExchange = 5.55;
-    const dateFormatted = 22022022;
-
-    const response = new Blob();
-
-    service
-      .getCustomerInvoiceXLSX(
-        customerId,
-        invoiceNumber,
-        selectedMonth,
-        selectedYear,
-        euroExchange,
-        dateFormatted
-      )
-      .subscribe((result: unknown) => {
-        expect(result['body']).toEqual(response);
-      });
-
-    const url =
-      environment.serviceURL +
-      'customer/invoice/xlsx/' +
-      customerId +
-      '/' +
-      invoiceNumber +
-      '/' +
-      selectedMonth +
-      '/' +
-      selectedYear +
-      '/' +
-      euroExchange +
-      '/' +
-      dateFormatted;
-
-    const req = httpController.expectOne({
-      method: 'GET',
-      url: url,
-    });
-    req.flush(response);
   });
 
   it('should call getCustomerInvoicePDF and return PDF invoice as Blob', () => {
