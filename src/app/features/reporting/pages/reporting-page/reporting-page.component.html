@@ -9,3 +9,8 @@
   [bookedDays]="bookedDays()"
   [activeMonth]="activeMonth()"
 />
+
+<app-reporting-activities-view
+  *ngIf="bookedDays() && activeMonth()"
+  [bookedDays]="bookedDays()"
+/>

@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { BookedDay } from '../../models/booked-day';
 import { NotificationService } from 'src/app/core/services/notification-service/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ReportingActivitiesViewComponent } from '../../components/reporting-activities-view/reporting-activities-view.component';
 
 @Component({
   selector: 'app-reporting-page',
@@ -30,6 +31,7 @@ import { TranslateService } from '@ngx-translate/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ReportingActivitiesViewComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-page.component.html',
