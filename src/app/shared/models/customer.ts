@@ -1,8 +1,8 @@
 export interface Customer {
   id?: string;
   name: string;
-  CUI: string;
-  Reg: string;
+  cui: string;
+  reg: string;
   address: string;
   city: string;
   country: string;
@@ -10,10 +10,10 @@ export interface Customer {
   directorTel: string;
   directorEmail: string;
   internal: boolean;
-  IBANRO?: string;
-  IBANEUR?: string;
+  ibanRo?: string;
+  ibanEur?: string;
   romanianCompany: boolean;
   shortName: string;
-  VAT: boolean;
+  vat: boolean;
   swift?: string;
 }
