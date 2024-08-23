@@ -47,7 +47,7 @@ import {
     EntityItemComponent,
     OrderByPipe,
     WorkedTimePipe,
-    DatePipe
+    DatePipe,
   ],
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -102,7 +102,7 @@ export class ActivityPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        this.store.addActivity(activity);
+        this.store.addActivity([activity]);
       });
   }
 

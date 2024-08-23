@@ -10,9 +10,6 @@
       orange:
         convertTimeToHours(bookedDay.timeBooked) > 0 &&
         convertTimeToHours(bookedDay.timeBooked) < bookedDay.expectedHours,
-      red:
-        convertTimeToHours(bookedDay.timeBooked) === 0 &&
-        bookedDay.expectedHours > 0
     }"
   >
     {{ bookedDay.timeBooked | time }} / {{ bookedDay.expectedHours }}h
@@ -46,13 +43,6 @@ bookedUser.user.activities; track $index) {
         <mat-icon color="accent">{{ icons.edit }}</mat-icon>
       </button>
       <button
-        (click)="duplicateActivity(activity)"
-        mat-icon-button
-        aria-label="Duplicate activity button"
-      >
-        <mat-icon color="accent">{{ icons.control_point_duplicate }}</mat-icon>
-      </button>
-      <button
         (click)="deleteActivity(activity.id)"
         mat-icon-button
         aria-label="Delete activity button"
@@ -69,7 +59,7 @@ bookedUser.user.activities; track $index) {
   class="add-entity-button d-flex flex-column mx-auto mt-3"
   aria-label="Create activity button"
   type="button"
-  (click)="addActivity()"
+  (click)="addActivity(bookedDay.date)"
 >
   <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
 </button>

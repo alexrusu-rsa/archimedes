@@ -8,10 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { filter, take } from 'rxjs';
 import {
-  DuplicateActivityModalComponent,
-  duplicateActivityModalPreset,
-} from 'src/app/features/activity/components/duplicate-activity-modal/duplicate-activity-modal.component';
-import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
@@ -42,8 +38,6 @@ import { TimePipe } from 'src/app/shared/pipes/time.pipe';
   providers: [],
   styles: `
     @use 'src/styles/variables.sass' as variables
-    .red
-      color: variables.$rsasoft-without-reported-hours
     .orange
       color: variables.$rsasoft-partially-reported-day
     .green
@@ -51,12 +45,15 @@ import { TimePipe } from 'src/app/shared/pipes/time.pipe';
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
-export class ReportingActivitiesViewComponent {
+export class ReportingActivitiesViewComponent implements OnInit {
   protected readonly bookedDays = input<BookedDay[]>();
   protected readonly icons = Icons;
   private readonly dialog = inject(MatDialog);
   public readonly store = inject(ActivityStore);
-
+  ngOnInit(): void {
+    this.store.loadProjects();
+    this.store.loadActivityTypes();
+  }
   allUsersHaveNoActivities(bookedDay: BookedDay): boolean {
     return bookedDay.usersTimeBooked.every(
       (bookedUser) => bookedUser.user.activities.length === 0
@@ -97,7 +94,7 @@ export class ReportingActivitiesViewComponent {
         });
       });
   }
-  addActivity() {
+  addActivity(date: string) {
     this.dialog
       .open(ActivityModalComponent, {
         data: {
@@ -109,7 +106,7 @@ export class ReportingActivitiesViewComponent {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        this.store.addActivity(activity);
+        this.store.addActivity([activity, new Date(date)]);
       });
   }
 
@@ -120,19 +117,6 @@ export class ReportingActivitiesViewComponent {
       .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
       .subscribe((_) => {
         this.store.delete(id);
-      });
-  }
-
-  duplicateActivity(activity: Activity) {
-    this.dialog
-      .open(DuplicateActivityModalComponent, {
-        ...duplicateActivityModalPreset,
-        data: activity,
-      })
-      .afterClosed()
-      .pipe(filter((activityDuplication) => !!activityDuplication))
-      .subscribe((activityDuplication) => {
-        this.store.duplicateActivity(activityDuplication);
       });
   }
 

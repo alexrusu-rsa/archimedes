@@ -113,50 +113,57 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      addActivity: rxMethod<Activity>(
+      addActivity: rxMethod<[Activity, Date?]>( // Accept an array of Activity and Date
         pipe(
           debounceTime(300),
-          switchMap((activity) =>
-            activityService
-              .addActivity({
-                ...activity,
-                employeeId: localStorage?.userId,
-                projectId:
-                  activity?.project?.id === 'other'
-                    ? null
-                    : activity?.project?.id,
-                date: store.filter?.date(),
-              })
-              .pipe(
-                tapResponse({
-                  next: (activity: Activity) => {
-                    if (!store.filter()?.project)
-                      patchState(store, {
-                        isLoading: true,
-                        activities: [...store.activities(), activity],
-                      });
-                    else {
-                      if (
-                        store.filter()?.project?.id === 'other' &&
-                        !activity?.project
-                      )
-                        patchState(store, {
-                          isLoading: true,
-                          activities: [...store.activities(), activity],
-                        });
-
-                      if (store.filter()?.project?.id === activity?.project?.id)
-                        patchState(store, {
-                          isLoading: true,
-                          activities: [...store.activities(), activity],
-                        });
-                    }
-                  },
-                  // eslint-disable-next-line no-console
-                  error: (error) => console.error(error),
-                  finalize: () => patchState(store, { isLoading: false }),
+          switchMap(
+            (
+              [activity, date] // Destructure the parameters here
+            ) =>
+              activityService
+                .addActivity({
+                  ...activity,
+                  employeeId: localStorage?.userId,
+                  projectId:
+                    activity?.project?.id === 'other'
+                      ? null
+                      : activity?.project?.id,
+                  date: date || store.filter?.date(),
                 })
-              )
+                .pipe(
+                  tapResponse({
+                    next: (newActivity: Activity) => {
+                      if (!store.filter()?.project) {
+                        patchState(store, {
+                          isLoading: true,
+                          activities: [...store.activities(), newActivity],
+                        });
+                      } else {
+                        if (
+                          store.filter()?.project?.id === 'other' &&
+                          !newActivity?.project
+                        ) {
+                          patchState(store, {
+                            isLoading: true,
+                            activities: [...store.activities(), newActivity],
+                          });
+                        }
+
+                        if (
+                          store.filter()?.project?.id ===
+                          newActivity?.project?.id
+                        ) {
+                          patchState(store, {
+                            isLoading: true,
+                            activities: [...store.activities(), newActivity],
+                          });
+                        }
+                      }
+                    },
+                    error: (error) => console.error(error),
+                    finalize: () => patchState(store, { isLoading: false }),
+                  })
+                )
           )
         )
       ),
