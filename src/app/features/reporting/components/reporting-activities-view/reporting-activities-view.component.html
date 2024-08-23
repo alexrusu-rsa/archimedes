@@ -1,23 +1,25 @@
-@for (bookedDay of bookedDays(); track $index) {
+@for (bookedDay of bookedDays(); track $index) { @if
+(!allUsersHaveNoActivities(bookedDay)) {
 <div class="d-flex flex-row justify-content-start mt-4">
   <mat-card-subtitle>{{ bookedDay.date | date }}</mat-card-subtitle>
-  <mat-card-subtitle class="ms-3">
+  <mat-card-subtitle
+    class="ms-3"
+    [ngClass]="{
+      green:
+        convertTimeToHours(bookedDay.timeBooked) === bookedDay.expectedHours,
+      orange:
+        convertTimeToHours(bookedDay.timeBooked) > 0 &&
+        convertTimeToHours(bookedDay.timeBooked) < bookedDay.expectedHours,
+      red:
+        convertTimeToHours(bookedDay.timeBooked) === 0 &&
+        bookedDay.expectedHours > 0
+    }"
+  >
     {{ bookedDay.timeBooked | time }} / {{ bookedDay.expectedHours }}h
   </mat-card-subtitle>
 </div>
 
-@if (allUsersHaveNoActivities(bookedDay)) {
-<app-entity-item
-  [title]="
-    'shared.entity.item.empty.listEmpty'
-      | translate
-        : {
-            entity: 'activities for ' + bookedDay.date
-          }
-  "
-  [emptyIcon]="icons.info"
-></app-entity-item>
-} @else { @for (bookedUser of bookedDay.usersTimeBooked; track $index) { @if
+} @for (bookedUser of bookedDay.usersTimeBooked; track $index) { @if
 (bookedUser.user.activities.length > 0) { @for (activity of
 bookedUser.user.activities; track $index) {
 <div class="d-flex flex-column row-gap-3">
@@ -61,8 +63,7 @@ bookedUser.user.activities; track $index) {
     </mat-card-actions>
   </app-entity-item>
 </div>
-} } } }
-
+}
 <button
   mat-raised-button
   class="add-entity-button d-flex flex-column mx-auto mt-3"
@@ -72,4 +73,4 @@ bookedUser.user.activities; track $index) {
 >
   <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
 </button>
-}
+} } }

@@ -40,6 +40,15 @@ import { TimePipe } from 'src/app/shared/pipes/time.pipe';
     TimePipe,
   ],
   providers: [],
+  styles: `
+    @use 'src/styles/variables.sass' as variables
+    .red
+      color: variables.$rsasoft-without-reported-hours
+    .orange
+      color: variables.$rsasoft-partially-reported-day
+    .green
+      color: variables.$rsasoft-fully-reported-day
+  `,
   templateUrl: './reporting-activities-view.component.html',
 })
 export class ReportingActivitiesViewComponent {
@@ -53,7 +62,7 @@ export class ReportingActivitiesViewComponent {
       (bookedUser) => bookedUser.user.activities.length === 0
     );
   }
-  
+
   editActivity(activity: Activity) {
     const {
       id,
@@ -125,5 +134,10 @@ export class ReportingActivitiesViewComponent {
       .subscribe((activityDuplication) => {
         this.store.duplicateActivity(activityDuplication);
       });
+  }
+
+  convertTimeToHours(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours + minutes / 60;
   }
 }
