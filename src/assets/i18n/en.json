@@ -15,7 +15,8 @@
       "submit": "Add activity",
       "submitEdit": "Update activity",
       "title": "Add new activity",
-      "titleEdit": "Edit activity"
+      "titleEdit": "Edit activity",
+      "selectEmployee": "Select employee"
     },
     "shared": {
       "other": "Other"

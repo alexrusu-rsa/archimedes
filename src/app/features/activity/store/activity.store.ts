@@ -113,17 +113,17 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      addActivity: rxMethod<[Activity, Date?]>( // Accept an array of Activity and Date
+      addActivity: rxMethod<[Activity, Date?, string?]>( // Accept an array of Activity, Date, and employeeId
         pipe(
           debounceTime(300),
           switchMap(
             (
-              [activity, date] // Destructure the parameters here
+              [activity, date, employeeId] // Destructure the parameters here
             ) =>
               activityService
                 .addActivity({
                   ...activity,
-                  employeeId: localStorage?.userId,
+                  employeeId: employeeId || localStorage?.userId, // Use provided employeeId or fallback to localStorage
                   projectId:
                     activity?.project?.id === 'other'
                       ? null

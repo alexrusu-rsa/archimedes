@@ -99,6 +99,20 @@
       <mat-label>{{ "activity.dialog.extras" | translate }}</mat-label>
       <textarea matInput type="text" formControlName="extras"></textarea>
     </mat-form-field>
+    } @if(displayEmployeeSelect){
+    <mat-form-field class="col-12 m-0 p-0" appearance="fill">
+      <mat-label>{{ "activity.dialog.selectEmployee" | translate }}</mat-label>
+      <mat-select
+        formControlName="employee"
+        (keyup.enter)="$event.stopPropagation()"
+      >
+        @for (user of data.users; track $index) {
+        <mat-option value="{{ user.id }}"
+          >{{ user.name }} {{ user.surname }}</mat-option
+        >
+        }
+      </mat-select>
+    </mat-form-field>
     }
   </form>
 </mat-dialog-content>

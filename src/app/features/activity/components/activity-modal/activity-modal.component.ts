@@ -72,6 +72,8 @@ export class ActivityModalComponent implements OnInit {
   protected activityForm: FormGroup;
   protected validators = Validators;
 
+  displayEmployeeSelect = false;
+
   ngOnInit(): void {
     this.activityForm = this.formBuilder.group(
       {
@@ -85,6 +87,10 @@ export class ActivityModalComponent implements OnInit {
       },
       { validator: this.timeValidator }
     );
+
+    if (this.data?.users) {
+      this.displayEmployeeSelect = true;
+    }
 
     if (this.data?.activity) {
       const start = new Date(this.data.activity.start);
@@ -137,7 +143,6 @@ export class ActivityModalComponent implements OnInit {
     const endTime = this.activityForm.get('end').value;
 
     if (this.activityForm.invalid) return;
-
     this.dialogRef.close({
       ...this.activityForm.value,
       start: this.splitToHoursAndMinutes(startTime),

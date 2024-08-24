@@ -94,19 +94,24 @@ export class ReportingActivitiesViewComponent implements OnInit {
         });
       });
   }
-  addActivity(date: string) {
+  addActivity(bookedDay: BookedDay) {
     this.dialog
       .open(ActivityModalComponent, {
         data: {
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),
+          users: bookedDay.usersTimeBooked.map((user) => user.user.user),
         },
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        this.store.addActivity([activity, new Date(date)]);
+        this.store.addActivity([
+          activity,
+          new Date(bookedDay.date),
+          employeeId,
+        ]);
       });
   }
 
