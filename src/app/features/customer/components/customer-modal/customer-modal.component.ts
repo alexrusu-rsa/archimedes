@@ -64,21 +64,21 @@ export class CustomerModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerForm = this.formBuilder.group({
-      customerName: ['', Validators.required],
-      customerCUI: ['', Validators.required],
-      customerReg: ['', Validators.required],
-      customerAddress: ['', Validators.required],
-      customerCity: ['', Validators.required],
-      customerCountry: ['', Validators.required],
-      customerDirectorName: [''],
-      customerDirectorEmail: [''],
-      customerDirectorTel: [''],
+      name: ['', Validators.required],
+      cui: ['', Validators.required],
+      reg: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
+      directorName: [''],
+      directorEmail: [''],
+      directorTel: [''],
       shortName: [''],
       internal: [false],
-      IBANRO: [''],
-      IBANEUR: [''],
+      ibanRo: [''],
+      ibanEur: [''],
       romanianCompany: [false],
-      VAT: [false],
+      vat: [false],
       swift: [''],
     });
 

@@ -36,7 +36,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+import {
+  MatNativeDateModule,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 import { CustomerService } from 'src/app/features/customer/services/customer-service/customer.service';
 import { InvoiceDialogOnCloseResult } from 'src/app/features/invoice/models/invoice-dialog-onclose-result';
 import { SafePipe } from 'src/app/shared/pipes/safe/safe.pipe';
@@ -116,9 +119,7 @@ export class InvoiceModalComponent {
       blobUrl: this.pdfUrl(),
       invoiceName: `${this.invoice.series}${
         this.invoiceForm.controls.number.value
-      }-${
-        this.invoice.customer.shortName || this.invoice.customer.customerName
-      }.pdf`,
+      }-${this.invoice.customer.shortName || this.invoice.customer.name}.pdf`,
       downloadStart: true,
     });
   }

@@ -106,7 +106,7 @@
       <mat-select formControlName="customer">
         @for (customer of data?.customers; track $index) {
         <mat-option [value]="customer">
-          {{ customer?.customerName }}
+          {{ customer?.name }}
         </mat-option>
         }
       </mat-select>

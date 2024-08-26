@@ -1,19 +1,19 @@
 export interface Customer {
   id?: string;
-  customerName: string;
-  customerCUI: string;
-  customerReg: string;
-  customerAddress: string;
-  customerCity: string;
-  customerCountry: string;
-  customerDirectorName: string;
-  customerDirectorTel: string;
-  customerDirectorEmail: string;
+  name: string;
+  cui: string;
+  reg: string;
+  address: string;
+  city: string;
+  country: string;
+  directorName: string;
+  directorTel: string;
+  directorEmail: string;
   internal: boolean;
-  IBANRO?: string;
-  IBANEUR?: string;
+  ibanRo?: string;
+  ibanEur?: string;
   romanianCompany: boolean;
   shortName: string;
-  VAT: boolean;
+  vat: boolean;
   swift?: string;
 }

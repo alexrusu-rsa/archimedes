@@ -13,9 +13,7 @@
   @for (project of filteredProjects(); track $index) {
   <app-entity-item
     [title]="project?.projectName"
-    [chips]="[
-      project?.customer?.customerName ? project?.customer?.customerName : ''
-    ]"
+    [chips]="[project?.customer?.name ? project?.customer?.name : '']"
   >
     <mat-card-actions actions align="end">
       <button

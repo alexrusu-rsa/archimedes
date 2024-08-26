@@ -9,7 +9,7 @@
   <app-entity-item
     [title]="invoice?.projectName"
     [subtitle]="currentMonth() | date : 'MMMM yyyy'"
-    [chips]="invoice?.customer?.customerName"
+    [chips]="invoice?.customer?.name"
   >
     <mat-card-actions actions align="end" class="pt-0">
       <button
