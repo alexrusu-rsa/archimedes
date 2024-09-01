@@ -17,13 +17,15 @@ import { DatePipe } from '@angular/common';
 import { tapResponse } from '@ngrx/operators';
 import { ActivityDuplication } from 'src/app/features/activity/models/activity-duplication.model';
 import { ProjectService } from '../../project/services/project-service/project.service';
+import { BookedDay } from '../../reporting/models/booked-day';
 
 type ActivityState = {
   activities: Activity[];
   activityTypes: string[];
   projects: Project[];
   isLoading: boolean;
-  filter: { project?: Project; date?: Date };
+  filter: { project?: Project; date?: Date; activeMonth?: Date };
+  bookedDays: BookedDay[];
 };
 
 const initialState: ActivityState = {
@@ -31,7 +33,8 @@ const initialState: ActivityState = {
   activityTypes: [],
   projects: [],
   isLoading: false,
-  filter: { project: null, date: new Date() },
+  filter: { project: null, date: new Date(), activeMonth: null },
+  bookedDays: [],
 };
 
 export const ActivityStore = signalStore(
@@ -76,6 +79,26 @@ export const ActivityStore = signalStore(
                 next: (projects: Project[]) =>
                   patchState(store, {
                     projects,
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+              })
+            )
+          )
+        )
+      ),
+      loadBookedDays: rxMethod<ActivityFilter>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((filter: ActivityFilter) =>
+            activityService.getUsersWithActivities(filter.activeMonth).pipe(
+              tap(console.log),
+              tapResponse({
+                next: (bookedDays) =>
+                  patchState(store, {
+                    bookedDays: bookedDays,
                   }),
                 // eslint-disable-next-line no-console
                 error: (error) => console.error(error),
@@ -167,6 +190,7 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+
       editActivity: rxMethod<Activity>(
         pipe(
           debounceTime(300),
@@ -308,6 +332,36 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+      addActivityToBookedDay: rxMethod<[Activity, Date, string]>(
+        pipe(
+          debounceTime(300),
+          switchMap(([activity, date, employeeId]) =>
+            activityService
+              .addActivity({
+                ...activity,
+                employeeId: employeeId || localStorage?.userId,
+                projectId:
+                  activity?.project?.id === 'other'
+                    ? null
+                    : activity?.project?.id,
+                date: date || store.filter?.date(),
+              })
+              .pipe(
+                tapResponse({
+                  next: (newActivity: Activity) => {
+                    patchState(store, {
+                      isLoading: true,
+                      activities: [...store.activities(), newActivity],
+                    });
+                  },
+                  // eslint-disable-next-line no-console
+                  error: (error) => console.error(error),
+                  finalize: () => patchState(store, { isLoading: false }),
+                })
+              )
+          )
+        )
+      ),
       duplicateActivity: rxMethod<ActivityDuplication>(
         pipe(
           debounceTime(300),
@@ -355,8 +409,9 @@ export const ActivityStore = signalStore(
     })
   ),
   withHooks({
-    onInit({ loadActivitiesByFilter, filter }) {
+    onInit({ loadBookedDays, loadActivitiesByFilter, filter }) {
       loadActivitiesByFilter(filter);
+      loadBookedDays(filter);
     },
   })
 );

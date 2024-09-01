@@ -84,6 +84,7 @@ export class ActivityModalComponent implements OnInit {
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
+        employee: ['', Validators.required],
       },
       { validator: this.timeValidator }
     );

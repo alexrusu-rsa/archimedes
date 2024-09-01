@@ -14,4 +14,5 @@ export interface Activity {
   workedTime?: string;
   project?: Project;
   projectName?: string;
+  employee?: string;
 }

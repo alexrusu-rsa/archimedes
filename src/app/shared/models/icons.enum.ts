@@ -20,6 +20,7 @@ export enum Icons {
   control_point_duplicate = 'control_point_duplicate',
   keyboard_arrow_right = 'keyboard_arrow_right',
   keyboard_arrow_left = 'keyboard_arrow_left',
+  expand_circle_down = 'expand_circle_down',
   settings = 'settings',
   info = 'info',
 }

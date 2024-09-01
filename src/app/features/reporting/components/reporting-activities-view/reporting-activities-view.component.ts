@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { BookedDay } from '../../models/booked-day';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { MatCardActions, MatCardSubtitle } from '@angular/material/card';
@@ -37,11 +37,11 @@ import { TimePipe } from 'src/app/shared/pipes/time.pipe';
   ],
   providers: [],
   styles: `
-    @use 'src/styles/variables.sass' as variables
-    .orange
-      color: variables.$rsasoft-partially-reported-day
-    .green
-      color: variables.$rsasoft-fully-reported-day
+    // @use 'src/styles/variables.sass' as variables
+    // .orange
+    //   color: variables.$rsasoft-partially-reported-day
+    // .green
+    //   color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
@@ -50,6 +50,8 @@ export class ReportingActivitiesViewComponent implements OnInit {
   protected readonly icons = Icons;
   private readonly dialog = inject(MatDialog);
   public readonly store = inject(ActivityStore);
+  protected readonly activeMonth = signal<Date>(new Date());
+
   ngOnInit(): void {
     this.store.loadProjects();
     this.store.loadActivityTypes();
@@ -94,6 +96,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
         });
       });
   }
+
   addActivity(bookedDay: BookedDay) {
     this.dialog
       .open(ActivityModalComponent, {
@@ -110,7 +113,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
         this.store.addActivity([
           activity,
           new Date(bookedDay.date),
-          employeeId,
+          activity.employee,
         ]);
       });
   }
