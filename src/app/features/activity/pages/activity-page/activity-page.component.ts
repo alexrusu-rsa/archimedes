@@ -126,11 +126,14 @@ export class ActivityPageComponent implements OnInit {
       workedTime,
       ...activityWithoutUnecessary
     } = activity;
+    console.log(projectId, employeeId);
     this.dialog
       .open(ActivityModalComponent, {
         data: {
           activity: {
             ...activityWithoutUnecessary,
+            project: activity?.project?.id,
+            employee: employeeId,
           },
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),

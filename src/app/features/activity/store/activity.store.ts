@@ -1,3 +1,4 @@
+import { UserWithActivities } from './../../reporting/models/user-with-activities';
 import { inject } from '@angular/core';
 import {
   patchState,
@@ -332,10 +333,53 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      addActivityToBookedDay: rxMethod<[Activity, Date, string]>(
+      editActivityOfBookedDay: rxMethod<[Activity, number]>(
         pipe(
           debounceTime(300),
-          switchMap(([activity, date, employeeId]) =>
+          switchMap(([activity, index]) =>
+            activityService
+              .updateActivity({
+                ...activity,
+                projectId:
+                  activity.projectId === 'other' ? null : activity.projectId,
+              })
+              .pipe(
+                tapResponse({
+                  next: (updatedActivity: Activity) => {
+                    console.log(updatedActivity, index);
+                  },
+                  error: (error) => console.error(error),
+                  finalize: () => patchState(store, { isLoading: false }),
+                })
+              )
+          )
+        )
+      ),
+      deleteActivityFromBookedDay: rxMethod<[Activity, Date, string, number]>(
+        pipe(
+          debounceTime(300),
+          switchMap(([activity, date, employeeId, index]) =>
+            activityService.deleteActivity(activity.id).pipe(
+              tapResponse({
+                next: (_) => {
+                  console.log(activity, date, employeeId, index);
+                  patchState(store, {
+                    isLoading: true,
+                  });
+                },
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+                finalize: () => patchState(store, { isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+
+      addActivityToBookedDay: rxMethod<[Activity, Date, string, number]>(
+        pipe(
+          debounceTime(300),
+          switchMap(([activity, date, employeeId, index]) =>
             activityService
               .addActivity({
                 ...activity,
@@ -349,10 +393,44 @@ export const ActivityStore = signalStore(
               .pipe(
                 tapResponse({
                   next: (newActivity: Activity) => {
-                    patchState(store, {
-                      isLoading: true,
-                      activities: [...store.activities(), newActivity],
-                    });
+                    if (!(newActivity.date instanceof Date)) {
+                      newActivity.date = new Date(newActivity.date);
+                    }
+
+                    const bookedDayToUpdate = store.bookedDays()[index];
+
+                    const foundUser = bookedDayToUpdate.usersTimeBooked.find(
+                      (user) => user.user.user.id === employeeId
+                    );
+
+                    if (foundUser) {
+                      foundUser.user.activities.push(newActivity);
+                      const [addedHours, addedMinutes] = newActivity.workedTime
+                        .split(':')
+                        .map(Number);
+                      const [currentHours, currentMinutes] = store
+                        .bookedDays()
+                        [index].timeBooked.split(':')
+                        .map(Number);
+
+                      const [updatedHours, updatedMinutes] = [
+                        currentHours +
+                          addedHours +
+                          (currentMinutes + addedMinutes) / 60,
+                        (currentMinutes + addedMinutes) % 60,
+                      ];
+                      store.bookedDays()[index].timeBooked = `${{
+                        updatedHours,
+                      }}:${{ updatedMinutes }}`;
+                    }
+
+                    const indexOfUser =
+                      bookedDayToUpdate.usersTimeBooked.findIndex(
+                        (user) => user.user.user.id === employeeId
+                      );
+
+                    bookedDayToUpdate.usersTimeBooked[indexOfUser] = foundUser;
+                    store.bookedDays()[index] = bookedDayToUpdate;
                   },
                   // eslint-disable-next-line no-console
                   error: (error) => console.error(error),

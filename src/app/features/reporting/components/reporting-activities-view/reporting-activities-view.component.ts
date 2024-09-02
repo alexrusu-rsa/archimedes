@@ -1,5 +1,4 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { BookedDay } from '../../models/booked-day';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { MatCardActions, MatCardSubtitle } from '@angular/material/card';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -18,6 +17,7 @@ import { ActivityModalComponent } from 'src/app/features/activity/components/act
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { TimePipe } from 'src/app/shared/pipes/time.pipe';
+import { BookedDay } from '../../models/booked-day';
 
 @Component({
   selector: 'app-reporting-activities-view',
@@ -37,11 +37,11 @@ import { TimePipe } from 'src/app/shared/pipes/time.pipe';
   ],
   providers: [],
   styles: `
-    // @use 'src/styles/variables.sass' as variables
-    // .orange
-    //   color: variables.$rsasoft-partially-reported-day
-    // .green
-    //   color: variables.$rsasoft-fully-reported-day
+    @use 'src/styles/variables.sass' as variables
+    .orange
+      color: variables.$rsasoft-partially-reported-day
+    .green
+      color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
@@ -62,7 +62,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
     );
   }
 
-  editActivity(activity: Activity) {
+  editActivity(activity: Activity, index: number) {
     const {
       id,
       employeeId,
@@ -72,11 +72,15 @@ export class ReportingActivitiesViewComponent implements OnInit {
       workedTime,
       ...activityWithoutUnecessary
     } = activity;
+
+    console.log(employeeId, projectId);
     this.dialog
       .open(ActivityModalComponent, {
         data: {
           activity: {
             ...activityWithoutUnecessary,
+            employee: employeeId,
+            project: projectId,
           },
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),
@@ -88,43 +92,49 @@ export class ReportingActivitiesViewComponent implements OnInit {
         filter((activity: Activity) => !!activity),
         take(1)
       )
-      .subscribe(({ project, ...updatedActivity }: Activity) => {
-        this.store.editActivity({
-          ...updatedActivity,
-          projectId: project?.id,
-          id,
-        });
+      .subscribe(({ employee, project, ...updatedActivity }: Activity) => {
+        this.store.editActivityOfBookedDay([
+          { ...updatedActivity, projectId: project?.id, id },
+          index,
+        ]);
       });
   }
 
-  addActivity(bookedDay: BookedDay) {
+  addActivity(bookedDay: BookedDay, index: number) {
     this.dialog
       .open(ActivityModalComponent, {
         data: {
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),
           users: bookedDay.usersTimeBooked.map((user) => user.user.user),
+          index: index,
         },
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        this.store.addActivity([
+        this.store.addActivityToBookedDay([
           activity,
           new Date(bookedDay.date),
           activity.employee,
+          index,
         ]);
       });
   }
 
-  deleteActivity(id: string) {
+  deleteActivity(activity: Activity, bookedDay: BookedDay, index: number) {
     this.dialog
       .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
       .afterClosed()
       .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
       .subscribe((_) => {
-        this.store.delete(id);
+        this.store.deleteActivityFromBookedDay([
+          activity,
+          new Date(bookedDay.date),
+          activity.employee,
+          index,
+        ]);
       });
   }
 

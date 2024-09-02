@@ -80,7 +80,7 @@ export class ActivityModalComponent implements OnInit {
         name: ['', Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
-        project: [null, Validators.required],
+        project: ['', Validators.required],
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
@@ -88,6 +88,7 @@ export class ActivityModalComponent implements OnInit {
       },
       { validator: this.timeValidator }
     );
+    console.log(this.data?.activity);
 
     if (this.data?.users) {
       this.displayEmployeeSelect = true;
