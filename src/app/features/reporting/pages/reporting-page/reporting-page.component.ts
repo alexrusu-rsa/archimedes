@@ -75,6 +75,9 @@ export class ReportingPageComponent implements OnInit {
     });
   }
 
+  loadActivityView() {
+    this.store.loadMonthYearReport(this.store.filter());
+  }
   changeDate(event: Date) {
     const date = event instanceof Date ? event : new Date(event);
 

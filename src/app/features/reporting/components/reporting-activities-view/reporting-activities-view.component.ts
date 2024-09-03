@@ -62,6 +62,10 @@ export class ReportingActivitiesViewComponent implements OnInit {
     );
   }
 
+  loadActivityView() {
+    this.store.loadMonthYearReport(this.store.filter());
+  }
+
   editActivity(activity: Activity, index: number) {
     const {
       id,

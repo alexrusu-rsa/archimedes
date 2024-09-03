@@ -84,11 +84,10 @@ export class ActivityModalComponent implements OnInit {
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
-        employee: ['', Validators.required],
+        employee: ['',],
       },
       { validator: this.timeValidator }
     );
-    console.log(this.data?.activity);
 
     if (this.data?.users) {
       this.displayEmployeeSelect = true;

@@ -1,4 +1,3 @@
-import { UserWithActivities } from './../../reporting/models/user-with-activities';
 import { inject } from '@angular/core';
 import {
   patchState,
@@ -19,6 +18,7 @@ import { tapResponse } from '@ngrx/operators';
 import { ActivityDuplication } from 'src/app/features/activity/models/activity-duplication.model';
 import { ProjectService } from '../../project/services/project-service/project.service';
 import { BookedDay } from '../../reporting/models/booked-day';
+import { Days } from '../../reporting/models/days';
 
 type ActivityState = {
   activities: Activity[];
@@ -27,6 +27,7 @@ type ActivityState = {
   isLoading: boolean;
   filter: { project?: Project; date?: Date; activeMonth?: Date };
   bookedDays: BookedDay[];
+  monthYearReport: Days;
 };
 
 const initialState: ActivityState = {
@@ -36,6 +37,7 @@ const initialState: ActivityState = {
   isLoading: false,
   filter: { project: null, date: new Date(), activeMonth: null },
   bookedDays: [],
+  monthYearReport: {} as Days,
 };
 
 export const ActivityStore = signalStore(
@@ -362,7 +364,6 @@ export const ActivityStore = signalStore(
             activityService.deleteActivity(activity.id).pipe(
               tapResponse({
                 next: (_) => {
-                  console.log(activity, date, employeeId, index);
                   patchState(store, {
                     isLoading: true,
                   });
@@ -469,6 +470,26 @@ export const ActivityStore = signalStore(
                 // eslint-disable-next-line no-console
                 error: (error) => console.error(error),
                 finalize: () => patchState(store, { isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+      loadMonthYearReport: rxMethod<ActivityFilter>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((filter: ActivityFilter) =>
+            activityService.getMonthReport(filter.activeMonth).pipe(
+              tap(console.log),
+              tapResponse({
+                next: (monthYearReport) =>
+                  patchState(store, {
+                    monthYearReport: monthYearReport,
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
               })
             )
           )

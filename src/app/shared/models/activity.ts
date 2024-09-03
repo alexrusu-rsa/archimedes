@@ -1,4 +1,5 @@
 import { Project } from './project';
+import { User } from './user';
 
 export interface Activity {
   id?: string;
@@ -13,6 +14,7 @@ export interface Activity {
   employeeId: string;
   workedTime?: string;
   project?: Project;
-  projectName?: string;
-  employee?: string;
+  projectName?: string;//TODO remove this
+  employee?: string; //TODO remove this
+  user?: User;
 }
