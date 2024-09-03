@@ -18,6 +18,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { TimePipe } from 'src/app/shared/pipes/time.pipe';
 import { BookedDay } from '../../models/booked-day';
+import { Days } from '../../models/days';
 
 @Component({
   selector: 'app-reporting-activities-view',
@@ -37,16 +38,16 @@ import { BookedDay } from '../../models/booked-day';
   ],
   providers: [],
   styles: `
-    @use 'src/styles/variables.sass' as variables
-    .orange
-      color: variables.$rsasoft-partially-reported-day
-    .green
-      color: variables.$rsasoft-fully-reported-day
+    // @use 'src/styles/variables.sass' as variables
+    // .orange
+    //   color: variables.$rsasoft-partially-reported-day
+    // .green
+    //   color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
 export class ReportingActivitiesViewComponent implements OnInit {
-  protected readonly bookedDays = input<BookedDay[]>();
+  protected readonly monthYearReport = input<Days>();
   protected readonly icons = Icons;
   private readonly dialog = inject(MatDialog);
   public readonly store = inject(ActivityStore);
@@ -54,93 +55,110 @@ export class ReportingActivitiesViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.loadProjects();
+    this.store.loadUsers();
     this.store.loadActivityTypes();
   }
-  allUsersHaveNoActivities(bookedDay: BookedDay): boolean {
-    return bookedDay.usersTimeBooked.every(
-      (bookedUser) => bookedUser.user.activities.length === 0
-    );
-  }
 
-  loadActivityView() {
-    this.store.loadMonthYearReport(this.store.filter());
-  }
-
-  editActivity(activity: Activity, index: number) {
-    const {
-      id,
-      employeeId,
-      date,
-      projectId,
-      projectName,
-      workedTime,
-      ...activityWithoutUnecessary
-    } = activity;
-
-    console.log(employeeId, projectId);
-    this.dialog
-      .open(ActivityModalComponent, {
-        data: {
-          activity: {
-            ...activityWithoutUnecessary,
-            employee: employeeId,
-            project: projectId,
-          },
-          activityProjects: this.store.projects(),
-          activityTypes: this.store.activityTypes(),
-        },
-        panelClass: 'full-width-dialog',
-      })
-      .afterClosed()
-      .pipe(
-        filter((activity: Activity) => !!activity),
-        take(1)
-      )
-      .subscribe(({ employee, project, ...updatedActivity }: Activity) => {
-        this.store.editActivityOfBookedDay([
-          { ...updatedActivity, projectId: project?.id, id },
-          index,
-        ]);
-      });
-  }
-
-  addActivity(bookedDay: BookedDay, index: number) {
+  addActivityToDate(date: string) {
     this.dialog
       .open(ActivityModalComponent, {
         data: {
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),
-          users: bookedDay.usersTimeBooked.map((user) => user.user.user),
-          index: index,
+          users: this.store.users(),
         },
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        this.store.addActivityToBookedDay([
-          activity,
-          new Date(bookedDay.date),
-          activity.employee,
-          index,
-        ]);
+        console.log(activity, 'activity that we want to send to backend');
+        console.log(date);
+        const activityDate = date.toString();
+        activity.date = new Date(date);
+        this.store.addActivityToMonthYearReport([activity, date]);
       });
   }
 
-  deleteActivity(activity: Activity, bookedDay: BookedDay, index: number) {
-    this.dialog
-      .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
-      .afterClosed()
-      .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
-      .subscribe((_) => {
-        this.store.deleteActivityFromBookedDay([
-          activity,
-          new Date(bookedDay.date),
-          activity.employee,
-          index,
-        ]);
-      });
-  }
+  deleteActivityFromDate(date: string, activityId: string) {}
+
+  editActivityOfDate(date: string, activityId: string) {}
+
+  // editActivity(activity: Activity, index: number) {
+  //   const {
+  //     id,
+  //     employeeId,
+  //     date,
+  //     projectId,
+  //     projectName,
+  //     workedTime,
+  //     ...activityWithoutUnecessary
+  //   } = activity;
+
+  //   console.log(employeeId, projectId);
+  //   this.dialog
+  //     .open(ActivityModalComponent, {
+  //       data: {
+  //         activity: {
+  //           ...activityWithoutUnecessary,
+  //           employee: employeeId,
+  //           project: projectId,
+  //         },
+  //         activityProjects: this.store.projects(),
+  //         activityTypes: this.store.activityTypes(),
+  //       },
+  //       panelClass: 'full-width-dialog',
+  //     })
+  //     .afterClosed()
+  //     .pipe(
+  //       filter((activity: Activity) => !!activity),
+  //       take(1)
+  //     )
+  //     .subscribe(({ employee, project, ...updatedActivity }: Activity) => {
+  //       this.store.editActivityOfBookedDay([
+  //         { ...updatedActivity, projectId: project?.id, id },
+  //         index,
+  //       ]);
+  //     });
+  // }
+
+  // addActivity(bookedDay: BookedDay, index: number) {
+  //   this.dialog
+  //     .open(ActivityModalComponent, {
+  //       data: {
+  //         activityProjects: this.store.projects(),
+  //         activityTypes: this.store.activityTypes(),
+  //         users: bookedDay.usersTimeBooked.map((user) => user.user.user),
+  //         index: index,
+  //       },
+  //       panelClass: 'full-width-dialog',
+  //     })
+  //     .afterClosed()
+  //     .pipe(filter((activity: Activity) => !!activity))
+  //     .subscribe((activity: Activity) => {
+  //       this.store.addActivityToBookedDay([
+  //         activity,
+  //         new Date(bookedDay.date),
+  //         activity.employee,
+  //         index,
+  //       ]);
+  //     });
+  // }
+
+  // deleteActivity(activity: Activity, bookedDay: BookedDay, index: number) {
+  //   this.dialog
+  //     .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
+  //     .afterClosed()
+  //     .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
+  //     .subscribe((_) => {
+  //       this.store.deleteActivityFromBookedDay([
+  //         activity,
+  //         new Date(bookedDay.date),
+  //         activity.employee,
+  //         index,
+  //       ]);
+  //     });
+  // }
 
   convertTimeToHours(time: string): number {
     const [hours, minutes] = time.split(':').map(Number);

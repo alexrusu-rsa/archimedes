@@ -28,6 +28,7 @@ import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { Days } from '../../models/days';
 
 @Component({
   selector: 'app-reporting-page',
@@ -60,11 +61,13 @@ export class ReportingPageComponent implements OnInit {
   protected activityService = inject(ActivityService);
   protected translateService = inject(TranslateService);
   protected bookedDays = signal<BookedDay[]>([]);
+  protected monthYearReport = signal<Days>;
 
   displayActivitiesView = false;
   constructor() {
     effect(() => {
       this.store.loadBookedDays(this.store.filter());
+      this.store.loadMonthYearReport(this.store.filter());
     });
   }
   ngOnInit(): void {
@@ -75,9 +78,6 @@ export class ReportingPageComponent implements OnInit {
     });
   }
 
-  loadActivityView() {
-    this.store.loadMonthYearReport(this.store.filter());
-  }
   changeDate(event: Date) {
     const date = event instanceof Date ? event : new Date(event);
 

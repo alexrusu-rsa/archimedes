@@ -3,13 +3,12 @@
 
 <app-reporting-month-overview *ngIf="store.bookedDays() && activeMonth()" [bookedDays]="store.bookedDays()"
   [activeMonth]="activeMonth()" />
-<div class="col-12 d-flex justify-content-center">
+<!-- <div class="col-12 d-flex justify-content-center">
   <button mat-icon-button class="add-entity-button d-flex flex-column mx-auto mt-3" aria-label="Create activity button"
     type="button" (click)="loadActivityView()">
     <mat-icon color="accent" class="mx-0">{{
       icons.expand_circle_down
       }}</mat-icon>
   </button>
-</div>
-<app-reporting-activities-view *ngIf="store.bookedDays() && activeMonth() && displayActivitiesView"
-  [bookedDays]="store.bookedDays()" />
+</div> -->
+<app-reporting-activities-view *ngIf="true" [monthYearReport]="store.monthYearReport()" />

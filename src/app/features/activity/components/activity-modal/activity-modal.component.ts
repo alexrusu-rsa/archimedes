@@ -80,11 +80,11 @@ export class ActivityModalComponent implements OnInit {
         name: ['', Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
-        project: ['', Validators.required],
+        projectId: ['', Validators.required],
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
-        employee: ['',],
+        employeeId: [''],
       },
       { validator: this.timeValidator }
     );
@@ -142,7 +142,7 @@ export class ActivityModalComponent implements OnInit {
   submit() {
     const startTime = this.activityForm.get('start').value;
     const endTime = this.activityForm.get('end').value;
-
+    console.log(this.activityForm.value);
     if (this.activityForm.invalid) return;
     this.dialogRef.close({
       ...this.activityForm.value,

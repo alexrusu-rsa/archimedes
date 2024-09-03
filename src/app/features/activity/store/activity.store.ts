@@ -19,11 +19,14 @@ import { ActivityDuplication } from 'src/app/features/activity/models/activity-d
 import { ProjectService } from '../../project/services/project-service/project.service';
 import { BookedDay } from '../../reporting/models/booked-day';
 import { Days } from '../../reporting/models/days';
+import { User } from 'src/app/shared/models/user';
+import { UserService } from '../../user/services/user-service/user.service';
 
 type ActivityState = {
   activities: Activity[];
   activityTypes: string[];
   projects: Project[];
+  users: User[];
   isLoading: boolean;
   filter: { project?: Project; date?: Date; activeMonth?: Date };
   bookedDays: BookedDay[];
@@ -34,6 +37,7 @@ const initialState: ActivityState = {
   activities: [],
   activityTypes: [],
   projects: [],
+  users: [],
   isLoading: false,
   filter: { project: null, date: new Date(), activeMonth: null },
   bookedDays: [],
@@ -48,6 +52,7 @@ export const ActivityStore = signalStore(
       store,
       activityService = inject(ActivityService),
       projectService = inject(ProjectService),
+      userService = inject(UserService),
       localStorage = inject(LocalStorageService),
       datePipe = inject(DatePipe)
     ) => ({
@@ -82,6 +87,24 @@ export const ActivityStore = signalStore(
                 next: (projects: Project[]) =>
                   patchState(store, {
                     projects,
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+              })
+            )
+          )
+        )
+      ),
+      loadUsers: rxMethod<void>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap(() =>
+            userService.getUsers().pipe(
+              tapResponse({
+                next: (users: User[]) =>
+                  patchState(store, {
+                    users,
                   }),
                 // eslint-disable-next-line no-console
                 error: (error) => console.error(error),
@@ -495,6 +518,69 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+      addActivityToMonthYearReport: rxMethod<[Activity, string]>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap(([activity, dateKey]) =>
+            activityService.addActivity(activity).pipe(
+              tap(console.log),
+              tapResponse({
+                next: (newActivity) => {
+                  console.log(newActivity);
+                  console.log(dateKey);
+
+                  const currentMonthYearReport = store.monthYearReport();
+
+                  if (currentMonthYearReport[dateKey]) {
+                    currentMonthYearReport[dateKey].activities.push(
+                      newActivity
+                    );
+
+                    const [hours, minutes] = currentMonthYearReport[
+                      dateKey
+                    ].timeBooked
+                      .split(':')
+                      .map(Number);
+                    const [workedHours, workedMinutes] = newActivity.workedTime
+                      .split(':')
+                      .map(Number);
+                    const totalMinutes =
+                      hours * 60 + minutes + workedHours * 60 + workedMinutes;
+                    const newHours = Math.floor(totalMinutes / 60);
+                    const newMinutes = totalMinutes % 60;
+
+                    currentMonthYearReport[dateKey].timeBooked = `${newHours
+                      .toString()
+                      .padStart(2, '0')}:${newMinutes
+                      .toString()
+                      .padStart(2, '0')}`;
+                  } else {
+                    currentMonthYearReport[dateKey] = {
+                      expectedHours: 8,
+                      timeBooked: newActivity.workedTime,
+                      activities: [newActivity],
+                    };
+                  }
+
+                  patchState(store, {
+                    monthYearReport: { ...currentMonthYearReport },
+                  });
+
+                  patchState(store, { isLoading: false });
+                },
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false }); 
+                },
+              })
+            )
+          )
+        )
+      ),
+
       nextDate() {
         const nextDate = new Date(store.filter()?.date);
         nextDate.setDate(store.filter()?.date?.getDate() + 1);
