@@ -210,7 +210,6 @@ export class ActivityService {
   }
 
   getUsersWithActivities(date: Date): Observable<BookedDay[]> {
-    console.log('booked Days endpoint, called, with date: ', date);
     const requestBody = {
       month: date.getMonth() + 1,
       year: date.getFullYear(),

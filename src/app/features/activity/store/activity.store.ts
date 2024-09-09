@@ -361,26 +361,6 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      deleteActivityFromBookedDay: rxMethod<[Activity, Date, string, number]>(
-        pipe(
-          debounceTime(300),
-          switchMap(([activity, date, employeeId, index]) =>
-            activityService.deleteActivity(activity.id).pipe(
-              tapResponse({
-                next: (_) => {
-                  patchState(store, {
-                    isLoading: true,
-                  });
-                },
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
-                finalize: () => patchState(store, { isLoading: false }),
-              })
-            )
-          )
-        )
-      ),
-
       addActivityToBookedDay: rxMethod<[Activity, Date, string, number]>(
         pipe(
           debounceTime(300),
@@ -505,7 +485,6 @@ export const ActivityStore = signalStore(
           tap(() => patchState(store, { isLoading: true })),
           switchMap((filter: ActivityFilter) =>
             activityService.getUsersWithActivities(filter.activeMonth).pipe(
-              tap((bookedDays) => console.log('from be', bookedDays)),
               tapResponse({
                 next: (bookedDaysResult) =>
                   patchState(store, {
@@ -525,7 +504,6 @@ export const ActivityStore = signalStore(
           tap(() => patchState(store, { isLoading: true })),
           switchMap(([activity, dateKey]) =>
             activityService.addActivity(activity).pipe(
-              tap(console.log),
               tapResponse({
                 next: (newActivity) => {
                   console.log(newActivity);
@@ -580,17 +558,24 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      deleteActivityFromMonthYearReport: rxMethod<
-        [Activity, Date, string, number]
-      >(
+      deleteActivityFromMonthYearReport: rxMethod<[Activity, string, number]>(
         pipe(
           debounceTime(300),
-          switchMap(([activity, date, employeeId, index]) =>
+          switchMap(([activity, date, index]) =>
             activityService.deleteActivity(activity.id).pipe(
               tapResponse({
                 next: (_) => {
+                  const updateMonthYearReport = store.monthYearReport();
+                  updateMonthYearReport[date].activities =
+                    updateMonthYearReport[date].activities.filter(
+                      (cursorActivity) => cursorActivity.id !== activity.id
+                    );
+                  if (updateMonthYearReport[date].activities.length <= 0) {
+                    delete updateMonthYearReport[date];
+                  }
+
                   patchState(store, {
-                    isLoading: true,
+                    monthYearReport: updateMonthYearReport,
                   });
                 },
                 // eslint-disable-next-line no-console

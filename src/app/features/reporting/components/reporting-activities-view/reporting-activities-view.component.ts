@@ -71,8 +71,6 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        console.log(activity, 'activity that we want to send to backend');
-        console.log(date);
         const activityDate = date.toString();
         activity.date = new Date(date);
         this.store.addActivityToMonthYearReport([activity, date]);
@@ -85,12 +83,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .afterClosed()
       .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
       .subscribe((_) => {
-        this.store.deleteActivityFromBookedDay([
-          activity,
-          new Date(date),
-          activity.employee,
-          index,
-        ]);
+        this.store.deleteActivityFromMonthYearReport([activity, date, index]);
       });
   }
 

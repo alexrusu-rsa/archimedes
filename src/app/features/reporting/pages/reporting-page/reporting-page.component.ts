@@ -74,7 +74,6 @@ export class ReportingPageComponent implements OnInit {
 
   changeDate(event: Date) {
     const date = event instanceof Date ? event : new Date(event);
-    console.log(date);
     if (isNaN(date.getTime())) {
       const message = this.translateService.instant(
         'reporting.page.monthChangedError'
