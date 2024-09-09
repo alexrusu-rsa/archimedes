@@ -58,6 +58,8 @@ export class ReportingActivitiesViewComponent implements OnInit {
     this.store.loadActivityTypes();
   }
 
+  editActivityOfDate(date: string, activityId: string) {}
+
   addActivityToDate(date: string) {
     this.dialog
       .open(ActivityModalComponent, {
@@ -71,9 +73,13 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        const activityDate = date.toString();
         activity.date = new Date(date);
-        this.store.addActivityToMonthYearReport([activity, date]);
+        this.store.addActivityToMonthYearReport([
+          activity,
+          date,
+          this.store.users(),
+          activity.employeeId,
+        ]);
       });
   }
 
@@ -86,8 +92,6 @@ export class ReportingActivitiesViewComponent implements OnInit {
         this.store.deleteActivityFromMonthYearReport([activity, date, index]);
       });
   }
-
-  editActivityOfDate(date: string, activityId: string) {}
 
   convertTimeToHours(time: string): number {
     const [hours, minutes] = time.split(':').map(Number);

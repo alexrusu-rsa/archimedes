@@ -497,55 +497,56 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      addActivityToMonthYearReport: rxMethod<[Activity, string]>(
+      addActivityToMonthYearReport: rxMethod<
+        [Activity, string, User[], string]
+      >(
         pipe(
           debounceTime(300),
           distinctUntilChanged(),
           tap(() => patchState(store, { isLoading: true })),
-          switchMap(([activity, dateKey]) =>
+          switchMap(([activity, dateKey, users, employeeId]) =>
             activityService.addActivity(activity).pipe(
               tapResponse({
                 next: (newActivity) => {
-                  console.log(newActivity);
-                  console.log(dateKey);
+                  const user = users.find((user) => user.id === employeeId);
+                  const { project, ...newActivityWithoutUnnecessary } =
+                    newActivity;
+                  const formattedActivity = {
+                    ...newActivityWithoutUnnecessary,
+                    user: user,
+                    projectId: newActivity.project.id,
+                  };
+                  const updatedMonthYearReport = store.monthYearReport();
+                  const currentWorkedTime =
+                    updatedMonthYearReport[dateKey].timeBooked;
 
-                  const currentMonthYearReport = store.monthYearReport();
+                  const [hours1, minutes1] = currentWorkedTime
+                    .split(':')
+                    .map(Number);
+                  const [hours2, minutes2] = newActivity.workedTime
+                    .split(':')
+                    .map(Number);
 
-                  if (currentMonthYearReport[dateKey]) {
-                    currentMonthYearReport[dateKey].activities.push(
-                      newActivity
-                    );
+                  let totalHours = hours1 + hours2;
+                  let totalMinutes = minutes1 + minutes2;
 
-                    const [hours, minutes] = currentMonthYearReport[
-                      dateKey
-                    ].timeBooked
-                      .split(':')
-                      .map(Number);
-                    const [workedHours, workedMinutes] = newActivity.workedTime
-                      .split(':')
-                      .map(Number);
-                    const totalMinutes =
-                      hours * 60 + minutes + workedHours * 60 + workedMinutes;
-                    const newHours = Math.floor(totalMinutes / 60);
-                    const newMinutes = totalMinutes % 60;
-
-                    currentMonthYearReport[dateKey].timeBooked = `${newHours
-                      .toString()
-                      .padStart(2, '0')}:${newMinutes
-                      .toString()
-                      .padStart(2, '0')}`;
-                  } else {
-                    currentMonthYearReport[dateKey] = {
-                      expectedHours: 8,
-                      timeBooked: newActivity.workedTime,
-                      activities: [newActivity],
-                    };
+                  if (totalMinutes >= 60) {
+                    totalHours += Math.floor(totalMinutes / 60);
+                    totalMinutes = totalMinutes % 60;
                   }
 
-                  patchState(store, {
-                    monthYearReport: { ...currentMonthYearReport },
-                  });
+                  const finalHours = totalHours.toString().padStart(2, '0');
+                  const finalMinutes = totalMinutes.toString().padStart(2, '0');
+                  updatedMonthYearReport[
+                    dateKey
+                  ].timeBooked = `${finalHours}:${finalMinutes}`;
 
+                  updatedMonthYearReport[dateKey].activities.push(
+                    formattedActivity
+                  );
+                  patchState(store, {
+                    monthYearReport: updatedMonthYearReport,
+                  });
                   patchState(store, { isLoading: false });
                 },
                 error: (error) => {
@@ -561,21 +562,21 @@ export const ActivityStore = signalStore(
       deleteActivityFromMonthYearReport: rxMethod<[Activity, string, number]>(
         pipe(
           debounceTime(300),
-          switchMap(([activity, date, index]) =>
+          switchMap(([activity, dateKey, index]) =>
             activityService.deleteActivity(activity.id).pipe(
               tapResponse({
                 next: (_) => {
-                  const updateMonthYearReport = store.monthYearReport();
-                  updateMonthYearReport[date].activities =
-                    updateMonthYearReport[date].activities.filter(
+                  const updatedMonthYearReport = store.monthYearReport();
+                  updatedMonthYearReport[dateKey].activities =
+                    updatedMonthYearReport[dateKey].activities.filter(
                       (cursorActivity) => cursorActivity.id !== activity.id
                     );
-                  if (updateMonthYearReport[date].activities.length <= 0) {
-                    delete updateMonthYearReport[date];
+                  if (updatedMonthYearReport[dateKey].activities.length <= 0) {
+                    delete updatedMonthYearReport[dateKey];
                   }
 
                   patchState(store, {
-                    monthYearReport: updateMonthYearReport,
+                    monthYearReport: updatedMonthYearReport,
                   });
                 },
                 // eslint-disable-next-line no-console

@@ -1,33 +1,35 @@
-@for (bookedDay of monthYearReport() | keyvalue; track $index) {
+@for (bookedDay of store.monthYearReport() | keyvalue; track $index) {
 <div class="d-flex flex-row justify-content-start mt-4">
   <mat-card-subtitle>{{ bookedDay.key | date }}</mat-card-subtitle>
   <mat-card-subtitle
     class="ms-3"
     [ngClass]="{
-    green:
-      convertTimeToHours(bookedDay.value.timeBooked) >= bookedDay.value.expectedHours,
-    orange:
-      convertTimeToHours(bookedDay.value.timeBooked) > 0 &&
-      convertTimeToHours(bookedDay.value.timeBooked) < bookedDay.value.expectedHours,
-  }"
+      green:
+        convertTimeToHours(bookedDay.value.timeBooked) >=
+        bookedDay.value.expectedHours,
+      orange:
+        convertTimeToHours(bookedDay.value.timeBooked) > 0 &&
+        convertTimeToHours(bookedDay.value.timeBooked) <
+          bookedDay.value.expectedHours
+    }"
   >
     {{ bookedDay.value.timeBooked | time }} /
     {{ bookedDay.value.expectedHours }}h
   </mat-card-subtitle>
 </div>
-@for(activity of bookedDay.value.activities; track $index){
+@for (activity of bookedDay.value.activities; track $index) {
 <div class="d-flex flex-column row-gap-3">
   <app-entity-item
     class="mb-3"
-    [title]="activity.name"
-    subtitle="{{ activity.start | date : 'shortTime' }} - {{
-      activity.end | date : 'shortTime'
-    }} {{ activity.workedTime | workedTime }}"
+    [title]="activity?.name"
+    subtitle="{{ activity?.start | date : 'shortTime' }} - {{
+      activity?.end | date : 'shortTime'
+    }} {{ activity?.workedTime | workedTime }}"
     [chips]="[
       activity?.project?.projectName
         ? activity?.project?.projectName
         : ('activity.shared.other' | translate),
-      activity.user.name + ' ' + activity.user.surname
+      activity.user?.name + ' ' + activity?.user?.surname
     ]"
   >
     <mat-card-actions actions align="end">
