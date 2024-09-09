@@ -33,14 +33,19 @@
     ]"
   >
     <mat-card-actions actions align="end">
-      <button mat-icon-button aria-label="Edit activity button" type="button">
+      <button
+        mat-icon-button
+        aria-label="Edit activity button"
+        type="button"
+        (click)="editActivityOfDate(activity, bookedDay.key)"
+      >
         <mat-icon color="accent">{{ icons.edit }}</mat-icon>
       </button>
       <button
         mat-icon-button
         aria-label="Delete activity button"
         type="button"
-        (click)="deleteActivityFromDate(activity, bookedDay.key, $index)"
+        (click)="deleteActivityFromDate(activity, bookedDay.key)"
       >
         <mat-icon color="accent">{{ icons.delete }}</mat-icon>
       </button>

@@ -5,7 +5,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { WorkedTimePipe } from 'src/app/features/activity/pipes/worked-time.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { filter } from 'rxjs';
+import { filter, take } from 'rxjs';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
@@ -58,9 +58,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
     this.store.loadActivityTypes();
   }
 
-  editActivityOfDate(date: string, activityId: string) {}
-
-  addActivityToDate(date: string) {
+  addActivityToDate(dateKey: string) {
     this.dialog
       .open(ActivityModalComponent, {
         data: {
@@ -73,23 +71,50 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        activity.date = new Date(date);
+        activity.date = new Date(dateKey);
         this.store.addActivityToMonthYearReport([
           activity,
-          date,
+          dateKey,
           this.store.users(),
           activity.employeeId,
         ]);
       });
   }
 
-  deleteActivityFromDate(activity: Activity, date: string, index: number) {
+  editActivityOfDate(activity: Activity, dateKey: string) {
+    const { date, projectName, workedTime, ...activityWithoutUnecessary } =
+      activity;
+
+    this.dialog
+      .open(ActivityModalComponent, {
+        data: {
+          activity: {
+            ...activityWithoutUnecessary,
+          },
+          activityProjects: this.store.projects(),
+          activityTypes: this.store.activityTypes(),
+        },
+        panelClass: 'full-width-dialog',
+      })
+      .afterClosed()
+      .pipe(
+        filter((activity: Activity) => !!activity),
+        take(1)
+      )
+      .subscribe(
+        ({ employee, project, user, ...updatedActivity }: Activity) => {
+          this.store.editActivityOfMonthYearReport([updatedActivity, dateKey]);
+        }
+      );
+  }
+
+  deleteActivityFromDate(activity: Activity, date: string) {
     this.dialog
       .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
       .afterClosed()
       .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
       .subscribe((_) => {
-        this.store.deleteActivityFromMonthYearReport([activity, date, index]);
+        this.store.deleteActivityFromMonthYearReport([activity, date]);
       });
   }
 

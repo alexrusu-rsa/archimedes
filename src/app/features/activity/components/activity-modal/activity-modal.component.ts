@@ -32,6 +32,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
+import { Activity } from 'src/app/shared/models/activity';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { Project } from 'src/app/shared/models/project';
 
@@ -96,7 +97,6 @@ export class ActivityModalComponent implements OnInit {
     if (this.data?.activity) {
       const start = new Date(this.data.activity.start);
       const end = new Date(this.data.activity.end);
-
       // Ensure the dates are valid
       if (isNaN(start.getTime()) || isNaN(end.getTime())) {
         throw new Error('Invalid Date format provided in activity');
@@ -107,9 +107,9 @@ export class ActivityModalComponent implements OnInit {
 
       const endHours = String(end.getHours()).padStart(2, '0');
       const endMinutes = String(end.getMinutes()).padStart(2, '0');
-
+      const { user, id, ...activityToEdit } = this.data.activity;
       this.activityForm.setValue({
-        ...this.data.activity,
+        ...activityToEdit,
         start: `${startHours}:${startMinutes}`,
         end: `${endHours}:${endMinutes}`,
       });
@@ -142,12 +142,12 @@ export class ActivityModalComponent implements OnInit {
   submit() {
     const startTime = this.activityForm.get('start').value;
     const endTime = this.activityForm.get('end').value;
-    console.log(this.activityForm.value);
     if (this.activityForm.invalid) return;
     this.dialogRef.close({
       ...this.activityForm.value,
       start: this.splitToHoursAndMinutes(startTime),
       end: this.splitToHoursAndMinutes(endTime),
+      id: this.data.activity.id,
     });
   }
 

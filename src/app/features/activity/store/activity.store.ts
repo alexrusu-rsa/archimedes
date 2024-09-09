@@ -339,92 +339,6 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      editActivityOfBookedDay: rxMethod<[Activity, number]>(
-        pipe(
-          debounceTime(300),
-          switchMap(([activity, index]) =>
-            activityService
-              .updateActivity({
-                ...activity,
-                projectId:
-                  activity.projectId === 'other' ? null : activity.projectId,
-              })
-              .pipe(
-                tapResponse({
-                  next: (updatedActivity: Activity) => {
-                    console.log(updatedActivity, index);
-                  },
-                  error: (error) => console.error(error),
-                  finalize: () => patchState(store, { isLoading: false }),
-                })
-              )
-          )
-        )
-      ),
-      addActivityToBookedDay: rxMethod<[Activity, Date, string, number]>(
-        pipe(
-          debounceTime(300),
-          switchMap(([activity, date, employeeId, index]) =>
-            activityService
-              .addActivity({
-                ...activity,
-                employeeId: employeeId || localStorage?.userId,
-                projectId:
-                  activity?.project?.id === 'other'
-                    ? null
-                    : activity?.project?.id,
-                date: date || store.filter?.date(),
-              })
-              .pipe(
-                tapResponse({
-                  next: (newActivity: Activity) => {
-                    if (!(newActivity.date instanceof Date)) {
-                      newActivity.date = new Date(newActivity.date);
-                    }
-
-                    const bookedDayToUpdate = store.bookedDays()[index];
-
-                    const foundUser = bookedDayToUpdate.usersTimeBooked.find(
-                      (user) => user.user.user.id === employeeId
-                    );
-
-                    if (foundUser) {
-                      foundUser.user.activities.push(newActivity);
-                      const [addedHours, addedMinutes] = newActivity.workedTime
-                        .split(':')
-                        .map(Number);
-                      const [currentHours, currentMinutes] = store
-                        .bookedDays()
-                        [index].timeBooked.split(':')
-                        .map(Number);
-
-                      const [updatedHours, updatedMinutes] = [
-                        currentHours +
-                          addedHours +
-                          (currentMinutes + addedMinutes) / 60,
-                        (currentMinutes + addedMinutes) % 60,
-                      ];
-                      store.bookedDays()[index].timeBooked = `${{
-                        updatedHours,
-                      }}:${{ updatedMinutes }}`;
-                    }
-
-                    const indexOfUser =
-                      bookedDayToUpdate.usersTimeBooked.findIndex(
-                        (user) => user.user.user.id === employeeId
-                      );
-
-                    bookedDayToUpdate.usersTimeBooked[indexOfUser] = foundUser;
-                    store.bookedDays()[index] = bookedDayToUpdate;
-                  },
-                  // eslint-disable-next-line no-console
-                  error: (error) => console.error(error),
-                  finalize: () => patchState(store, { isLoading: false }),
-                })
-              )
-          )
-        )
-      ),
       duplicateActivity: rxMethod<ActivityDuplication>(
         pipe(
           debounceTime(300),
@@ -559,10 +473,47 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      deleteActivityFromMonthYearReport: rxMethod<[Activity, string, number]>(
+      editActivityOfMonthYearReport: rxMethod<[Activity, string]>(
         pipe(
           debounceTime(300),
-          switchMap(([activity, dateKey, index]) =>
+          switchMap(([activity, dateKey]) =>
+            activityService.updateActivity(activity).pipe(
+              tapResponse({
+                next: (updatedActivity) => {
+                  const updatedMonthYearReport = store.monthYearReport();
+                  const user = store
+                    .users()
+                    .find((user) => user.id === updatedActivity.employeeId);
+                  updatedActivity.user = user;
+                  const monthYearReportDayToUpdate = updatedMonthYearReport[
+                    dateKey
+                  ].activities.map((activity) =>
+                    activity.id === updatedActivity.id
+                      ? (activity = updatedActivity)
+                      : activity
+                  );
+                  updatedMonthYearReport[dateKey] = {
+                    activities: monthYearReportDayToUpdate,
+                    timeBooked: updatedMonthYearReport[dateKey].timeBooked,
+                    expectedHours:
+                      updatedMonthYearReport[dateKey].expectedHours,
+                  };
+                  patchState(store, {
+                    monthYearReport: updatedMonthYearReport,
+                  });
+                },
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+                finalize: () => patchState(store, { isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+      deleteActivityFromMonthYearReport: rxMethod<[Activity, string]>(
+        pipe(
+          debounceTime(300),
+          switchMap(([activity, dateKey]) =>
             activityService.deleteActivity(activity.id).pipe(
               tapResponse({
                 next: (_) => {
