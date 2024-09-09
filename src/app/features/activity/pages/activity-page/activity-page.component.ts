@@ -126,7 +126,6 @@ export class ActivityPageComponent implements OnInit {
       workedTime,
       ...activityWithoutUnecessary
     } = activity;
-    console.log(projectId, employeeId);
     this.dialog
       .open(ActivityModalComponent, {
         data: {

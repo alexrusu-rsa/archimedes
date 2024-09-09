@@ -113,26 +113,7 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      loadBookedDays: rxMethod<ActivityFilter>(
-        pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
-          tap(() => patchState(store, { isLoading: true })),
-          switchMap((filter: ActivityFilter) =>
-            activityService.getUsersWithActivities(filter.activeMonth).pipe(
-              tap(console.log),
-              tapResponse({
-                next: (bookedDays) =>
-                  patchState(store, {
-                    bookedDays: bookedDays,
-                  }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
-              })
-            )
-          )
-        )
-      ),
+
       loadActivitiesByFilter: rxMethod<ActivityFilter>(
         pipe(
           debounceTime(300),
@@ -505,11 +486,30 @@ export const ActivityStore = signalStore(
           tap(() => patchState(store, { isLoading: true })),
           switchMap((filter: ActivityFilter) =>
             activityService.getMonthReport(filter.activeMonth).pipe(
-              tap(console.log),
               tapResponse({
                 next: (monthYearReport) =>
                   patchState(store, {
                     monthYearReport: monthYearReport,
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+              })
+            )
+          )
+        )
+      ),
+      loadBookedDays: rxMethod<ActivityFilter>(
+        pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((filter: ActivityFilter) =>
+            activityService.getUsersWithActivities(filter.activeMonth).pipe(
+              tap((bookedDays) => console.log('from be', bookedDays)),
+              tapResponse({
+                next: (bookedDaysResult) =>
+                  patchState(store, {
+                    bookedDays: bookedDaysResult,
                   }),
                 // eslint-disable-next-line no-console
                 error: (error) => console.error(error),
@@ -573,14 +573,34 @@ export const ActivityStore = signalStore(
                 error: (error) => {
                   // eslint-disable-next-line no-console
                   console.error(error);
-                  patchState(store, { isLoading: false }); 
+                  patchState(store, { isLoading: false });
                 },
               })
             )
           )
         )
       ),
-
+      deleteActivityFromMonthYearReport: rxMethod<
+        [Activity, Date, string, number]
+      >(
+        pipe(
+          debounceTime(300),
+          switchMap(([activity, date, employeeId, index]) =>
+            activityService.deleteActivity(activity.id).pipe(
+              tapResponse({
+                next: (_) => {
+                  patchState(store, {
+                    isLoading: true,
+                  });
+                },
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+                finalize: () => patchState(store, { isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
       nextDate() {
         const nextDate = new Date(store.filter()?.date);
         nextDate.setDate(store.filter()?.date?.getDate() + 1);
@@ -594,9 +614,8 @@ export const ActivityStore = signalStore(
     })
   ),
   withHooks({
-    onInit({ loadBookedDays, loadActivitiesByFilter, filter }) {
+    onInit({ loadActivitiesByFilter, filter }) {
       loadActivitiesByFilter(filter);
-      loadBookedDays(filter);
     },
   })
 );

@@ -1,13 +1,5 @@
-import {
-  Component,
-  DestroyRef,
-  effect,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
@@ -28,7 +20,6 @@ import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { Days } from '../../models/days';
 
 @Component({
   selector: 'app-reporting-page',
@@ -60,27 +51,30 @@ export class ReportingPageComponent implements OnInit {
   protected notificationService = inject(NotificationService);
   protected activityService = inject(ActivityService);
   protected translateService = inject(TranslateService);
-  protected bookedDays = signal<BookedDay[]>([]);
-  protected monthYearReport = signal<Days>;
 
   displayActivitiesView = false;
+
   constructor() {
     effect(() => {
       this.store.loadBookedDays(this.store.filter());
       this.store.loadMonthYearReport(this.store.filter());
     });
   }
+
   ngOnInit(): void {
-    this.store.updateFilter({
-      date: null,
-      project: null,
-      activeMonth: this.activeMonth(),
-    });
+    if (!this.store.filter().activeMonth) {
+      this.activeMonth.set(new Date());
+      this.store.updateFilter({
+        date: null,
+        project: null,
+        activeMonth: this.activeMonth(),
+      });
+    }
   }
 
   changeDate(event: Date) {
     const date = event instanceof Date ? event : new Date(event);
-
+    console.log(date);
     if (isNaN(date.getTime())) {
       const message = this.translateService.instant(
         'reporting.page.monthChangedError'
@@ -93,8 +87,8 @@ export class ReportingPageComponent implements OnInit {
       return;
     }
     const formattedDate = new Date(date.getFullYear(), date.getMonth(), 1);
-
     this.activeMonth.set(formattedDate);
+
     this.store.updateFilter({
       date: null,
       project: null,
