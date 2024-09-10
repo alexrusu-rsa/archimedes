@@ -9,15 +9,20 @@
   [bookedDays]="store.bookedDays()"
   [activeMonth]="store.filter().activeMonth"
 />
-<!-- <div class="col-12 d-flex justify-content-center">
-  <button mat-icon-button class="add-entity-button d-flex flex-column mx-auto mt-3" aria-label="Create activity button"
-    type="button" (click)="loadActivityView()">
+<div class="col-12 d-flex justify-content-center">
+  <button
+    mat-icon-button
+    class="add-entity-button d-flex flex-column mx-auto mt-3"
+    aria-label="Create activity button"
+    type="button"
+    (click)="displayActivitiesView = !displayActivitiesView"
+  >
     <mat-icon color="accent" class="mx-0">{{
       icons.expand_circle_down
-      }}</mat-icon>
+    }}</mat-icon>
   </button>
-</div> -->
+</div>
 <app-reporting-activities-view
-  *ngIf="true"
+  *ngIf="displayActivitiesView"
   [monthYearReport]="store.monthYearReport()"
 />

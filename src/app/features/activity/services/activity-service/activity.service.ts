@@ -7,7 +7,6 @@ import { ResponseHandlingService } from 'src/app/shared/services/response-handli
 import { environment } from 'src/environments/environment';
 import { ActivityDuplication } from '../../models/activity-duplication.model';
 import { BookedDay } from 'src/app/features/reporting/models/booked-day';
-import { UserWithActivities } from 'src/app/features/reporting/models/user-with-activities';
 import { WidgetDay } from 'src/app/features/invoice/models/widget-day';
 import { Days } from 'src/app/features/reporting/models/days';
 
@@ -244,7 +243,7 @@ export class ActivityService {
         )
       );
   }
-  // activities view endpoint call
+
   getMonthReport(date: Date): Observable<Days> {
     const requestBody = {
       month: date.getMonth() + 1,

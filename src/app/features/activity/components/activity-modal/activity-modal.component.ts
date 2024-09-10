@@ -83,7 +83,7 @@ export class ActivityModalComponent implements OnInit {
         name: ['', Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
-        projectId: ['', Validators.required],
+        project: ['', Validators.required],
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
@@ -108,7 +108,7 @@ export class ActivityModalComponent implements OnInit {
 
       const endHours = String(end.getHours()).padStart(2, '0');
       const endMinutes = String(end.getMinutes()).padStart(2, '0');
-      const { user, id, ...activityToEdit } = this.data.activity;
+      const { user, id, projectId, ...activityToEdit } = this.data.activity;
       this.activityForm.setValue({
         ...activityToEdit,
         start: `${startHours}:${startMinutes}`,

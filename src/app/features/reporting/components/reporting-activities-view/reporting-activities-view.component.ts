@@ -82,8 +82,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
       });
   }
   editActivityOfDate(activity: Activity, dateKey: string) {
-    const { date, workedTime, user, project, ...activityWithoutUnnecessary } =
-      activity;
+    const { date, workedTime, ...activityWithoutUnnecessary } = activity;
     this.dialog
       .open(ActivityModalComponent, {
         data: {
@@ -99,25 +98,30 @@ export class ReportingActivitiesViewComponent implements OnInit {
         take(1)
       )
       .subscribe((updatedActivity: Activity) => {
+        const { project, ...updatedActivityFormatted } = updatedActivity;
+        updatedActivityFormatted.projectId = project?.id;
         if (updatedActivity.workedTime !== activity.workedTime) {
           this.store.editActivityOfMonthYearReport([
-            updatedActivity,
+            updatedActivityFormatted,
             dateKey,
             activity.workedTime,
           ]);
         } else {
-          this.store.editActivityOfMonthYearReport([updatedActivity, dateKey]);
+          this.store.editActivityOfMonthYearReport([
+            updatedActivityFormatted,
+            dateKey,
+          ]);
         }
       });
   }
 
-  deleteActivityFromDate(activity: Activity, date: string) {
+  deleteActivityFromDate(activity: Activity, dateKey: string) {
     this.dialog
       .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
       .afterClosed()
       .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
       .subscribe((_) => {
-        this.store.deleteActivityFromMonthYearReport([activity, date]);
+        this.store.deleteActivityFromMonthYearReport([activity, dateKey]);
       });
   }
 
