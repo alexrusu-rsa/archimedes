@@ -37,11 +37,11 @@ import { Days } from '../../models/days';
   ],
   providers: [],
   styles: `
-    @use 'src/styles/variables.sass' as variables
-    .orange
-      color: variables.$rsasoft-partially-reported-day
-    .green
-      color: variables.$rsasoft-fully-reported-day
+    // @use 'src/styles/variables.sass' as variables
+    // .orange
+    //   color: variables.$rsasoft-partially-reported-day
+    // .green
+    //   color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
@@ -71,6 +71,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
+        console.log(activity.project);
         activity.date = new Date(dateKey);
         const { id, ...activityWithoutId } = activity;
         this.store.addActivityToMonthYearReport([
@@ -98,19 +99,16 @@ export class ReportingActivitiesViewComponent implements OnInit {
         take(1)
       )
       .subscribe((updatedActivity: Activity) => {
-        const { project, ...updatedActivityFormatted } = updatedActivity;
-        updatedActivityFormatted.projectId = project?.id;
+        // const { project, ...updatedActivityFormatted } = updatedActivity;
+        // updatedActivityFormatted.projectId = project?.id;
         if (updatedActivity.workedTime !== activity.workedTime) {
           this.store.editActivityOfMonthYearReport([
-            updatedActivityFormatted,
+            updatedActivity,
             dateKey,
             activity.workedTime,
           ]);
         } else {
-          this.store.editActivityOfMonthYearReport([
-            updatedActivityFormatted,
-            dateKey,
-          ]);
+          this.store.editActivityOfMonthYearReport([updatedActivity, dateKey]);
         }
       });
   }

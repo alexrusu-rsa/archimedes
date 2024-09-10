@@ -73,7 +73,7 @@
           project?.projectName
         }}</mat-option>
         } }
-        <mat-option [value]="null">{{
+        <mat-option [value]="{ id: null, projectName: 'Other' }">{{
           "activity.shared.other" | translate
         }}</mat-option>
       </mat-autocomplete>
@@ -99,7 +99,7 @@
       <mat-label>{{ "activity.dialog.extras" | translate }}</mat-label>
       <textarea matInput type="text" formControlName="extras"></textarea>
     </mat-form-field>
-    } @if(displayEmployeeSelect){
+    } @if(displayEmployeeSelect()){
     <mat-form-field class="col-12 m-0 p-0" appearance="fill">
       <mat-label>{{ "activity.dialog.selectEmployee" | translate }}</mat-label>
       <mat-select

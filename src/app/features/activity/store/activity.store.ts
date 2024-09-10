@@ -423,11 +423,11 @@ export const ActivityStore = signalStore(
               tapResponse({
                 next: (newActivity) => {
                   const user = users.find((user) => user.id === employeeId);
-
                   const formattedActivity = {
                     ...newActivity,
                     user: user,
-                    projectId: newActivity.project?.id,
+                    project: activity?.project,
+                    projectId: activity?.project?.id,
                   };
 
                   const updatedMonthYearReport = store.monthYearReport();
@@ -485,8 +485,13 @@ export const ActivityStore = signalStore(
                     .users()
                     .find((user) => user.id === updatedActivity.employeeId);
                   updatedActivity.user = user;
+                  console.log(
+                    updatedActivity,
+                    'in store edit activity from reporting'
+                  );
+                  console.log(updatedMonthYearReport[dateKey].activities);
+                  console.log(updatedActivity);
                   updatedActivity.projectId = updatedActivity.project?.id;
-
                   const activitiesOfDay = updatedMonthYearReport[
                     dateKey
                   ].activities.map((activity) =>
@@ -532,6 +537,7 @@ export const ActivityStore = signalStore(
                     expectedHours:
                       updatedMonthYearReport[dateKey].expectedHours,
                   };
+                  console.log(updatedMonthYearReport[dateKey].activities);
 
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,

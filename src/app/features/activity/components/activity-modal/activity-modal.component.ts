@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -75,7 +76,7 @@ export class ActivityModalComponent implements OnInit {
   protected activityForm: FormGroup;
   protected validators = Validators;
 
-  displayEmployeeSelect = false;
+  displayEmployeeSelect = signal<boolean>(false);
 
   ngOnInit(): void {
     this.activityForm = this.formBuilder.group(
@@ -83,7 +84,7 @@ export class ActivityModalComponent implements OnInit {
         name: ['', Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
-        project: ['', Validators.required],
+        project: [''],
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
@@ -92,7 +93,7 @@ export class ActivityModalComponent implements OnInit {
       { validator: this.timeValidator }
     );
     if (this.data?.users) {
-      this.displayEmployeeSelect = true;
+      this.displayEmployeeSelect.set(true);
     }
 
     if (this.data?.activity) {
@@ -109,6 +110,7 @@ export class ActivityModalComponent implements OnInit {
       const endHours = String(end.getHours()).padStart(2, '0');
       const endMinutes = String(end.getMinutes()).padStart(2, '0');
       const { user, id, projectId, ...activityToEdit } = this.data.activity;
+      console.log(activityToEdit);
       this.activityForm.setValue({
         ...activityToEdit,
         start: `${startHours}:${startMinutes}`,
@@ -144,6 +146,9 @@ export class ActivityModalComponent implements OnInit {
     const startTime = this.activityForm.get('start').value;
     const endTime = this.activityForm.get('end').value;
     if (this.activityForm.invalid) return;
+
+    const selectedProject = this.activityForm.get('project').value;
+
     if (this.data.activity) {
       this.dialogRef.close({
         ...this.activityForm.value,
@@ -152,6 +157,7 @@ export class ActivityModalComponent implements OnInit {
         id: this.data?.activity?.id ? this.data?.activity?.id : null,
       });
     } else {
+      console.log(this.activityForm.value);
       this.dialogRef.close({
         ...this.activityForm.value,
         start: this.splitToHoursAndMinutes(startTime),
@@ -161,6 +167,6 @@ export class ActivityModalComponent implements OnInit {
   }
 
   protected displayName(project) {
-    return project?.projectName ? project?.projectName : '';
+    return project?.projectName ? project?.projectName : 'Other';
   }
 }
