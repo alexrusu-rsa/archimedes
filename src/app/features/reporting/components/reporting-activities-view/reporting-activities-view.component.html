@@ -1,7 +1,7 @@
 @for (bookedDay of store.monthYearReport() | keyvalue; track $index) {
 <div class="d-flex flex-row justify-content-start mt-2">
-  <mat-card-subtitle>{{ bookedDay.key | date }}</mat-card-subtitle>
-  <mat-card-subtitle
+  <mat-card-title>{{ bookedDay.key | date }}</mat-card-title>
+  <mat-card-title
     class="ms-3"
     [ngClass]="{
       green:
@@ -15,7 +15,7 @@
   >
     {{ bookedDay.value.timeBooked | time }} /
     {{ bookedDay.value.expectedHours }}h
-  </mat-card-subtitle>
+  </mat-card-title>
 </div>
 @for (activity of bookedDay.value.activities; track $index) {
 <div class="d-flex flex-column row-gap-3">

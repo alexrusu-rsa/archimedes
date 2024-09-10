@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
-import { MatCardActions, MatCardSubtitle } from '@angular/material/card';
+import { MatCardActions, MatCardTitle } from '@angular/material/card';
 import { CommonModule, DatePipe } from '@angular/common';
 import { WorkedTimePipe } from 'src/app/features/activity/pipes/worked-time.pipe';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,7 +24,6 @@ import { Days } from '../../models/days';
   standalone: true,
   imports: [
     EntityItemComponent,
-    MatCardSubtitle,
     MatButton,
     MatIconButton,
     MatIcon,
@@ -34,6 +33,7 @@ import { Days } from '../../models/days';
     WorkedTimePipe,
     TranslateModule,
     TimePipe,
+    MatCardTitle,
   ],
   providers: [],
   styles: `
