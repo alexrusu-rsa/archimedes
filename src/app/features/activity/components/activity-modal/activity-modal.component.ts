@@ -35,6 +35,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Activity } from 'src/app/shared/models/activity';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { Project } from 'src/app/shared/models/project';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-activity-modal',
@@ -67,6 +68,7 @@ export class ActivityModalComponent implements OnInit {
   private dialogRef = inject(MatDialogRef<ActivityModalComponent>);
   private formBuilder = inject(FormBuilder);
   protected data = inject(MAT_DIALOG_DATA);
+  protected localStorageService = inject(LocalStorageService);
   protected activityProjects: Project[];
   protected activityTypes: string[];
   protected readonly icons = Icons;
@@ -89,7 +91,6 @@ export class ActivityModalComponent implements OnInit {
       },
       { validator: this.timeValidator }
     );
-
     if (this.data?.users) {
       this.displayEmployeeSelect = true;
     }
@@ -143,12 +144,20 @@ export class ActivityModalComponent implements OnInit {
     const startTime = this.activityForm.get('start').value;
     const endTime = this.activityForm.get('end').value;
     if (this.activityForm.invalid) return;
-    this.dialogRef.close({
-      ...this.activityForm.value,
-      start: this.splitToHoursAndMinutes(startTime),
-      end: this.splitToHoursAndMinutes(endTime),
-      id: this.data.activity.id,
-    });
+    if (this.data.activity) {
+      this.dialogRef.close({
+        ...this.activityForm.value,
+        start: this.splitToHoursAndMinutes(startTime),
+        end: this.splitToHoursAndMinutes(endTime),
+        id: this.data?.activity?.id ? this.data?.activity?.id : null,
+      });
+    } else {
+      this.dialogRef.close({
+        ...this.activityForm.value,
+        start: this.splitToHoursAndMinutes(startTime),
+        end: this.splitToHoursAndMinutes(endTime),
+      });
+    }
   }
 
   protected displayName(project) {

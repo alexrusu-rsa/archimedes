@@ -423,13 +423,13 @@ export const ActivityStore = signalStore(
               tapResponse({
                 next: (newActivity) => {
                   const user = users.find((user) => user.id === employeeId);
-                  const { project, ...newActivityWithoutUnnecessary } =
-                    newActivity;
+
                   const formattedActivity = {
-                    ...newActivityWithoutUnnecessary,
+                    ...newActivity,
                     user: user,
-                    projectId: newActivity.project.id,
+                    projectId: newActivity.project?.id,
                   };
+
                   const updatedMonthYearReport = store.monthYearReport();
                   const currentWorkedTime =
                     updatedMonthYearReport[dateKey].timeBooked;
@@ -473,10 +473,10 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      editActivityOfMonthYearReport: rxMethod<[Activity, string]>(
+      editActivityOfMonthYearReport: rxMethod<[Activity, string, string?]>(
         pipe(
           debounceTime(300),
-          switchMap(([activity, dateKey]) =>
+          switchMap(([activity, dateKey, timeToRemove]) =>
             activityService.updateActivity(activity).pipe(
               tapResponse({
                 next: (updatedActivity) => {
@@ -485,19 +485,54 @@ export const ActivityStore = signalStore(
                     .users()
                     .find((user) => user.id === updatedActivity.employeeId);
                   updatedActivity.user = user;
-                  const monthYearReportDayToUpdate = updatedMonthYearReport[
+                  updatedActivity.projectId = updatedActivity.project?.id;
+
+                  const activitiesOfDay = updatedMonthYearReport[
                     dateKey
                   ].activities.map((activity) =>
                     activity.id === updatedActivity.id
                       ? (activity = updatedActivity)
                       : activity
                   );
+                  const [hoursToRemove, minutesToRemove] = (
+                    timeToRemove?.split(':') || [0, 0]
+                  ).map(Number);
+                  const [hoursToAdd, minutesToAdd] = (
+                    updatedActivity?.workedTime?.split(':') || [0, 0]
+                  ).map(Number);
+                  const [currentBookedHours, currentBookedMinutes] = (
+                    updatedMonthYearReport[dateKey]?.timeBooked?.split(':') || [
+                      0, 0,
+                    ]
+                  ).map(Number);
+
+                  let totalCurrentMinutes =
+                    currentBookedHours * 60 + currentBookedMinutes;
+                  let totalRemoveMinutes = hoursToRemove * 60 + minutesToRemove;
+                  let totalAddMinutes = hoursToAdd * 60 + minutesToAdd;
+
+                  let updatedTotalMinutes =
+                    totalCurrentMinutes - totalRemoveMinutes + totalAddMinutes;
+
+                  if (updatedTotalMinutes < 0) {
+                    updatedTotalMinutes = 0;
+                  }
+
+                  let updatedHours = Math.floor(updatedTotalMinutes / 60);
+                  let updatedMinutes = updatedTotalMinutes % 60;
+
+                  const formattedUpdatedTime = `${String(updatedHours).padStart(
+                    2,
+                    '0'
+                  )}:${String(updatedMinutes).padStart(2, '0')}`;
+
                   updatedMonthYearReport[dateKey] = {
-                    activities: monthYearReportDayToUpdate,
-                    timeBooked: updatedMonthYearReport[dateKey].timeBooked,
+                    activities: activitiesOfDay,
+                    timeBooked: formattedUpdatedTime,
                     expectedHours:
                       updatedMonthYearReport[dateKey].expectedHours,
                   };
+
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
                   });
@@ -525,7 +560,35 @@ export const ActivityStore = signalStore(
                   if (updatedMonthYearReport[dateKey].activities.length <= 0) {
                     delete updatedMonthYearReport[dateKey];
                   }
+                  const [hoursToRemove, minutesToRemove] = activity.workedTime
+                    .split(':')
+                    .map(Number);
 
+                  const [currentHours, currentMinutes] = updatedMonthYearReport[
+                    dateKey
+                  ].timeBooked
+                    .split(':')
+                    .map(Number);
+
+                  let totalCurrentMinutes = currentHours * 60 + currentMinutes;
+                  let totalRemoveMinutes = hoursToRemove * 60 + minutesToRemove;
+
+                  let updatedTotalMinutes =
+                    totalCurrentMinutes - totalRemoveMinutes;
+
+                  if (updatedTotalMinutes < 0) {
+                    updatedTotalMinutes = 0;
+                  }
+
+                  let updatedHours = Math.floor(updatedTotalMinutes / 60);
+                  let updatedMinutes = updatedTotalMinutes % 60;
+
+                  const formattedUpdatedTime = `${String(updatedHours).padStart(
+                    2,
+                    '0'
+                  )}:${String(updatedMinutes).padStart(2, '0')}`;
+                  updatedMonthYearReport[dateKey].timeBooked =
+                    formattedUpdatedTime;
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
                   });

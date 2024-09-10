@@ -37,11 +37,11 @@ import { Days } from '../../models/days';
   ],
   providers: [],
   styles: `
-    // @use 'src/styles/variables.sass' as variables
-    // .orange
-    //   color: variables.$rsasoft-partially-reported-day
-    // .green
-    //   color: variables.$rsasoft-fully-reported-day
+    @use 'src/styles/variables.sass' as variables
+    .orange
+      color: variables.$rsasoft-partially-reported-day
+    .green
+      color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
@@ -72,25 +72,22 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
         activity.date = new Date(dateKey);
+        const { id, ...activityWithoutId } = activity;
         this.store.addActivityToMonthYearReport([
-          activity,
+          activityWithoutId,
           dateKey,
           this.store.users(),
           activity.employeeId,
         ]);
       });
   }
-
   editActivityOfDate(activity: Activity, dateKey: string) {
-    const { date, projectName, workedTime, ...activityWithoutUnecessary } =
+    const { date, workedTime, user, project, ...activityWithoutUnnecessary } =
       activity;
-
     this.dialog
       .open(ActivityModalComponent, {
         data: {
-          activity: {
-            ...activityWithoutUnecessary,
-          },
+          activity: activityWithoutUnnecessary,
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),
         },
@@ -98,14 +95,20 @@ export class ReportingActivitiesViewComponent implements OnInit {
       })
       .afterClosed()
       .pipe(
-        filter((activity: Activity) => !!activity),
+        filter((result) => !!result),
         take(1)
       )
-      .subscribe(
-        ({ employee, project, user, ...updatedActivity }: Activity) => {
+      .subscribe((updatedActivity: Activity) => {
+        if (updatedActivity.workedTime !== activity.workedTime) {
+          this.store.editActivityOfMonthYearReport([
+            updatedActivity,
+            dateKey,
+            activity.workedTime,
+          ]);
+        } else {
           this.store.editActivityOfMonthYearReport([updatedActivity, dateKey]);
         }
-      );
+      });
   }
 
   deleteActivityFromDate(activity: Activity, date: string) {
