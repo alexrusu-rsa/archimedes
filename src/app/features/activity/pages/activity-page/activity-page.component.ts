@@ -119,7 +119,6 @@ export class ActivityPageComponent implements OnInit {
   editActivity(activity: Activity) {
     const {
       id,
-      employeeId,
       date,
       projectId,
       projectName,
@@ -131,8 +130,7 @@ export class ActivityPageComponent implements OnInit {
         data: {
           activity: {
             ...activityWithoutUnecessary,
-            project: activity?.project?.id,
-            employee: employeeId,
+            project: activity?.project
           },
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),
