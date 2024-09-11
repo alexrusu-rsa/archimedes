@@ -52,7 +52,7 @@ export class ReportingPageComponent implements OnInit {
   protected activityService = inject(ActivityService);
   protected translateService = inject(TranslateService);
 
-  displayActivitiesView = false;
+  displayActivitiesView = signal<boolean>(true);
 
   constructor() {
     effect(() => {
@@ -70,6 +70,9 @@ export class ReportingPageComponent implements OnInit {
         activeMonth: this.activeMonth(),
       });
     }
+  }
+  disableActivitiesView() {
+    this.displayActivitiesView.set(!this.displayActivitiesView());
   }
 
   changeDate(event: Date) {

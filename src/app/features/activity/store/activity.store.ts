@@ -429,8 +429,10 @@ export const ActivityStore = signalStore(
                     project: activity?.project,
                     projectId: activity?.project?.id,
                   };
-
+                  console.log(newActivity);
                   const updatedMonthYearReport = store.monthYearReport();
+
+                  //Calculating worked time difference
                   const currentWorkedTime =
                     updatedMonthYearReport[dateKey].timeBooked;
 
@@ -454,13 +456,16 @@ export const ActivityStore = signalStore(
                   updatedMonthYearReport[
                     dateKey
                   ].timeBooked = `${finalHours}:${finalMinutes}`;
+                  //Calculating worked time difference END
 
                   updatedMonthYearReport[dateKey].activities.push(
                     formattedActivity
                   );
+
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
                   });
+
                   patchState(store, { isLoading: false });
                 },
                 error: (error) => {
@@ -485,12 +490,6 @@ export const ActivityStore = signalStore(
                     .users()
                     .find((user) => user.id === updatedActivity.employeeId);
                   updatedActivity.user = user;
-                  console.log(
-                    updatedActivity,
-                    'in store edit activity from reporting'
-                  );
-                  console.log(updatedMonthYearReport[dateKey].activities);
-                  console.log(updatedActivity);
                   updatedActivity.projectId = updatedActivity.project?.id;
                   const activitiesOfDay = updatedMonthYearReport[
                     dateKey
@@ -537,7 +536,6 @@ export const ActivityStore = signalStore(
                     expectedHours:
                       updatedMonthYearReport[dateKey].expectedHours,
                   };
-                  console.log(updatedMonthYearReport[dateKey].activities);
 
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,

@@ -71,17 +71,22 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        console.log(activity.project);
+        console.log(
+          activity,
+          'Activity Coming FROM MODAL',
+          ' check if it has id'
+        );
         activity.date = new Date(dateKey);
-        const { id, ...activityWithoutId } = activity;
+        console.log(activity, 'Activity Going further TO BE');
         this.store.addActivityToMonthYearReport([
-          activityWithoutId,
+          activity,
           dateKey,
           this.store.users(),
           activity.employeeId,
         ]);
       });
   }
+
   editActivityOfDate(activity: Activity, dateKey: string) {
     const { date, workedTime, ...activityWithoutUnnecessary } = activity;
     this.dialog
@@ -99,16 +104,20 @@ export class ReportingActivitiesViewComponent implements OnInit {
         take(1)
       )
       .subscribe((updatedActivity: Activity) => {
-        // const { project, ...updatedActivityFormatted } = updatedActivity;
-        // updatedActivityFormatted.projectId = project?.id;
+        const { project, ...updatedActivityFormatted } = updatedActivity;
+        updatedActivityFormatted.projectId = project?.id;
+
         if (updatedActivity.workedTime !== activity.workedTime) {
           this.store.editActivityOfMonthYearReport([
-            updatedActivity,
+            updatedActivityFormatted,
             dateKey,
             activity.workedTime,
           ]);
         } else {
-          this.store.editActivityOfMonthYearReport([updatedActivity, dateKey]);
+          this.store.editActivityOfMonthYearReport([
+            updatedActivityFormatted,
+            dateKey,
+          ]);
         }
       });
   }

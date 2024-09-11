@@ -15,10 +15,10 @@
     class="d-flex flex-column mx-auto mt-3"
     aria-label="Enable Activities view button"
     type="button"
-    (click)="displayActivitiesView = !displayActivitiesView"
+    (click)="disableActivitiesView()"
   >
-    <mat-icon [color]="displayActivitiesView ? 'secondary' : 'accent'">{{
-      displayActivitiesView
+    <mat-icon [color]="displayActivitiesView() ? 'secondary' : 'accent'">{{
+      displayActivitiesView()
         ? icons.keyboard_arrow_up
         : icons.keyboard_arrow_down
     }}</mat-icon>

@@ -110,7 +110,6 @@ export class ActivityModalComponent implements OnInit {
       const endHours = String(end.getHours()).padStart(2, '0');
       const endMinutes = String(end.getMinutes()).padStart(2, '0');
       const { user, id, projectId, ...activityToEdit } = this.data.activity;
-      console.log(activityToEdit);
       this.activityForm.setValue({
         ...activityToEdit,
         start: `${startHours}:${startMinutes}`,
@@ -145,9 +144,8 @@ export class ActivityModalComponent implements OnInit {
   submit() {
     const startTime = this.activityForm.get('start').value;
     const endTime = this.activityForm.get('end').value;
-    if (this.activityForm.invalid) return;
 
-    const selectedProject = this.activityForm.get('project').value;
+    if (this.activityForm.invalid) return;
 
     if (this.data.activity) {
       this.dialogRef.close({
@@ -157,7 +155,6 @@ export class ActivityModalComponent implements OnInit {
         id: this.data?.activity?.id ? this.data?.activity?.id : null,
       });
     } else {
-      console.log(this.activityForm.value);
       this.dialogRef.close({
         ...this.activityForm.value,
         start: this.splitToHoursAndMinutes(startTime),
