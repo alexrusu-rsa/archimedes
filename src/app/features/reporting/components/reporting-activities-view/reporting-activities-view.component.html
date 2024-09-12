@@ -19,7 +19,6 @@
 </div>
 @for (activity of bookedDay.value.activities; track $index) {
 <div class="d-flex flex-column row-gap-3">
-  {{ activity.project.projectName }}
   <app-entity-item
     class="mb-3"
     [title]="activity?.name"
@@ -27,7 +26,7 @@
       activity?.end | date : 'shortTime'
     }} {{ activity?.workedTime | workedTime }}"
     [chips]="[
-      activity?.project?.projectName !== ''
+      activity?.project
         ? activity?.project?.projectName
         : ('activity.shared.other' | translate),
       activity?.user?.name + ' ' + activity?.user?.surname

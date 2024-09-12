@@ -15,7 +15,7 @@
     class="d-flex flex-column mx-auto mt-3"
     aria-label="Enable Activities view button"
     type="button"
-    (click)="disableActivitiesView()"
+    (click)="displayActivitiesView.set(!displayActivitiesView())"
   >
     <mat-icon [color]="displayActivitiesView() ? 'secondary' : 'accent'">{{
       displayActivitiesView()
@@ -25,6 +25,6 @@
   </button>
 </div>
 <app-reporting-activities-view
-  *ngIf="displayActivitiesView"
+  *ngIf="displayActivitiesView()"
   [monthYearReport]="store.monthYearReport()"
 />

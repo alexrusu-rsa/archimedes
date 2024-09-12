@@ -84,7 +84,7 @@ export class ActivityModalComponent implements OnInit {
         name: ['', Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
-        project: [''],
+        project: [null],
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],

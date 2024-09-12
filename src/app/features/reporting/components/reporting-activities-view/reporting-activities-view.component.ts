@@ -37,11 +37,11 @@ import { Days } from '../../models/days';
   ],
   providers: [],
   styles: `
-    // @use 'src/styles/variables.sass' as variables
-    // .orange
-    //   color: variables.$rsasoft-partially-reported-day
-    // .green
-    //   color: variables.$rsasoft-fully-reported-day
+    @use 'src/styles/variables.sass' as variables
+    .orange
+      color: variables.$rsasoft-partially-reported-day
+    .green
+      color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
@@ -71,13 +71,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        console.log(
-          activity,
-          'Activity Coming FROM MODAL',
-          ' check if it has id'
-        );
         activity.date = new Date(dateKey);
-        console.log(activity, 'Activity Going further TO BE');
         this.store.addActivityToMonthYearReport([
           activity,
           dateKey,

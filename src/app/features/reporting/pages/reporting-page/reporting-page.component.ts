@@ -52,7 +52,7 @@ export class ReportingPageComponent implements OnInit {
   protected activityService = inject(ActivityService);
   protected translateService = inject(TranslateService);
 
-  displayActivitiesView = signal<boolean>(true);
+  protected displayActivitiesView = signal<boolean>(false);
 
   constructor() {
     effect(() => {

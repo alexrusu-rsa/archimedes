@@ -429,7 +429,6 @@ export const ActivityStore = signalStore(
                     project: activity?.project,
                     projectId: activity?.project?.id,
                   };
-                  console.log(newActivity);
                   const updatedMonthYearReport = store.monthYearReport();
 
                   //Calculating worked time difference
@@ -490,7 +489,6 @@ export const ActivityStore = signalStore(
                     .users()
                     .find((user) => user.id === updatedActivity.employeeId);
                   updatedActivity.user = user;
-                  updatedActivity.projectId = updatedActivity.project?.id;
                   const activitiesOfDay = updatedMonthYearReport[
                     dateKey
                   ].activities.map((activity) =>
