@@ -73,7 +73,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
       .subscribe((activity: Activity) => {
         activity.date = new Date(dateKey);
         this.store.addActivityToMonthYearReport([
-          activity,
+          { ...activity, projectId: activity?.project?.id },
           dateKey,
           this.store.users(),
           activity.employeeId,
