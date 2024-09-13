@@ -18,6 +18,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { TimePipe } from 'src/app/shared/pipes/time.pipe';
 import { Days } from '../../models/days';
+import { convertTimeToHours } from 'src/app/shared/utils/date-time.utils';
 
 @Component({
   selector: 'app-reporting-activities-view',
@@ -35,7 +36,6 @@ import { Days } from '../../models/days';
     TimePipe,
     MatCardTitle,
   ],
-  providers: [],
   styles: `
     @use 'src/styles/variables.sass' as variables
     .orange
@@ -51,6 +51,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   public readonly store = inject(ActivityStore);
   protected readonly activeMonth = signal<Date>(new Date());
+  protected readonly convertTimeToHours = convertTimeToHours;
 
   ngOnInit(): void {
     this.store.loadProjects();
@@ -69,7 +70,10 @@ export class ReportingActivitiesViewComponent implements OnInit {
         panelClass: 'full-width-dialog',
       })
       .afterClosed()
-      .pipe(filter((activity: Activity) => !!activity))
+      .pipe(
+        filter((activity: Activity) => !!activity),
+        take(1)
+      )
       .subscribe((activity: Activity) => {
         activity.date = new Date(dateKey);
         this.store.addActivityToMonthYearReport([
@@ -120,14 +124,12 @@ export class ReportingActivitiesViewComponent implements OnInit {
     this.dialog
       .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
       .afterClosed()
-      .pipe(filter((deleteConfirmation) => deleteConfirmation === true))
+      .pipe(
+        filter((deleteConfirmation) => deleteConfirmation === true),
+        take(1)
+      )
       .subscribe((_) => {
         this.store.deleteActivityFromMonthYearReport([activity, dateKey]);
       });
-  }
-
-  convertTimeToHours(time: string): number {
-    const [hours, minutes] = time.split(':').map(Number);
-    return hours + minutes / 60;
   }
 }

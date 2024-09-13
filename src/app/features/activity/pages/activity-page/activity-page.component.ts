@@ -117,20 +117,13 @@ export class ActivityPageComponent implements OnInit {
   }
 
   editActivity(activity: Activity) {
-    const {
-      id,
-      date,
-      projectId,
-      projectName,
-      workedTime,
-      ...activityWithoutUnecessary
-    } = activity;
+    const { id, date, projectId, workedTime, ...activityWithoutUnecessary } =
+      activity;
     this.dialog
       .open(ActivityModalComponent, {
         data: {
           activity: {
             ...activityWithoutUnecessary,
-            project: activity?.project
           },
           activityProjects: this.store.projects(),
           activityTypes: this.store.activityTypes(),

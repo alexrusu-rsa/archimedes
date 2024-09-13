@@ -6,5 +6,5 @@ export interface DayReport {
   activities: Activity[];
 }
 export interface Days {
-  [date: string]: DayReport;
+  [key: string]: DayReport;
 }

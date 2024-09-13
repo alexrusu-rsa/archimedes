@@ -33,7 +33,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
-import { Activity } from 'src/app/shared/models/activity';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { Project } from 'src/app/shared/models/project';
 import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
@@ -84,7 +83,7 @@ export class ActivityModalComponent implements OnInit {
         name: ['', Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
-        project: [null],
+        project: [null, Validators.required],
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
@@ -152,7 +151,7 @@ export class ActivityModalComponent implements OnInit {
         ...this.activityForm.value,
         start: this.splitToHoursAndMinutes(startTime),
         end: this.splitToHoursAndMinutes(endTime),
-        id: this.data?.activity?.id ? this.data?.activity?.id : null,
+        id: this.data?.activity?.id ?? null,
       });
     } else {
       this.dialogRef.close({

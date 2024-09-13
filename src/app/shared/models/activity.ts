@@ -14,7 +14,5 @@ export interface Activity {
   employeeId: string;
   workedTime?: string;
   project?: Project;
-  projectName?: string;//TODO remove this
-  employee?: string; //TODO remove this
   user?: User;
 }

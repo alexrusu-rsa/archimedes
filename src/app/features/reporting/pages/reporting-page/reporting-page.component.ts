@@ -1,4 +1,10 @@
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -12,7 +18,6 @@ import {
 } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { BookedDay } from '../../models/booked-day';
 import { NotificationService } from 'src/app/core/services/notification-service/notification.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ReportingActivitiesViewComponent } from '../../components/reporting-activities-view/reporting-activities-view.component';
@@ -46,30 +51,23 @@ export class ReportingPageComponent implements OnInit {
   protected readonly icons = Icons;
 
   protected readonly datePickerType = DatePickerType;
-  protected readonly activeMonth = signal<Date>(new Date());
-
+  protected readonly activeMonth = computed(
+    () => this.store.filter().activeMonth ?? new Date()
+  );
   protected notificationService = inject(NotificationService);
   protected activityService = inject(ActivityService);
   protected translateService = inject(TranslateService);
 
   protected displayActivitiesView = signal<boolean>(false);
 
-  constructor() {
-    effect(() => {
-      this.store.loadBookedDays(this.store.filter());
-      this.store.loadMonthYearReport(this.store.filter());
-    });
-  }
-
   ngOnInit(): void {
-    if (!this.store.filter().activeMonth) {
-      this.activeMonth.set(new Date());
-      this.store.updateFilter({
-        date: null,
-        project: null,
-        activeMonth: this.activeMonth(),
-      });
-    }
+    this.store.updateFilter({
+      date: null,
+      project: null,
+      activeMonth: this.activeMonth(),
+    });
+    this.store.loadBookedDays(this.store.filter());
+    this.store.loadMonthYearReport(this.store.filter());
   }
   disableActivitiesView() {
     this.displayActivitiesView.set(!this.displayActivitiesView());
@@ -85,16 +83,18 @@ export class ReportingPageComponent implements OnInit {
         'reporting.page.monthChangedStatus'
       );
       this.notificationService.openSnackBar(message, status);
+      // eslint-disable-next-line no-console
       console.error('Invalid date provided:', event);
       return;
     }
     const formattedDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.activeMonth.set(formattedDate);
 
     this.store.updateFilter({
       date: null,
       project: null,
       activeMonth: formattedDate,
     });
+    this.store.loadBookedDays(this.store.filter());
+    this.store.loadMonthYearReport(this.store.filter());
   }
 }

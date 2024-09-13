@@ -21,6 +21,7 @@ import { BookedDay } from '../../reporting/models/booked-day';
 import { Days } from '../../reporting/models/days';
 import { User } from 'src/app/shared/models/user';
 import { UserService } from '../../user/services/user-service/user.service';
+import { calculateUpdatedTime } from 'src/app/shared/utils/date-time.utils';
 
 type ActivityState = {
   activities: Activity[];
@@ -80,7 +81,6 @@ export const ActivityStore = signalStore(
       loadProjects: rxMethod<void>(
         pipe(
           debounceTime(300),
-          distinctUntilChanged(),
           switchMap(() =>
             projectService.getProjectsUser().pipe(
               tapResponse({
@@ -98,7 +98,6 @@ export const ActivityStore = signalStore(
       loadUsers: rxMethod<void>(
         pipe(
           debounceTime(300),
-          distinctUntilChanged(),
           switchMap(() =>
             userService.getUsers().pipe(
               tapResponse({
@@ -153,11 +152,8 @@ export const ActivityStore = signalStore(
               activityService
                 .addActivity({
                   ...activity,
-                  employeeId: employeeId || localStorage?.userId, // Use provided employeeId or fallback to localStorage
-                  projectId:
-                    activity?.project?.id === 'other'
-                      ? null
-                      : activity?.project?.id,
+                  employeeId: employeeId ?? localStorage?.userId, // Use provided employeeId or fallback to localStorage
+                  projectId: activity?.project?.id ?? null,
                   date: date || store.filter?.date(),
                 })
                 .pipe(
@@ -190,6 +186,7 @@ export const ActivityStore = signalStore(
                         }
                       }
                     },
+                    // eslint-disable-next-line no-console
                     error: (error) => console.error(error),
                     finalize: () => patchState(store, { isLoading: false }),
                   })
@@ -206,8 +203,7 @@ export const ActivityStore = signalStore(
               .updateActivity({
                 ...activity,
                 employeeId: localStorage?.userId,
-                projectId:
-                  activity?.projectId === 'other' ? null : activity?.projectId,
+                projectId: activity?.projectId ?? null,
                 date: activity?.date,
               })
               .pipe(
@@ -375,8 +371,6 @@ export const ActivityStore = signalStore(
       ),
       loadMonthYearReport: rxMethod<ActivityFilter>(
         pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
           tap(() => patchState(store, { isLoading: true })),
           switchMap((filter: ActivityFilter) =>
             activityService.getMonthReport(filter.activeMonth).pipe(
@@ -394,8 +388,6 @@ export const ActivityStore = signalStore(
       ),
       loadBookedDays: rxMethod<ActivityFilter>(
         pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
           tap(() => patchState(store, { isLoading: true })),
           switchMap((filter: ActivityFilter) =>
             activityService.getUsersWithActivities(filter.activeMonth).pipe(
@@ -415,8 +407,6 @@ export const ActivityStore = signalStore(
         [Activity, string, User[], string]
       >(
         pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
           tap(() => patchState(store, { isLoading: true })),
           switchMap(([activity, dateKey, users, employeeId]) =>
             activityService.addActivity(activity).pipe(
@@ -425,37 +415,21 @@ export const ActivityStore = signalStore(
                   const user = users.find((user) => user.id === employeeId);
                   const formattedActivity = {
                     ...newActivity,
-                    user: user,
+                    user,
                     project: activity?.project,
                     projectId: activity?.project?.id,
                   };
                   const updatedMonthYearReport = store.monthYearReport();
 
-                  //Calculating worked time difference
                   const currentWorkedTime =
                     updatedMonthYearReport[dateKey].timeBooked;
 
-                  const [hours1, minutes1] = currentWorkedTime
-                    .split(':')
-                    .map(Number);
-                  const [hours2, minutes2] = newActivity.workedTime
-                    .split(':')
-                    .map(Number);
+                  const updatedTime = calculateUpdatedTime(
+                    currentWorkedTime,
+                    newActivity.workedTime
+                  );
 
-                  let totalHours = hours1 + hours2;
-                  let totalMinutes = minutes1 + minutes2;
-
-                  if (totalMinutes >= 60) {
-                    totalHours += Math.floor(totalMinutes / 60);
-                    totalMinutes = totalMinutes % 60;
-                  }
-
-                  const finalHours = totalHours.toString().padStart(2, '0');
-                  const finalMinutes = totalMinutes.toString().padStart(2, '0');
-                  updatedMonthYearReport[
-                    dateKey
-                  ].timeBooked = `${finalHours}:${finalMinutes}`;
-                  //Calculating worked time difference END
+                  updatedMonthYearReport[dateKey].timeBooked = updatedTime;
 
                   updatedMonthYearReport[dateKey].activities.push(
                     formattedActivity
@@ -463,9 +437,8 @@ export const ActivityStore = signalStore(
 
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
+                    isLoading: false,
                   });
-
-                  patchState(store, { isLoading: false });
                 },
                 error: (error) => {
                   // eslint-disable-next-line no-console
@@ -477,6 +450,7 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+
       editActivityOfMonthYearReport: rxMethod<[Activity, string, string?]>(
         pipe(
           debounceTime(300),
@@ -489,48 +463,26 @@ export const ActivityStore = signalStore(
                     .users()
                     .find((user) => user.id === updatedActivity.employeeId);
                   updatedActivity.user = user;
+
                   const activitiesOfDay = updatedMonthYearReport[
                     dateKey
                   ].activities.map((activity) =>
                     activity.id === updatedActivity.id
-                      ? (activity = updatedActivity)
+                      ? updatedActivity
                       : activity
                   );
-                  const [hoursToRemove, minutesToRemove] = (
-                    timeToRemove?.split(':') || [0, 0]
-                  ).map(Number);
-                  const [hoursToAdd, minutesToAdd] = (
-                    updatedActivity?.workedTime?.split(':') || [0, 0]
-                  ).map(Number);
-                  const [currentBookedHours, currentBookedMinutes] = (
-                    updatedMonthYearReport[dateKey]?.timeBooked?.split(':') || [
-                      0, 0,
-                    ]
-                  ).map(Number);
 
-                  let totalCurrentMinutes =
-                    currentBookedHours * 60 + currentBookedMinutes;
-                  let totalRemoveMinutes = hoursToRemove * 60 + minutesToRemove;
-                  let totalAddMinutes = hoursToAdd * 60 + minutesToAdd;
-
-                  let updatedTotalMinutes =
-                    totalCurrentMinutes - totalRemoveMinutes + totalAddMinutes;
-
-                  if (updatedTotalMinutes < 0) {
-                    updatedTotalMinutes = 0;
-                  }
-
-                  let updatedHours = Math.floor(updatedTotalMinutes / 60);
-                  let updatedMinutes = updatedTotalMinutes % 60;
-
-                  const formattedUpdatedTime = `${String(updatedHours).padStart(
-                    2,
-                    '0'
-                  )}:${String(updatedMinutes).padStart(2, '0')}`;
+                  const currentWorkedTime =
+                    updatedMonthYearReport[dateKey].timeBooked;
+                  const updatedTime = calculateUpdatedTime(
+                    currentWorkedTime,
+                    updatedActivity?.workedTime || '00:00',
+                    timeToRemove || '00:00'
+                  );
 
                   updatedMonthYearReport[dateKey] = {
                     activities: activitiesOfDay,
-                    timeBooked: formattedUpdatedTime,
+                    timeBooked: updatedTime,
                     expectedHours:
                       updatedMonthYearReport[dateKey].expectedHours,
                   };
@@ -547,6 +499,7 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+
       deleteActivityFromMonthYearReport: rxMethod<[Activity, string]>(
         pipe(
           debounceTime(300),
@@ -559,38 +512,19 @@ export const ActivityStore = signalStore(
                     updatedMonthYearReport[dateKey].activities.filter(
                       (cursorActivity) => cursorActivity.id !== activity.id
                     );
+
                   if (updatedMonthYearReport[dateKey].activities.length <= 0) {
                     delete updatedMonthYearReport[dateKey];
                   }
-                  const [hoursToRemove, minutesToRemove] = activity.workedTime
-                    .split(':')
-                    .map(Number);
 
-                  const [currentHours, currentMinutes] = updatedMonthYearReport[
-                    dateKey
-                  ].timeBooked
-                    .split(':')
-                    .map(Number);
+                  const updatedTimeBooked = calculateUpdatedTime(
+                    updatedMonthYearReport[dateKey].timeBooked,
+                    '00:00',
+                    activity.workedTime
+                  );
 
-                  let totalCurrentMinutes = currentHours * 60 + currentMinutes;
-                  let totalRemoveMinutes = hoursToRemove * 60 + minutesToRemove;
-
-                  let updatedTotalMinutes =
-                    totalCurrentMinutes - totalRemoveMinutes;
-
-                  if (updatedTotalMinutes < 0) {
-                    updatedTotalMinutes = 0;
-                  }
-
-                  let updatedHours = Math.floor(updatedTotalMinutes / 60);
-                  let updatedMinutes = updatedTotalMinutes % 60;
-
-                  const formattedUpdatedTime = `${String(updatedHours).padStart(
-                    2,
-                    '0'
-                  )}:${String(updatedMinutes).padStart(2, '0')}`;
                   updatedMonthYearReport[dateKey].timeBooked =
-                    formattedUpdatedTime;
+                    updatedTimeBooked;
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
                   });
