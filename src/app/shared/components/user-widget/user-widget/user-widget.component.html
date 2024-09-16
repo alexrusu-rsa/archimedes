@@ -1,0 +1,13 @@
+<mat-card class="mb-4">
+  <mat-card-header>
+    <mat-card-subtitle>{{ user().name }} {{ user().surname }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-chip-set>
+      <mat-chip>{{ user().seniority }}</mat-chip>
+      <mat-chip>{{ user().role }} {{ "&#128187;" }}</mat-chip>
+      <mat-chip>{{ user().roles }} {{ "&#9881;" }}</mat-chip>
+    </mat-chip-set>
+  </mat-card-content>
+</mat-card>

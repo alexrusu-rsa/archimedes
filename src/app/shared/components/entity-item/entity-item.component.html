@@ -1,0 +1,30 @@
+<mat-card class="p-2">
+  @if(title()){
+  <mat-card-header [ngClass]="{ 'p-2': emptyIcon() }">
+    <mat-card-title class="d-flex align-items-center gap-1">
+      @if (emptyIcon()) {
+      <mat-icon>{{ emptyIcon() }}</mat-icon>
+      }
+      {{ title() }}
+    </mat-card-title>
+
+    @if (subtitle()) {
+    <mat-card-subtitle>
+      {{ subtitle() }}
+    </mat-card-subtitle>
+    }
+  </mat-card-header>
+  } @if(chips()?.length>0){
+  <mat-card-content>
+    <mat-chip-set>
+      @if(chipsIsArray()){ @for (chip of chips(); track $index) { @if(chip){
+      <mat-chip> {{ chip | translate }}</mat-chip>
+      } }} @else {
+      <mat-chip> {{ chips().toString() | translate }}</mat-chip>
+      }
+    </mat-chip-set>
+  </mat-card-content>
+  }
+
+  <ng-content select="[actions]"> </ng-content>
+</mat-card>

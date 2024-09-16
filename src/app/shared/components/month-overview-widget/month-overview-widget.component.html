@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-header class="mb-3">
+    <mat-card-title>
+      {{ "shared.widget.monthlyOverview.title" | translate }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-calendar
+      [dateClass]="dateClass"
+      [headerComponent]="calendarEmptyHeader"
+      (selectedChange)="dateSelected.emit($event)"
+      class="pt-1"
+    >
+    </mat-calendar>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,6 @@
+@use '@angular/material' as mat
+@use 'src/styles/variables.sass' as variables
+@include mat.core()
+
+$rsasoft-dark-theme: mat.define-dark-theme((color: (primary: variables.$rsasoft-primary, accent: variables.$rsasoft-accent, warn: variables.$rsasoft-warning-color)))
+

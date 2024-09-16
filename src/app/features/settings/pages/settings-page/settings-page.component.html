@@ -1,0 +1,30 @@
+<div class="d-flex flex-row gap-2">
+    <mat-card class="d-flex flex-column col gap-2">
+        <mat-card-header>
+            <mat-card-title class="row mb-4">{{
+                "settings.changePassword" | translate
+                }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="row col-12 col-sm-12 col-md-6">
+            <mat-form-field appearance="fill" class="col-12">
+                <mat-label>{{ "settings.currentPassword" | translate }}</mat-label>
+                <input matInput required [ngModel]="password()" (ngModelChange)="password.set($event)"
+                    autocomplete="current-password" type="password" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="col-12">
+                <mat-label>{{ "settings.retypePassword" | translate }}</mat-label>
+                <input type="password" matInput [ngModel]="retypePassword()" required autocomplete="current-password"
+                    (ngModelChange)="retypePassword.set($event)" />
+            </mat-form-field>
+            <mat-hint *ngIf="!passwordMatches()">
+                {{ "settings.passwordsNoMatch" | translate }}
+            </mat-hint>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-raised-button color="accent" class="col-12 col-sm-12 col-md-6" (click)="changePassword()">
+                {{ "settings.changePasswordButton" | translate }}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

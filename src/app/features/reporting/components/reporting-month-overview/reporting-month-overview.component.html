@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header class="mb-3">
+    <mat-card-title>
+      {{ "reporting.page.monthOverview" | translate }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-calendar
+      #calendar
+      *ngIf="bookedDays().length"
+      [dateClass]="dateClass"
+      [headerComponent]="calendarEmptyHeader"
+      [startAt]="activeMonth()"
+      class="pt-1"
+    />
+  </mat-card-content>
+</mat-card>

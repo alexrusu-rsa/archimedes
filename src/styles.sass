@@ -1,165 +1,46 @@
-@import 'src/fonts.sass'
-@import 'src/styles/custom_theme.sass'
-@import 'src/styles/variables.sass'
-h1
-  font-family: Arial, Helvetica, sans-serif
-  font-size: 250%
-
-h2, h3
-  font: 400 14px / 20px Roboto, "Helvetica Neue", sans-serif
-  font-family: Arial, Helvetica, sans-serif
-  font-weight: lighter
+@use '@angular/material' as mat
+@use 'src/styles/custom_light_theme.sass' as light-theme
+@use 'src/styles/custom_dark_theme.sass' as dark-theme
+@use 'src/styles/variables.sass' as variables
 
 html, body
   margin: 0
-  height: $full-height
-  width: $full-width
-  background: $rsasoft-background-color
+  height: variables.$full-height
+  width: variables.$full-width
+  background: variables.$rsasoft-background-color
 
-.mat-mdc-drawer-backdrop
-  min-height: 100vh !important
+.light-theme
+  @include mat.all-component-themes(light-theme.$rsasoft-light-theme)
+
+.dark-theme
+  @include mat.all-component-themes(dark-theme.$rsasoft-dark-theme)
 
 *
   scrollbar-width: thin
-  scrollbar-color: $rsasoft-layer1-card-color $rsasoft-layer2-card-color
+  scrollbar-color: variables.$rsasoft-layer1-card-color variables.$rsasoft-layer2-card-color
 
 *::-webkit-scrollbar
   width: 12px
 
 *::-webkit-scrollbar-track
-  background: $rsasoft-layer2-card-color
+  background: variables.$rsasoft-layer2-card-color
 
 *::-webkit-scrollbar-thumb
-  background-color: $rsasoft-layer2-card-color
+  background-color: variables.$rsasoft-layer2-card-color
   border-radius: 20px
-
-body, input[type="text"], button
-  font-family: Arial, Helvetica, sans-serif
-
-*
-  font-family: Arial, Helvetica, sans-serif
-
-.full-width-dialog
-  max-width: 100vw !important
-  height: 100vh !important
-
-.mat-mdc-card
-  padding: 1rem !important
-
-.mat-mdc-dialog-container
-  width: 50vw !important
-  height: fit-content !important
-  margin: auto 0 !important
-  max-width: 100vw !important
-  max-height: 100vh !important
-
-.mat-mdc-dialog-content
-  max-height: 100vh !important
-
-@media(max-width: 425px)
-  .mat-mdc-dialog-container
-    width: 100vw !important
-    height: 100vh !important
-    margin: auto 0 !important
-
-@media(min-width: 1024px)
-  .mat-mdc-dialog-container
-    width: 80vw !important
-    height: fit-content !important
-    margin: auto 0 !important
-
-.delete-confirmation-dialog
-  max-width: 100vw !important
-  height: fit-content
-
-.cdk-overlay-container
-  z-index: 1040 !important
-
-.mat-autocomplete-panel
-  max-width: 90% !important
-
-.cdk-overlay-connected-position-bounding-box
-  .cdk-overlay-pane
-    transform: none !important
-    overflow-x: hidden
-    box-sizing: content-box
-    padding: 4px 4px 10px 5px
-    margin-left: -5px
-    margin-top: -2px
-
-    .mat-select-panel
-      width: fit-content !important
-      min-width: 80% !important
-
-.mat-option
-  width: 100% !important
-
-.mat-mdc-raised-button
-  min-width: 52px !important
-
-.no-padding-form-field
-  .mat-form-field-wrapper
-    border: 0px
-    margin-bottom: -1.25em !important
-
-.mat-drawer-container
-  height: fit-content
-  position: fixed !important
-  overflow: auto !important
-
-.mat-sidenav-container
-  height: 100% !important
-
-.mat-drawer-backdrop
-  height: 100vh
-
-.mat-drawer-content
-  padding-bottom: 5rem
-
-.mat-icon-button 
-  border-radius: 0 !important
-.weekend-date
-  background-color: $rsasoft-fully-reported-day !important
-  border-radius: 100px !important
-
-.without-reported-hours
-  background-color: $rsasoft-without-reported-hours !important
-  border-radius: 100px !important
-  color: #ffffff !important
-  
-.with-reported-hours
-  background-color: $rsasoft-partially-reported-day !important
-  border-radius: 100px !important
-  color: #ffffff !important
-
-.fully-reported-hours
-  background-color: $rsasoft-fully-reported-day !important
-  border-radius: 100px !important
-  color: #ffffff !important
-
-.has-tooltip::after
-  position: relative
-
 
 .pointer-cursor
   cursor: pointer
-.has-tooltip:hover::after
-  content: attr(data-tooltip)
-  position: absolute
-  bottom: 125%
-  left: 50%
-  top: 75%
-  width: 200px
-  transform: translateX(-50%)
-  padding: 0.5rem
-  background-color: #ffffff
-  color: #000000
-  border-radius: 20px
-  white-space: nowrap
-  z-index: 1
-
-.custom-calendar-cell
-  z-index: 9999 !important
 
 
+.add-entity-button
+  height: 58px!important
 
+  
+button.red span
+  color: variables.$rsasoft-without-reported-hours
+button.orange span
+  color: variables.$rsasoft-partially-reported-day
+button.green span
+  color: variables.$rsasoft-fully-reported-day
+z

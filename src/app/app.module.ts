@@ -15,80 +15,34 @@ import {
   PathLocationStrategy,
 } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivityPageComponent } from './ng-modules/reporting/components/activity-page/activity-page.component';
-import { AuthModule } from './ng-modules/auth/auth.module';
-import { AuthInterceptor } from './ng-modules/auth/auth.interceptor';
-import { UserDialogComponent } from './ng-modules/reporting/components/user-dialog/user-dialog.component';
-import { ActivityDialogComponent } from './ng-modules/reporting/components/activity-dialog/activity-dialog.component';
-import { CustomerDialogComponent } from './ng-modules/reporting/components/customer-dialog/customer-dialog.component';
-import { ProjectDialogComponent } from './ng-modules/reporting/components/project-dialog/project-dialog.component';
-import { ReportingPageComponent } from './ng-modules/reporting/components/reporting-page/reporting-page.component';
-import { InvoiceDialogComponent } from './ng-modules/reporting/components/invoice-dialog/invoice-dialog.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { EmployeePipe } from './ng-modules/shared/pipes/employee.pipe';
-import { DateRangePipe } from './ng-modules/shared/pipes/date-range.pipe';
-import { AdminDashboardPageComponent } from './ng-modules/reporting/components/admin-dashboard-page/admin-dashboard-page.component';
-import { RateDialogComponent } from './ng-modules/reporting/components/rate-dialog/rate-dialog.component';
-import { SharedModule } from './ng-modules/shared/shared.module';
-import { FirstUserPageComponent } from './ng-modules/auth/first-user-page/first-user-page.component';
-import { UserSettingsPageComponent } from './ng-modules/reporting/components/user-settings-page/user-settings-page.component';
-import { DuplicateActivityDialogComponent } from './ng-modules/reporting/components/duplicate-activity-dialog/duplicate-activity-dialog.component';
-import { DeleteConfirmationDialogComponent } from './ng-modules/reporting/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
-import { NewUserDialogComponent } from './ng-modules/reporting/components/new-user-dialog/new-user-dialog.component';
-import { UserDashboardComponent } from './ng-modules/reporting/components/user-dashboard/user-dashboard.component';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from './ng-modules/shared/http-loader-factory';
-import { ReportingHoursBookedDialogComponent } from './ng-modules/reporting/components/reporting-hours-booked-dialog/reporting-hours-booked-dialog.component';
-import { MonthViewComponent } from './ng-modules/reporting/components/month-view/month-view.component';
-import { RatePageComponent } from './ng-modules/reporting/components/rate-page/rate-page.component';
-import { ShortenPipe } from './ng-modules/shared/pipes/shorten.pipe';
-import { InvoicePreviewDialogComponent } from './ng-modules/reporting/components/invoice-preview-dialog/invoice-preview-dialog.component';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { SafePipe } from './ng-modules/shared/pipes/safe.pipe';
-import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-page/invoice-page.component';
+import { HttpLoaderFactory } from './core/translation/http-loader-factory';
+import { NavigationComponent } from './shared/components/navigation/navigation.component';
+import { ToolbarComponent } from './core/layout/components/toolbar/toolbar.component';
+import { ProjectidPipe } from './shared/pipes/projectid/projectid.pipe';
+import { EmployeeidPipe } from './shared/pipes/employeeid/employeeid.pipe';
+import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
+import { LoginComponent } from './core/auth/pages/login/login.component';
+import { RightSectionComponent } from './core/layout/components/right-section/right-section.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ActivityPageComponent,
-    UserDialogComponent,
-    ActivityDialogComponent,
-    CustomerDialogComponent,
-    ProjectDialogComponent,
-    ReportingPageComponent,
-    InvoicePageComponent,
-    InvoiceDialogComponent,
-    DateRangePipe,
-    EmployeePipe,
-    AdminDashboardPageComponent,
-    RateDialogComponent,
-    FirstUserPageComponent,
-    UserSettingsPageComponent,
-    DuplicateActivityDialogComponent,
-    DeleteConfirmationDialogComponent,
-    NewUserDialogComponent,
-    UserDashboardComponent,
-    ReportingHoursBookedDialogComponent,
-    MonthViewComponent,
-    RatePageComponent,
-    ShortenPipe,
-    InvoicePreviewDialogComponent,
-    SafePipe,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgxExtendedPdfViewerModule,
-    PdfViewerModule,
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    AuthModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
-    SharedModule,
+    NavigationComponent,
+    ToolbarComponent,
+    ProjectidPipe,
+    EmployeeidPipe,
+    SettingsPageComponent,
+    LoginComponent,
+    RightSectionComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -107,6 +61,5 @@ import { InvoicePageComponent } from './ng-modules/reporting/components/invoice-
     },
   ],
   bootstrap: [AppComponent],
-  exports: [SharedModule],
 })
 export class AppModule {}

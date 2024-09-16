@@ -1,0 +1,109 @@
+<div class="d-flex flex-row-reverse">
+  <button class="text-white" mat-icon-button mat-dialog-close>
+    <mat-icon>{{ icons.close }}</mat-icon>
+  </button>
+</div>
+
+<!-- dialog title -->
+<h2 mat-dialog-title align="center" class="p-0">
+  {{
+    (data.rate ? "rate.dialog.editTitle" : "rate.dialog.title") | translate
+  }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="rateForm" class="d-flex row gap-2 justify-content-center">
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "rate.dialog.projectName" | translate }}</mat-label>
+      <mat-select formControlName="project">
+        @for (project of data?.projects; track $index) {
+        <mat-option [value]="project">
+          {{ project?.projectName }}
+        </mat-option>
+        }
+      </mat-select>
+      @if(rateForm?.controls['project']?.invalid){
+      <mat-hint>{{ "rate.dialog.projectName" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "rate.dialog.employeeName" | translate }}</mat-label>
+      <mat-select formControlName="user">
+        @for (user of data?.users; track $index) {
+        <mat-option [value]="user">
+          {{ user?.name }} {{ user?.surname }}
+        </mat-option>
+        }
+      </mat-select>
+      @if(rateForm?.controls['user']?.invalid){
+      <mat-hint>{{ "rate.dialog.employeeName" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "rate.dialog.rateType" | translate }}</mat-label>
+      <mat-select formControlName="rateType">
+        @for (rateType of data?.rateTypes; track $index) {
+        <mat-option [value]="rateType"> {{ rateType }} </mat-option>
+        }
+      </mat-select>
+      @if(rateForm?.controls['rateType']?.invalid){
+      <mat-hint>{{ "rate.dialog.rateType" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{ "rate.dialog.rate" | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="rate"
+        [required]="
+          this.rateForm.controls['rate'].hasValidator(validators.required)
+        "
+      />
+      @if(rateForm?.controls['rate']?.invalid){
+      <mat-hint>{{ "rate.dialog.rate" | translate }}</mat-hint
+      >}
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-lg-5 m-0 p-0" appearance="fill">
+      <mat-label>{{
+        "rate.dialog.employeeTimeCommitment" | translate
+      }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="employeeTimeCommitement"
+        [required]="
+          this.rateForm.controls['employeeTimeCommitement'].hasValidator(
+            validators.required
+          )
+        "
+      />
+      @if(rateForm?.controls['employeeTimeCommitment']?.invalid){
+      <mat-hint>{{
+        "rate.dialog.employeeTimeCommitement" | translate
+      }}</mat-hint
+      >}
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<!-- dialog action buttons -->
+<mat-dialog-actions align="center" class="gap-2 pb-4">
+  <button
+    mat-raised-button
+    (click)="submit()"
+    [disabled]="rateForm.invalid"
+    color="accent"
+  >
+    {{
+      (data.rate ? "rate.dialog.submitEdit" : "rate.dialog.submit") | translate
+    }}
+  </button>
+  <button mat-raised-button mat-dialog-close>
+    {{ "shared.modal.cancel" | translate }}
+  </button>
+</mat-dialog-actions>

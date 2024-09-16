@@ -1,0 +1,16 @@
+{
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "externalTemplate": true,
+      "style": "sass"
+    },
+    "angular-component": {
+      "skipDisplayBlock": true
+    }
+  },
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ]
+}

@@ -1,271 +1,292 @@
 {
-  "dashboard": {
-    "monthOverview": "Month overview"
-  },
-  "sidenav": {
-    "home": "Home",
-    "activities": "Activities",
-    "users": "Users",
-    "projects": "Projects",
-    "customers": "Customers",
-    "reporting": "Reporting",
-    "settings": "Settings",
-    "invoices": "Invoices",
-    "logOut": "Log out",
-    "rates": "Rates",
-    "account": "ACCOUNT"
-  },
-  "adminDashboard": {
-    "activities": "Activities",
-    "users": "Users",
-    "projects": "Projects",
-    "customers": "Customers",
-    "reporting": "Reporting",
-    "invoices": "Invoices",
-    "rates": "Rates",
-    "logOut": "Log Out"
-  },
-  "firstUserPage": {
-    "title": "Register first account",
-    "email": "Email",
-    "emailHint": "Email is required",
-    "password": "Password",
-    "passwordHint": "Password is required",
-    "retypePassword": "Re-enter desired password",
-    "retypePasswordHint": "Passwords do not match.",
-    "registerAccount": "Register account"
-  },
-  "loginPage": {
-    "title": "Login",
-    "email": "Email",
-    "emailHint": "Email is required",
-    "password": "Password",
-    "passwordHint": "Password is required",
-    "forgottenPassword": "Forgotten Password",
-    "logIn": "Log in"
-  },
-  "resetPasswordPage": {
-    "title": "Reset your password",
-    "email": "Email",
-    "emailHint": "Email is required",
-    "resetPassword": "Reset Password"
-  },
   "activity": {
     "dialog": {
-      "addTitle": "Add activity",
-      "name": "Activity name",
-      "nameHint": "Activity name is required",
-      "startTime": "Start time",
-      "startTimeHint": "Make sure you enter a valid combination of start/end time.",
-      "endTime": "End time",
-      "endTimeHint": "Make sure you enter a valid combination of start/end time.",
-      "project": "Project",
+      "activityType": "Activity type",
+      "description": "Description",
+      "end": "End time",
+      "endHint": "Make sure you enter a valid combination of start/end time.",
+      "extras": "Extra description",
+      "name": "Name",
+      "nameHint": "Name is required",
       "noProject": "No project",
-      "type": "Activity type",
-      "description": "Activity description",
-      "extras": "Activity extras",
-      "submitAdd": "Add activity",
-      "updateTitle": "Update activity",
-      "submitUpdate": "Update activity"
+      "project": "Project",
+      "start": "Start time",
+      "startHint": "Make sure you enter a valid combination of start/end time.",
+      "submit": "Add activity",
+      "submitEdit": "Update activity",
+      "title": "Add new activity",
+      "titleEdit": "Edit activity",
+      "selectEmployee": "Select employee"
     },
-    "page": {
-      "timeBooked": "Time booked: "
+    "shared": {
+      "other": "Other"
     }
   },
   "customer": {
-    "page": {
-      "title": "Customer Page",
-      "search": "Search customer",
+    "dialog": {
+      "ibanEur": "IBAN EUR",
+      "ibanRo": "IBAN",
+      "vat": "Apply VAT on invoices",
+      "addTitle": "Add customer",
+      "address": "Customer Address",
+      "addressHint": "You must enter the customer's address",
+      "cui": "Customer CUI",
+      "cuiHint": "You must enter a customer CUI",
+      "city": "Customer City",
+      "cityHint": "You must enter the customer's city",
+      "country": "Customer Country",
+      "countryHint": "You must enter customer's country",
+      "directorEmail": "Customer Director Email",
+      "directorName": "Customer Director Name",
+      "directorTel": "Customer Director Tel",
+      "name": "Customer Name",
+      "nameHint": "You must enter a customer name",
+      "reg": "Customer Reg",
+      "regHint": "You must enter a customer Reg",
       "internal": "Internal Company",
       "romanianCompany": "Romanian Company",
-      "applyVat": "Apply VAT on invoices",
-      "vat19": "VAT 19%"
-    },
-    "dialog": {
-      "addTitle": "Add customer",
-      "customerName": "Customer Name",
-      "customerNameHint": "You must enter a customer name",
-      "customerCUI": "Customer CUI",
-      "customerCUIHint": "You must enter a customer CUI",
-      "customerReg": "Customer Reg",
-      "customerRegHint": "You must enter a customer Reg",
-      "customerAddress": "Customer Address",
-      "customerAddressHint": "You must enter the customer's address",
-      "customerCity": "Customer City",
-      "customerCityHint": "You must enter the customer's city",
-      "customerShortName": "Customer Short Name",
-      "customerCountry": "Customer Country",
-      "customerCountryHint": "You must enter customer's country",
-      "customerDirectorName": "Customer Director Name",
-      "customerDirectorEmail": "Customer Director Email",
-      "customerDirectorTel": "Customer Director Tel",
-      "updateTitle": "Update customer",
-      "IBANEUR": "IBAN EUR",
-      "IBAN": "IBAN",
-      "swift": "SWIFT"
+      "shortName": "Customer Short Name",
+      "submit": "Create customer",
+      "submitEdit": "Update customer",
+      "swift": "SWIFT",
+      "title": "Add a new customer",
+      "titleEdit": "Edit customer"
     }
   },
-  "confirmation": {
-    "dialog": {
-      "title": "Are you sure you want to delete this item?",
-      "yesButton": "Yes, delete",
-      "cancel": "Cancel"
+  "dashboard": {
+    "monthOverview": "Month overview",
+    "shared": {
+      "salutation": {
+        "title": "Hi {{name}} {{surname}},",
+        "welcome": "Welcome to Archimedes, your time booking webapp.\n Let's get you booked!"
+      }
     }
   },
   "duplicate": {
     "dialog": {
-      "title": "Duplicate activity",
+      "endDate": "End date",
       "selectDateRange": "Select date range",
       "startDate": "Start date",
-      "endDate": "End date"
+      "title": "Duplicate activity"
     }
+  },
+  "firstUserPage": {
+    "email": "Email",
+    "emailHint": "Email is required",
+    "password": "Password",
+    "passwordHint": "Password is required",
+    "registerAccount": "Register account",
+    "retypePassword": "Re-enter desired password",
+    "retypePasswordHint": "Passwords do not match.",
+    "title": "Register first account"
   },
   "invoice": {
     "dialog": {
-      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
-      "title": "Set data for invoice",
-      "invoiceNumber": "Invoice number",
-      "invoiceNumberHint": "You must enter a invoice number",
+      "back": "Back",
+      "download": "Download",
+      "downloadPDF": "Download PDF",
+      "downloadXLSX": "Download XLSX",
       "euroExchange": "Euro Exchange",
       "euroExchangeHint": "Enter a value like 4.98 or 4.92394",
-      "invoiceEmittingDay": "Invoice Emitting Day",
-      "downloadPDF": "Download PDF",
-      "previewPDF": "Preview PDF",
-      "downloadXLSX": "Download XLSX",
+      "euroExchangePlaceholder": "Example: 4.97, 4.9283",
       "firstStep": "Set data for invoice",
-      "secondStep": "Preview invoice",
-      "thirdStep": "Download invoice",
+      "invoiceEmittingDay": "Invoice Emitting Day",
+      "invoiceNumber": "Invoice number",
+      "invoiceNumberHint": "You must enter a invoice number",
       "invoiceNumberPlaceholder": "Example: 1234",
       "next": "Next",
-      "back": "Back",
-      "download": "Download"
+      "previewPDF": "Preview PDF",
+      "secondStep": "Preview invoice",
+      "thirdStep": "Download invoice",
+      "title": "Invoice preview"
     },
-    "download": "Download",
     "dialogPreview": "Invoice",
+    "download": "Download",
+    "page": {
+      "monthAndYear": "Month and Year",
+      "title": "Invoices"
+    },
     "preview": {
       "title": "Invoice Preview"
-    },
-    "page": {
-      "title": "Invoices",
-      "monthAndYear": "Month and Year"
     }
   },
-  "project": {
-    "dialog": {
-      "titleAdd": "Add Project",
-      "name": "Project Name",
-      "customerName": "Customer Name",
-      "contract": "Project Contract",
-      "dueDate": "Project Due Date",
-      "contractSignDate": "Contract Sign Date",
-      "invoiceTerm": "Project Invoice Term",
-      "titleUpdate": "Update Project"
-    },
-    "page": {
-      "title": "Project page",
-      "search": "Search project"
-    }
-  },
-  "rate": {
-    "dialog": {
-      "addTitle": "Add Rate",
-      "projectName": "Project name",
-      "employeeName": "Employee name",
-      "rate": "Rate",
-      "rateType": "Rate type",
-      "employeeTimeCommitment": "Employee Time Commitment",
-      "updateTitle": "Update rate"
-    },
-    "page": {
-      "title": "Rates"
-    }
-  },
-  "reporting": {
-    "page": {
-      "title": "Reporting Page",
-      "selectDateRange": "Select date range",
-      "employeeName": "Employee Name",
-      "description": "DESCRIPTION",
-      "noActivitiesTitle": "No entries to be displayed yet.",
-      "startDate": "Start date",
-      "endDate": "End date",
-      "monday": "Mo",
-      "tuesday": "Tu",
-      "wednesday": "We",
-      "thursday": "Th",
-      "friday": "Fr",
-      "saturday": "Sa",
-      "sunday": "Su"
-    },
-    "hoursBookedDialog": {
-      "employeeCommitment": "Employees commitment for"
-    }
-  },
-  "userDashboard": {
-    "title": "User Dashboard",
-    "activities": "Activities",
-    "settings": "Settings"
-  },
-  "user": {
-    "dialog": {
-      "addTitle": "Add User",
-      "surname": "User Surname",
-      "surnameHint": "User surname is required",
-      "name": "User Name",
-      "nameHint": "User name is required",
-      "email": "Email",
-      "emailHint": "Email is required",
-      "role": "User Role",
-      "roleHint": "User role is required",
-      "seniority": "User seniority",
-      "seniorityHint": "User seniority is required",
-      "timePerDay": "User time/day",
-      "timePerDayHint": "User time/day is required",
-      "adminToggleText": "Admin",
-      "updateTitle": "Update User",
-      "admin": "Admin"
-    },
-    "page": {
-      "title": "User page",
-      "search": "Search user",
-      "resetPassword": "Reset Password",
-      "employeeRates": "Employee Rates",
-      "thProject": "Project",
-      "thEmployee": "Employee",
-      "thRate": "Rate",
-      "thRateType": "Type",
-      "thTime": "Time",
-      "thEdit": "Edit",
-      "thDelete": "Delete",
-      "rateType": "Type"
-    },
-    "newDialog": {
-      "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"
-    }
-  },
-  "settings": {
-    "title": "Settings",
-    "changePassword": "Change your password",
-    "currentPassword": "Current password",
-    "retypePassword": "Re-type your passowrd",
-    "passwordsNoMatch": "Passwords do not match",
-    "changePasswordButton": "Change password"
+  "loginPage": {
+    "email": "Email",
+    "emailHint": "Email is required",
+    "forgottenPassword": "Forgotten Password",
+    "logIn": "Log in",
+    "password": "Password",
+    "passwordHint": "Password is required",
+    "title": "Login"
   },
   "monthView": {
+    "changePasswordButton": "Change password",
     "dialog": {
       "title": "Activity Report"
     },
-    "changePasswordButton": "Change password",
     "passwordRequired": "Password required",
     "retypePasswordRequired": "Retyping the password required",
     "successfullSubmit": "Password successfully submitted"
   },
-  "activityPage": {
-    "noActivities": "You have not reported any activities for this day yet."
-  },
-  "custommer": {
+  "project": {
+    "dialog": {
+      "title": "Add a new project",
+      "contract": "Project Contract",
+      "contractSignDate": "Contract Sign Date",
+      "customerName": "Customer Name",
+      "dueDate": "Project Due Date",
+      "invoiceTerm": "Project Invoice Term",
+      "submit": "Add project",
+      "submitEdit": "Update project",
+      "projectName": "Project name",
+      "customer": "Customer"
+    },
     "page": {
-      "applyVat": "Apply VAT on invoices"
+      "search": "Search project",
+      "searchPlaceholder": "Ex: Archimedes'",
+      "title": "Project page"
+    }
+  },
+  "rate": {
+    "dialog": {
+      "title": "Add a new rate",
+      "editTitle": "Update rate",
+      "employeeName": "Employee name",
+      "employeeTimeCommitment": "Employee Time Commitment",
+      "projectName": "Project name",
+      "rate": "Rate",
+      "rateType": "Rate type",
+      "submitEdit": "Update rate",
+      "submit": "Add rate"
+    },
+    "page": {
+      "table": {
+        "header": {
+          "delete": "Delete",
+          "edit": "Edit",
+          "employee": "Employee",
+          "project": "Project",
+          "rate": "Rate",
+          "rateType": "Rate type",
+          "time": "Allocation"
+        },
+        "noData": "No data matching the filter"
+      },
+      "title": "Rates"
+    }
+  },
+  "reporting": {
+    "hoursBookedDialog": {
+      "employeeCommitment": "Employees commitment for"
+    },
+    "page": {
+      "description": "DESCRIPTION",
+      "employeeName": "Employee Name",
+      "endDate": "End date",
+      "friday": "Fr",
+      "monday": "Mo",
+      "noActivitiesTitle": "No entries to be displayed yet.",
+      "saturday": "Sa",
+      "selectDateRange": "Select date range",
+      "startDate": "Start date",
+      "sunday": "Su",
+      "thursday": "Th",
+      "title": "Reporting Page",
+      "tuesday": "Tu",
+      "wednesday": "We",
+      "monthOverview": "Month overview",
+      "monthChangedError": "There was an error selecting the month!",
+      "monthChangedStatus": "Input data has errors."
+    }
+  },
+  "resetPasswordPage": {
+    "email": "Email",
+    "emailHint": "Email is required",
+    "resetPassword": "Reset Password",
+    "title": "Reset your password"
+  },
+  "settings": {
+    "changePassword": "Change your password",
+    "changePasswordButton": "Change password",
+    "currentPassword": "Current password",
+    "passwordsNoMatch": "Passwords do not match",
+    "retypePassword": "Re-type your password",
+    "title": "Settings"
+  },
+  "shared": {
+    "entity": {
+      "header": {
+        "all": "All projects",
+        "date": "Date",
+        "monthYear": "Month Year",
+        "search": "Search {{entity}}",
+        "searchPlaceholder": "Popescu Adrian",
+        "select": "Select a project"
+      },
+      "item": {
+        "empty": {
+          "filteredListEmpty": "For {{search}} there are no users",
+          "listEmpty": "There are no {{entity}}"
+        }
+      }
+    },
+    "modal": {
+      "cancel": "Cancel",
+      "confirmation": {
+        "submit": "Yes, delete",
+        "title": "Are you sure you want to delete this item?"
+      }
+    },
+    "widget": {
+      "monthlyOverview": {
+        "title": "Your monthly overview"
+      }
+    },
+    "userNavigation": {
+      "darkModeSwitch": "Dark Mode"
+    }
+  },
+  "sidenav": {
+    "account": "ACCOUNT",
+    "activities": "Activities",
+    "customers": "Customers",
+    "home": "Home",
+    "invoices": "Invoices",
+    "logOut": "Log out",
+    "projects": "Projects",
+    "rates": "Rates",
+    "reporting": "Reporting",
+    "settings": "Settings",
+    "users": "Users"
+  },
+  "user": {
+    "widget": {
+      "role": "Role"
+    },
+    "dialog": {
+      "admin": "Admin",
+      "email": "Email",
+      "emailHint": "Email is required",
+      "name": "User name",
+      "nameHint": "User name is required",
+      "role": "User role",
+      "roleHint": "User role is required",
+      "seniority": "User seniority",
+      "seniorityHint": "User seniority is required",
+      "submit": "Create a new user",
+      "submitEdit": "Update user",
+      "surname": "User surname",
+      "surnameHint": "User surname is required",
+      "timePerDay": "User time/day",
+      "timePerDayHint": "User time/day is required",
+      "title": "Add user",
+      "titleEdit": "Edit user"
+    },
+    "newDialog": {
+      "hint": "This is the password for the newly added user. Copy before closing the\r\n        dialog!"
+    },
+    "page": {
+      "search": "Search user"
     }
   }
 }

@@ -1,0 +1,60 @@
+<mat-nav-list class="px-0">
+  <a
+    mat-list-item
+    routerLink="dashboard"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.home" | translate }}</a
+  >
+  <a
+    mat-list-item
+    routerLink="activity"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.activities" | translate }}</a
+  >
+  @if(isAdmin()){
+  <a
+    mat-list-item
+    routerLink="users"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.users" | translate }}</a
+  >
+  <a
+    mat-list-item
+    routerLink="rate"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.rates" | translate }}</a
+  >
+  <a
+    mat-list-item
+    routerLink="project"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.projects" | translate }}</a
+  >
+  <a
+    mat-list-item
+    routerLink="customers"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.customers" | translate }}</a
+  >
+  <a
+    mat-list-item
+    routerLink="reporting"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.reporting" | translate }}
+  </a>
+  <a
+    mat-list-item
+    routerLink="invoices"
+    (click)="closeSidenav.emit()"
+    routerLinkActive="active"
+    >{{ "sidenav.invoices" | translate }}
+  </a>
+  }
+</mat-nav-list>

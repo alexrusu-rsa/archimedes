@@ -1,0 +1,42 @@
+<div class="position-sticky fixed-top">
+  <mat-toolbar color="primary" class="d-flex justify-content-center">
+    <div class="container d-flex flex-row">
+      @if(user()?.id){
+      <button
+        mat-icon-button
+        (click)="toggleSidenav.emit()"
+        class="d-xl-none d-lg-none d-md-none d-sm-flex d-flex"
+      >
+        <mat-icon>{{ icons.menu }}</mat-icon>
+      </button>
+      } @if(pageTitle()){
+      <h3 class="my-auto">{{ pageTitle() | titlecase }}</h3>
+      }
+
+      <span class="flex-grow-1"></span>
+
+      @if(user()){
+      <app-initials-icon
+        [matMenuTriggerFor]="menu"
+        [matMenuTriggerData]="{ menuUser: user() }"
+        class="my-auto border rounded-circle pointer-cursor"
+        [user]="user()"
+      ></app-initials-icon>
+      }
+    </div>
+
+    <!-- User passed must be named differently than user from component as it might confuse Angular -->
+    <mat-menu #menu="matMenu" class="px-2 pt-3 pb-0 mt-3" xPosition="before">
+      <ng-template matMenuContent let-menuUser="menuUser">
+        @if(user()){
+        <app-user-navigation
+          [user]="menuUser"
+          (logOut)="logOut.emit()"
+          [darkMode]="darkMode()"
+          (darkModeChanged)="darkModeChanged.emit(true)"
+        ></app-user-navigation>
+        }
+      </ng-template>
+    </mat-menu>
+  </mat-toolbar>
+</div>
