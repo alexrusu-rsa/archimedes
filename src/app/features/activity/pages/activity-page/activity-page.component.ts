@@ -47,7 +47,7 @@ import {
     EntityItemComponent,
     OrderByPipe,
     WorkedTimePipe,
-    DatePipe
+    DatePipe,
   ],
   templateUrl: './activity-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -102,7 +102,7 @@ export class ActivityPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((activity: Activity) => !!activity))
       .subscribe((activity: Activity) => {
-        this.store.addActivity(activity);
+        this.store.addActivity([activity]);
       });
   }
 
@@ -117,15 +117,8 @@ export class ActivityPageComponent implements OnInit {
   }
 
   editActivity(activity: Activity) {
-    const {
-      id,
-      employeeId,
-      date,
-      projectId,
-      projectName,
-      workedTime,
-      ...activityWithoutUnecessary
-    } = activity;
+    const { id, date, projectId, workedTime, ...activityWithoutUnecessary } =
+      activity;
     this.dialog
       .open(ActivityModalComponent, {
         data: {

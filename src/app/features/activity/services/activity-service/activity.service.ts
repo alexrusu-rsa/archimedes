@@ -7,8 +7,8 @@ import { ResponseHandlingService } from 'src/app/shared/services/response-handli
 import { environment } from 'src/environments/environment';
 import { ActivityDuplication } from '../../models/activity-duplication.model';
 import { BookedDay } from 'src/app/features/reporting/models/booked-day';
-import { UserWithActivities } from 'src/app/features/reporting/models/user-with-activities';
 import { WidgetDay } from 'src/app/features/invoice/models/widget-day';
+import { Days } from 'src/app/features/reporting/models/days';
 
 @Injectable({
   providedIn: 'root',
@@ -240,6 +240,21 @@ export class ActivityService {
           this.responseHandlingService.handleError<WidgetDay[]>(
             `getActivitiesOfMonthYearForUser`
           )
+        )
+      );
+  }
+
+  getMonthReport(date: Date): Observable<Days> {
+    const requestBody = {
+      month: date.getMonth() + 1,
+      year: date.getFullYear(),
+    };
+    const reportRequestUrl = this.activitiesUrl + '/monthYear/report';
+    return this.httpClient
+      .post<Days>(reportRequestUrl, requestBody)
+      .pipe(
+        catchError(
+          this.responseHandlingService.handleError<Days>('getMonthYearReport')
         )
       );
   }

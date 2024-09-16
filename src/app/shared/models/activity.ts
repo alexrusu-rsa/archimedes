@@ -1,4 +1,5 @@
 import { Project } from './project';
+import { User } from './user';
 
 export interface Activity {
   id?: string;
@@ -13,5 +14,5 @@ export interface Activity {
   employeeId: string;
   workedTime?: string;
   project?: Project;
-  projectName?: string;
+  user?: User;
 }

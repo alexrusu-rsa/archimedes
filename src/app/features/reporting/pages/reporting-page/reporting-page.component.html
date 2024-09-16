@@ -5,7 +5,26 @@
 />
 
 <app-reporting-month-overview
-  *ngIf="bookedDays() && activeMonth()"
-  [bookedDays]="bookedDays()"
-  [activeMonth]="activeMonth()"
+  *ngIf="store.bookedDays() && activeMonth()"
+  [bookedDays]="store.bookedDays()"
+  [activeMonth]="store.filter().activeMonth"
+/>
+<div class="col-12 d-flex justify-content-center">
+  <button
+    mat-icon-button
+    class="d-flex flex-column mx-auto mt-3"
+    aria-label="Enable Activities view button"
+    type="button"
+    (click)="displayActivitiesView.set(!displayActivitiesView())"
+  >
+    <mat-icon [color]="displayActivitiesView() ? 'secondary' : 'accent'">{{
+      displayActivitiesView()
+        ? icons.keyboard_arrow_up
+        : icons.keyboard_arrow_down
+    }}</mat-icon>
+  </button>
+</div>
+<app-reporting-activities-view
+  *ngIf="displayActivitiesView()"
+  [monthYearReport]="store.monthYearReport()"
 />

@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -34,6 +35,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { Project } from 'src/app/shared/models/project';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-activity-modal',
@@ -66,11 +68,14 @@ export class ActivityModalComponent implements OnInit {
   private dialogRef = inject(MatDialogRef<ActivityModalComponent>);
   private formBuilder = inject(FormBuilder);
   protected data = inject(MAT_DIALOG_DATA);
+  protected localStorageService = inject(LocalStorageService);
   protected activityProjects: Project[];
   protected activityTypes: string[];
   protected readonly icons = Icons;
   protected activityForm: FormGroup;
   protected validators = Validators;
+
+  displayEmployeeSelect = signal<boolean>(false);
 
   ngOnInit(): void {
     this.activityForm = this.formBuilder.group(
@@ -82,14 +87,17 @@ export class ActivityModalComponent implements OnInit {
         activityType: ['', Validators.required],
         description: [''],
         extras: [''],
+        employeeId: [''],
       },
       { validator: this.timeValidator }
     );
+    if (this.data?.users) {
+      this.displayEmployeeSelect.set(true);
+    }
 
     if (this.data?.activity) {
       const start = new Date(this.data.activity.start);
       const end = new Date(this.data.activity.end);
-
       // Ensure the dates are valid
       if (isNaN(start.getTime()) || isNaN(end.getTime())) {
         throw new Error('Invalid Date format provided in activity');
@@ -100,9 +108,9 @@ export class ActivityModalComponent implements OnInit {
 
       const endHours = String(end.getHours()).padStart(2, '0');
       const endMinutes = String(end.getMinutes()).padStart(2, '0');
-
+      const { user, id, projectId, ...activityToEdit } = this.data.activity;
       this.activityForm.setValue({
-        ...this.data.activity,
+        ...activityToEdit,
         start: `${startHours}:${startMinutes}`,
         end: `${endHours}:${endMinutes}`,
       });
@@ -138,14 +146,23 @@ export class ActivityModalComponent implements OnInit {
 
     if (this.activityForm.invalid) return;
 
-    this.dialogRef.close({
-      ...this.activityForm.value,
-      start: this.splitToHoursAndMinutes(startTime),
-      end: this.splitToHoursAndMinutes(endTime),
-    });
+    if (this.data.activity) {
+      this.dialogRef.close({
+        ...this.activityForm.value,
+        start: this.splitToHoursAndMinutes(startTime),
+        end: this.splitToHoursAndMinutes(endTime),
+        id: this.data?.activity?.id ?? null,
+      });
+    } else {
+      this.dialogRef.close({
+        ...this.activityForm.value,
+        start: this.splitToHoursAndMinutes(startTime),
+        end: this.splitToHoursAndMinutes(endTime),
+      });
+    }
   }
 
   protected displayName(project) {
-    return project?.projectName ? project?.projectName : '';
+    return project?.projectName ? project?.projectName : 'Other';
   }
 }
