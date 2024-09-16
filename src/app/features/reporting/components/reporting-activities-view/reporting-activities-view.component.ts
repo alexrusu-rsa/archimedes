@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { MatCardActions, MatCardTitle } from '@angular/material/card';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -52,6 +59,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
   public readonly store = inject(ActivityStore);
   protected readonly activeMonth = signal<Date>(new Date());
   protected readonly convertTimeToHours = convertTimeToHours;
+  calendarUpdate = output<boolean>();
 
   ngOnInit(): void {
     this.store.loadProjects();
@@ -82,6 +90,8 @@ export class ReportingActivitiesViewComponent implements OnInit {
           this.store.users(),
           activity.employeeId,
         ]);
+        this.store.loadBookedDays(this.store.filter());
+        this.calendarUpdate.emit(true);
       });
   }
 
@@ -117,6 +127,8 @@ export class ReportingActivitiesViewComponent implements OnInit {
             dateKey,
           ]);
         }
+        this.store.loadBookedDays(this.store.filter());
+        this.calendarUpdate.emit(true);
       });
   }
 
@@ -130,6 +142,8 @@ export class ReportingActivitiesViewComponent implements OnInit {
       )
       .subscribe((_) => {
         this.store.deleteActivityFromMonthYearReport([activity, dateKey]);
+        this.store.loadBookedDays(this.store.filter());
+        this.calendarUpdate.emit(true);
       });
   }
 }

@@ -50,12 +50,17 @@ export class ReportingMonthOverviewComponent {
 
   protected readonly bookedDays = input<BookedDay[]>();
   protected readonly activeMonth = input<Date>();
+  protected readonly calendarUpdate = input<boolean>();
 
   protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
 
   service = inject(ActivityService);
   constructor() {
     effect(() => {
+      if (this.calendarUpdate()) {
+        this.dateClass(this.activeMonth(), 'month');
+      }
+
       if (this.activeMonth() && this.calendar) {
         this.calendar.activeDate = new Date(this.activeMonth());
         this.calendar?.updateTodaysDate();
