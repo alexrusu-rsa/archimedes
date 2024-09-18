@@ -6,8 +6,8 @@
 
 <app-reporting-month-overview
   *ngIf="store.monthYearReport() && activeMonth()"
-  [bookedDays]="store.bookedDays()"
   [monthYearReport]="store.monthYearReport()"
+  [calendarUpdate]="calendarUpdate()"
   [activeMonth]="store.filter().activeMonth"
 />
 <div class="col-12 d-flex justify-content-center">
@@ -27,5 +27,6 @@
 </div>
 <app-reporting-activities-view
   *ngIf="displayActivitiesView()"
+  (calendarUpdate)="calendarUpdate.set(true)"
   [monthYearReport]="store.monthYearReport()"
 />

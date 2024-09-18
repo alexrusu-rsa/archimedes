@@ -1,10 +1,4 @@
-import {
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -56,6 +50,8 @@ export class ReportingPageComponent implements OnInit {
   );
   protected notificationService = inject(NotificationService);
   protected translateService = inject(TranslateService);
+
+  calendarUpdate = signal<boolean>(false);
 
   protected displayActivitiesView = signal<boolean>(false);
 

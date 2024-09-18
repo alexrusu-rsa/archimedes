@@ -7,7 +7,7 @@
   <mat-card-content>
     <mat-calendar
       #calendar
-      *ngIf="bookedDays().length"
+      *ngIf="store.monthYearReport()"
       [dateClass]="dateClass"
       [headerComponent]="calendarEmptyHeader"
       [startAt]="activeMonth()"
