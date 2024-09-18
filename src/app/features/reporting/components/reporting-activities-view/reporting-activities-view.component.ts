@@ -37,11 +37,11 @@ import { convertTimeToHours } from 'src/app/shared/utils/date-time.utils';
     MatCardTitle,
   ],
   styles: `
-    @use 'src/styles/variables.sass' as variables
-    .orange
-      color: variables.$rsasoft-partially-reported-day
-    .green
-      color: variables.$rsasoft-fully-reported-day
+    // @use 'src/styles/variables.sass' as variables
+    // .orange
+    //   color: variables.$rsasoft-partially-reported-day
+    // .green
+    //   color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })

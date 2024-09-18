@@ -386,23 +386,7 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      loadBookedDays: rxMethod<ActivityFilter>(
-        pipe(
-          tap(() => patchState(store, { isLoading: true })),
-          switchMap((filter: ActivityFilter) =>
-            activityService.getUsersWithActivities(filter.activeMonth).pipe(
-              tapResponse({
-                next: (bookedDaysResult) =>
-                  patchState(store, {
-                    bookedDays: bookedDaysResult,
-                  }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
-              })
-            )
-          )
-        )
-      ),
+      
       addActivityToMonthYearReport: rxMethod<
         [Activity, string, User[], string]
       >(

@@ -55,7 +55,6 @@ export class ReportingPageComponent implements OnInit {
     () => this.store.filter().activeMonth ?? new Date()
   );
   protected notificationService = inject(NotificationService);
-  protected activityService = inject(ActivityService);
   protected translateService = inject(TranslateService);
 
   protected displayActivitiesView = signal<boolean>(false);
@@ -66,7 +65,6 @@ export class ReportingPageComponent implements OnInit {
       project: null,
       activeMonth: this.activeMonth(),
     });
-    this.store.loadBookedDays(this.store.filter());
     this.store.loadMonthYearReport(this.store.filter());
   }
   disableActivitiesView() {
@@ -94,7 +92,6 @@ export class ReportingPageComponent implements OnInit {
       project: null,
       activeMonth: formattedDate,
     });
-    this.store.loadBookedDays(this.store.filter());
     this.store.loadMonthYearReport(this.store.filter());
   }
 }
