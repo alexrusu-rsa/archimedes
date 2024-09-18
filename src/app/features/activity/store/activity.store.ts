@@ -420,6 +420,7 @@ export const ActivityStore = signalStore(
                     isLoading: true,
                   });
                 },
+                // eslint-disable-next-line no-console
                 error: (error) => console.error(error),
                 finalize: () => patchState(store, { isLoading: false }),
               })

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ViewChild,
   effect,
@@ -19,9 +18,7 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { TranslateModule } from '@ngx-translate/core';
-import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { NgIf } from '@angular/common';
-import { Days } from '../../models/days';
 import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 
 enum CellColor {
@@ -81,8 +78,7 @@ export class ReportingMonthOverviewComponent {
       return CellColor.red;
     }
     const [bookedHours, bookedMinutes] = this.store
-      .monthYearReport()
-      [cursorDateISO].timeBooked.split(':')
+      .monthYearReport()[cursorDateISO].timeBooked.split(':')
       .map(Number);
     const expectedHours =
       this.store.monthYearReport()[cursorDateISO].expectedHours;

@@ -12,7 +12,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { WorkedTimePipe } from 'src/app/features/activity/pipes/worked-time.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { filter, take, tap } from 'rxjs';
+import { filter, take} from 'rxjs';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,

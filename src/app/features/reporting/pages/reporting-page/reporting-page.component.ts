@@ -1,13 +1,11 @@
 import {
   Component,
   computed,
-  effect,
   inject,
   OnInit,
   signal,
 } from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
-import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
 import { DatePickerType } from 'src/app/shared/models/date-picker-type.enum';
