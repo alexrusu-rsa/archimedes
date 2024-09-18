@@ -63,6 +63,7 @@ export class ReportingPageComponent implements OnInit {
     });
     this.store.loadMonthYearReport(this.store.filter());
   }
+  
   disableActivitiesView() {
     this.displayActivitiesView.set(!this.displayActivitiesView());
   }

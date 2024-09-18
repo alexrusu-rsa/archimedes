@@ -27,6 +27,6 @@
 </div>
 <app-reporting-activities-view
   *ngIf="displayActivitiesView()"
-  (calendarUpdate)="calendarUpdate.set(true)"
+  (calendarUpdate)="calendarUpdate.set($event)"
   [monthYearReport]="store.monthYearReport()"
 />

@@ -386,7 +386,6 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      
       addActivityToMonthYearReport: rxMethod<
         [Activity, string, User[], string]
       >(
@@ -434,7 +433,6 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-
       editActivityOfMonthYearReport: rxMethod<[Activity, string, string?]>(
         pipe(
           debounceTime(300),
@@ -483,7 +481,6 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-
       deleteActivityFromMonthYearReport: rxMethod<[Activity, string]>(
         pipe(
           debounceTime(300),

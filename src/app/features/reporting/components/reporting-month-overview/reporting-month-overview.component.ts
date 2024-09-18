@@ -20,7 +20,6 @@ import {
 } from '@angular/material/datepicker';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
-import { BookedDay } from '../../models/booked-day';
 import { NgIf } from '@angular/common';
 import { Days } from '../../models/days';
 import { ActivityStore } from 'src/app/features/activity/store/activity.store';
@@ -60,7 +59,9 @@ export class ReportingMonthOverviewComponent {
   service = inject(ActivityService);
   constructor() {
     effect(() => {
+      console.log(this.calendarUpdate());
       if (this.calendarUpdate()) {
+        console.log('doing this');
         this.dateClass(this.activeMonth(), 'month');
       }
 

@@ -59,6 +59,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
   public readonly store = inject(ActivityStore);
   protected readonly activeMonth = signal<Date>(new Date());
   protected readonly convertTimeToHours = convertTimeToHours;
+
   calendarUpdate = output<boolean>();
 
   ngOnInit(): void {
@@ -68,6 +69,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
   }
 
   addActivityToDate(dateKey: string) {
+    this.calendarUpdate.emit(false);
     this.dialog
       .open(ActivityModalComponent, {
         data: {
@@ -95,6 +97,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
   }
 
   editActivityOfDate(activity: Activity, dateKey: string) {
+    this.calendarUpdate.emit(false);
     const { date, workedTime, ...activityWithoutUnnecessary } = activity;
     this.dialog
       .open(ActivityModalComponent, {
@@ -131,6 +134,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
   }
 
   deleteActivityFromDate(activity: Activity, dateKey: string) {
+    this.calendarUpdate.emit(false);
     this.dialog
       .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
       .afterClosed()
