@@ -27,6 +27,7 @@ type ActivityState = {
   activityTypes: string[];
   projects: Project[];
   users: User[];
+  projectsOfUser: Project[];
   isLoading: boolean;
   filter: { project?: Project; date?: Date; activeMonth?: Date };
   monthYearReport: Days;
@@ -37,6 +38,7 @@ const initialState: ActivityState = {
   activityTypes: [],
   projects: [],
   users: [],
+  projectsOfUser: [],
   isLoading: false,
   filter: { project: null, date: new Date(), activeMonth: null },
   monthYearReport: {} as Days,
@@ -79,11 +81,28 @@ export const ActivityStore = signalStore(
         pipe(
           debounceTime(300),
           switchMap(() =>
-            projectService.getProjectsUser().pipe(
+            projectService.getProjects().pipe(
               tapResponse({
                 next: (projects: Project[]) =>
                   patchState(store, {
                     projects,
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+              })
+            )
+          )
+        )
+      ),
+      loadProjectsOfUser: rxMethod<void>(
+        pipe(
+          debounceTime(300),
+          switchMap(() =>
+            projectService.getProjectsUser().pipe(
+              tapResponse({
+                next: (projectsOfUser: Project[]) =>
+                  patchState(store, {
+                    projectsOfUser,
                   }),
                 // eslint-disable-next-line no-console
                 error: (error) => console.error(error),
