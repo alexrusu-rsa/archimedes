@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
 import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -6,6 +13,7 @@ import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page
 import { DatePickerType } from 'src/app/shared/models/date-picker-type.enum';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   MatNativeDateModule,
   provideNativeDateAdapter,
@@ -36,6 +44,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatDatepickerModule,
     MatNativeDateModule,
     ReportingActivitiesViewComponent,
+    MatProgressSpinnerModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-page.component.html',
@@ -51,9 +60,9 @@ export class ReportingPageComponent implements OnInit {
   protected notificationService = inject(NotificationService);
   protected translateService = inject(TranslateService);
 
-  calendarUpdate = signal<boolean>(false);
-
   protected displayActivitiesView = signal<boolean>(false);
+
+  monthYearReportUpdated = signal<boolean>(false);
 
   ngOnInit(): void {
     this.store.updateFilter({
@@ -63,7 +72,7 @@ export class ReportingPageComponent implements OnInit {
     });
     this.store.loadMonthYearReport(this.store.filter());
   }
-  
+
   disableActivitiesView() {
     this.displayActivitiesView.set(!this.displayActivitiesView());
   }
@@ -89,6 +98,10 @@ export class ReportingPageComponent implements OnInit {
       project: null,
       activeMonth: formattedDate,
     });
+    this.store.loadMonthYearReport(this.store.filter());
+  }
+
+  updateMonthOverview() {
     this.store.loadMonthYearReport(this.store.filter());
   }
 }

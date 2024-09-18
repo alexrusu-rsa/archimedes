@@ -12,7 +12,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { WorkedTimePipe } from 'src/app/features/activity/pipes/worked-time.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { filter, take } from 'rxjs';
+import { filter, take, tap } from 'rxjs';
 import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
@@ -44,11 +44,11 @@ import { convertTimeToHours } from 'src/app/shared/utils/date-time.utils';
     MatCardTitle,
   ],
   styles: `
-    // @use 'src/styles/variables.sass' as variables
-    // .orange
-    //   color: variables.$rsasoft-partially-reported-day
-    // .green
-    //   color: variables.$rsasoft-fully-reported-day
+    @use 'src/styles/variables.sass' as variables
+    .orange
+      color: variables.$rsasoft-partially-reported-day
+    .green
+      color: variables.$rsasoft-fully-reported-day
   `,
   templateUrl: './reporting-activities-view.component.html',
 })
@@ -59,8 +59,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
   public readonly store = inject(ActivityStore);
   protected readonly activeMonth = signal<Date>(new Date());
   protected readonly convertTimeToHours = convertTimeToHours;
-
-  calendarUpdate = output<boolean>();
+  monthYearReportUpdate = output<boolean>();
 
   ngOnInit(): void {
     this.store.loadProjects();
@@ -69,7 +68,6 @@ export class ReportingActivitiesViewComponent implements OnInit {
   }
 
   addActivityToDate(dateKey: string) {
-    this.calendarUpdate.emit(false);
     this.dialog
       .open(ActivityModalComponent, {
         data: {
@@ -92,12 +90,11 @@ export class ReportingActivitiesViewComponent implements OnInit {
           this.store.users(),
           activity.employeeId,
         ]);
-        this.calendarUpdate.emit(true);
+        this.monthYearReportUpdate.emit(true);
       });
   }
 
   editActivityOfDate(activity: Activity, dateKey: string) {
-    this.calendarUpdate.emit(false);
     const { date, workedTime, ...activityWithoutUnnecessary } = activity;
     this.dialog
       .open(ActivityModalComponent, {
@@ -123,18 +120,18 @@ export class ReportingActivitiesViewComponent implements OnInit {
             dateKey,
             activity.workedTime,
           ]);
+          this.monthYearReportUpdate.emit(true);
         } else {
           this.store.editActivityOfMonthYearReport([
             updatedActivityFormatted,
             dateKey,
           ]);
+          this.monthYearReportUpdate.emit(true);
         }
-        this.calendarUpdate.emit(true);
       });
   }
 
   deleteActivityFromDate(activity: Activity, dateKey: string) {
-    this.calendarUpdate.emit(false);
     this.dialog
       .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
       .afterClosed()
@@ -144,7 +141,7 @@ export class ReportingActivitiesViewComponent implements OnInit {
       )
       .subscribe((_) => {
         this.store.deleteActivityFromMonthYearReport([activity, dateKey]);
-        this.calendarUpdate.emit(true);
+        this.monthYearReportUpdate.emit(true);
       });
   }
 }

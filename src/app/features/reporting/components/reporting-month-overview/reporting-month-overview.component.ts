@@ -50,21 +50,12 @@ export class ReportingMonthOverviewComponent {
   @ViewChild(MatCalendar) calendar: MatCalendar<Date>;
 
   protected readonly store = inject(ActivityStore);
-  protected readonly monthYearReport = input<Days>();
   protected readonly activeMonth = input<Date>();
-  protected readonly calendarUpdate = input<boolean>();
 
   protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
 
-  service = inject(ActivityService);
   constructor() {
     effect(() => {
-      console.log(this.calendarUpdate());
-      if (this.calendarUpdate()) {
-        console.log('doing this');
-        this.dateClass(this.activeMonth(), 'month');
-      }
-
       if (this.activeMonth() && this.calendar) {
         this.calendar.activeDate = new Date(this.activeMonth());
         this.calendar?.updateTodaysDate();
@@ -86,16 +77,15 @@ export class ReportingMonthOverviewComponent {
       return CellColor.default;
     }
 
-    const currentDayReport = this.store.monthYearReport()[cursorDateISO];
-    if (!currentDayReport) {
+    if (!this.store.monthYearReport()[cursorDateISO]) {
       return CellColor.red;
     }
-
-    const [bookedHours, bookedMinutes] = currentDayReport.timeBooked
-      .split(':')
+    const [bookedHours, bookedMinutes] = this.store
+      .monthYearReport()
+      [cursorDateISO].timeBooked.split(':')
       .map(Number);
-    const expectedHours = currentDayReport.expectedHours;
-
+    const expectedHours =
+      this.store.monthYearReport()[cursorDateISO].expectedHours;
     if (bookedHours >= expectedHours) {
       return CellColor.green;
     }
@@ -114,6 +104,5 @@ export class ReportingMonthOverviewComponent {
 @Component({
   standalone: true,
   template: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class CalendarEmptyHeaderComponent {}

@@ -17,7 +17,6 @@ import { DatePipe } from '@angular/common';
 import { tapResponse } from '@ngrx/operators';
 import { ActivityDuplication } from 'src/app/features/activity/models/activity-duplication.model';
 import { ProjectService } from '../../project/services/project-service/project.service';
-import { BookedDay } from '../../reporting/models/booked-day';
 import { Days } from '../../reporting/models/days';
 import { User } from 'src/app/shared/models/user';
 import { UserService } from '../../user/services/user-service/user.service';
@@ -30,7 +29,6 @@ type ActivityState = {
   users: User[];
   isLoading: boolean;
   filter: { project?: Project; date?: Date; activeMonth?: Date };
-  bookedDays: BookedDay[];
   monthYearReport: Days;
 };
 
@@ -41,7 +39,6 @@ const initialState: ActivityState = {
   users: [],
   isLoading: false,
   filter: { project: null, date: new Date(), activeMonth: null },
-  bookedDays: [],
   monthYearReport: {} as Days,
 };
 
@@ -420,14 +417,11 @@ export const ActivityStore = signalStore(
 
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
-                    isLoading: false,
+                    isLoading: true,
                   });
                 },
-                error: (error) => {
-                  // eslint-disable-next-line no-console
-                  console.error(error);
-                  patchState(store, { isLoading: false });
-                },
+                error: (error) => console.error(error),
+                finalize: () => patchState(store, { isLoading: false }),
               })
             )
           )
@@ -471,6 +465,7 @@ export const ActivityStore = signalStore(
 
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
+                    isLoading: true,
                   });
                 },
                 // eslint-disable-next-line no-console
@@ -508,6 +503,7 @@ export const ActivityStore = signalStore(
                     updatedTimeBooked;
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
+                    isLoading: true,
                   });
                 },
                 // eslint-disable-next-line no-console

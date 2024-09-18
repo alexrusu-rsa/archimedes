@@ -1,32 +1,26 @@
-<app-entity-page-header
-  [datePickerType]="datePickerType.monthYear"
-  (datePickerValueChanged)="changeDate($event)"
-  class="d-flex flex-wrap justify-content-between column-gap-2"
-/>
+<app-entity-page-header [datePickerType]="datePickerType.monthYear" (datePickerValueChanged)="changeDate($event)"
+  class="d-flex flex-wrap justify-content-between column-gap-2" />
 
-<app-reporting-month-overview
-  *ngIf="store.monthYearReport() && activeMonth()"
-  [monthYearReport]="store.monthYearReport()"
-  [calendarUpdate]="calendarUpdate()"
-  [activeMonth]="store.filter().activeMonth"
-/>
+
+
+@if(!store.isLoading()){
+<app-reporting-month-overview *ngIf="store.monthYearReport() && activeMonth()"
+  [activeMonth]="store.filter().activeMonth" />
 <div class="col-12 d-flex justify-content-center">
-  <button
-    mat-icon-button
-    class="d-flex flex-column mx-auto mt-3"
-    aria-label="Enable Activities view button"
-    type="button"
-    (click)="displayActivitiesView.set(!displayActivitiesView())"
-  >
+  <button mat-icon-button class="d-flex flex-column mx-auto mt-3" aria-label="Enable Activities view button"
+    type="button" (click)="displayActivitiesView.set(!displayActivitiesView())">
     <mat-icon [color]="displayActivitiesView() ? 'secondary' : 'accent'">{{
       displayActivitiesView()
-        ? icons.keyboard_arrow_up
-        : icons.keyboard_arrow_down
-    }}</mat-icon>
+      ? icons.keyboard_arrow_up
+      : icons.keyboard_arrow_down
+      }}</mat-icon>
   </button>
 </div>
-<app-reporting-activities-view
-  *ngIf="displayActivitiesView()"
-  (calendarUpdate)="calendarUpdate.set($event)"
-  [monthYearReport]="store.monthYearReport()"
-/>
+<app-reporting-activities-view *ngIf="displayActivitiesView() " [monthYearReport]="store.monthYearReport() "
+  (monthYearReportUpdate)="updateMonthOverview()" />
+}@else{
+<div class="d-flex col-12 justify-content-center mt-4">
+  <mat-spinner color="accent"></mat-spinner>
+</div>
+
+}
