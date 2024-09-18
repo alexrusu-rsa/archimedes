@@ -26,6 +26,7 @@ import { calculateUpdatedTime } from 'src/app/shared/utils/date-time.utils';
 type ActivityState = {
   activities: Activity[];
   activityTypes: string[];
+  projectsOfCurrentUser: Project[];
   projects: Project[];
   users: User[];
   isLoading: boolean;
@@ -37,6 +38,7 @@ type ActivityState = {
 const initialState: ActivityState = {
   activities: [],
   activityTypes: [],
+  projectsOfCurrentUser: [],
   projects: [],
   users: [],
   isLoading: false,
@@ -78,11 +80,28 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-      loadProjects: rxMethod<void>(
+      loadProjectsOfUser: rxMethod<void>(
         pipe(
           debounceTime(300),
           switchMap(() =>
             projectService.getProjectsUser().pipe(
+              tapResponse({
+                next: (projectsOfCurrentUser: Project[]) =>
+                  patchState(store, {
+                    projectsOfCurrentUser,
+                  }),
+                // eslint-disable-next-line no-console
+                error: (error) => console.error(error),
+              })
+            )
+          )
+        )
+      ),
+      loadProjects: rxMethod<void>(
+        pipe(
+          debounceTime(300),
+          switchMap(() =>
+            projectService.getProjects().pipe(
               tapResponse({
                 next: (projects: Project[]) =>
                   patchState(store, {
@@ -112,7 +131,6 @@ export const ActivityStore = signalStore(
           )
         )
       ),
-
       loadActivitiesByFilter: rxMethod<ActivityFilter>(
         pipe(
           debounceTime(300),
@@ -373,16 +391,18 @@ export const ActivityStore = signalStore(
         pipe(
           tap(() => patchState(store, { isLoading: true })),
           switchMap((filter: ActivityFilter) =>
-            activityService.getMonthReport(filter.activeMonth).pipe(
-              tapResponse({
-                next: (monthYearReport) =>
-                  patchState(store, {
-                    monthYearReport: monthYearReport,
-                  }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
-              })
-            )
+            activityService
+              .getMonthReport(filter.activeMonth, filter.project)
+              .pipe(
+                tapResponse({
+                  next: (monthYearReport) =>
+                    patchState(store, {
+                      monthYearReport: monthYearReport,
+                    }),
+                  // eslint-disable-next-line no-console
+                  error: (error) => console.error(error),
+                })
+              )
           )
         )
       ),

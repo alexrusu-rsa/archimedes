@@ -19,6 +19,7 @@ import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Icons } from 'src/app/shared/models/icons.enum';
+import { Project } from 'src/app/shared/models/project';
 
 @Component({
   selector: 'app-reporting-page',
@@ -64,6 +65,30 @@ export class ReportingPageComponent implements OnInit {
     });
     this.store.loadBookedDays(this.store.filter());
     this.store.loadMonthYearReport(this.store.filter());
+    this.store.loadProjects();
+  }
+  protected updateFilter(key: string, value) {
+    switch (key) {
+      case 'date':
+        this.store.updateFilter({
+          date: value,
+          project: null,
+          activeMonth: this.store.filter().activeMonth,
+        });
+        this.store.loadMonthYearReport(this.store.filter());
+        break;
+      case 'project':
+        this.store.updateFilter({
+          project: value,
+          date: this.store.filter()?.date,
+          activeMonth: this.store.filter().activeMonth,
+        });
+        this.store.loadMonthYearReport(this.store.filter());
+        break;
+
+      default:
+        break;
+    }
   }
   disableActivitiesView() {
     this.displayActivitiesView.set(!this.displayActivitiesView());

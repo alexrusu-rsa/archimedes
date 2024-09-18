@@ -9,6 +9,7 @@ import { ActivityDuplication } from '../../models/activity-duplication.model';
 import { BookedDay } from 'src/app/features/reporting/models/booked-day';
 import { WidgetDay } from 'src/app/features/invoice/models/widget-day';
 import { Days } from 'src/app/features/reporting/models/days';
+import { Project } from 'src/app/shared/models/project';
 
 @Injectable({
   providedIn: 'root',
@@ -244,7 +245,8 @@ export class ActivityService {
       );
   }
 
-  getMonthReport(date: Date): Observable<Days> {
+  getMonthReport(date: Date, project: Project): Observable<Days> {
+    console.log('', project);
     const requestBody = {
       month: date.getMonth() + 1,
       year: date.getFullYear(),

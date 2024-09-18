@@ -94,7 +94,7 @@ export class ActivityPageComponent implements OnInit {
     this.dialog
       .open(ActivityModalComponent, {
         data: {
-          activityProjects: this.store.projects(),
+          activityProjects: this.store.projectsOfCurrentUser(),
           activityTypes: this.store.activityTypes(),
         },
         panelClass: 'full-width-dialog',
@@ -125,7 +125,7 @@ export class ActivityPageComponent implements OnInit {
           activity: {
             ...activityWithoutUnecessary,
           },
-          activityProjects: this.store.projects(),
+          activityProjects: this.store.projectsOfCurrentUser(),
           activityTypes: this.store.activityTypes(),
         },
         panelClass: 'full-width-dialog',
