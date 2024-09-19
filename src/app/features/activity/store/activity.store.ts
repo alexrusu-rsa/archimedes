@@ -395,8 +395,13 @@ export const ActivityStore = signalStore(
                   patchState(store, {
                     monthYearReport: monthYearReport,
                   }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
+                finalize: () => patchState(store, { isLoading: false }),
               })
             )
           )
@@ -436,11 +441,14 @@ export const ActivityStore = signalStore(
 
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
-                    isLoading: true,
                   });
                 },
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
                 finalize: () => patchState(store, { isLoading: false }),
               })
             )
@@ -450,6 +458,7 @@ export const ActivityStore = signalStore(
       editActivityOfMonthYearReport: rxMethod<[Activity, string, string?]>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap(([activity, dateKey, timeToRemove]) =>
             activityService.updateActivity(activity).pipe(
               tapResponse({
@@ -485,7 +494,7 @@ export const ActivityStore = signalStore(
 
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
-                    isLoading: true,
+                    isLoading: false,
                   });
                 },
                 // eslint-disable-next-line no-console
@@ -498,6 +507,7 @@ export const ActivityStore = signalStore(
       ),
       deleteActivityFromMonthYearReport: rxMethod<[Activity, string]>(
         pipe(
+          tap(() => patchState(store, { isLoading: true })),
           debounceTime(300),
           switchMap(([activity, dateKey]) =>
             activityService.deleteActivity(activity.id).pipe(
@@ -523,11 +533,14 @@ export const ActivityStore = signalStore(
                     updatedTimeBooked;
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
-                    isLoading: true,
+                    isLoading: false,
                   });
                 },
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
                 finalize: () => patchState(store, { isLoading: false }),
               })
             )

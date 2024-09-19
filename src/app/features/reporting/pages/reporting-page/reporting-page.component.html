@@ -1,8 +1,5 @@
 <app-entity-page-header [datePickerType]="datePickerType.monthYear" (datePickerValueChanged)="changeDate($event)"
   class="d-flex flex-wrap justify-content-between column-gap-2" />
-
-
-
 @if(!store.isLoading()){
 <app-reporting-month-overview *ngIf="store.monthYearReport() && activeMonth()"
   [activeMonth]="store.filter().activeMonth" />
@@ -16,11 +13,12 @@
       }}</mat-icon>
   </button>
 </div>
-<app-reporting-activities-view *ngIf="displayActivitiesView() " [monthYearReport]="store.monthYearReport() "
-  (monthYearReportUpdate)="updateMonthOverview()" />
+<app-reporting-activities-view *ngIf="displayActivitiesView() " [monthYearReport]="store.monthYearReport()" [projects]="
+  this.store.projects()" [users]="this.store.users()" [activityTypes]="this.store.activityTypes()"
+  (addActivityEvent)="addActivityToDate($event)" (editActivityEvent)="editActivityOfDate($event)"
+  (deleteActivityEvent)="deleteActivityFromDate($event)" (monthYearReportUpdate)="updateMonthOverview()" />
 }@else{
 <div class="d-flex col-12 justify-content-center mt-4">
-  <mat-spinner color="accent"></mat-spinner>
+  <mat-spinner color="accent" />
 </div>
-
 }

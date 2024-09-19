@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ViewChild,
   effect,
@@ -42,6 +43,7 @@ enum CellColor {
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-month-overview.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportingMonthOverviewComponent {
   @ViewChild(MatCalendar) calendar: MatCalendar<Date>;
@@ -51,14 +53,7 @@ export class ReportingMonthOverviewComponent {
 
   protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
 
-  constructor() {
-    effect(() => {
-      if (this.activeMonth() && this.calendar) {
-        this.calendar.activeDate = new Date(this.activeMonth());
-        this.calendar?.updateTodaysDate();
-      }
-    });
-  }
+  constructor() {}
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
 
@@ -78,7 +73,8 @@ export class ReportingMonthOverviewComponent {
       return CellColor.red;
     }
     const [bookedHours, bookedMinutes] = this.store
-      .monthYearReport()[cursorDateISO].timeBooked.split(':')
+      .monthYearReport()
+      [cursorDateISO].timeBooked.split(':')
       .map(Number);
     const expectedHours =
       this.store.monthYearReport()[cursorDateISO].expectedHours;
