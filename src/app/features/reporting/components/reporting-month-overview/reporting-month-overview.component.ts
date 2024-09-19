@@ -53,7 +53,6 @@ export class ReportingMonthOverviewComponent {
 
   protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
 
-  constructor() {}
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
 
