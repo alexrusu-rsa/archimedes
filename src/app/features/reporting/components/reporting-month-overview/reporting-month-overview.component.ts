@@ -21,6 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 import { ActivityStore } from 'src/app/features/activity/store/activity.store';
+import { Days } from '../../models/days';
 
 enum CellColor {
   red = 'red',
@@ -48,8 +49,8 @@ enum CellColor {
 export class ReportingMonthOverviewComponent {
   @ViewChild(MatCalendar) calendar: MatCalendar<Date>;
 
-  protected readonly store = inject(ActivityStore);
   protected readonly activeMonth = input<Date>();
+  protected readonly monthYearReport = input<Days>();
 
   protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
 
@@ -68,15 +69,13 @@ export class ReportingMonthOverviewComponent {
       return CellColor.default;
     }
 
-    if (!this.store.monthYearReport()[cursorDateISO]) {
+    if (!this.monthYearReport()[cursorDateISO]) {
       return CellColor.red;
     }
-    const [bookedHours, bookedMinutes] = this.store
-      .monthYearReport()
-      [cursorDateISO].timeBooked.split(':')
+    const [bookedHours, bookedMinutes] = this.monthYearReport()[cursorDateISO].timeBooked.split(':')
       .map(Number);
     const expectedHours =
-      this.store.monthYearReport()[cursorDateISO].expectedHours;
+      this.monthYearReport()[cursorDateISO].expectedHours;
     if (bookedHours >= expectedHours) {
       return CellColor.green;
     }
