@@ -156,6 +156,7 @@ export class ReportingPageComponent implements OnInit {
           this.store.users(),
           activity.employeeId,
         ]);
+        // this.store.loadMonthYearReport(this.store.filter());
       });
   }
 
@@ -192,6 +193,7 @@ export class ReportingPageComponent implements OnInit {
             dateKey,
           ]);
         }
+        // this.store.loadMonthYearReport(this.store.filter());
       });
   }
 
