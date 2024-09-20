@@ -18,6 +18,7 @@ import { Days } from '../../models/days';
 import { convertTimeToHours } from 'src/app/shared/utils/date-time.utils';
 import { Project } from 'src/app/shared/models/project';
 import { User } from 'src/app/shared/models/user';
+import { ConvertTimeToHoursPipe } from 'src/app/shared/pipes/convertTimeToHours/convert-time-to-hours.pipe';
 
 @Component({
   selector: 'app-reporting-activities-view',
@@ -30,6 +31,7 @@ import { User } from 'src/app/shared/models/user';
     MatCardActions,
     CommonModule,
     DatePipe,
+    ConvertTimeToHoursPipe,
     WorkedTimePipe,
     TranslateModule,
     TimePipe,
@@ -51,9 +53,9 @@ export class ReportingActivitiesViewComponent {
   protected readonly users = input<User[]>();
   protected readonly monthYearReport = input<Days>();
 
-  editActivityEvent = output<{ activity: Activity; dateKey: string }>();
-  addActivityEvent = output<string>();
-  deleteActivityEvent = output<{ activity: Activity; dateKey: string }>();
+  edit = output<{ activity: Activity; dateKey: string }>();
+  add = output<string>();
+  delete = output<{ activity: Activity; dateKey: string }>();
 
   monthYearReportUpdate = output<boolean>();
 
@@ -61,14 +63,14 @@ export class ReportingActivitiesViewComponent {
   protected readonly convertTimeToHours = convertTimeToHours;
 
   addActivityToDateEmit(dateKey: string) {
-    this.addActivityEvent.emit(dateKey);
+    this.add.emit(dateKey);
   }
 
   editActivityOfDateEmit(activity: Activity, dateKey: string) {
-    this.editActivityEvent.emit({ activity, dateKey });
+    this.edit.emit({ activity, dateKey });
   }
 
   deleteActivityOfDateEmit(activity: Activity, dateKey: string) {
-    this.deleteActivityEvent.emit({ activity, dateKey });
+    this.delete.emit({ activity, dateKey });
   }
 }

@@ -20,7 +20,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { MatDialog } from '@angular/material/dialog';
-import { convertTimeToHours } from 'src/app/shared/utils/date-time.utils';
 import { filter, take } from 'rxjs';
 import { ActivityModalComponent } from 'src/app/features/activity/components/activity-modal/activity-modal.component';
 import { Activity } from 'src/app/shared/models/activity';
@@ -63,7 +62,6 @@ export class ReportingPageComponent implements OnInit {
   protected notificationService = inject(NotificationService);
   protected translateService = inject(TranslateService);
   protected readonly icons = Icons;
-  protected readonly convertTimeToHours = convertTimeToHours;
 
   protected displayActivitiesView = signal<boolean>(false);
 
@@ -134,7 +132,6 @@ export class ReportingPageComponent implements OnInit {
           this.store.users(),
           activity.employeeId,
         ]);
-        // this.monthYearReportUpdate.emit(true);
       });
   }
 

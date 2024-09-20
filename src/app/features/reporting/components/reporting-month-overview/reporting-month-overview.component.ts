@@ -2,8 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewChild,
-  effect,
-  inject,
   input,
 } from '@angular/core';
 import {
@@ -20,7 +18,6 @@ import {
 } from '@angular/material/datepicker';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
-import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { Days } from '../../models/days';
 
 enum CellColor {
@@ -72,10 +69,8 @@ export class ReportingMonthOverviewComponent {
     if (!this.monthYearReport()[cursorDateISO]) {
       return CellColor.red;
     }
-    const [bookedHours, bookedMinutes] = this.monthYearReport()[cursorDateISO].timeBooked.split(':')
-      .map(Number);
-    const expectedHours =
-      this.monthYearReport()[cursorDateISO].expectedHours;
+    const [bookedHours, bookedMinutes] = this.monthYearReport()[cursorDateISO].timeBooked.split(':').map(Number);
+    const expectedHours = this.monthYearReport()[cursorDateISO].expectedHours;
     if (bookedHours >= expectedHours) {
       return CellColor.green;
     }

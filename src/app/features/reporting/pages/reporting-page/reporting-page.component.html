@@ -15,8 +15,8 @@
 </div>
 <app-reporting-activities-view *ngIf="displayActivitiesView() " [monthYearReport]="store.monthYearReport()" [projects]="
   this.store.projects()" [users]="this.store.users()" [activityTypes]="this.store.activityTypes()"
-  (addActivityEvent)="addActivityToDate($event)" (editActivityEvent)="editActivityOfDate($event)"
-  (deleteActivityEvent)="deleteActivityFromDate($event)" (monthYearReportUpdate)="updateMonthOverview()" />
+  (add)="addActivityToDate($event)" (edit)="editActivityOfDate($event)" (delete)="deleteActivityFromDate($event)"
+  (monthYearReportUpdate)="updateMonthOverview()" />
 }@else{
 <div class="d-flex col-12 justify-content-center mt-4">
   <mat-spinner color="accent" />
