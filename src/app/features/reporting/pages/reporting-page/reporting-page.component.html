@@ -1,10 +1,10 @@
 <app-entity-page-header [datePickerType]="datePickerType.monthYear" (datePickerValueChanged)="changeDate($event)"
   [filter]="store.filter()" [selectOptions]="this.store.projects()"
-  (selectValueChanged)="this.updateFilter('project', $event)"
+  (selectValueChanged)="updateFilter('project', $event)"
   class="d-flex flex-wrap justify-content-between column-gap-2" />
-
-<app-reporting-month-overview *ngIf="store.bookedDays() && activeMonth()" [bookedDays]="store.bookedDays()"
-  [calendarUpdate]="calendarUpdate()" [activeMonth]="store.filter().activeMonth" />
+@if(!store.isLoading()){
+<app-reporting-month-overview *ngIf="store.monthYearReport() && activeMonth()"
+  [activeMonth]="store.filter().activeMonth" [monthYearReport]="store.monthYearReport()" />
 <div class="col-12 d-flex justify-content-center">
   <button mat-icon-button class="d-flex flex-column mx-auto mt-3" aria-label="Enable Activities view button"
     type="button" (click)="displayActivitiesView.set(!displayActivitiesView())">
@@ -15,5 +15,12 @@
       }}</mat-icon>
   </button>
 </div>
-<app-reporting-activities-view *ngIf="displayActivitiesView()" (calendarUpdate)="calendarUpdate.set(true)"
-  [monthYearReport]="store.monthYearReport()" />
+<app-reporting-activities-view *ngIf="displayActivitiesView() " [monthYearReport]="store.monthYearReport()" [projects]="
+  this.store.projects()" [users]="store.users()" [activityTypes]="store.activityTypes()"
+  (add)="addActivityToDate($event)" (edit)="editActivityOfDate($event)" (delete)="deleteActivityFromDate($event)"
+  (monthYearReportUpdate)="updateMonthOverview()" />
+}@else{
+<div class="d-flex col-12 justify-content-center mt-4">
+  <mat-spinner color="accent" />
+</div>
+}

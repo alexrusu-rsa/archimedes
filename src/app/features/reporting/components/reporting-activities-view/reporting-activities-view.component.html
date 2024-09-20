@@ -1,65 +1,39 @@
-@for (bookedDay of store.monthYearReport() | keyvalue; track $index) {
+@for (bookedDay of monthYearReport() | keyvalue; track $index) {
 <div class="d-flex flex-row justify-content-start mt-2">
   <mat-card-title>{{ bookedDay.key | date }}</mat-card-title>
-  <mat-card-title
-    class="ms-3"
-    [ngClass]="{
-      green:
-        convertTimeToHours(bookedDay.value.timeBooked) >=
-        bookedDay.value.expectedHours,
-      orange:
-        convertTimeToHours(bookedDay.value.timeBooked) > 0 &&
-        convertTimeToHours(bookedDay.value.timeBooked) <
-          bookedDay.value.expectedHours
-    }"
-  >
-    {{ bookedDay.value.timeBooked | time }} /
-    {{ bookedDay.value.expectedHours }}h
+  <mat-card-title class="ms-3" [ngClass]="{
+        green: (bookedDay.value.timeBooked | convertTimeToHours) >= bookedDay.value.expectedHours,
+        orange: (bookedDay.value.timeBooked | convertTimeToHours) > 0 && (bookedDay.value.timeBooked | convertTimeToHours) < bookedDay.value.expectedHours
+      }">
+    {{ bookedDay.value.timeBooked | time }} / {{ bookedDay.value.expectedHours }}h
   </mat-card-title>
 </div>
+
 @for (activity of bookedDay.value.activities; track $index) {
 <div class="d-flex flex-column row-gap-3">
-  <app-entity-item
-    class="mb-3"
-    [title]="activity?.name"
-    subtitle="{{ activity?.start | date : 'shortTime' }} - {{
+  <app-entity-item class="mb-3" [title]="activity?.name" subtitle="{{ activity?.start | date : 'shortTime' }} - {{
       activity?.end | date : 'shortTime'
-    }} {{ activity?.workedTime | workedTime }}"
-    [chips]="[
+    }} {{ activity?.workedTime | workedTime }}" [chips]="[
       activity?.project
         ? activity?.project?.projectName
         : ('activity.shared.other' | translate),
       activity?.user?.name + ' ' + activity?.user?.surname
-    ]"
-  >
+    ]">
     <mat-card-actions actions align="end">
-      <button
-        mat-icon-button
-        aria-label="Edit activity button"
-        type="button"
-        (click)="editActivityOfDate(activity, bookedDay.key)"
-      >
+      <button mat-icon-button aria-label="Edit activity button" type="button"
+        (click)="editActivityOfDateEmit(activity, bookedDay.key)">
         <mat-icon color="accent">{{ icons.edit }}</mat-icon>
       </button>
-      <button
-        mat-icon-button
-        aria-label="Delete activity button"
-        type="button"
-        (click)="deleteActivityFromDate(activity, bookedDay.key)"
-      >
+      <button mat-icon-button aria-label="Delete activity button" type="button"
+        (click)="deleteActivityOfDateEmit(activity, bookedDay.key)">
         <mat-icon color="accent">{{ icons.delete }}</mat-icon>
       </button>
     </mat-card-actions>
   </app-entity-item>
 </div>
 }
-<button
-  mat-raised-button
-  class="add-entity-button d-flex flex-column mx-auto mt-3"
-  aria-label="Create activity button"
-  type="button"
-  (click)="addActivityToDate(bookedDay.key)"
->
+<button mat-raised-button class="add-entity-button d-flex flex-column mx-auto mt-3" aria-label="Create activity button"
+  type="button" (click)="addActivityToDateEmit(bookedDay.key)">
   <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
 </button>
 }

@@ -1,11 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
-import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
 import { DatePickerType } from 'src/app/shared/models/date-picker-type.enum';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   MatNativeDateModule,
   provideNativeDateAdapter,
@@ -19,7 +19,14 @@ import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Icons } from 'src/app/shared/models/icons.enum';
-import { Project } from 'src/app/shared/models/project';
+import { MatDialog } from '@angular/material/dialog';
+import { filter, take } from 'rxjs';
+import { ActivityModalComponent } from 'src/app/features/activity/components/activity-modal/activity-modal.component';
+import { Activity } from 'src/app/shared/models/activity';
+import {
+  DeleteConfirmationModalComponent,
+  deleteConfirmationModalPreset,
+} from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-reporting-page',
@@ -37,23 +44,24 @@ import { Project } from 'src/app/shared/models/project';
     MatDatepickerModule,
     MatNativeDateModule,
     ReportingActivitiesViewComponent,
+    MatProgressSpinnerModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-page.component.html',
 })
 export class ReportingPageComponent implements OnInit {
   public readonly store = inject(ActivityStore);
-  protected readonly icons = Icons;
 
   protected readonly datePickerType = DatePickerType;
   protected readonly activeMonth = computed(
     () => this.store.filter().activeMonth ?? new Date()
   );
-  protected notificationService = inject(NotificationService);
-  protected activityService = inject(ActivityService);
-  protected translateService = inject(TranslateService);
 
-  calendarUpdate = signal<boolean>(false);
+  private readonly dialog = inject(MatDialog);
+
+  protected notificationService = inject(NotificationService);
+  protected translateService = inject(TranslateService);
+  protected readonly icons = Icons;
 
   protected displayActivitiesView = signal<boolean>(false);
 
@@ -63,7 +71,9 @@ export class ReportingPageComponent implements OnInit {
       project: null,
       activeMonth: this.activeMonth(),
     });
-    this.store.loadBookedDays(this.store.filter());
+    this.store.loadProjects();
+    this.store.loadUsers();
+    this.store.loadActivityTypes();
     this.store.loadMonthYearReport(this.store.filter());
     this.store.loadProjects();
   }
@@ -90,6 +100,7 @@ export class ReportingPageComponent implements OnInit {
         break;
     }
   }
+
   disableActivitiesView() {
     this.displayActivitiesView.set(!this.displayActivitiesView());
   }
@@ -115,7 +126,86 @@ export class ReportingPageComponent implements OnInit {
       project: null,
       activeMonth: formattedDate,
     });
-    this.store.loadBookedDays(this.store.filter());
     this.store.loadMonthYearReport(this.store.filter());
+  }
+
+  updateMonthOverview() {
+    this.store.loadMonthYearReport(this.store.filter());
+  }
+
+  addActivityToDate(dateKey: string) {
+    this.dialog
+      .open(ActivityModalComponent, {
+        data: {
+          activityProjects: this.store.projects(),
+          activityTypes: this.store.activityTypes(),
+          users: this.store.users(),
+        },
+        panelClass: 'full-width-dialog',
+      })
+      .afterClosed()
+      .pipe(
+        filter((activity: Activity) => !!activity),
+        take(1)
+      )
+      .subscribe((activity: Activity) => {
+        activity.date = new Date(dateKey);
+        this.store.addActivityToMonthYearReport([
+          { ...activity, projectId: activity?.project?.id },
+          dateKey,
+          this.store.users(),
+          activity.employeeId,
+        ]);
+      });
+  }
+
+  editActivityOfDate(event: { activity: Activity; dateKey: string }) {
+    const [activity, dateKey] = [event.activity, event.dateKey];
+    const { date, workedTime, ...activityWithoutUnnecessary } = activity;
+    this.dialog
+      .open(ActivityModalComponent, {
+        data: {
+          activity: activityWithoutUnnecessary,
+          activityProjects: this.store.projects(),
+          activityTypes: this.store.activityTypes(),
+        },
+        panelClass: 'full-width-dialog',
+      })
+      .afterClosed()
+      .pipe(
+        filter((result) => !!result),
+        take(1)
+      )
+      .subscribe((updatedActivity: Activity) => {
+        const { project, ...updatedActivityFormatted } = updatedActivity;
+        updatedActivityFormatted.projectId = project?.id;
+
+        if (updatedActivity.workedTime !== activity.workedTime) {
+          this.store.editActivityOfMonthYearReport([
+            updatedActivityFormatted,
+            dateKey,
+            activity.workedTime,
+          ]);
+        } else {
+          this.store.editActivityOfMonthYearReport([
+            updatedActivityFormatted,
+            dateKey,
+          ]);
+        }
+      });
+  }
+
+  deleteActivityFromDate(event: { activity: Activity; dateKey: string }) {
+    const [activity, dateKey] = [event.activity, event.dateKey];
+    this.dialog
+      .open(DeleteConfirmationModalComponent, deleteConfirmationModalPreset)
+      .afterClosed()
+      .pipe(
+        filter((deleteConfirmation) => deleteConfirmation === true),
+        take(1)
+      )
+      .subscribe((_) => {
+        this.store.deleteActivityFromMonthYearReport([activity, dateKey]);
+      });
   }
 }
