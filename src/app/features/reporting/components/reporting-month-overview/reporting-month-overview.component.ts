@@ -2,8 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewChild,
-  effect,
-  inject,
   input,
 } from '@angular/core';
 import {
@@ -19,9 +17,8 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { TranslateModule } from '@ngx-translate/core';
-import { ActivityService } from 'src/app/features/activity/services/activity-service/activity.service';
-import { BookedDay } from '../../models/booked-day';
 import { NgIf } from '@angular/common';
+import { Days } from '../../models/days';
 
 enum CellColor {
   red = 'red',
@@ -44,69 +41,36 @@ enum CellColor {
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-month-overview.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportingMonthOverviewComponent {
   @ViewChild(MatCalendar) calendar: MatCalendar<Date>;
 
-  protected readonly bookedDays = input<BookedDay[]>();
   protected readonly activeMonth = input<Date>();
+  protected readonly monthYearReport = input<Days>();
 
   protected readonly calendarEmptyHeader = CalendarEmptyHeaderComponent;
 
-  service = inject(ActivityService);
-  constructor() {
-    effect(() => {
-      if (this.activeMonth() && this.calendar) {
-        this.calendar.activeDate = new Date(this.activeMonth());
-        this.calendar?.updateTodaysDate();
-      }
-    });
-  }
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
 
-    const toRomaniaDate = (date: Date): Date => {
-      const options = {
-        timeZone: 'Europe/Bucharest',
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-      } as const;
-      const formatter = new Intl.DateTimeFormat('en-US', options);
-      const parts = formatter.formatToParts(date).reduce((acc, part) => {
-        if (part.type !== 'literal') acc[part.type] = parseInt(part.value, 10);
-        return acc;
-      }, {} as Record<string, number>);
-
-      return new Date(parts['year'], parts['month'] - 1, parts['day']);
-    };
-
-    const cursorDate = toRomaniaDate(cellDate);
-    const currentRomaniaDate = toRomaniaDate(currentDate);
-
-    if (cursorDate > currentRomaniaDate) {
+    const cursorDateISO = cellDate.toISOString();
+    if (cursorDateISO > currentDate.toISOString()) {
       return CellColor.default;
     }
 
-    const isWeekend = cursorDate.getDay() === 0 || cursorDate.getDay() === 6;
+    const isWeekend =
+      new Date(cursorDateISO).getDay() === 0 ||
+      new Date(cursorDateISO).getDay() === 6;
     if (isWeekend) {
       return CellColor.default;
     }
 
-    const currentDay = this.bookedDays().find((bookedDay) => {
-      const bookedDayDate = toRomaniaDate(new Date(bookedDay.date));
-      return bookedDayDate.toDateString() === cursorDate.toDateString();
-    });
-
-    if (!currentDay) {
-      return CellColor.default;
+    if (!this.monthYearReport()[cursorDateISO]) {
+      return CellColor.red;
     }
-
-    const [bookedHours, bookedMinutes] = currentDay.timeBooked
-      .split(':')
-      .map(Number);
-    const expectedHours = currentDay.expectedHours;
-
+    const [bookedHours, bookedMinutes] = this.monthYearReport()[cursorDateISO].timeBooked.split(':').map(Number);
+    const expectedHours = this.monthYearReport()[cursorDateISO].expectedHours;
     if (bookedHours >= expectedHours) {
       return CellColor.green;
     }
@@ -125,6 +89,5 @@ export class ReportingMonthOverviewComponent {
 @Component({
   standalone: true,
   template: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class CalendarEmptyHeaderComponent {}
