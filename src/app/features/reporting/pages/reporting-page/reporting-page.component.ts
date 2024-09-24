@@ -13,7 +13,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NotificationService } from 'src/app/core/services/notification-service/notification.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ReportingActivitiesViewComponent } from '../../components/reporting-activities-view/reporting-activities-view.component';
 import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { MatIcon } from '@angular/material/icon';
@@ -27,6 +27,8 @@ import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { MatCardSubtitle } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-reporting-page',
@@ -45,6 +47,9 @@ import {
     MatNativeDateModule,
     ReportingActivitiesViewComponent,
     MatProgressSpinnerModule,
+    MatCardSubtitle,
+    MatChipsModule,
+    TranslateModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-page.component.html',
@@ -133,7 +138,8 @@ export class ReportingPageComponent implements OnInit {
 
     this.store.updateFilter({
       date: null,
-      project: null,
+      project: this.store.filter()?.project,
+      user: this.store.filter()?.user,
       activeMonth: formattedDate,
     });
     this.store.loadMonthYearReport(this.store.filter());
@@ -166,7 +172,6 @@ export class ReportingPageComponent implements OnInit {
           this.store.users(),
           activity.employeeId,
         ]);
-        // this.store.loadMonthYearReport(this.store.filter());
       });
   }
 
@@ -203,7 +208,6 @@ export class ReportingPageComponent implements OnInit {
             dateKey,
           ]);
         }
-        // this.store.loadMonthYearReport(this.store.filter());
       });
   }
 

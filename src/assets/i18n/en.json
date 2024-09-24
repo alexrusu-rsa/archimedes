@@ -196,7 +196,8 @@
       "wednesday": "We",
       "monthOverview": "Month overview",
       "monthChangedError": "There was an error selecting the month!",
-      "monthChangedStatus": "Input data has errors."
+      "monthChangedStatus": "Input data has errors.",
+      "filterBy": "Filtered by: "
     }
   },
   "resetPasswordPage": {
@@ -217,6 +218,7 @@
     "entity": {
       "header": {
         "all": "All projects",
+        "allAdditional": "All users",
         "date": "Date",
         "monthYear": "Month Year",
         "search": "Search {{entity}}",
