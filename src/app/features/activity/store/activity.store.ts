@@ -30,7 +30,7 @@ type ActivityState = {
   users: User[];
   projectsOfUser: Project[];
   isLoading: boolean;
-  filter: { project?: Project; date?: Date; activeMonth?: Date };
+  filter: { project?: Project; date?: Date; activeMonth?: Date; user?: User };
   monthYearReport: Days;
 };
 
@@ -42,7 +42,7 @@ const initialState: ActivityState = {
   users: [],
   projectsOfUser: [],
   isLoading: false,
-  filter: { project: null, date: new Date(), activeMonth: null },
+  filter: { project: null, date: new Date(), activeMonth: null, user: null },
   monthYearReport: {} as Days,
 };
 

@@ -1,55 +1,92 @@
 @if(searchLabel()){
 <mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
-    @if (searchLabel()) {
-    <mat-label>{{ searchLabel() }}</mat-label>
+  @if (searchLabel()) {
+  <mat-label>{{ searchLabel() }}</mat-label>
+  }
+  <input
+    matInput
+    (keyup)="searchKeyUp.emit($event)"
+    placeholder="{{ searchPlaceholder() }}"
+  />
+</mat-form-field>
+} @switch (datePickerType()) { @case (datepickerTypes.monthYear) {
+<app-month-year-datepicker
+  [label]="'shared.entity.header.date' | translate"
+  class="col-12 col-sm-5 col-md-6 col-lg-4"
+  (datePickerValueChanged)="datePickerValueChanged.emit($event)"
+></app-month-year-datepicker>
+} @case (datepickerTypes.classic) {
+<mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
+  <mat-label>{{ "shared.entity.header.date" | translate }}</mat-label>
+  <input
+    matInput
+    [matDatepicker]="datePicker"
+    [value]="filter()?.date"
+    (dateChange)="datePickerValueChanged.emit($event.value)"
+  />
+  <mat-datepicker-toggle
+    [for]="datePicker"
+    matIconSuffix
+  ></mat-datepicker-toggle>
+  <mat-datepicker #datePicker touchUi></mat-datepicker>
+</mat-form-field>
+} } @if(selectOptions()?.length>0){
+<mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
+  <mat-label>{{ "shared.entity.header.select" | translate }}</mat-label>
+  <mat-select (selectionChange)="selectValueChanged.emit($event?.value)">
+    <mat-select-trigger>{{
+      filter()?.project?.projectName
+    }}</mat-select-trigger>
+    <mat-option default>{{
+      "shared.entity.header.all" | translate
+    }}</mat-option>
+    @for (project of selectOptions(); track $index) {
+    <mat-option [value]="project" required="true" ngDefaultControl>
+      {{ project.projectName }}
+    </mat-option>
     }
-    <input matInput (keyup)="searchKeyUp.emit($event)" placeholder="{{ searchPlaceholder() }}" />
+    <mat-option [value]="{ id: 'other', projectName: 'other' }">{{
+      "activity.shared.other" | translate
+    }}</mat-option>
+  </mat-select>
 </mat-form-field>
-}
-
-@switch (datePickerType()) {
-@case (datepickerTypes.monthYear) {
-<app-month-year-datepicker [label]="'shared.entity.header.date' | translate"
-    class="col-12 col-sm-5 col-md-6 col-lg-4" (datePickerValueChanged)="datePickerValueChanged.emit($event)"></app-month-year-datepicker>
-}
-@case (datepickerTypes.classic) {
+} @if(additionalSelectOptions()?.length>0){
 <mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
-    <mat-label>{{ "shared.entity.header.date" | translate }}</mat-label>
-    <input matInput [matDatepicker]="datePicker" [value]="filter()?.date"
-        (dateChange)="datePickerValueChanged.emit($event.value)" />
-    <mat-datepicker-toggle [for]="datePicker" matIconSuffix></mat-datepicker-toggle>
-    <mat-datepicker #datePicker touchUi></mat-datepicker>
+  <mat-label>{{
+    "shared.entity.header.additionalSelect" | translate
+  }}</mat-label>
+  <mat-select
+    (selectionChange)="additionalSelectValueChanged.emit($event?.value)"
+  >
+    <mat-select-trigger>{{ filter()?.user?.name }}</mat-select-trigger>
+    <mat-option default>{{
+      "shared.entity.header.all" | translate
+    }}</mat-option>
+    @for (user of additionalSelectOptions(); track $index) {
+    <mat-option [value]="user" required="true" ngDefaultControl>
+      {{ user.name }}
+    </mat-option>
+    }
+  </mat-select>
 </mat-form-field>
-}
-}
-
-@if(selectOptions()?.length>0){
-<mat-form-field class="col-12 col-sm-5 col-md-6 col-lg-4">
-    <mat-label>{{ "shared.entity.header.select" | translate }}</mat-label>
-    <mat-select (selectionChange)="selectValueChanged.emit($event?.value)">
-        <mat-select-trigger>{{filter()?.project?.projectName}}</mat-select-trigger>
-        <mat-option default>{{"shared.entity.header.all" | translate}}</mat-option>
-        @for (project of selectOptions(); track $index) {
-        <mat-option [value]="project" required="true" ngDefaultControl>
-            {{ project.projectName }}
-        </mat-option>
-        }
-        <mat-option [value]="{id:'other', projectName:'other'}">{{
-            'activity.shared.other' | translate
-            }}</mat-option>
-    </mat-select>
-</mat-form-field>
-}
-
-@if (hasDeleteAll()) {
-<button (click)="deleteAll.emit()" mat-raised-button class="add-entity-button col-12 col-sm-1 mb-4"
-    aria-label="Create entity button" type="button">
-    <mat-icon color="accent" class="mx-0">{{icons.delete_forever}}</mat-icon>
+} @if (hasDeleteAll()) {
+<button
+  (click)="deleteAll.emit()"
+  mat-raised-button
+  class="add-entity-button col-12 col-sm-1 mb-4"
+  aria-label="Create entity button"
+  type="button"
+>
+  <mat-icon color="accent" class="mx-0">{{ icons.delete_forever }}</mat-icon>
 </button>
-}
-@if (hasAddEntity()) {
-<button (click)="addEntity.emit()" mat-raised-button class="add-entity-button col-12 col-sm-1 mb-4"
-    aria-label="Create entity button" type="button">
-    <mat-icon color="accent" class="mx-0">{{icons.add_box}}</mat-icon>
+} @if (hasAddEntity()) {
+<button
+  (click)="addEntity.emit()"
+  mat-raised-button
+  class="add-entity-button col-12 col-sm-1 mb-4"
+  aria-label="Create entity button"
+  type="button"
+>
+  <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
 </button>
 }

@@ -92,6 +92,16 @@ export class ReportingPageComponent implements OnInit {
           project: value,
           date: this.store.filter()?.date,
           activeMonth: this.store.filter().activeMonth,
+          user: this.store.filter().user,
+        });
+        this.store.loadMonthYearReport(this.store.filter());
+        break;
+      case 'user':
+        this.store.updateFilter({
+          project: this.store.filter()?.project,
+          date: this.store.filter()?.date,
+          activeMonth: this.store.filter().activeMonth,
+          user: value,
         });
         this.store.loadMonthYearReport(this.store.filter());
         break;
