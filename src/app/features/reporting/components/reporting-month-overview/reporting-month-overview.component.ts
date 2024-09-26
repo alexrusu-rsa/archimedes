@@ -68,8 +68,7 @@ export class ReportingMonthOverviewComponent {
     if (!this.monthYearReport()[cursorDateISO]) {
       return CellColor.red;
     } else {
-      const [bookedHours, bookedMinutes] = this.monthYearReport()
-        [cursorDateISO].timeBooked.split(':')
+      const [bookedHours, bookedMinutes] = this.monthYearReport()[cursorDateISO].timeBooked.split(':')
         .map(Number);
       const expectedHours = this.monthYearReport()[cursorDateISO].expectedHours;
       if (bookedHours >= expectedHours) {

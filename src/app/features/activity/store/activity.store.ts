@@ -436,7 +436,6 @@ export const ActivityStore = signalStore(
         pipe(
           tap(() => {
             patchState(store, { isLoading: true });
-            console.log('loadMonthYearReport', store.filter());
           }),
           switchMap((filter: ActivityFilter) =>
             activityService.getMonthReport(filter.activeMonth, filter).pipe(

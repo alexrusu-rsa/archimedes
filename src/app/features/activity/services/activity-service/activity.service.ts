@@ -9,7 +9,6 @@ import { ActivityDuplication } from '../../models/activity-duplication.model';
 import { BookedDay } from 'src/app/features/reporting/models/booked-day';
 import { WidgetDay } from 'src/app/features/invoice/models/widget-day';
 import { Days } from 'src/app/features/reporting/models/days';
-import { Project } from 'src/app/shared/models/project';
 import { ActivityFilter } from '../../models/activity-filter.model';
 
 @Injectable({
