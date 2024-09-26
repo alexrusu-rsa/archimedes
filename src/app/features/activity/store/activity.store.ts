@@ -434,7 +434,10 @@ export const ActivityStore = signalStore(
       ),
       loadMonthYearReport: rxMethod<ActivityFilter>(
         pipe(
-          tap(() => patchState(store, { isLoading: true })),
+          tap(() => {
+            patchState(store, { isLoading: true });
+            console.log('loadMonthYearReport', store.filter());
+          }),
           switchMap((filter: ActivityFilter) =>
             activityService.getMonthReport(filter.activeMonth, filter).pipe(
               tapResponse({
@@ -506,7 +509,6 @@ export const ActivityStore = signalStore(
                       });
                     } else {
                       if (store.filter().user?.id === newActivity.employeeId) {
-                        console.log('case3');
                         updatedMonthYearReport[dateKey].timeBooked =
                           updatedTime;
 
@@ -547,7 +549,6 @@ export const ActivityStore = signalStore(
                     }
                   }
                 },
-
                 error: (error) => {
                   // eslint-disable-next-line no-console
                   console.error(error);
@@ -580,99 +581,92 @@ export const ActivityStore = signalStore(
                       ? updatedActivity
                       : activity
                   );
-
-                  if (store.filter()?.user?.id !== updatedActivity.employeeId) {
-                    const currentWorkedTime =
-                      updatedMonthYearReport[dateKey].timeBooked;
-                    const updatedTime = calculateUpdatedTime(
-                      currentWorkedTime,
-                      '00:00',
-                      updatedActivity?.workedTime || '00:00'
-                    );
-                    updatedMonthYearReport[dateKey] = {
-                      activities: activitiesOfDay.filter(
-                        (activity) =>
-                          activity?.project?.id !== updatedActivity?.project?.id
-                      ),
-                      timeBooked: updatedTime,
-                      expectedHours:
-                        updatedMonthYearReport[dateKey].expectedHours,
-                    };
-                    patchState(store, {
-                      monthYearReport: updatedMonthYearReport,
-                      isLoading: false,
-                    });
-                    console.log(store.monthYearReport()[dateKey]);
-                  }
-                  if (
-                    store.filter()?.project?.id !== updatedActivity?.project?.id
-                  ) {
-                    const currentWorkedTime =
-                      updatedMonthYearReport[dateKey].timeBooked;
-                    const updatedTime = calculateUpdatedTime(
-                      currentWorkedTime,
-                      '00:00',
-                      updatedActivity?.workedTime || '00:00'
-                    );
-                    updatedMonthYearReport[dateKey] = {
-                      activities: activitiesOfDay.filter(
-                        (activity) =>
-                          activity?.project?.id !== updatedActivity?.project?.id
-                      ),
-                      timeBooked: updatedTime,
-                      expectedHours:
-                        updatedMonthYearReport[dateKey].expectedHours,
-                    };
-                    patchState(store, {
-                      monthYearReport: updatedMonthYearReport,
-                      isLoading: false,
-                    });
-                    console.log(store.monthYearReport()[dateKey]);
-                  }
-                  if (
-                    store.filter()?.project?.id === updatedActivity.project?.id
-                  ) {
-                    const currentWorkedTime =
-                      updatedMonthYearReport[dateKey].timeBooked;
-                    const updatedTime = calculateUpdatedTime(
-                      currentWorkedTime,
-                      updatedActivity?.workedTime || '00:00',
-                      timeToRemove || '00:00'
-                    );
-
-                    updatedMonthYearReport[dateKey] = {
-                      activities: activitiesOfDay,
-                      timeBooked: updatedTime,
-                      expectedHours:
-                        updatedMonthYearReport[dateKey].expectedHours,
-                    };
-                    patchState(store, {
-                      monthYearReport: updatedMonthYearReport,
-                      isLoading: false,
-                    });
-                  }
-                  if (!store.filter()?.project?.id) {
-                    const currentWorkedTime =
-                      updatedMonthYearReport[dateKey].timeBooked;
-                    const updatedTime = calculateUpdatedTime(
-                      currentWorkedTime,
-                      updatedActivity?.workedTime || '00:00',
-                      timeToRemove || '00:00'
-                    );
-
-                    updatedMonthYearReport[dateKey] = {
-                      activities: activitiesOfDay,
-                      timeBooked: updatedTime,
-                      expectedHours:
-                        updatedMonthYearReport[dateKey].expectedHours,
-                    };
-                    patchState(store, {
-                      monthYearReport: updatedMonthYearReport,
-                    });
+                  if (!store.filter()?.project) {
+                    if (!store.filter()?.user) {
+                      const currentWorkedTime =
+                        updatedMonthYearReport[dateKey].timeBooked;
+                      const updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        updatedActivity?.workedTime || '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay,
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
+                      patchState(store, {
+                        monthYearReport: updatedMonthYearReport,
+                      });
+                    } else {
+                      if (
+                        store.filter().user?.id === updatedActivity.employeeId
+                      ) {
+                        const currentWorkedTime =
+                          updatedMonthYearReport[dateKey].timeBooked;
+                        const updatedTime = calculateUpdatedTime(
+                          currentWorkedTime,
+                          updatedActivity?.workedTime || '00:00',
+                          timeToRemove || '00:00'
+                        );
+                        updatedMonthYearReport[dateKey] = {
+                          activities: activitiesOfDay,
+                          timeBooked: updatedTime,
+                          expectedHours:
+                            updatedMonthYearReport[dateKey].expectedHours,
+                        };
+                        patchState(store, {
+                          monthYearReport: updatedMonthYearReport,
+                        });
+                      }
+                    }
+                  } else {
+                    if (
+                      store.filter().project.id === updatedActivity.project.id
+                    ) {
+                      const currentWorkedTime =
+                        updatedMonthYearReport[dateKey].timeBooked;
+                      const updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        updatedActivity?.workedTime || '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay,
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
+                      patchState(store, {
+                        monthYearReport: updatedMonthYearReport,
+                      });
+                    } else {
+                      const currentWorkedTime =
+                        updatedMonthYearReport[dateKey].timeBooked;
+                      const updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay.filter(
+                          (activity) =>
+                            activity.project?.id !==
+                            updatedActivity?.project?.id
+                        ),
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
+                      patchState(store, {
+                        monthYearReport: updatedMonthYearReport,
+                      });
+                    }
                   }
                 },
-                // eslint-disable-next-line no-console
                 error: (error) => {
+                  // eslint-disable-next-line no-console
                   console.error(error);
                   patchState(store, { isLoading: false });
                 },
@@ -682,6 +676,7 @@ export const ActivityStore = signalStore(
           )
         )
       ),
+
       deleteActivityFromMonthYearReport: rxMethod<[Activity, string]>(
         pipe(
           tap(() => patchState(store, { isLoading: true })),

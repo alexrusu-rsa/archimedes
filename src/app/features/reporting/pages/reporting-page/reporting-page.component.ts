@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
@@ -74,21 +81,22 @@ export class ReportingPageComponent implements OnInit {
     this.store.updateFilter({
       date: null,
       project: null,
+      user: null,
       activeMonth: this.activeMonth(),
     });
     this.store.loadProjects();
     this.store.loadUsers();
     this.store.loadActivityTypes();
     this.store.loadMonthYearReport(this.store.filter());
-    this.store.loadProjects();
   }
   protected updateFilter(key: string, value) {
     switch (key) {
       case 'date':
         this.store.updateFilter({
           date: value,
-          project: null,
-          activeMonth: this.store.filter().activeMonth,
+          project: this.store.filter()?.project,
+          activeMonth: this.store.filter()?.activeMonth,
+          user: this.store.filter()?.user,
         });
         this.store.loadMonthYearReport(this.store.filter());
         break;
@@ -142,10 +150,6 @@ export class ReportingPageComponent implements OnInit {
       user: this.store.filter()?.user,
       activeMonth: formattedDate,
     });
-    this.store.loadMonthYearReport(this.store.filter());
-  }
-
-  updateMonthOverview() {
     this.store.loadMonthYearReport(this.store.filter());
   }
 
