@@ -472,21 +472,16 @@ export const ActivityStore = signalStore(
                     projectId: activity?.project?.id,
                   };
                   const updatedMonthYearReport = store.monthYearReport();
-
                   const currentWorkedTime =
                     updatedMonthYearReport[dateKey].timeBooked;
-
                   const updatedTime = calculateUpdatedTime(
                     currentWorkedTime,
                     newActivity.workedTime
                   );
 
-                  if (
-                    store.filter()?.project?.id === 'other' &&
-                    !formattedActivity.project
-                  ) {
+                  // Helper function to update the monthYearReport and patch state
+                  const updateMonthYearReport = () => {
                     updatedMonthYearReport[dateKey].timeBooked = updatedTime;
-
                     updatedMonthYearReport[dateKey].activities.push(
                       formattedActivity
                     );
@@ -494,57 +489,39 @@ export const ActivityStore = signalStore(
                     patchState(store, {
                       monthYearReport: updatedMonthYearReport,
                     });
-                  }
-                  if (!store.filter()?.project) {
-                    if (!store.filter()?.user) {
-                      updatedMonthYearReport[dateKey].timeBooked = updatedTime;
+                  };
 
-                      updatedMonthYearReport[dateKey].activities.push(
-                        formattedActivity
-                      );
+                  const filter = store.filter();
+                  const isProjectFiltered = filter?.project?.id;
+                  const isUserFiltered = filter?.user?.id;
 
-                      patchState(store, {
-                        monthYearReport: updatedMonthYearReport,
-                      });
-                    } else {
-                      if (store.filter().user?.id === newActivity.employeeId) {
-                        updatedMonthYearReport[dateKey].timeBooked =
-                          updatedTime;
-
-                        updatedMonthYearReport[dateKey].activities.push(
-                          formattedActivity
-                        );
-
-                        patchState(store, {
-                          monthYearReport: updatedMonthYearReport,
-                        });
-                      }
-                    }
-                  }
+                  // Handle case where project filter is 'other' and activity has no project
                   if (
-                    store.filter()?.project?.id === formattedActivity.projectId
+                    isProjectFiltered === 'other' &&
+                    !formattedActivity.project
                   ) {
-                    if (!store.filter()?.user?.id) {
-                      updatedMonthYearReport[dateKey].timeBooked = updatedTime;
+                    updateMonthYearReport();
+                  }
 
-                      updatedMonthYearReport[dateKey].activities.push(
-                        formattedActivity
-                      );
-
-                      patchState(store, {
-                        monthYearReport: updatedMonthYearReport,
-                      });
+                  // Handle case where there is no project filter
+                  if (!isProjectFiltered) {
+                    if (!isUserFiltered) {
+                      // No user filter, simply update the report
+                      updateMonthYearReport();
+                    } else if (isUserFiltered === newActivity.employeeId) {
+                      // User filter matches the employee ID
+                      updateMonthYearReport();
                     }
-                    if (store.filter()?.user?.id === newActivity.employeeId) {
-                      updatedMonthYearReport[dateKey].timeBooked = updatedTime;
+                  }
 
-                      updatedMonthYearReport[dateKey].activities.push(
-                        formattedActivity
-                      );
-
-                      patchState(store, {
-                        monthYearReport: updatedMonthYearReport,
-                      });
+                  // Handle case where project filter matches the activity's projectId
+                  if (isProjectFiltered === formattedActivity.projectId) {
+                    if (
+                      !isUserFiltered ||
+                      isUserFiltered === newActivity.employeeId
+                    ) {
+                      // No user filter or user filter matches the employee ID
+                      updateMonthYearReport();
                     }
                   }
                 },
@@ -580,11 +557,20 @@ export const ActivityStore = signalStore(
                       ? updatedActivity
                       : activity
                   );
-                  if (!store.filter()?.project) {
-                    if (!store.filter()?.user) {
-                      const currentWorkedTime =
-                        updatedMonthYearReport[dateKey].timeBooked;
-                      const updatedTime = calculateUpdatedTime(
+                  const currentWorkedTime =
+                    updatedMonthYearReport[dateKey].timeBooked;
+                  let updatedTime;
+
+                  const filter = store.filter();
+                  const isProjectFiltered = filter?.project;
+                  const isUserFiltered = filter?.user;
+
+                  // Check if the project filter is applied
+                  if (!isProjectFiltered) {
+                    // No project filter
+                    if (!isUserFiltered) {
+                      // No user filter, update time based on activity
+                      updatedTime = calculateUpdatedTime(
                         currentWorkedTime,
                         updatedActivity?.workedTime || '00:00',
                         timeToRemove || '00:00'
@@ -595,38 +581,25 @@ export const ActivityStore = signalStore(
                         expectedHours:
                           updatedMonthYearReport[dateKey].expectedHours,
                       };
-                      patchState(store, {
-                        monthYearReport: updatedMonthYearReport,
-                      });
-                    } else {
-                      if (
-                        store.filter().user?.id === updatedActivity.employeeId
-                      ) {
-                        const currentWorkedTime =
-                          updatedMonthYearReport[dateKey].timeBooked;
-                        const updatedTime = calculateUpdatedTime(
-                          currentWorkedTime,
-                          updatedActivity?.workedTime || '00:00',
-                          timeToRemove || '00:00'
-                        );
-                        updatedMonthYearReport[dateKey] = {
-                          activities: activitiesOfDay,
-                          timeBooked: updatedTime,
-                          expectedHours:
-                            updatedMonthYearReport[dateKey].expectedHours,
-                        };
-                        patchState(store, {
-                          monthYearReport: updatedMonthYearReport,
-                        });
-                      }
+                    } else if (filter.user?.id === updatedActivity.employeeId) {
+                      // User filter matches employee, update the time
+                      updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        updatedActivity?.workedTime || '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay,
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
                     }
                   } else {
-                    if (
-                      store.filter().project.id === updatedActivity.project.id
-                    ) {
-                      const currentWorkedTime =
-                        updatedMonthYearReport[dateKey].timeBooked;
-                      const updatedTime = calculateUpdatedTime(
+                    // Project filter is applied
+                    if (filter.project.id === updatedActivity.project.id) {
+                      // Project filter matches updated activity project, update time
+                      updatedTime = calculateUpdatedTime(
                         currentWorkedTime,
                         updatedActivity?.workedTime || '00:00',
                         timeToRemove || '00:00'
@@ -637,13 +610,9 @@ export const ActivityStore = signalStore(
                         expectedHours:
                           updatedMonthYearReport[dateKey].expectedHours,
                       };
-                      patchState(store, {
-                        monthYearReport: updatedMonthYearReport,
-                      });
                     } else {
-                      const currentWorkedTime =
-                        updatedMonthYearReport[dateKey].timeBooked;
-                      const updatedTime = calculateUpdatedTime(
+                      // Project filter doesn't match, exclude the activity and update time
+                      updatedTime = calculateUpdatedTime(
                         currentWorkedTime,
                         '00:00',
                         timeToRemove || '00:00'
@@ -658,11 +627,13 @@ export const ActivityStore = signalStore(
                         expectedHours:
                           updatedMonthYearReport[dateKey].expectedHours,
                       };
-                      patchState(store, {
-                        monthYearReport: updatedMonthYearReport,
-                      });
                     }
                   }
+
+                  // Patch the state with the updated monthYearReport
+                  patchState(store, {
+                    monthYearReport: updatedMonthYearReport,
+                  });
                 },
                 error: (error) => {
                   // eslint-disable-next-line no-console

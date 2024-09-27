@@ -54,11 +54,11 @@ export class EntityPageHeaderComponent {
   datepickerTypes = DatePickerType;
   datePickerValueChanged = output<Date>();
 
-  selectOptions = input<Project[]>();
-  selectValueChanged = output<string>();
+  projectSelectOptions = input<Project[]>();
+  projectSelectValueChanged = output<string>();
 
-  additionalSelectOptions = input<User[]>();
-  additionalSelectValueChanged = output<string>();
+  userSelectOptions = input<User[]>();
+  userSelectValueChanged = output<string>();
 
   hasAddEntity = input(false);
   addEntity = output<void>();

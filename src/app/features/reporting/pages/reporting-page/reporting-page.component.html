@@ -2,10 +2,10 @@
   [datePickerType]="datePickerType.monthYear"
   (datePickerValueChanged)="changeDate($event)"
   [filter]="store.filter()"
-  [selectOptions]="this.store.projects()"
-  [additionalSelectOptions]="this.store.users()"
-  (selectValueChanged)="updateFilter('project', $event)"
-  (additionalSelectValueChanged)="updateFilter('user', $event)"
+  [projectSelectOptions]="this.store.projects()"
+  [userSelectOptions]="this.store.users()"
+  (projectSelectValueChanged)="updateFilter('project', $event)"
+  (userSelectValueChanged)="updateFilter('user', $event)"
   class="d-flex flex-wrap justify-content-between column-gap-2"
 />
 

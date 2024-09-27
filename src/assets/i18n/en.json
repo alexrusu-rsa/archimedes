@@ -217,14 +217,14 @@
   "shared": {
     "entity": {
       "header": {
-        "all": "All projects",
-        "allAdditional": "All users",
+        "allProjects": "All projects",
+        "allUsers": "All users",
         "date": "Date",
         "monthYear": "Month Year",
         "search": "Search {{entity}}",
         "searchPlaceholder": "Popescu Adrian",
-        "select": "Select a project",
-        "additionalSelect": "Select a user"
+        "projectSelect": "Select a project",
+        "userSelect": "Select a user"
       },
       "item": {
         "empty": {
