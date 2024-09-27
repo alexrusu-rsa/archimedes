@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnInit,
   WritableSignal,
   inject,
   signal,
@@ -77,7 +78,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceModalComponent {
+export class InvoiceModalComponent implements OnInit {
   protected readonly icons = Icons;
   invoiceForm = new FormGroup({
     number: new FormControl('', [
@@ -96,6 +97,15 @@ export class InvoiceModalComponent {
     private dialogRef: MatDialogRef<InvoiceModalComponent>
   ) {}
 
+  ngOnInit(): void {
+    if (this.invoice.number) {
+      this.invoiceForm.setValue({
+        number: this.invoice.number,
+        exchangeRate: 1,
+        invoiceEmittingDay: new Date(),
+      });
+    }
+  }
   onSubmit(stepper: MatStepper) {
     this.service
       .getCustomerInvoicePDF(

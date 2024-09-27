@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnInit,
   signal,
 } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
@@ -20,6 +21,9 @@ import { Invoice } from '../../models/invoice.model';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
 import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
+import { InvoiceService } from '../../services/invoice.service';
+import { InvoiceLastNumber } from '../../models/invoiceLastNumber.model';
+import { last, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-page',
@@ -38,6 +42,7 @@ import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-
 })
 export class InvoicePageComponent {
   private readonly service = inject(ProjectService);
+  private readonly invoiceService = inject(InvoiceService);
   private readonly dialog = inject(MatDialog);
   protected readonly icons = Icons;
   protected readonly datePickerType = DatePickerType;
@@ -45,32 +50,48 @@ export class InvoicePageComponent {
     initialValue: [],
   });
   protected readonly currentMonth = signal<Date>(new Date());
-
+  protected lastInvoiceNumber: string;
   downloadInvoice(project: Project) {
     const currentMonthValue = this.currentMonth();
     const currentMonthDate: Date = new Date(currentMonthValue);
     const month = currentMonthDate.getMonth() + 1;
     const year = currentMonthDate.getFullYear();
 
-    const invoice: Invoice = {
-      customer: project?.customer,
-      project: project,
-      month: month.toString(),
-      year: year.toString(),
-      series: 'RSA',
-    };
+    this.invoiceService
+      .getLastInvoiceNumber()
+      .pipe(
+        switchMap((lastInvoiceNumber) => {
+          const invoice: Invoice = {
+            customer: project?.customer,
+            project: project,
+            month: month.toString(),
+            year: year.toString(),
+            series: 'RSA',
+            number: lastInvoiceNumber.lastSavedInvoiceNumber,
+          };
 
-    this.dialog
-      .open(InvoiceModalComponent, {
-        data: invoice,
-      })
-      .afterClosed()
-      .pipe()
-      .subscribe((invoiceDialogClosed: InvoiceDialogOnCloseResult) => {
-        const a = document.createElement('a');
-        a.href = invoiceDialogClosed?.blobUrl;
-        a.download = invoiceDialogClosed.invoiceName;
-        a.click();
+          return this.dialog
+            .open(InvoiceModalComponent, {
+              data: invoice,
+            })
+            .afterClosed();
+        }),
+        switchMap((invoiceDialogClosed: InvoiceDialogOnCloseResult) => {
+          if (
+            invoiceDialogClosed?.blobUrl &&
+            invoiceDialogClosed?.invoiceName
+          ) {
+            const a = document.createElement('a');
+            a.href = invoiceDialogClosed.blobUrl;
+            a.download = invoiceDialogClosed.invoiceName;
+            a.click();
+          }
+          return null;
+        })
+      )
+      .subscribe({
+        // eslint-disable-next-line no-console
+        error: (err) => console.error('Error:', err),
       });
   }
 }
