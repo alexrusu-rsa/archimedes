@@ -23,7 +23,7 @@ import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-mo
 import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
 import { InvoiceService } from '../../services/invoice.service';
 import { InvoiceLastNumber } from '../../models/invoiceLastNumber.model';
-import { last, switchMap } from 'rxjs';
+import { last, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-page',
@@ -86,12 +86,13 @@ export class InvoicePageComponent {
             a.download = invoiceDialogClosed.invoiceName;
             a.click();
           }
-          return null;
+          return of(null);
         })
       )
       .subscribe({
-        // eslint-disable-next-line no-console
-        error: (err) => console.error('Error:', err),
+        error: (err) =>
+          // eslint-disable-next-line no-console
+          console.error('Error:', err),
       });
   }
 }
