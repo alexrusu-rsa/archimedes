@@ -1,0 +1,32 @@
+<form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()">
+  <div class="file-input-wrapper mx-4 my-4">
+    <input
+      type="file"
+      id="fileUpload"
+      accept=".pdf"
+      (change)="onFileSelected($event)"
+      formControlName="pdfFile"
+      #fileInput
+    />
+    <label mat-button for="fileUpload">Choose PDF</label>
+    @if(fileInvalid){<mat-error>Please upload a valid PDF file</mat-error>}
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select Project</mat-label>
+    <mat-select formControlName="project">
+      @for( project of data.projects; track $index){
+      <mat-option [value]="project.id">
+        {{ project.projectName }}
+      </mat-option>
+      }
+    </mat-select>
+    @if(fileUploadForm.get('project').hasError('required')){
+    <mat-error> Project selection is required. </mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-raised-button type="submit" [disabled]="fileUploadForm.invalid">
+    Submit
+  </button>
+</form>
