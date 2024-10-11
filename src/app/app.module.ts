@@ -4,11 +4,7 @@ import { MaterialModule } from './ng-modules/material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  HttpClient,
-  HttpClientModule,
-  HTTP_INTERCEPTORS,
-} from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {
   DatePipe,
   LocationStrategy,
@@ -26,40 +22,34 @@ import { SettingsPageComponent } from './features/settings/pages/settings-page/s
 import { LoginComponent } from './core/auth/pages/login/login.component';
 import { RightSectionComponent } from './core/layout/components/right-section/right-section.component';
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NavigationComponent,
-    ToolbarComponent,
-    ProjectidPipe,
-    EmployeeidPipe,
-    SettingsPageComponent,
-    LoginComponent,
-    RightSectionComponent,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-  ],
-  providers: [
-    DatePipe,
-    { provide: LocationStrategy, useClass: PathLocationStrategy },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        MaterialModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NavigationComponent,
+        ToolbarComponent,
+        ProjectidPipe,
+        EmployeeidPipe,
+        SettingsPageComponent,
+        LoginComponent,
+        RightSectionComponent,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        })], providers: [
+        DatePipe,
+        { provide: LocationStrategy, useClass: PathLocationStrategy },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}

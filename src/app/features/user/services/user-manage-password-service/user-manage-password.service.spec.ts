@@ -1,15 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
 import { ResponseHandlingService } from '../../../../shared/services/response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserManagePasswordService } from './user-manage-password.service';
 import { RequestWrapper } from 'src/app/models/request-wrapper';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileUserManagePasswordService', () => {
   let service: UserManagePasswordService;
@@ -17,13 +15,10 @@ describe('SpecFileUserManagePasswordService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [UserManagePasswordService, ResponseHandlingService],
-    });
+    imports: [MatSnackBarModule,
+        BrowserAnimationsModule],
+    providers: [UserManagePasswordService, ResponseHandlingService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(UserManagePasswordService);
     httpController = TestBed.inject(HttpTestingController);
   });

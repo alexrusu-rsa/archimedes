@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResponseHandlingService } from './response-handling.service';
 import { NotificationService } from '../../../services/notification-service/notification.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileResponseHandlingService', () => {
   const mockSnackBar = <MatSnackBar>{};
@@ -13,13 +14,10 @@ describe('SpecFileResponseHandlingService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        BrowserAnimationsModule,
-        MatSnackBarModule,
-      ],
-      providers: [ResponseHandlingService, NotificationService],
-    });
+    imports: [BrowserAnimationsModule,
+        MatSnackBarModule],
+    providers: [ResponseHandlingService, NotificationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(ResponseHandlingService);
     innerService = TestBed.inject(NotificationService);
   });

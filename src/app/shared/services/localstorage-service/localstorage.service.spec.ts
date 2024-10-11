@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalStorageKeys, LocalStorageService } from './localstorage.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileLocalStorageService', () => {
   let service: LocalStorageService;
@@ -12,9 +13,9 @@ describe('SpecFileLocalStorageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, BrowserAnimationsModule],
-      providers: [LocalStorageService],
-    });
+    imports: [BrowserAnimationsModule],
+    providers: [LocalStorageService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(LocalStorageService);
   });
 
