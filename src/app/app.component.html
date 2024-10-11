@@ -25,10 +25,8 @@
       *ngIf="user()?.id"
     >
       <mat-card>
-        <mat-card-content class="px-md-1 px-lg-3">
-          <app-navigation
-            [isAdmin]="user()?.roles === 'admin'"
-          ></app-navigation>
+        <mat-card-content class="px-md-1 px-lg-3 my-0 py-0 position-fixed">
+          <app-left-section [user]="user()"></app-left-section>
         </mat-card-content>
       </mat-card>
     </section>
