@@ -117,9 +117,11 @@ export class InvoiceModalComponent {
   onDownload() {
     this.dialogRef.close(<InvoiceDialogOnCloseResult>{
       blobUrl: this.pdfUrl(),
-      invoiceName: `${this.invoice.series}${
-        this.invoiceForm.controls.number.value
-      }-${this.invoice.customer.shortName || this.invoice.customer.name}.pdf`,
+      invoiceName: !this.invoice.customer.romanianCompany
+        ? `${this.invoice.series}${this.invoiceForm.controls.number.value}-${
+            this.invoice.customer.shortName || this.invoice.customer.name
+          }.pdf`
+        : `Anexa${this.invoiceForm?.controls?.number?.value}`,
       downloadStart: true,
     });
   }
