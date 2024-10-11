@@ -142,6 +142,26 @@ export class ActivityService {
       );
   }
 
+  autofillActivities(file: Blob, projectId: string, userId: string) {
+    const requestUrl = this.activitiesUrl + '/autofill';
+
+    const formData = new FormData();
+    formData.append('pdfFile', file);
+    formData.append('projectId', projectId);
+    formData.append('userId', userId);
+
+    return this.httpClient
+      .post<any>(requestUrl, formData, { observe: 'response' })
+      .pipe(
+        map((res) => {
+          return res.body as any;
+        }),
+        catchError(
+          this.responseHandlingService.handleError<any>('autofillActivities')
+        )
+      );
+  }
+
   getActivitiesByDateEmployeeId(
     id: string,
     dateToFind: Date

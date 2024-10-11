@@ -1,5 +1,6 @@
 {
   "activity": {
+    "autofillReport": "Upload Activity Report",
     "dialog": {
       "activityType": "Activity type",
       "description": "Description",

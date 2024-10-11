@@ -1,9 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -12,7 +7,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   MatError,
   MatFormFieldModule,
@@ -20,13 +15,20 @@ import {
   MatLabel,
 } from '@angular/material/form-field';
 import { Project } from 'src/app/shared/models/project';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   MatAutocomplete,
   MatAutocompleteModule,
 } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIcon } from '@angular/material/icon';
+import { Icons } from 'src/app/shared/models/icons.enum';
 
 @Component({
   selector: 'app-autofill-activities-modal',
@@ -42,7 +44,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatButton,
     FormsModule,
     TranslateModule,
+    MatIconButton,
     MatError,
+    MatIcon,
+    MatDialogContent,
+    MatDialogActions,
   ],
   templateUrl: './autofill-activities-modal.component.html',
 })
@@ -50,6 +56,8 @@ export class AutofillActivitiesModalComponent {
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
   protected dialogRef = inject(MatDialogRef<AutofillActivitiesModalComponent>);
   protected data = inject(MAT_DIALOG_DATA);
+
+  protected readonly icons = Icons;
   projects: Project[] = this.data.projects;
   fileUploadForm: FormGroup;
   fileInvalid = false;

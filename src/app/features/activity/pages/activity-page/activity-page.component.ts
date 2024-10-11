@@ -30,6 +30,9 @@ import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
+import { ActivityService } from '../../services/activity-service/activity.service';
+import { AutofillActivitiesModalComponent } from '../../components/autofill-activities-modal/autofill-activities-modal.component';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-activity-page',
@@ -55,6 +58,9 @@ import {
 export class ActivityPageComponent implements OnInit {
   public readonly store = inject(ActivityStore);
   private readonly dialog = inject(MatDialog);
+  localStorageService = inject(LocalStorageService);
+  service = inject(ActivityService);
+
   private readonly dateParam = toSignal(
     inject(ActivatedRoute).queryParams.pipe(
       map(({ date }) => date),
@@ -88,6 +94,31 @@ export class ActivityPageComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  autofillActivitiesFromInvoice() {
+    const userId = this.localStorageService.userId;
+    this.dialog
+      .open(AutofillActivitiesModalComponent, {
+        data: { projects: this.store.projects() },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          const { file, projectId } = result;
+
+          this.service.autofillActivities(file, projectId, userId).subscribe({
+            next: (response) => {
+              console.log('File uploaded successfully!', response);
+            },
+            error: (error) => {
+              console.error('Error uploading file:', error);
+            },
+          });
+        } else {
+          console.log('No file was selected.');
+        }
+      });
   }
 
   addActivity() {

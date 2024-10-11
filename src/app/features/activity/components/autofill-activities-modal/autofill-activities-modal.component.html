@@ -1,32 +1,54 @@
-<form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()">
-  <div class="file-input-wrapper mx-4 my-4">
-    <input
-      type="file"
-      id="fileUpload"
-      accept=".pdf"
-      (change)="onFileSelected($event)"
-      formControlName="pdfFile"
-      #fileInput
-    />
-    <label mat-button for="fileUpload">Choose PDF</label>
-    @if(fileInvalid){<mat-error>Please upload a valid PDF file</mat-error>}
-  </div>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Select Project</mat-label>
-    <mat-select formControlName="project">
-      @for( project of data.projects; track $index){
-      <mat-option [value]="project.id">
-        {{ project.projectName }}
-      </mat-option>
-      }
-    </mat-select>
-    @if(fileUploadForm.get('project').hasError('required')){
-    <mat-error> Project selection is required. </mat-error>
-    }
-  </mat-form-field>
-
-  <button mat-raised-button type="submit" [disabled]="fileUploadForm.invalid">
-    Submit
+<div class="d-flex flex-row-reverse">
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>{{ icons.close }}</mat-icon>
   </button>
-</form>
+</div>
+<h2 mat-dialog-title align="center" class="m-0">
+  {{ "activity.autofillReport" | translate }}
+</h2>
+
+<mat-dialog-content>
+  <form
+    [formGroup]="fileUploadForm"
+    (ngSubmit)="onSubmit()"
+    class="d-flex row gap-2 justify-content-center"
+  >
+    <mat-form-field appearance="fill" class="col-12 m-0 p-0">
+      <mat-label>Select Project</mat-label>
+      <mat-select formControlName="project">
+        @for( project of data.projects; track $index){
+        <mat-option [value]="project.id">
+          {{ project.projectName }}
+        </mat-option>
+        }
+      </mat-select>
+      @if(fileUploadForm.get('project').hasError('required')){
+      <mat-error> Project selection is required. </mat-error>
+      }
+    </mat-form-field>
+    <div class="file-input-wrapper mx-4 my-4">
+      <input
+        type="file"
+        id="fileUpload"
+        accept=".pdf"
+        (change)="onFileSelected($event)"
+        formControlName="pdfFile"
+        #fileInput
+      />
+      <label mat-button for="fileUpload">Choose PDF</label>
+      @if(fileInvalid){<mat-error>Please upload a valid PDF file</mat-error>}
+    </div>
+    <div class="d-flex justify-content-center col-12">
+      <button
+        mat-raised-button
+        class="col-4 mx-auto mb-4"
+        color="secondary"
+        type="submit"
+        [disabled]="fileUploadForm.invalid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
+
