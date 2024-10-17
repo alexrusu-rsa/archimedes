@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { Project } from '../../../../shared/models/project';
 import { RequestWrapper } from '../../../../shared/models/request-wrapper';
@@ -15,11 +15,8 @@ export class ProjectService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
 
   getProject(id: string): Observable<Project> {
     const requestUrl = this.projectsUrl + '/' + id;

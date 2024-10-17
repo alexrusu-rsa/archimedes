@@ -105,7 +105,8 @@
       "previewPDF": "Preview PDF",
       "secondStep": "Preview invoice",
       "thirdStep": "Download invoice",
-      "title": "Invoice preview"
+      "title": "Invoice preview",
+      "annex": "Annex"
     },
     "dialogPreview": "Invoice",
     "download": "Download",

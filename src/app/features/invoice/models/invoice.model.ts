@@ -7,4 +7,5 @@ export interface Invoice {
   month?: string;
   year?: string;
   series?: string;
+  number?: string;
 }

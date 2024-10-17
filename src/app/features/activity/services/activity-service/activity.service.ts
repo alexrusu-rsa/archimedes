@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { Activity } from 'src/app/shared/models/activity';
 import { RequestWrapper } from 'src/app/shared/models/request-wrapper';
@@ -18,10 +18,8 @@ export class ActivityService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
 
   getActivity(id: string): Observable<Activity> {
     const requestUrl = this.activitiesUrl + '/' + id;

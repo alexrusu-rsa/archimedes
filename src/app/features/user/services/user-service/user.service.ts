@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { RequestWrapper } from 'src/app/shared/models/request-wrapper';
 import { User } from 'src/app/shared/models/user';
@@ -10,12 +10,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
   private usersUrl = environment.serviceURL + 'user';
-
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
