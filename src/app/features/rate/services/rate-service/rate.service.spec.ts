@@ -1,15 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
 import { ResponseHandlingService } from '../../../../shared/services/response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RateService } from './rate.service';
 import { Rate } from 'src/app/shared/models/rate';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileRateService', () => {
   let service: RateService;
@@ -43,13 +41,10 @@ describe('SpecFileRateService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [RateService, ResponseHandlingService],
-    });
+    imports: [MatSnackBarModule,
+        BrowserAnimationsModule],
+    providers: [RateService, ResponseHandlingService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(RateService);
     httpController = TestBed.inject(HttpTestingController);
   });

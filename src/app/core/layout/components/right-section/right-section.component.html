@@ -1,9 +1,6 @@
 @if(user()){
-<app-user-widget [user]="user()"> </app-user-widget>
+<app-user-widget [user]="user()" />
 } @if(displayBookedTimeWidget()){
-<app-booked-time-widget
-  [bookedTime]="store().activities() | bookedTime"
-  [displayDate]="store().filter().date"
-  [user]="user()"
-></app-booked-time-widget>
+<app-booked-time-widget [bookedTime]="store().activities() | bookedTime" [displayDate]="store().filter().date"
+  [user]="user()" />
 }

@@ -19,7 +19,8 @@ import { DatePickerType } from 'src/app/shared/models/date-picker-type.enum';
 import { Invoice } from '../../models/invoice.model';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
-import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
+import { InvoiceService } from '../../services/invoice.service';
+import { EMPTY, switchMap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-page',
@@ -38,6 +39,7 @@ import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-
 })
 export class InvoicePageComponent {
   private readonly service = inject(ProjectService);
+  private readonly invoiceService = inject(InvoiceService);
   private readonly dialog = inject(MatDialog);
   protected readonly icons = Icons;
   protected readonly datePickerType = DatePickerType;
@@ -45,32 +47,47 @@ export class InvoicePageComponent {
     initialValue: [],
   });
   protected readonly currentMonth = signal<Date>(new Date());
-
+  protected lastInvoiceNumber: string;
   downloadInvoice(project: Project) {
     const currentMonthValue = this.currentMonth();
     const currentMonthDate: Date = new Date(currentMonthValue);
     const month = currentMonthDate.getMonth() + 1;
     const year = currentMonthDate.getFullYear();
 
-    const invoice: Invoice = {
-      customer: project?.customer,
-      project: project,
-      month: month.toString(),
-      year: year.toString(),
-      series: 'RSA',
-    };
+    this.invoiceService
+      .getLastInvoiceNumber()
+      .pipe(
+        switchMap(({ lastSavedInvoiceNumber }) => {
+          const invoice: Invoice = {
+            customer: project?.customer,
+            project: project,
+            month: month.toString(),
+            year: year.toString(),
+            series: 'RSA',
+            number: lastSavedInvoiceNumber,
+          };
 
-    this.dialog
-      .open(InvoiceModalComponent, {
-        data: invoice,
-      })
-      .afterClosed()
-      .pipe()
-      .subscribe((invoiceDialogClosed: InvoiceDialogOnCloseResult) => {
-        const a = document.createElement('a');
-        a.href = invoiceDialogClosed?.blobUrl;
-        a.download = invoiceDialogClosed.invoiceName;
-        a.click();
+          return this.dialog
+            .open(InvoiceModalComponent, {
+              data: invoice,
+            })
+            .afterClosed();
+        }),
+        switchMap(({ blobUrl, invoiceName }) => {
+          if (blobUrl && invoiceName) {
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = invoiceName;
+            a.click();
+            return EMPTY;
+          }
+          return throwError(() => new Error('Missing blobUrl or invoiceName'));
+        })
+      )
+      .subscribe({
+        error: (err) =>
+          // eslint-disable-next-line no-console
+          console.error('Error:', err),
       });
   }
 }

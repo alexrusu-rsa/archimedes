@@ -1,9 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationService } from './notification.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileNotificationService', () => {
   const mockSnackBar = <MatSnackBar>{};
@@ -11,13 +12,10 @@ describe('SpecFileNotificationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        BrowserAnimationsModule,
-        MatSnackBarModule,
-      ],
-      providers: [NotificationService, NotificationService],
-    });
+    imports: [BrowserAnimationsModule,
+        MatSnackBarModule],
+    providers: [NotificationService, NotificationService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(NotificationService);
   });
 
