@@ -2,15 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { ActivityService } from './activity.service';
 import { Activity } from 'src/app/shared/models/activity';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivityDuplication } from '../../features/activity/models/activity-duplication.model';
 
 import { environment } from 'src/environments/environment';
 import { ResponseHandlingService } from '../../shared/services/response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileActivityService', () => {
   let service: ActivityService;
@@ -59,13 +57,10 @@ describe('SpecFileActivityService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [ActivityService, ResponseHandlingService],
-    });
+    imports: [MatSnackBarModule,
+        BrowserAnimationsModule],
+    providers: [ActivityService, ResponseHandlingService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(ActivityService);
     httpController = TestBed.inject(HttpTestingController);
   });

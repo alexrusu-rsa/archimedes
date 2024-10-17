@@ -1,15 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserLoginService } from './user-login.service';
 import { User } from 'src/app/models/user';
 import { RequestWrapper } from 'src/app/models/request-wrapper';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileUserLoginService', () => {
   let service: UserLoginService;
@@ -17,13 +15,10 @@ describe('SpecFileUserLoginService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        BrowserAnimationsModule,
-        MatSnackBarModule,
-      ],
-      providers: [UserLoginService],
-    });
+    imports: [BrowserAnimationsModule,
+        MatSnackBarModule],
+    providers: [UserLoginService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(UserLoginService);
     httpController = TestBed.inject(HttpTestingController);
   });
