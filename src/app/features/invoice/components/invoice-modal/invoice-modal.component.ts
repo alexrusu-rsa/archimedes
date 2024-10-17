@@ -91,18 +91,13 @@ export class InvoiceModalComponent implements OnInit {
   protected pdfUrl: WritableSignal<string> = signal('');
   protected currentStep = signal(0);
   private service = inject(CustomerService);
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public invoice: Invoice,
-    private dialogRef: MatDialogRef<InvoiceModalComponent>
-  ) {}
+  private dialogRef = inject(MatDialogRef<InvoiceModalComponent>);
+  protected invoice: Invoice = inject(MAT_DIALOG_DATA);
 
   ngOnInit(): void {
     if (this.invoice.number) {
-      this.invoiceForm.setValue({
+      this.invoiceForm.patchValue({
         number: this.invoice.number,
-        exchangeRate: 1,
-        invoiceEmittingDay: new Date(),
       });
     }
   }

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { ResponseHandlingService } from 'src/app/shared/services/response-handling-service/response-handling.service';
 import { environment } from 'src/environments/environment';
@@ -13,10 +13,9 @@ export class InvoiceService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
+
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
 
   getLastInvoiceNumber(): Observable<InvoiceLastNumber> {
     return this.httpClient

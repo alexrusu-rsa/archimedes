@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Customer } from '../../../../shared/models/customer';
@@ -14,10 +14,9 @@ export class CustomerService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
+
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
 
   getCustomer(id: string): Observable<Customer> {
     const requestUrl = this.customersUrl + '/' + id;

@@ -22,8 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
 import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
 import { InvoiceService } from '../../services/invoice.service';
-import { InvoiceLastNumber } from '../../models/invoiceLastNumber.model';
-import { last, of, switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-page',
@@ -60,14 +59,14 @@ export class InvoicePageComponent {
     this.invoiceService
       .getLastInvoiceNumber()
       .pipe(
-        switchMap((lastInvoiceNumber) => {
+        switchMap(({ lastSavedInvoiceNumber }) => {
           const invoice: Invoice = {
             customer: project?.customer,
             project: project,
             month: month.toString(),
             year: year.toString(),
             series: 'RSA',
-            number: lastInvoiceNumber.lastSavedInvoiceNumber,
+            number: lastSavedInvoiceNumber,
           };
 
           return this.dialog
@@ -76,17 +75,15 @@ export class InvoicePageComponent {
             })
             .afterClosed();
         }),
-        switchMap((invoiceDialogClosed: InvoiceDialogOnCloseResult) => {
-          if (
-            invoiceDialogClosed?.blobUrl &&
-            invoiceDialogClosed?.invoiceName
-          ) {
+        switchMap(({ blobUrl, invoiceName }) => {
+          if (blobUrl && invoiceName) {
             const a = document.createElement('a');
-            a.href = invoiceDialogClosed.blobUrl;
-            a.download = invoiceDialogClosed.invoiceName;
+            a.href = blobUrl;
+            a.download = invoiceName;
             a.click();
+            return of(null);
           }
-          return of(null);
+          throw {};
         })
       )
       .subscribe({
