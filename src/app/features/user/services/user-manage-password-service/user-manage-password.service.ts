@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RequestWrapper } from '../../../../shared/models/request-wrapper';
@@ -14,10 +14,8 @@ export class UserManagePasswordService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
 
   resetPasswordFor(userToUpdate: User): Observable<RequestWrapper> {
     const resetPasswordUrl = this.userUrl + '/' + 'password';

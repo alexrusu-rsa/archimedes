@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
+  OnInit,
   WritableSignal,
   inject,
   signal,
@@ -77,7 +77,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceModalComponent {
+export class InvoiceModalComponent implements OnInit {
   protected readonly icons = Icons;
   invoiceForm = new FormGroup({
     number: new FormControl('', [
@@ -91,12 +91,16 @@ export class InvoiceModalComponent {
   protected currentStep = signal(0);
   private service = inject(CustomerService);
   protected translateService = inject(TranslateService);
+  private dialogRef = inject(MatDialogRef<InvoiceModalComponent>);
+  protected invoice: Invoice = inject(MAT_DIALOG_DATA);
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public invoice: Invoice,
-    private dialogRef: MatDialogRef<InvoiceModalComponent>
-  ) {}
-
+  ngOnInit(): void {
+    if (this.invoice.number) {
+      this.invoiceForm.patchValue({
+        number: this.invoice.number,
+      });
+    }
+  }
   onSubmit(stepper: MatStepper) {
     this.service
       .getCustomerInvoicePDF(
