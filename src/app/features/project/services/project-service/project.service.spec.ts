@@ -1,15 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
 import { ResponseHandlingService } from '../../../../shared/services/response-handling-service/response-handling.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectService } from './project.service';
 import { Project } from 'src/app/shared/models/project';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SpecFileProjectService', () => {
   let service: ProjectService;
@@ -46,13 +44,10 @@ describe('SpecFileProjectService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        MatSnackBarModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [ProjectService, ResponseHandlingService],
-    });
+    imports: [MatSnackBarModule,
+        BrowserAnimationsModule],
+    providers: [ProjectService, ResponseHandlingService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(ProjectService);
     httpController = TestBed.inject(HttpTestingController);
   });
