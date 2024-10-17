@@ -20,9 +20,8 @@ import { DatePickerType } from 'src/app/shared/models/date-picker-type.enum';
 import { Invoice } from '../../models/invoice.model';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
-import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
 import { InvoiceService } from '../../services/invoice.service';
-import { EMPTY, of, switchMap, throwError } from 'rxjs';
+import { EMPTY, switchMap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-page',
