@@ -1,10 +1,16 @@
 const path = require("path");
 const express = require("express");
 const app = express();
-app.use(express.static(__dirname + "/dist/archimedes-frontend"));
+
+const DIST_DIR = path.join(__dirname, "dist", "archimedes-frontend", "browser");
+app.use(express.static(DIST_DIR));
+
 app.get("/*", function (req, res) {
-  res.sendFile(
-    path.join(__dirname, "/dist/archimedes-frontend/browser", "index.html")
-  );
+  res.sendFile(path.join(DIST_DIR, "index.html"));
 });
-app.listen(process.env.PORT || 8080);
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
