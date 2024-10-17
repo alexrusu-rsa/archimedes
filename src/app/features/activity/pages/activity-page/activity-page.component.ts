@@ -14,7 +14,7 @@ import { EntityItemComponent } from 'src/app/shared/components/entity-item/entit
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, take } from 'rxjs';
+import { EMPTY, filter, map, switchMap, take, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderByPipe } from '../../pipes/order-by.pipe';
@@ -30,6 +30,9 @@ import {
   DuplicateActivityModalComponent,
   duplicateActivityModalPreset,
 } from '../../components/duplicate-activity-modal/duplicate-activity-modal.component';
+import { ActivityService } from '../../services/activity-service/activity.service';
+import { AutofillActivitiesModalComponent } from '../../components/autofill-activities-modal/autofill-activities-modal.component';
+import { LocalStorageService } from 'src/app/shared/services/localstorage-service/localstorage.service';
 
 @Component({
   selector: 'app-activity-page',
@@ -55,6 +58,9 @@ import {
 export class ActivityPageComponent implements OnInit {
   public readonly store = inject(ActivityStore);
   private readonly dialog = inject(MatDialog);
+  localStorageService = inject(LocalStorageService);
+  service = inject(ActivityService);
+
   private readonly dateParam = toSignal(
     inject(ActivatedRoute).queryParams.pipe(
       map(({ date }) => date),
@@ -88,6 +94,34 @@ export class ActivityPageComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  autofillActivitiesFromInvoice() {
+    const userId = this.localStorageService.userId;
+
+    this.dialog
+      .open(AutofillActivitiesModalComponent, {
+        data: { projects: this.store.projects() },
+      })
+      .afterClosed()
+      .pipe(
+        switchMap(({ file, projectId }) => {
+          if (file && projectId) {
+            return this.service.autofillActivities(file, projectId, userId);
+          }
+          return throwError(() => new Error('No file was selected')); // Return an empty observable to complete the chain
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          // eslint-disable-next-line no-console
+          console.log('File uploaded successfully!', response);
+        },
+        error: (error) => {
+          // eslint-disable-next-line no-console
+          console.error('Error uploading file:', error);
+        },
+      });
   }
 
   addActivity() {

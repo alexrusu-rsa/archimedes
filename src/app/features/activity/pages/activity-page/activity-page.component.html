@@ -75,6 +75,17 @@
   >
     <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
   </button>
+
+  <button
+    mat-raised-button
+    class="add-entity-button d-flex flex-column mx-auto"
+    aria-label="Create activity button"
+    type="button"
+    (click)="autofillActivitiesFromInvoice()"
+  >
+    <mat-icon color="accent" class="mx-0">{{ icons.assignment_turned_in}}</mat-icon>
+  </button>
+
   <div class="col-12 d-flex flex-row justify-content-end">
     <button mat-icon-button class="col-1 mx-1" (click)="store.previousDate()">
       <mat-icon color="accent">{{ icons.keyboard_arrow_left }}</mat-icon>

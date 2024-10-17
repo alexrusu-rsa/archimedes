@@ -1,5 +1,12 @@
 {
   "activity": {
+    "autofillDialog": {
+      "autofillReport": "Upload Activity Report",
+      "selectProject": "Select Project",
+      "projectSelectionError": "Project selection is required.",
+      "uploadError": "Please upload a valid PDF file",
+      "submit": "Submit"
+    },
     "dialog": {
       "activityType": "Activity type",
       "description": "Description",
