@@ -22,7 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InvoiceModalComponent } from '../../components/invoice-modal/invoice-modal.component';
 import { InvoiceDialogOnCloseResult } from '../../models/invoice-dialog-onclose-result';
 import { InvoiceService } from '../../services/invoice.service';
-import { of, switchMap } from 'rxjs';
+import { EMPTY, of, switchMap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-invoice-page',
@@ -81,9 +81,9 @@ export class InvoicePageComponent {
             a.href = blobUrl;
             a.download = invoiceName;
             a.click();
-            return of(null);
+            return EMPTY;
           }
-          throw {};
+          return throwError(() => new Error('Missing blobUrl or invoiceName'));
         })
       )
       .subscribe({
