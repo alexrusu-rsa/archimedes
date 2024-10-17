@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
+  OnInit,
   WritableSignal,
   inject,
   signal,
@@ -17,7 +17,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   MatStep,
   MatStepContent,
@@ -77,7 +77,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoiceModalComponent {
+export class InvoiceModalComponent implements OnInit {
   protected readonly icons = Icons;
   invoiceForm = new FormGroup({
     number: new FormControl('', [
@@ -90,12 +90,17 @@ export class InvoiceModalComponent {
   protected pdfUrl: WritableSignal<string> = signal('');
   protected currentStep = signal(0);
   private service = inject(CustomerService);
+  protected translateService = inject(TranslateService);
+  private dialogRef = inject(MatDialogRef<InvoiceModalComponent>);
+  protected invoice: Invoice = inject(MAT_DIALOG_DATA);
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public invoice: Invoice,
-    private dialogRef: MatDialogRef<InvoiceModalComponent>
-  ) {}
-
+  ngOnInit(): void {
+    if (this.invoice.number) {
+      this.invoiceForm.patchValue({
+        number: this.invoice.number,
+      });
+    }
+  }
   onSubmit(stepper: MatStepper) {
     this.service
       .getCustomerInvoicePDF(
@@ -117,9 +122,15 @@ export class InvoiceModalComponent {
   onDownload() {
     this.dialogRef.close(<InvoiceDialogOnCloseResult>{
       blobUrl: this.pdfUrl(),
-      invoiceName: `${this.invoice.series}${
-        this.invoiceForm.controls.number.value
-      }-${this.invoice.customer.shortName || this.invoice.customer.name}.pdf`,
+      invoiceName: this.invoice.customer.romanianCompany
+        ? `${this.translateService.instant('invoice.dialog.annex')}${
+            this.invoiceForm?.controls?.number?.value
+          }-${
+            this.invoice.customer.shortName || this.invoice.customer.name
+          }.pdf`
+        : `${this.invoice.series}${this.invoiceForm.controls.number.value}-${
+            this.invoice.customer.shortName || this.invoice.customer.name
+          }.pdf`,
       downloadStart: true,
     });
   }
