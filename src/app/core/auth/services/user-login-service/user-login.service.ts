@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../../../../shared/models/user';
@@ -14,10 +14,8 @@ export class UserLoginService {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
 
   getUserMe(): Observable<User> {
     return this.httpClient.get<User>(this.usersUrl + '/me').pipe(
