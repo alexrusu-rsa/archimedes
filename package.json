@@ -2,7 +2,7 @@
   "name": "archimedes-frontend",
   "version": "0.0.0",
   "engines": {
-    "node": "18.14.1",
+    "node": "18.19.1",
     "npm": "9.6.4"
   },
   "scripts": {
