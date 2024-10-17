@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Rate } from '../../../../shared/models/rate';
@@ -14,10 +14,9 @@ export class RateService {
   httpOptions = {
     header: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(
-    private httpClient: HttpClient,
-    private responseHandlingService: ResponseHandlingService
-  ) {}
+
+  private responseHandlingService = inject(ResponseHandlingService);
+  private httpClient = inject(HttpClient);
 
   getRate(id: string): Observable<Rate> {
     const requestUrl = this.ratesUrl + '/' + id;
