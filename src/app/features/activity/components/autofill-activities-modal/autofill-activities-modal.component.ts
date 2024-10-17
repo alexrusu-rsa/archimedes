@@ -58,13 +58,14 @@ export class AutofillActivitiesModalComponent {
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
   protected dialogRef = inject(MatDialogRef<AutofillActivitiesModalComponent>);
   protected data = inject(MAT_DIALOG_DATA);
+  private fb = inject(FormBuilder);
 
   protected readonly icons = Icons;
   projects: Project[] = this.data.projects;
   fileUploadForm: FormGroup;
   fileInvalid = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.fileUploadForm = this.fb.group({
       pdfFile: new FormControl(null, [Validators.required]),
       project: new FormControl(null, [Validators.required]),
@@ -91,9 +92,9 @@ export class AutofillActivitiesModalComponent {
   onSubmit(): void {
     if (this.fileUploadForm.valid) {
       const file = this.fileUploadForm.get('pdfFile')?.value;
-      const selectedProjectId = this.fileUploadForm.get('project')?.value;
+      const projectId = this.fileUploadForm.get('project')?.value;
 
-      this.dialogRef.close({ file, projectId: selectedProjectId });
+      this.dialogRef.close({ file, projectId });
     }
   }
 

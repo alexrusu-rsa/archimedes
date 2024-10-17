@@ -14,7 +14,7 @@ import { EntityItemComponent } from 'src/app/shared/components/entity-item/entit
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, take } from 'rxjs';
+import { EMPTY, filter, map, switchMap, take, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderByPipe } from '../../pipes/order-by.pipe';
@@ -98,26 +98,29 @@ export class ActivityPageComponent implements OnInit {
 
   autofillActivitiesFromInvoice() {
     const userId = this.localStorageService.userId;
+
     this.dialog
       .open(AutofillActivitiesModalComponent, {
         data: { projects: this.store.projects() },
       })
       .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          const { file, projectId } = result;
-
-          this.service.autofillActivities(file, projectId, userId).subscribe({
-            next: (response) => {
-              console.log('File uploaded successfully!', response);
-            },
-            error: (error) => {
-              console.error('Error uploading file:', error);
-            },
-          });
-        } else {
-          console.log('No file was selected.');
-        }
+      .pipe(
+        switchMap(({ file, projectId }) => {
+          if (file && projectId) {
+            return this.service.autofillActivities(file, projectId, userId);
+          }
+          return throwError(() => new Error('No file was selected')); // Return an empty observable to complete the chain
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          // eslint-disable-next-line no-console
+          console.log('File uploaded successfully!', response);
+        },
+        error: (error) => {
+          // eslint-disable-next-line no-console
+          console.error('Error uploading file:', error);
+        },
       });
   }
 

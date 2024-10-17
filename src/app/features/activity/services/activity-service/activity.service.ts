@@ -151,13 +151,16 @@ export class ActivityService {
     formData.append('userId', userId);
 
     return this.httpClient
-      .post<any>(requestUrl, formData, { observe: 'response' })
+      .post<FormData>(requestUrl, formData, { observe: 'response' })
       .pipe(
         map((res) => {
-          return res.body as any;
+          this.responseHandlingService.handleResponse('Autofilled activities');
+          return res.body as unknown;
         }),
         catchError(
-          this.responseHandlingService.handleError<any>('autofillActivities')
+          this.responseHandlingService.handleError<FormData>(
+            'autofillActivities'
+          )
         )
       );
   }

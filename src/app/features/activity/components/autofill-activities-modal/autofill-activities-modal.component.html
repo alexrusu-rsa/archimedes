@@ -4,17 +4,13 @@
   </button>
 </div>
 <h2 mat-dialog-title align="center" class="m-0">
-  {{ "activity.autofillReport" | translate }}
+  {{ "activity.autofillDialog.autofillReport" | translate }}
 </h2>
 
 <mat-dialog-content>
-  <form
-    [formGroup]="fileUploadForm"
-    (ngSubmit)="onSubmit()"
-    class="d-flex row gap-2 justify-content-center"
-  >
+  <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" class="d-flex row gap-2 justify-content-center">
     <mat-form-field appearance="fill" class="col-12 m-0 p-0">
-      <mat-label>Select Project</mat-label>
+      <mat-label>{{'activity.autofillDialog.selectProject' | translate}}</mat-label>
       <mat-select formControlName="project">
         @for( project of data.projects; track $index){
         <mat-option [value]="project.id">
@@ -23,31 +19,19 @@
         }
       </mat-select>
       @if(fileUploadForm.get('project').hasError('required')){
-      <mat-error> Project selection is required. </mat-error>
+      <mat-error> {{'activity.autofillDialog.projectSelectionError' | translate}}</mat-error>
       }
     </mat-form-field>
     <div class="file-input-wrapper mx-4 my-4">
-      <input
-        type="file"
-        id="fileUpload"
-        accept=".pdf"
-        (change)="onFileSelected($event)"
-        formControlName="pdfFile"
-        #fileInput
-      />
-      @if(fileInvalid){<mat-error>Please upload a valid PDF file</mat-error>}
+      <input type="file" id="fileUpload" accept=".pdf" (change)="onFileSelected($event)" formControlName="pdfFile"
+        #fileInput />
+      @if(fileInvalid){<mat-error>{{'activity.autofillDialog.uploadError' | translate}}</mat-error>}
     </div>
     <div class="d-flex justify-content-center col-12">
-      <button
-        mat-raised-button
-        class="col-4 mx-auto mb-4"
-        color="secondary"
-        type="submit"
-        [disabled]="fileUploadForm.invalid"
-      >
-        Submit
+      <button mat-raised-button class="col-4 mx-auto mb-4" color="secondary" type="submit"
+        [disabled]="fileUploadForm.invalid">
+        {{'activity.autofillDialog.submit' | translate}}
       </button>
     </div>
   </form>
 </mat-dialog-content>
-
