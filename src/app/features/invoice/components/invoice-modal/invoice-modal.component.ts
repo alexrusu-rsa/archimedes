@@ -17,7 +17,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   MatStep,
   MatStepContent,
@@ -90,6 +90,7 @@ export class InvoiceModalComponent {
   protected pdfUrl: WritableSignal<string> = signal('');
   protected currentStep = signal(0);
   private service = inject(CustomerService);
+  protected translateService = inject(TranslateService);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public invoice: Invoice,
@@ -117,11 +118,15 @@ export class InvoiceModalComponent {
   onDownload() {
     this.dialogRef.close(<InvoiceDialogOnCloseResult>{
       blobUrl: this.pdfUrl(),
-      invoiceName: !this.invoice.customer.romanianCompany
-        ? `${this.invoice.series}${this.invoiceForm.controls.number.value}-${
+      invoiceName: this.invoice.customer.romanianCompany
+        ? `${this.translateService.instant('invoice.dialog.annex')}${
+            this.invoiceForm?.controls?.number?.value
+          }-${
             this.invoice.customer.shortName || this.invoice.customer.name
           }.pdf`
-        : `Anexa${this.invoiceForm?.controls?.number?.value}`,
+        : `${this.invoice.series}${this.invoiceForm.controls.number.value}-${
+            this.invoice.customer.shortName || this.invoice.customer.name
+          }.pdf`,
       downloadStart: true,
     });
   }
