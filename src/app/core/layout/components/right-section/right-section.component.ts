@@ -19,11 +19,6 @@ import { BookedTimePipe } from 'src/app/shared/pipes/booked-time.pipe';
     BookedTimePipe,
     UserWidgetComponent,
   ],
-  styles: `.right-side-container
-  position: fixed
-  height: 100vh
-  overflow-y: auto
-`,
   templateUrl: './right-section.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
