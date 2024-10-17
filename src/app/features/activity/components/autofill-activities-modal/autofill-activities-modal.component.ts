@@ -18,6 +18,7 @@ import { Project } from 'src/app/shared/models/project';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
+  MatDialogClose,
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -49,6 +50,7 @@ import { Icons } from 'src/app/shared/models/icons.enum';
     MatIcon,
     MatDialogContent,
     MatDialogActions,
+    MatDialogClose,
   ],
   templateUrl: './autofill-activities-modal.component.html',
 })
