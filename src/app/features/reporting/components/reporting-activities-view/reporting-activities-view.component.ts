@@ -5,7 +5,7 @@ import {
   output,
 } from '@angular/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
-import { MatCardActions, MatCardTitle } from '@angular/material/card';
+import { MatCardActions, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { CommonModule, DatePipe } from '@angular/common';
 import { WorkedTimePipe } from 'src/app/features/activity/pipes/worked-time.pipe';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,6 +19,8 @@ import { convertTimeToHours } from 'src/app/shared/utils/date-time.utils';
 import { Project } from 'src/app/shared/models/project';
 import { User } from 'src/app/shared/models/user';
 import { ConvertTimeToHoursPipe } from 'src/app/shared/pipes/convertTimeToHours/convert-time-to-hours.pipe';
+import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-reporting-activities-view',
@@ -36,6 +38,8 @@ import { ConvertTimeToHoursPipe } from 'src/app/shared/pipes/convertTimeToHours/
     TranslateModule,
     TimePipe,
     MatCardTitle,
+    MatChipsModule,
+    MatCardSubtitle
   ],
   styles: `
     @use 'src/styles/variables.sass' as variables
@@ -52,6 +56,7 @@ export class ReportingActivitiesViewComponent {
   protected readonly activityTypes = input<string[]>();
   protected readonly users = input<User[]>();
   protected readonly monthYearReport = input<Days>();
+  protected readonly filters = input<ActivityFilter>();
 
   edit = output<{ activity: Activity; dateKey: string }>();
   add = output<string>();

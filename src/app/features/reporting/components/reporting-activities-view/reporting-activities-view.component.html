@@ -1,4 +1,6 @@
+
 @for (bookedDay of monthYearReport() | keyvalue; track $index) {
+@if(bookedDay?.value?.activities.length > 0){
 <div class="d-flex flex-row justify-content-start mt-2">
   <mat-card-title>{{ bookedDay.key | date }}</mat-card-title>
   <mat-card-title class="ms-3" [ngClass]="{
@@ -8,7 +10,6 @@
     {{ bookedDay.value.timeBooked | time }} / {{ bookedDay.value.expectedHours }}h
   </mat-card-title>
 </div>
-
 @for (activity of bookedDay.value.activities; track $index) {
 <div class="d-flex flex-column row-gap-3">
   <app-entity-item class="mb-3" [title]="activity?.name" subtitle="{{ activity?.start | date : 'shortTime' }} - {{
@@ -36,4 +37,5 @@
   type="button" (click)="addActivityToDateEmit(bookedDay.key)">
   <mat-icon color="accent" class="mx-0">{{ icons.add_box }}</mat-icon>
 </button>
+}
 }

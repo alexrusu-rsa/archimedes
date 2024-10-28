@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ActivityFilter } from 'src/app/features/activity/models/activity-filter.model';
 import { DatePickerType } from '../../models/date-picker-type.enum';
 import { MonthYearDatepickerComponent } from '../month-year-datepicker/month-year-datepicker.component';
+import { User } from '../../models/user';
 @Component({
   selector: 'app-entity-page-header',
   templateUrl: './entity-page-header.component.html',
@@ -53,8 +54,11 @@ export class EntityPageHeaderComponent {
   datepickerTypes = DatePickerType;
   datePickerValueChanged = output<Date>();
 
-  selectOptions = input<Project[]>();
-  selectValueChanged = output<string>();
+  projectSelectOptions = input<Project[]>();
+  projectSelectValueChanged = output<string>();
+
+  userSelectOptions = input<User[]>();
+  userSelectValueChanged = output<string>();
 
   hasAddEntity = input(false);
   addEntity = output<void>();

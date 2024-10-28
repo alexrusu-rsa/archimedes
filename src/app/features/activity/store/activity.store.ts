@@ -25,22 +25,24 @@ import { calculateUpdatedTime } from 'src/app/shared/utils/date-time.utils';
 type ActivityState = {
   activities: Activity[];
   activityTypes: string[];
+  projectsOfCurrentUser: Project[];
   projects: Project[];
   users: User[];
   projectsOfUser: Project[];
   isLoading: boolean;
-  filter: { project?: Project; date?: Date; activeMonth?: Date };
+  filter: { project?: Project; date?: Date; activeMonth?: Date; user?: User };
   monthYearReport: Days;
 };
 
 const initialState: ActivityState = {
   activities: [],
   activityTypes: [],
+  projectsOfCurrentUser: [],
   projects: [],
   users: [],
   projectsOfUser: [],
   isLoading: false,
-  filter: { project: null, date: new Date(), activeMonth: null },
+  filter: { project: null, date: new Date(), activeMonth: null, user: null },
   monthYearReport: {} as Days,
 };
 
@@ -63,6 +65,7 @@ export const ActivityStore = signalStore(
         pipe(
           debounceTime(300),
           distinctUntilChanged(),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap(() =>
             activityService.getAllActivityTypes().pipe(
               tapResponse({
@@ -70,8 +73,13 @@ export const ActivityStore = signalStore(
                   patchState(store, {
                     activityTypes: activityTypes,
                   }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
+                finalize: () => patchState(store, { isLoading: false }),
               })
             )
           )
@@ -80,6 +88,7 @@ export const ActivityStore = signalStore(
       loadProjects: rxMethod<void>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap(() =>
             projectService.getProjects().pipe(
               tapResponse({
@@ -87,8 +96,12 @@ export const ActivityStore = signalStore(
                   patchState(store, {
                     projects,
                   }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
+                finalize: () => patchState(store, { isLoading: false }),
               })
             )
           )
@@ -97,6 +110,7 @@ export const ActivityStore = signalStore(
       loadProjectsOfUser: rxMethod<void>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap(() =>
             projectService.getProjectsUser().pipe(
               tapResponse({
@@ -104,8 +118,12 @@ export const ActivityStore = signalStore(
                   patchState(store, {
                     projectsOfUser,
                   }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
+                finalize: () => patchState(store, { isLoading: false }),
               })
             )
           )
@@ -114,6 +132,7 @@ export const ActivityStore = signalStore(
       loadUsers: rxMethod<void>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap(() =>
             userService.getUsers().pipe(
               tapResponse({
@@ -121,14 +140,18 @@ export const ActivityStore = signalStore(
                   patchState(store, {
                     users,
                   }),
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
+                finalize: () => patchState(store, { isLoading: false }),
               })
             )
           )
         )
       ),
-
       loadActivitiesByFilter: rxMethod<ActivityFilter>(
         pipe(
           debounceTime(300),
@@ -150,8 +173,11 @@ export const ActivityStore = signalStore(
                           return activity?.project?.id === filter?.project?.id;
                       }),
                     }),
-                  // eslint-disable-next-line no-console
-                  error: (error) => console.error(error),
+                  error: (error) => {
+                    // eslint-disable-next-line no-console
+                    console.error(error);
+                    patchState(store, { isLoading: false });
+                  },
                   finalize: () => patchState(store, { isLoading: false }),
                 })
               )
@@ -161,6 +187,7 @@ export const ActivityStore = signalStore(
       addActivity: rxMethod<[Activity, Date?, string?]>( // Accept an array of Activity, Date, and employeeId
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap(
             (
               [activity, date, employeeId] // Destructure the parameters here
@@ -202,8 +229,12 @@ export const ActivityStore = signalStore(
                         }
                       }
                     },
-                    // eslint-disable-next-line no-console
-                    error: (error) => console.error(error),
+
+                    error: (error) => {
+                      // eslint-disable-next-line no-console
+                      console.error(error);
+                      patchState(store, { isLoading: false });
+                    },
                     finalize: () => patchState(store, { isLoading: false }),
                   })
                 )
@@ -214,6 +245,7 @@ export const ActivityStore = signalStore(
       editActivity: rxMethod<Activity>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap((activity) =>
             activityService
               .updateActivity({
@@ -295,8 +327,11 @@ export const ActivityStore = signalStore(
                       }
                     }
                   },
-                  // eslint-disable-next-line no-console
-                  error: (error) => console.error(error),
+                  error: (error) => {
+                    // eslint-disable-next-line no-console
+                    console.error(error);
+                    patchState(store, { isLoading: false });
+                  },
                   finalize: () => patchState(store, { isLoading: false }),
                 })
               )
@@ -306,6 +341,7 @@ export const ActivityStore = signalStore(
       deleteAllActivity: rxMethod<void>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap((_) =>
             activityService
               .deleteAllActivitiesOfUserDay(
@@ -321,8 +357,12 @@ export const ActivityStore = signalStore(
                       activities: [],
                     });
                   },
-                  // eslint-disable-next-line no-console
-                  error: (error) => console.error(error),
+
+                  error: (error) => {
+                    // eslint-disable-next-line no-console
+                    console.error(error);
+                    patchState(store, { isLoading: false });
+                  },
                   finalize: () => patchState(store, { isLoading: false }),
                 })
               )
@@ -332,6 +372,7 @@ export const ActivityStore = signalStore(
       delete: rxMethod<string>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap((id: string) =>
             activityService.deleteActivity(id).pipe(
               tapResponse({
@@ -343,8 +384,11 @@ export const ActivityStore = signalStore(
                       .filter((activity) => activity.id !== id),
                   });
                 },
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
                 finalize: () => patchState(store, { isLoading: false }),
               })
             )
@@ -354,6 +398,7 @@ export const ActivityStore = signalStore(
       duplicateActivity: rxMethod<ActivityDuplication>(
         pipe(
           debounceTime(300),
+          tap(() => patchState(store, { isLoading: true })),
           switchMap((activityDuplication: ActivityDuplication) =>
             activityService.addDuplicates(activityDuplication).pipe(
               tapResponse({
@@ -370,15 +415,17 @@ export const ActivityStore = signalStore(
 
                   if (dateInRange(activityDuplication))
                     patchState(store, {
-                      isLoading: true,
                       activities: [
                         ...store.activities(),
                         activityDuplication.activity,
                       ],
                     });
                 },
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
                 finalize: () => patchState(store, { isLoading: false }),
               })
             )
@@ -387,15 +434,16 @@ export const ActivityStore = signalStore(
       ),
       loadMonthYearReport: rxMethod<ActivityFilter>(
         pipe(
-          tap(() => patchState(store, { isLoading: true })),
+          tap(() => {
+            patchState(store, { isLoading: true });
+          }),
           switchMap((filter: ActivityFilter) =>
-            activityService.getMonthReport(filter.activeMonth).pipe(
+            activityService.getMonthReport(filter.activeMonth, filter).pipe(
               tapResponse({
                 next: (monthYearReport) =>
                   patchState(store, {
                     monthYearReport: monthYearReport,
                   }),
-
                 error: (error) => {
                   // eslint-disable-next-line no-console
                   console.error(error);
@@ -424,26 +472,59 @@ export const ActivityStore = signalStore(
                     projectId: activity?.project?.id,
                   };
                   const updatedMonthYearReport = store.monthYearReport();
-
                   const currentWorkedTime =
                     updatedMonthYearReport[dateKey].timeBooked;
-
                   const updatedTime = calculateUpdatedTime(
                     currentWorkedTime,
                     newActivity.workedTime
                   );
 
-                  updatedMonthYearReport[dateKey].timeBooked = updatedTime;
+                  // Helper function to update the monthYearReport and patch state
+                  const updateMonthYearReport = () => {
+                    updatedMonthYearReport[dateKey].timeBooked = updatedTime;
+                    updatedMonthYearReport[dateKey].activities.push(
+                      formattedActivity
+                    );
 
-                  updatedMonthYearReport[dateKey].activities.push(
-                    formattedActivity
-                  );
+                    patchState(store, {
+                      monthYearReport: updatedMonthYearReport,
+                    });
+                  };
 
-                  patchState(store, {
-                    monthYearReport: updatedMonthYearReport,
-                  });
+                  const filter = store.filter();
+                  const isProjectFiltered = filter?.project?.id;
+                  const isUserFiltered = filter?.user?.id;
+
+                  // Handle case where project filter is 'other' and activity has no project
+                  if (
+                    isProjectFiltered === 'other' &&
+                    !formattedActivity.project
+                  ) {
+                    updateMonthYearReport();
+                  }
+
+                  // Handle case where there is no project filter
+                  if (!isProjectFiltered) {
+                    if (!isUserFiltered) {
+                      // No user filter, simply update the report
+                      updateMonthYearReport();
+                    } else if (isUserFiltered === newActivity.employeeId) {
+                      // User filter matches the employee ID
+                      updateMonthYearReport();
+                    }
+                  }
+
+                  // Handle case where project filter matches the activity's projectId
+                  if (isProjectFiltered === formattedActivity.projectId) {
+                    if (
+                      !isUserFiltered ||
+                      isUserFiltered === newActivity.employeeId
+                    ) {
+                      // No user filter or user filter matches the employee ID
+                      updateMonthYearReport();
+                    }
+                  }
                 },
-
                 error: (error) => {
                   // eslint-disable-next-line no-console
                   console.error(error);
@@ -476,35 +557,96 @@ export const ActivityStore = signalStore(
                       ? updatedActivity
                       : activity
                   );
-
                   const currentWorkedTime =
                     updatedMonthYearReport[dateKey].timeBooked;
-                  const updatedTime = calculateUpdatedTime(
-                    currentWorkedTime,
-                    updatedActivity?.workedTime || '00:00',
-                    timeToRemove || '00:00'
-                  );
+                  let updatedTime;
 
-                  updatedMonthYearReport[dateKey] = {
-                    activities: activitiesOfDay,
-                    timeBooked: updatedTime,
-                    expectedHours:
-                      updatedMonthYearReport[dateKey].expectedHours,
-                  };
+                  const filter = store.filter();
+                  const isProjectFiltered = filter?.project;
+                  const isUserFiltered = filter?.user;
 
+                  // Check if the project filter is applied
+                  if (!isProjectFiltered) {
+                    // No project filter
+                    if (!isUserFiltered) {
+                      // No user filter, update time based on activity
+                      updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        updatedActivity?.workedTime || '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay,
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
+                    } else if (filter.user?.id === updatedActivity.employeeId) {
+                      // User filter matches employee, update the time
+                      updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        updatedActivity?.workedTime || '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay,
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
+                    }
+                  } else {
+                    // Project filter is applied
+                    if (filter.project.id === updatedActivity.project.id) {
+                      // Project filter matches updated activity project, update time
+                      updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        updatedActivity?.workedTime || '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay,
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
+                    } else {
+                      // Project filter doesn't match, exclude the activity and update time
+                      updatedTime = calculateUpdatedTime(
+                        currentWorkedTime,
+                        '00:00',
+                        timeToRemove || '00:00'
+                      );
+                      updatedMonthYearReport[dateKey] = {
+                        activities: activitiesOfDay.filter(
+                          (activity) =>
+                            activity.project?.id !==
+                            updatedActivity?.project?.id
+                        ),
+                        timeBooked: updatedTime,
+                        expectedHours:
+                          updatedMonthYearReport[dateKey].expectedHours,
+                      };
+                    }
+                  }
+
+                  // Patch the state with the updated monthYearReport
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
-                    isLoading: false,
                   });
                 },
-                // eslint-disable-next-line no-console
-                error: (error) => console.error(error),
+                error: (error) => {
+                  // eslint-disable-next-line no-console
+                  console.error(error);
+                  patchState(store, { isLoading: false });
+                },
                 finalize: () => patchState(store, { isLoading: false }),
               })
             )
           )
         )
       ),
+
       deleteActivityFromMonthYearReport: rxMethod<[Activity, string]>(
         pipe(
           tap(() => patchState(store, { isLoading: true })),
@@ -533,7 +675,6 @@ export const ActivityStore = signalStore(
                     updatedTimeBooked;
                   patchState(store, {
                     monthYearReport: updatedMonthYearReport,
-                    isLoading: false,
                   });
                 },
                 error: (error) => {

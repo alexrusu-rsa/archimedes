@@ -204,7 +204,8 @@
       "wednesday": "We",
       "monthOverview": "Month overview",
       "monthChangedError": "There was an error selecting the month!",
-      "monthChangedStatus": "Input data has errors."
+      "monthChangedStatus": "Input data has errors.",
+      "filterBy": "Filtered by: "
     }
   },
   "resetPasswordPage": {
@@ -224,12 +225,14 @@
   "shared": {
     "entity": {
       "header": {
-        "all": "All projects",
+        "allProjects": "All projects",
+        "allUsers": "All users",
         "date": "Date",
         "monthYear": "Month Year",
         "search": "Search {{entity}}",
         "searchPlaceholder": "Popescu Adrian",
-        "select": "Select a project"
+        "projectSelect": "Select a project",
+        "userSelect": "Select a user"
       },
       "item": {
         "empty": {
