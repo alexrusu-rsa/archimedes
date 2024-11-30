@@ -9,7 +9,7 @@
   (deleteAll)="deleteAllActivity()"
   (selectValueChanged)="updateFilter('project', $event)"
   class="d-flex flex-wrap justify-content-between column-gap-2"
-></app-entity-page-header>
+/>
 
 <div class="d-flex flex-column row-gap-3 h-100">
   @for (activity of store.activities() | orderBy; track $index) {
@@ -62,8 +62,7 @@
             }
     "
     [emptyIcon]="icons.info"
-  >
-  </app-entity-item>
+  />
   }
 
   <button
