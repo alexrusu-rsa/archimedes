@@ -7,14 +7,14 @@ import {
   inject,
 } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatCard, MatCardTitle, MatCardActions } from '@angular/material/card';
+import { MatCardActions } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { EntityItemComponent } from 'src/app/shared/components/entity-item/entity-item.component';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
 import { Icons } from 'src/app/shared/models/icons.enum';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { EMPTY, filter, map, switchMap, take, throwError } from 'rxjs';
+import { filter, map, switchMap, take, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderByPipe } from '../../pipes/order-by.pipe';
@@ -41,8 +41,6 @@ import { LocalStorageService } from 'src/app/shared/services/localstorage-servic
     CommonModule,
     TranslateModule,
     EntityPageHeaderComponent,
-    MatCard,
-    MatCardTitle,
     MatCardActions,
     MatIcon,
     MatButton,
@@ -71,7 +69,7 @@ export class ActivityPageComponent implements OnInit {
   protected readonly datePickerType = DatePickerType;
 
   ngOnInit() {
-    this.store.loadProjects();
+    this.store.loadProjectsOfUser();
     this.store.loadActivityTypes();
     if (this.dateParam()) this.updateFilter('date', new Date(this.dateParam()));
     else this.updateFilter('date', new Date());
@@ -101,7 +99,7 @@ export class ActivityPageComponent implements OnInit {
 
     this.dialog
       .open(AutofillActivitiesModalComponent, {
-        data: { projects: this.store.projects() },
+        data: { projects: this.store.projectsOfUser() },
       })
       .afterClosed()
       .pipe(
