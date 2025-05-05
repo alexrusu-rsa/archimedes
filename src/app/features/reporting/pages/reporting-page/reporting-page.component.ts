@@ -1,4 +1,10 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { ReportingMonthOverviewComponent } from '../../components/reporting-month-overview/reporting-month-overview.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { EntityPageHeaderComponent } from 'src/app/shared/components/entity-page-header/entity-page-header.component';
@@ -13,7 +19,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NotificationService } from 'src/app/core/services/notification-service/notification.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ReportingActivitiesViewComponent } from '../../components/reporting-activities-view/reporting-activities-view.component';
 import { ActivityStore } from 'src/app/features/activity/store/activity.store';
 import { MatIcon } from '@angular/material/icon';
@@ -27,6 +33,8 @@ import {
   DeleteConfirmationModalComponent,
   deleteConfirmationModalPreset,
 } from 'src/app/shared/components/delete-confirmation-modal/delete-confirmation-modal.component';
+import { MatCardSubtitle } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-reporting-page',
@@ -45,6 +53,9 @@ import {
     MatNativeDateModule,
     ReportingActivitiesViewComponent,
     MatProgressSpinnerModule,
+    MatCardSubtitle,
+    MatChipsModule,
+    TranslateModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './reporting-page.component.html',
@@ -69,12 +80,47 @@ export class ReportingPageComponent implements OnInit {
     this.store.updateFilter({
       date: null,
       project: null,
+      user: null,
       activeMonth: this.activeMonth(),
     });
     this.store.loadProjects();
     this.store.loadUsers();
     this.store.loadActivityTypes();
     this.store.loadMonthYearReport(this.store.filter());
+  }
+  protected updateFilter(key: string, value) {
+    switch (key) {
+      case 'date':
+        this.store.updateFilter({
+          date: value,
+          project: this.store.filter()?.project,
+          activeMonth: this.store.filter()?.activeMonth,
+          user: this.store.filter()?.user,
+        });
+        this.store.loadMonthYearReport(this.store.filter());
+        break;
+      case 'project':
+        this.store.updateFilter({
+          project: value,
+          date: this.store.filter()?.date,
+          activeMonth: this.store.filter().activeMonth,
+          user: this.store.filter().user,
+        });
+        this.store.loadMonthYearReport(this.store.filter());
+        break;
+      case 'user':
+        this.store.updateFilter({
+          project: this.store.filter()?.project,
+          date: this.store.filter()?.date,
+          activeMonth: this.store.filter().activeMonth,
+          user: value,
+        });
+        this.store.loadMonthYearReport(this.store.filter());
+        break;
+
+      default:
+        break;
+    }
   }
 
   disableActivitiesView() {
@@ -99,13 +145,10 @@ export class ReportingPageComponent implements OnInit {
 
     this.store.updateFilter({
       date: null,
-      project: null,
+      project: this.store.filter()?.project,
+      user: this.store.filter()?.user,
       activeMonth: formattedDate,
     });
-    this.store.loadMonthYearReport(this.store.filter());
-  }
-
-  updateMonthOverview() {
     this.store.loadMonthYearReport(this.store.filter());
   }
 

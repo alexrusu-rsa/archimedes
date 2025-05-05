@@ -53,7 +53,6 @@ export class ReportingMonthOverviewComponent {
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate) => {
     const currentDate = new Date();
-
     const cursorDateISO = cellDate.toISOString();
     if (cursorDateISO > currentDate.toISOString()) {
       return CellColor.default;
@@ -68,19 +67,24 @@ export class ReportingMonthOverviewComponent {
 
     if (!this.monthYearReport()[cursorDateISO]) {
       return CellColor.red;
-    }
-    const [bookedHours, bookedMinutes] = this.monthYearReport()[cursorDateISO].timeBooked.split(':').map(Number);
-    const expectedHours = this.monthYearReport()[cursorDateISO].expectedHours;
-    if (bookedHours >= expectedHours) {
-      return CellColor.green;
-    }
+    } else {
+      const [bookedHours, bookedMinutes] = this.monthYearReport()[cursorDateISO].timeBooked.split(':')
+        .map(Number);
+      const expectedHours = this.monthYearReport()[cursorDateISO].expectedHours;
+      if (bookedHours >= expectedHours) {
+        return CellColor.green;
+      }
 
-    if ((bookedHours > 0 || bookedMinutes > 0) && bookedHours < expectedHours) {
-      return CellColor.orange;
-    }
+      if (
+        (bookedHours > 0 || bookedMinutes > 0) &&
+        bookedHours < expectedHours
+      ) {
+        return CellColor.orange;
+      }
 
-    if (bookedHours === 0 && bookedMinutes === 0) {
-      return CellColor.red;
+      if (bookedHours === 0 && bookedMinutes === 0) {
+        return CellColor.red;
+      }
     }
 
     return CellColor.default;
